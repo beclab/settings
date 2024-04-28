@@ -1,0 +1,151 @@
+<template>
+	<div class="policies-card-root column justify-center">
+		<div class="row items-center justify-between">
+			<span>{{ t('policies') }}</span>
+			<bt-icon name="add" @click="addPolicies" />
+		</div>
+		<template v-for="(policy, index) in policies" :key="index">
+			<div
+				class="policies-content row items-center justify-between"
+				v-if="policies.length > 0"
+			>
+				<div class="row items-center justify-start">
+					<div class="policy-icon q-mr-md">
+						<q-icon
+							class="cursor-pointer"
+							name="sym_r_article"
+							size="16px"
+						/>
+					</div>
+					<div>
+						<div>
+							<span class="text-grey-10 text-subtitle3 q-mr-md">{{
+								policy.uri
+							}}</span>
+							<span
+								class="text-grey-8 text-caption q-px-md q-py-xs policy-label"
+								>{{ policy.policy }}</span
+							>
+						</div>
+						<div class="text-overline text-grey-5 q-mt-xs">
+							{{ policy.valid_duration }}
+						</div>
+					</div>
+				</div>
+
+				<div class="row items-center justify-center text-grey-8">
+					<q-icon
+						class="cursor-pointer"
+						name="sym_r_edit_square"
+						size="16px"
+						@click="editPolicy(policy, index)"
+					/>
+					<q-icon
+						class="q-ml-md cursor-pointer"
+						name="sym_r_delete"
+						size="16px"
+						@click="deletePolicy(policy)"
+					/>
+				</div>
+			</div>
+		</template>
+	</div>
+</template>
+
+<script lang="ts" setup>
+import { PropType } from 'vue';
+import { useQuasar } from 'quasar';
+
+import DialogPolicies from './dialog/PolicyDialog.vue';
+import { EntrancePolicy } from '../../utils/constants';
+import BtIcon from '../base/BtIcon.vue';
+import { useI18n } from 'vue-i18n';
+
+const props = defineProps({
+	policies: {
+		type: Object as PropType<EntrancePolicy[]>,
+		required: true
+	},
+	disabledRemove: {
+		type: Boolean,
+		required: false,
+		default: false
+	}
+});
+
+const $q = useQuasar();
+
+const { t } = useI18n();
+
+const emit = defineEmits(['update:policies']);
+
+console.log(props.policies);
+
+const defaultPolicy: EntrancePolicy = {
+	one_time: true,
+	policy: 'one_factor',
+	uri: '',
+	valid_duration: 0
+};
+
+const addPolicies = () => {
+	const tempArray = props.policies;
+	$q.dialog({
+		component: DialogPolicies,
+		componentProps: {
+			policy: defaultPolicy
+		}
+	}).onOk((data: EntrancePolicy) => {
+		tempArray?.push(data);
+		emit('update:policies', tempArray);
+	});
+};
+
+const editPolicy = (policy: EntrancePolicy, index: number) => {
+	const tempArray = props.policies;
+	$q.dialog({
+		component: DialogPolicies,
+		componentProps: {
+			policy,
+			editMode: true
+		}
+	}).onOk((data: EntrancePolicy) => {
+		tempArray.splice(index, 1, policy, data);
+		emit('update:policies', tempArray);
+	});
+};
+
+const deletePolicy = (policy: EntrancePolicy) => {
+	const tempArray = props.policies?.filter((item) => item.uri !== policy.uri);
+	emit('update:policies', tempArray);
+};
+</script>
+
+<style lang="scss" scoped>
+.policies-card-root {
+	width: 100%;
+	min-height: 44px;
+
+	.policies-content {
+		background: $grey-1;
+		border-radius: 12px;
+		margin-top: 12px;
+		padding: 12px;
+
+		.policy-icon {
+			width: 32px;
+			height: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #fff;
+			border-radius: 16px;
+		}
+
+		.policy-label {
+			border: 1px solid $grey-2;
+			border-radius: 20px;
+		}
+	}
+}
+</style>

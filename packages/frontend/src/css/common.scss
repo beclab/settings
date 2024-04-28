@@ -1,0 +1,171 @@
+.common-dialog {
+	width: 408px;
+	max-width: 100vw;
+	height: auto;
+	overflow: hidden;
+	background-color: #fff;
+}
+
+.dialog-content-root {
+	padding: 16px 24px;
+}
+
+.scroll-common-thumb-style {
+	background-color: '#fff';
+}
+
+.scroll-common-bar-style {
+	background-color: '#fff';
+}
+
+.separator-background {
+	background: $grey-2;
+}
+
+@mixin platform-height-scroll-area-conf($height) {
+	width: 100%;
+	height: $height;
+	max-height: $height;
+}
+
+.full-height-scroll-area-conf {
+	// width: 100%;
+	@include platform-height-scroll-area-conf((calc(100%)));
+}
+
+.nav-height-scroll-area-conf {
+	@include platform-height-scroll-area-conf((calc(100% - 56px)));
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 16px;
+}
+
+.q-list-class {
+	background: #ffffff;
+	border-radius: 12px;
+	border: 1px solid $grey-2;
+	padding: 12px 20px;
+	margin-top: 12px;
+}
+
+.q-list-sep-line {
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.error_banner {
+	color: $red;
+	border-radius: 8px;
+	width: 320px;
+	padding: 12px;
+	background-color: #ffffff;
+
+	.banner_message {
+		height: auto;
+		font-size: map-get($map: $body3, $key: size);
+		font-weight: map-get($map: $body3, $key: weight);
+		line-height: map-get($map: $body3, $key: line-height);
+		letter-spacing: map-get($map: $body3, $key: letter-spacing);
+		max-width: 320px;
+		white-space: pre-line;
+	}
+}
+
+.reminder_banner {
+	color: $text2;
+	border-radius: 8px;
+	width: 320px;
+	padding: 12px;
+	background-color: #ffffff;
+
+	.banner_message {
+		height: auto;
+		font-size: map-get($map: $body3, $key: size);
+		font-weight: map-get($map: $body3, $key: weight);
+		line-height: map-get($map: $body3, $key: line-height);
+		letter-spacing: map-get($map: $body3, $key: letter-spacing);
+		max-width: 320px;
+		white-space: pre-line;
+	}
+}
+
+.time-clock {
+	// background: $grey-1;
+	border-radius: 4px;
+	margin-left: 8px;
+}
+
+.submit-btn {
+	margin-top: 20px;
+	font-size: map-get($map: $subtitle3, $key: size);
+	font-weight: map-get($map: $subtitle3, $key: weight);
+	line-height: map-get($map: $subtitle3, $key: line-height);
+	letter-spacing: map-get($map: $subtitle3, $key: letter-spacing);
+	text-align: center;
+	height: 24px;
+	width: 63px;
+	border-radius: 8px;
+	text-transform: capitalize;
+}
+
+//fade
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+
+.clickable-view {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.mode-title-class {
+	font-size: map-get($map: $subtitle2, $key: size);
+	font-weight: map-get($map: $subtitle2, $key: weight);
+	line-height: map-get($map: $subtitle2, $key: line-height);
+	letter-spacing: map-get($map: $subtitle2, $key: letter-spacing);
+	color: $text1;
+}
+
+.confirm-btn {
+	font-size: map-get($map: $body3, $key: size) !important;
+	font-weight: map-get($map: $body3, $key: weight) !important;
+	line-height: map-get($map: $body3, $key: line-height) !important;
+	letter-spacing: map-get($map: $body3, $key: letter-spacing) !important;
+	text-align: center !important;
+	border-radius: 8px !important;
+	text-transform: capitalize !important;
+	background-color: $blue !important;
+	color: #fff !important;
+}
+
+.confirm-btn[disabled] {
+	background-color: #80aaff;
+}
+
+.cancle-btn {
+	font-size: map-get($map: $body3, $key: size) !important;
+	font-weight: map-get($map: $body3, $key: weight) !important;
+	line-height: map-get($map: $body3, $key: line-height) !important;
+	letter-spacing: map-get($map: $body3, $key: letter-spacing) !important;
+	text-align: center !important;
+	border-radius: 8px !important;
+	text-transform: capitalize !important;
+	color: $text2 !important;
+	border: solid 1px $grey-2 !important;
+	background-color: #fff !important;
+}
+
+.cancle-btn[disabled] {
+	background-color: #fff;
+}
+
+.header_extension {
+	background-color: #fff;
+	padding: 12px 20px;
+}

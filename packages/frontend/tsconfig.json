@@ -1,0 +1,35 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "strictPropertyInitialization": false,
+        "declaration": false,
+        "emitDecoratorMetadata": true,
+        "baseUrl": ".",
+        "outDir": "dist",
+        // "sourceMap": true,
+        "module": "esnext",
+        "target": "es2021",
+        "strict": true,
+
+        "noImplicitAny": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        //"strictPropertyInitialization": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "sourceMap": false,
+
+        "pretty": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "useUnknownInCatchVariables": false
+    },
+    "include": ["src/**/*.ts", "types/**/*.ts", "src/i18n/en-US/index.ts"],
+    "exclude": ["node_modules/**/*.ts"]
+}
