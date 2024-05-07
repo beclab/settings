@@ -31,6 +31,7 @@ export class CloudController {
   private rawMessage: Record<string, any> = {};
 
   private servername = 'settings';
+  private chainId = process.env.APP_SERVICE_CHAIN_ID || 9;
 
   constructor(private secretService: SecretService) {
     this.instance = axios.create({
@@ -345,7 +346,7 @@ export class CloudController {
             domain: {
               name: 'DID',
               version: '1',
-              chainId: 11155420,
+              chainId: this.chainId,
               verifyingContract: '0xaA5bE49799b6A71Eda74d22D01F7A808aFf41b3f',
             },
             types: {
@@ -542,7 +543,7 @@ export class CloudController {
             domain: {
               name: 'DID',
               version: '1',
-              chainId: 11155420,
+              chainId: this.chainId,
               verifyingContract: '0xaA5bE49799b6A71Eda74d22D01F7A808aFf41b3f',
             },
             types: {
