@@ -31,7 +31,7 @@ export class CloudController {
   private rawMessage: Record<string, any> = {};
 
   private servername = 'settings';
-  private chainId = process.env.APP_SERVICE_CHAIN_ID || 9;
+  private chainId = process.env.APP_SERVICE_CHAIN_ID || 10;
 
   constructor(private secretService: SecretService) {
     this.instance = axios.create({
