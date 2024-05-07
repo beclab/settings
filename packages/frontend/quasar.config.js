@@ -64,11 +64,11 @@ module.exports = configure(function (ctx) {
 				URL: process.env.URL,
 				SPACE_URL: process.env.SPACE_URL,
 				ACTION: process.env.ACTION,
-				NODE_RPC: 'https://sepolia.optimism.io',
-				CONTRACT_DID: '0x4c8c98e652d6a01494971a8faF5d3b68338f9ED4',
+				NODE_RPC: 'https://mainnet.optimism.io',
+				CONTRACT_DID: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d',
 				CONTRACT_ROOT_RESOLVER:
-					'0xaA5bE49799b6A71Eda74d22D01F7A808aFf41b3f',
-				CONTRACT_REGISTRY: '0x9d100b3781cBB91746c13E876a3B520d22E0880F'
+					'0xe2eaba0979277a90511f8873ae1e8ca26b54e740',
+				CONTRACT_REGISTRY: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d'
 			}
 
 			// Add dependencies for transpiling with Babel (Array of string/regex)
