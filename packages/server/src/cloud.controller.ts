@@ -450,6 +450,8 @@ export class CloudController {
         { timeout: 1000 * 60 },
       );
 
+      console.log('bindEthAddress result', response);
+
       if (response.data.code != 200) {
         throw new Error(response.data.message);
       }
@@ -475,10 +477,6 @@ export class CloudController {
 
       const send_result = await postSystemNotification(message);
       console.log('bindEthAddress send result ', send_result);
-
-      console.log('bindEthAddress returnSucceed1 ', response.data);
-
-      console.log('bindEthAddress returnSucceed2 ', response.data.data);
 
       return returnSucceed(response.data.data);
     } catch (e) {
