@@ -474,7 +474,11 @@ export class CloudController {
       );
 
       const send_result = await postSystemNotification(message);
-      console.log('send result ', send_result);
+      console.log('bindEthAddress send result ', send_result);
+
+      console.log('bindEthAddress returnSucceed1 ', response.data);
+
+      console.log('bindEthAddress returnSucceed2 ', response.data.data);
 
       return returnSucceed(response.data.data);
     } catch (e) {
@@ -589,7 +593,7 @@ export class CloudController {
       this.logger.log(message);
 
       const send_result = await postSystemNotification(message);
-      console.log('send result ', send_result);
+      console.log('removeEthAddress send result ', send_result);
 
       return returnSucceed(null);
     } catch (e) {
