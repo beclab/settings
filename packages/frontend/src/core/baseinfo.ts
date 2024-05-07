@@ -392,7 +392,7 @@ export class BaseInfo {
 		terminusName: string
 	) => {
 		const signDomain = {
-			name: 'DID',
+			name: 'Terminus DID Root Tagger',
 			version: '1',
 			chainId: network,
 			verifyingContract: process.env.CONTRACT_ROOT_RESOLVER //"0x2a50Ef86370Fc2226352b4DbAFE8fDE020BF9219"
@@ -446,7 +446,7 @@ export class BaseInfo {
 	) => {
 		console.log('network', network);
 		const signDomain = {
-			name: 'DID',
+			name: 'Terminus DID Root Tagger',
 			version: '1',
 			chainId: network, //11155420,
 			verifyingContract: process.env.CONTRACT_ROOT_RESOLVER
