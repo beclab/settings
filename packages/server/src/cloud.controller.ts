@@ -32,6 +32,9 @@ export class CloudController {
 
   private servername = 'settings';
   private chainId = process.env.APP_SERVICE_CHAIN_ID || 10;
+  private verifyingContract =
+    process.env.APP_SERVICE_VERIFYING_CONTRACT ||
+    '0xe2eaba0979277a90511f8873ae1e8ca26b54e740';
 
   constructor(private secretService: SecretService) {
     this.instance = axios.create({
@@ -347,7 +350,7 @@ export class CloudController {
               name: 'DID',
               version: '1',
               chainId: this.chainId,
-              verifyingContract: '0xaA5bE49799b6A71Eda74d22D01F7A808aFf41b3f',
+              verifyingContract: this.verifyingContract,
             },
             types: {
               EIP712Domain: [
@@ -544,7 +547,7 @@ export class CloudController {
               name: 'DID',
               version: '1',
               chainId: this.chainId,
-              verifyingContract: '0xaA5bE49799b6A71Eda74d22D01F7A808aFf41b3f',
+              verifyingContract: this.verifyingContract,
             },
             types: {
               EIP712Domain: [
