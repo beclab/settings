@@ -347,7 +347,7 @@ export class CloudController {
           },
           sign_eth: {
             domain: {
-              name: 'DID',
+              name: 'Terminus DID Root Tagger',
               version: '1',
               chainId: this.chainId,
               verifyingContract: this.verifyingContract,
@@ -544,7 +544,7 @@ export class CloudController {
           },
           sign_eth: {
             domain: {
-              name: 'DID',
+              name: 'Terminus DID Root Tagger',
               version: '1',
               chainId: this.chainId,
               verifyingContract: this.verifyingContract,
