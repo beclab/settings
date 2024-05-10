@@ -1,1 +1,1 @@
-export const Cloud_URL = process.env.CLOUD || 'https://cloud-api.bttcdn.com';
+export const Cloud_URL = 'https://cloud-api.bttcdn.com';
