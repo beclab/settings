@@ -97,7 +97,7 @@ const PASSWORD_RULE = {
 	DIGIT_RULE: '^(?=.*[0-9])',
 	SYMBOL_RULE: '^(?=.*[@$!%*?&_.])',
 	ALL_RULE:
-		'^(?=.*[@$!%*?&_.])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9@$!%*?&_.]{8,32}$'
+		'^(.*[a-z].*[A-Z].*[0-9].*)$|^(.*[a-z].*[0-9].*[A-Z].*)$|^(.*[A-Z].*[a-z].*[0-9].*)$|^(.*[A-Z].*[0-9].*[a-z].*)$|^(.*[0-9].*[a-z].*[A-Z].*)$|^(.*[0-9].*[A-Z].*[a-z].*)$|^(\$2[ayb]\$.{56})$'
 };
 const allRule = new RegExp(PASSWORD_RULE.ALL_RULE);
 
@@ -126,12 +126,9 @@ const createUserName = async () => {
 
 	password = generatePasword();
 
-	if (!allRule.test(password)) {
+	while (!allRule.test(password)) {
 		password = generatePasword();
 	}
-	console.log(password);
-	console.log(adminStore.terminus);
-
 	Loading.show();
 	const data = await didStore.resolve_name(adminStore.terminus.terminusName);
 	console.log(data);

@@ -35,10 +35,11 @@ export class CloudController {
   private verifyingContract =
     process.env.APP_SERVICE_VERIFYING_CONTRACT ||
     '0xe2eaba0979277a90511f8873ae1e8ca26b54e740';
+  private cloudUrl = process.env.APP_SERVICE_CLOUD_URL || Cloud_URL;
 
   constructor(private secretService: SecretService) {
     this.instance = axios.create({
-      baseURL: Cloud_URL,
+      baseURL: this.cloudUrl,
       timeout: 1000 * 10,
       headers: {},
     });

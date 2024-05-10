@@ -27,6 +27,8 @@ export class SecretService implements OnModuleInit {
   //public secrets: Secret[] = [];
   public spaceAccount: SpaceSaveData;
 
+  private cloudUrl = process.env.APP_SERVICE_CLOUD_URL || Cloud_URL;
+
   constructor() {
     //
   }
@@ -158,7 +160,7 @@ export class SecretService implements OnModuleInit {
           this.logger.log('should refresh');
           try {
             const instance = axios.create({
-              baseURL: Cloud_URL,
+              baseURL: this.cloudUrl,
               timeout: 1000 * 10,
               headers: {},
             });
@@ -210,7 +212,7 @@ export class SecretService implements OnModuleInit {
           this.logger.debug(cluster.data);
 
           const instance = axios.create({
-            baseURL: Cloud_URL,
+            baseURL: this.cloudUrl,
             timeout: 1000 * 10,
             headers: {},
           });
@@ -246,7 +248,7 @@ export class SecretService implements OnModuleInit {
     console.log('registerSpace');
     try {
       const instance = axios.create({
-        baseURL: Cloud_URL,
+        baseURL: this.cloudUrl,
         timeout: 1000 * 10,
         headers: {},
       });
