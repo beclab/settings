@@ -1,4 +1,4 @@
-import { Controller, Logger, Req, Get, Query } from '@nestjs/common';
+import { Controller, Logger, Get, Query } from '@nestjs/common';
 import { returnSucceed, Result, returnError } from '@bytetrade/core';
 import { SecretService } from './secret.service';
 //import { createInstance } from './bfl/utils';
@@ -37,17 +37,16 @@ export class InitController {
   @Get('/checkLastOsVersion')
   async checkLastVersions(
     @Query('dev_mode') dev_mode,
-    @Query('is_force') is_force,
   ): Promise<Result<string>> {
     console.log('checkLastOsVersion ' + dev_mode);
-    let os =
-      dev_mode === 'true'
-        ? this.initService.devVersion
-        : this.initService.noDevVersion;
-    console.log('checkLastOsVersion os: ' + os);
-    if (is_force === 'true') {
-      os = await this.initService.getOSVersion(dev_mode === 'true');
-    }
+    // let os =
+    //   dev_mode === 'true'
+    //     ? this.initService.devVersion
+    //     : this.initService.noDevVersion;
+    // console.log('checkLastOsVersion os: ' + os);
+    // if (is_force === 'true') {
+    const os = await this.initService.getOSVersion(dev_mode === 'true');
+    // }
 
     if (!os) {
       return returnError(1, 'Get OS new version failed');

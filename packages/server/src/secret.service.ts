@@ -81,11 +81,11 @@ export class SecretService implements OnModuleInit {
       { name, value },
     );
 
-    if (name == 'settings-account-space') {
-      this.spaceAccount = JSON.parse(value);
+    // if (name == 'settings-account-space') {
+    //   this.spaceAccount = JSON.parse(value);
 
-      this.registerSpace();
-    }
+    //   this.registerSpace();
+    // }
 
     this.logger.debug(data);
   }
@@ -156,7 +156,7 @@ export class SecretService implements OnModuleInit {
         if (now > this.spaceAccount.expired) {
           this.logger.log('should delete');
           await this.DeleteSecret(secret.name);
-        } else if (now > this.spaceAccount.expired - 60 * 60 * 1000 * 48) {
+        } else if (now > this.spaceAccount.expired - 60 * 60 * 1000 * 4) {
           this.logger.log('should refresh');
           try {
             const instance = axios.create({
@@ -244,39 +244,39 @@ export class SecretService implements OnModuleInit {
     }
   }
 
-  async registerSpace() {
-    console.log('registerSpace');
-    try {
-      const instance = axios.create({
-        baseURL: this.cloudUrl,
-        timeout: 1000 * 10,
-        headers: {},
-      });
+  //   async registerSpace() {
+  //     console.log('registerSpace');
+  //     try {
+  //       const instance = axios.create({
+  //         baseURL: this.cloudUrl,
+  //         timeout: 1000 * 10,
+  //         headers: {},
+  //       });
 
-      const response = await instance.post(
-        '/v1/resource/register',
-        qs.stringify({
-          userid: this.spaceAccount.userid,
-          token: this.spaceAccount.token,
-          terminusName: this.terminusInfo.terminusName,
-          email: '',
-          osVersion: this.terminusInfo.osVersion,
-          instanceRoot: '',
-          cpuCoreCount: 4,
-          memorySize: 16,
-          privateIp: '',
-          publicIp: '',
-          hostName: '',
-          roleAdmin:
-            this.userInfo.owner_role == 'platform-admin' ? 'admin' : 'member',
-        }),
-      );
-      console.log(response.data);
-      if (response.data.code == 200) {
-        console.log(response.data.data);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //       const response = await instance.post(
+  //         '/v1/resource/register',
+  //         qs.stringify({
+  //           userid: this.spaceAccount.userid,
+  //           token: this.spaceAccount.token,
+  //           terminusName: this.terminusInfo.terminusName,
+  //           email: '',
+  //           osVersion: this.terminusInfo.osVersion,
+  //           instanceRoot: '',
+  //           cpuCoreCount: 4,
+  //           memorySize: 16,
+  //           privateIp: '',
+  //           publicIp: '',
+  //           hostName: '',
+  //           roleAdmin:
+  //             this.userInfo.owner_role == 'platform-admin' ? 'admin' : 'member',
+  //         }),
+  //       );
+  //       console.log(response.data);
+  //       if (response.data.code == 200) {
+  //         console.log(response.data.data);
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
 }

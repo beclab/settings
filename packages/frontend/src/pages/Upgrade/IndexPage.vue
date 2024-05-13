@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
-import { useUpgradeStore } from 'src/stores/Upgrade';
+import { useUpgradeStore } from '../../stores/Upgrade';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed, notifySuccess } from '../../utils/btNotify';

@@ -48,12 +48,12 @@ export class EventController {
     this.logger.debug('system_upgrade_event');
     this.logger.debug(JSON.stringify(event, null, 2));
 
-    const updated = await this.initService.updateLocalVersion();
-    this.logger.log('updated', updated);
-    if (!updated) {
-      await this.initService.getOSVersion(true);
-      await this.initService.getOSVersion(false);
-    }
+    // const updated = await this.initService.updateLocalVersion();
+    // this.logger.log('updated', updated);
+    // if (!updated) {
+    //   await this.initService.getOSVersion(true);
+    //   await this.initService.getOSVersion(false);
+    // }
     // broadcastWebsocketMessage({
     //   event: 'system_upgrade_event',
     //   data: event.data.data,
