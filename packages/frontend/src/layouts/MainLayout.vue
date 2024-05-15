@@ -151,12 +151,12 @@ const UserMenu = [
 				label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
 				key: '/knowledge',
 				img: 'imgs/root/background.svg'
-			},
-			{
-				label: t('home_menus.' + MENU_TYPE.Notification.toLowerCase()),
-				key: '/ns',
-				img: 'imgs/root/background.svg'
 			}
+			// {
+			// 	label: t('home_menus.' + MENU_TYPE.Notification.toLowerCase()),
+			// 	key: '/ns',
+			// 	img: 'imgs/root/background.svg'
+			// }
 		]
 	}
 ];

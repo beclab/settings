@@ -229,11 +229,11 @@ export class SecretService implements OnModuleInit {
           console.log(response.data);
           if (response.data.code == 200) {
             console.log(response.data.data);
-            this.spaceAccount.expired = Number(response.data.data);
-            await this.UpdateSecret(
-              secret.name,
-              JSON.stringify(this.spaceAccount),
-            );
+            // this.spaceAccount.expired = Number(response.data.data);
+            // await this.UpdateSecret(
+            //   secret.name,
+            //   JSON.stringify(this.spaceAccount),
+            // );
           }
         } catch (e) {
           console.log(e);

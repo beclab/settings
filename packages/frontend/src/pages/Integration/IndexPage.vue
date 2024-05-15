@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useAccountStore } from 'src/stores/Account';
+import { useAccountStore } from '../../stores/Account';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import SettingConnectStatus from 'components/base/SettingConnectStatus.vue';
 import AccountItem from '../../components/account/AccountItem.vue';
