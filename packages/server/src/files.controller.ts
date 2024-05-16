@@ -14,6 +14,8 @@ import { ProviderClient } from './provider.client';
 const client = new ProviderClient('files', 'service.files', 'files', [
   'GetSearchFolderStatus',
   'UpdateSearchFolderPaths',
+  'GetDatasetFolderStatus',
+  'UpdateDatasetFolderPaths',
 ]);
 
 @Controller('/api/files')
@@ -38,6 +40,50 @@ export class FilesController {
 
     const data = await client.execute('/UpdateSearchFolderPaths', {
       paths,
+    });
+    this.logger.debug(data);
+    return returnSucceed(null);
+  }
+
+  @Get('/GetDatasetFolderStatus')
+  async GetDatasetFolderStatus(
+    @Body()
+    {
+      datasetIDs,
+      datasetNames,
+    }: {
+      datasetIDs?: string[];
+      datasetNames?: string[];
+    },
+  ) {
+    const data = await client.execute('/GetDatasetFolderStatus', {
+      datasetIDs,
+      datasetNames,
+    });
+    this.logger.debug(data);
+    return returnSucceed(data.data);
+  }
+
+  @Post('/UpdateDatasetFolderPaths')
+  async UpdateDatasetFolderPaths(
+    @Body()
+    {
+      datasetID,
+      datasetName,
+      paths,
+    }: {
+      datasetID: string;
+      datasetName: string;
+      paths: string[];
+    },
+  ) {
+    this.logger.debug('/UpdateDatasetFolderPaths');
+    this.logger.debug(paths);
+
+    const data = await client.execute('/UpdateDatasetFolderPaths', {
+      paths,
+      datasetID,
+      datasetName,
     });
     this.logger.debug(data);
     return returnSucceed(null);
