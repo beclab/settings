@@ -104,15 +104,15 @@ module.exports = configure(function (ctx) {
 					//pathRewrite方法重写url
 				},
 				'/api': {
-					target: 'https://settings.local.guojianmin.myterminus.com/',
+					target: 'https://settings.guojianmin.myterminus.com/',
 					changeOrigin: true
 				},
 				'/admin': {
-					target: 'https://settings.local.guojianmin.myterminus.com/',
+					target: 'https://settings.guojianmin.myterminus.com/',
 					changeOrigin: true
 				},
 				'/kapis': {
-					target: 'https://settings.local.guojianmin.myterminus.com/',
+					target: 'https://settings.guojianmin.myterminus.com/',
 					changeOrigin: true
 				}
 			},

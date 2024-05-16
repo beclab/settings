@@ -85,6 +85,10 @@ function newBackup() {
 	}
 }
 
+.add-btn:hover {
+	background-color: $grey-1;
+}
+
 .empty-parent {
 	width: 100%;
 	height: calc(100% - 56px);

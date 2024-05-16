@@ -12,7 +12,10 @@
 					? 'terminus_background_edt_read_only'
 					: 'terminus_background_edt'
 			"
-			:style="transaction ? 'background : transparent;' : ''"
+			:style="
+				(transaction ? 'background : transparent;' : '') +
+				(isTextarea ? '' : 'height: 32px;')
+			"
 		>
 			<img
 				:src="inputImageRef"
@@ -23,7 +26,9 @@
 				:model-value="modelValue"
 				:type="inputTypeRef"
 				class="text-body3 terminus-edit__bg__input"
+				:style="isTextarea ? '' : 'margin-top: -8px;'"
 				bg-color="transparent"
+				:autogrow="isTextarea"
 				:placeholder="hintText"
 				borderless
 				:input-style="{
@@ -35,7 +40,8 @@
 						inputTypeRef === 'password' && !isMobile
 							? '22px'
 							: '12px'
-					}`
+					}`,
+					maxHeight: isTextarea ? '100px' : ''
 				}"
 				:readonly="isReadOnly"
 				@update:model-value="onTextChange"
@@ -133,6 +139,11 @@ const props = defineProps({
 		type: Boolean,
 		default: false,
 		required: false
+	},
+	isTextarea: {
+		type: Boolean,
+		default: false,
+		required: false
 	}
 });
 
@@ -162,6 +173,10 @@ if (props.showPasswordImg) {
 if (props.isNumber) {
 	inputTypeRef.value = 'number';
 }
+
+// if (props.isTextarea) {
+// 	inputTypeRef.value = 'textarea';
+// }
 
 const emit = defineEmits(['onTextChange', 'update:modelValue', 'submit']);
 
@@ -215,7 +230,6 @@ const submit = () => {
 	}
 
 	&__bg {
-		height: 32px;
 		width: 100%;
 		margin-top: 4px;
 		position: relative;
@@ -223,7 +237,6 @@ const submit = () => {
 		&__input {
 			height: 100%;
 			width: calc(100% - 30px);
-			margin-top: -8px;
 			margin-left: 16px;
 			color: $text2;
 		}
