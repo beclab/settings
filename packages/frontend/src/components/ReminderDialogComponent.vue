@@ -20,6 +20,7 @@
 				<dialog-footer
 					:confirm-text="confirmText"
 					:has-cancel="useCancel"
+					:is-reminder="isReminder"
 					@cancel-action="onDialogCancel"
 					@confirm-action="sureAction"
 				/>
@@ -41,13 +42,15 @@ withDefaults(
 		useCancel: boolean;
 		confirmText: string;
 		hasBorder: boolean;
+		isReminder: boolean;
 	}>(),
 	{
 		title: '',
 		message: '',
 		useCancel: true,
 		confirmText: i18n.global.t('ok'),
-		hasBorder: false
+		hasBorder: false,
+		isReminder: false
 	}
 );
 

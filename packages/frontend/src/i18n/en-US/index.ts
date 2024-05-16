@@ -401,5 +401,19 @@ export default {
 	last_snapshot: 'Last Snapshot',
 	total_size: 'Total Size',
 	next_snapshot: 'Next Snapshot',
-	local_machine: 'Local machine'
+	local_machine: 'Local machine',
+	knowledge_bases: 'Knowledge Bases',
+	create_new: 'Create New',
+	remove: 'Remove',
+	remove_knowledge_base: 'Remove Knowledge Base {base}',
+	remove_knowledge_base_message:
+		"Are you sure you want to remove the knowledge base {base}? This action will delete the document's index data in memory but will not result  in the loss of the document itself.",
+	knowldege_base_name: 'Knowldege base name',
+	paths: 'Paths',
+	separate_different_paths_with_a_comma:
+		"Separate different paths with a comma ' , '",
+	docs: 'docs',
+	add_new_knowledge_base: 'Add New Knowledge Base',
+	save_knowledge_base: 'Save Knowledge Base {base}',
+	no_knowledge_bases_available: 'No Knowledge Bases available'
 };

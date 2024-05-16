@@ -10,13 +10,22 @@ export interface SearchFileForder {
 	status: string;
 }
 export type FileState = {
-	folder: SearchFileForder;
+	datasets: DatasetFolder[];
 };
+
+export interface DatasetFolder {
+	datasetName: string;
+	datasetID: string;
+	status: string; //indexing | running | errored
+	lastUpdateTime: string;
+	indexDocNum: number;
+	Paths: string[];
+}
 
 export const useFilesStore = defineStore('files', {
 	state: () => {
 		return {
-			folder: {}
+			datasets: []
 		} as FileState;
 	},
 
@@ -25,25 +34,19 @@ export const useFilesStore = defineStore('files', {
 	},
 
 	actions: {
-		async GetSearchFolderStatus() {
+		async GetDatasetFolderStatus() {
 			const tokenStore = useTokenStore();
-			const data: any = await axios.get(
-				`${tokenStore.url}/api/files/GetSearchFolderStatus`
+			const data: DatasetFolder[] = await axios.get(
+				`${tokenStore.url}/api/files/GetDatasetFolderStatus`
 			);
 
-			this.folder = data;
-			if (this.folder.paths == '') {
-				this.folder.p = [];
-			} else {
-				this.folder.p = this.folder.paths.split(',');
-			}
 			return data;
 		},
-		async UpdateSearchFolderPaths(paths: string[]) {
+		async UpdateDatasetFolderPaths(datasetID: string, paths: string[]) {
 			const tokenStore = useTokenStore();
 			await axios.post(
-				`${tokenStore.url}/api/files/UpdateSearchFolderPaths`,
-				{ paths }
+				`${tokenStore.url}/api/files/UpdateDatasetFolderPaths`,
+				{ paths, datasetID }
 			);
 		}
 	}

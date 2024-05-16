@@ -11,7 +11,7 @@
 		<q-btn
 			dense
 			flat
-			class="confirm-btn q-px-md"
+			:class="isReminder ? 'reminder-btn q-px-md' : 'confirm-btn q-px-md'"
 			style="height: 24px; margin-top: 20px"
 			:label="confirmText"
 			@click="confirmAction"
@@ -28,12 +28,14 @@ withDefaults(
 		confirmText: string;
 		confirmDisable: boolean;
 		hasCancel: boolean;
+		isReminder: boolean;
 	}>(),
 	{
 		cancelText: i18n.global.t('cancel'),
 		confirmText: i18n.global.t('ok'),
 		confirmDisable: false,
-		hasCancel: true
+		hasCancel: true,
+		isReminder: false
 	}
 );
 
@@ -66,6 +68,10 @@ const emit = defineEmits(['cancelAction', 'confirmAction']);
 
 	.confirm-btn:hover {
 		background-color: $blue-8;
+	}
+
+	.reminder-btn:hover {
+		background-color: $red-8;
 	}
 }
 </style>

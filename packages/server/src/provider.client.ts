@@ -64,6 +64,7 @@ export class ProviderClient {
     }
 
     const data = response.data;
+    console.log(data.data);
     if (IS_DEBUG) {
       console.log(data.data);
     }
