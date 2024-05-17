@@ -83,7 +83,7 @@ export class FilesController {
 
     const data = await client.execute('/UpdateDatasetFolderPaths', {
       paths,
-      datasetID,
+      dataset_id: datasetID,
       datasetName,
     });
     this.logger.debug(data);
