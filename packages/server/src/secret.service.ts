@@ -156,7 +156,7 @@ export class SecretService implements OnModuleInit {
         if (now > this.spaceAccount.expired) {
           this.logger.log('should delete');
           await this.DeleteSecret(secret.name);
-        } else if (now > this.spaceAccount.expired - 60 * 60 * 1000 * 4) {
+        } else if (now > this.spaceAccount.expired - 60 * 60 * 1000 * 20) {
           this.logger.log('should refresh');
           try {
             const instance = axios.create({
@@ -166,7 +166,7 @@ export class SecretService implements OnModuleInit {
             });
 
             const response = await instance.post(
-              '/v1/user/refresh',
+              '/v2/user/refresh',
               qs.stringify({
                 userid: this.spaceAccount.userid,
                 token: this.spaceAccount.token,

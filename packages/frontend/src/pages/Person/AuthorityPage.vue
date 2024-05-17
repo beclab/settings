@@ -52,8 +52,6 @@ import { useAuthorityStore } from 'src/stores/Authority';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import BtSelect from 'components/base/BtSelect.vue';
 import BtFormItem from 'components/base/BtFormItem.vue';
-import BtEditView from 'components/base/BtEditView.vue';
-import ErrorMessageTip from 'components/base/ErrorMessageTip.vue';
 import { useI18n } from 'vue-i18n';
 
 export interface AuthorityType {
