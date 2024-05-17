@@ -124,7 +124,7 @@ const addOrEditSearchFolderPath = (folder?: DatasetFolder) => {
 		componentProps: {
 			datasetID: folder ? folder.datasetID : ''
 		}
-	}).onOk(async (data) => {});
+	}).onOk(async () => {});
 };
 
 const showRemoveDialog = (folder: DatasetFolder) => {

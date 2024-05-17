@@ -145,7 +145,7 @@ export class SecretService implements OnModuleInit {
   }
 
   //@Cron('0 * * * * *')
-  @Interval(1000 * 3600)
+  @Interval(1000 * 300)
   async refreshToken() {
     this.logger.log('refresh Token');
     const secrets: Secret[] = await this.ListSecret();
@@ -156,7 +156,7 @@ export class SecretService implements OnModuleInit {
         if (now > this.spaceAccount.expired) {
           this.logger.log('should delete');
           await this.DeleteSecret(secret.name);
-        } else if (now > this.spaceAccount.expired - 60 * 60 * 1000 * 4) {
+        } else if (now > this.spaceAccount.expired - 60 * 1000) {
           this.logger.log('should refresh');
           try {
             const instance = axios.create({
