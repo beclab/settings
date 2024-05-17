@@ -187,8 +187,6 @@ export class SecretService implements OnModuleInit {
           } catch (e) {
             console.log(e);
           }
-        } else {
-          this.logger.log('do nothing');
         }
       } else {
         continue;
