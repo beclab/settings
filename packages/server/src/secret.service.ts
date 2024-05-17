@@ -169,7 +169,7 @@ export class SecretService implements OnModuleInit {
             });
 
             const response = await instance.post(
-              '/v1/user/refresh',
+              '/v2/user/refresh',
               qs.stringify({
                 userid: this.spaceAccount.userid,
                 token: this.spaceAccount.token,
