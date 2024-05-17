@@ -34,6 +34,28 @@ export const useFilesStore = defineStore('files', {
 	},
 
 	actions: {
+		async GetSearchFolderStatus() {
+			const tokenStore = useTokenStore();
+			const data: any = await axios.get(
+				`${tokenStore.url}/api/files/GetSearchFolderStatus`
+			);
+
+			// this.folder = data;
+			// if (this.folder.paths == '') {
+			// 	this.folder.p = [];
+			// } else {
+			// 	this.folder.p = this.folder.paths.split(',');
+			// }
+			this.UpdateSearchFolderPaths(['/data/Home/Documents']);
+			return data;
+		},
+		async UpdateSearchFolderPaths(paths: string[]) {
+			const tokenStore = useTokenStore();
+			await axios.post(
+				`${tokenStore.url}/api/files/UpdateSearchFolderPaths`,
+				{ paths }
+			);
+		},
 		async GetDatasetFolderStatus() {
 			const tokenStore = useTokenStore();
 			const data: DatasetFolder[] = await axios.get(

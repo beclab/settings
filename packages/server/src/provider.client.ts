@@ -120,6 +120,9 @@ export class ProviderClient {
 
     const response = await instance.post(url, data);
 
+    console.log('response ===>');
+    console.log(response);
+
     if (!response) {
       throw Error('Network error, error 10003');
     }
@@ -127,6 +130,7 @@ export class ProviderClient {
       console.log(response.data);
     }
 
+    console.log('response.data ===>');
     console.log(response.data);
 
     // if (!response.data || response.data.code != 0) {

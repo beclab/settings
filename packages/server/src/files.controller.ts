@@ -60,7 +60,8 @@ export class FilesController {
       datasetIDs,
       datasetNames,
     });
-    this.logger.debug(data);
+    this.logger.log('data ===>');
+    this.logger.log(data);
     return returnSucceed(data.data);
   }
 

@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useBackup2Store } from 'src/stores/backup2';
+import { useBackup2Store } from '../../stores/backup2';
 import { useRouter } from 'vue-router';
 import PageTitleComponent from 'src/components/PageTitleComponent.vue';
 import PlanItem from '../../components/backup/PlanItem.vue';

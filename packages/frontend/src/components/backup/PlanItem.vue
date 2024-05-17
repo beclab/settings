@@ -26,19 +26,19 @@
 					</div>
 				</template>
 			</bt-grid-item>
-			<bt-grid-item :label="t('last_snapshot')" value="-" />
+			<bt-grid-item :label="t('last_snapshot')" :value="lastSnapShot" />
 			<bt-grid-item :label="t('total_size')" :value="size" />
 			<bt-grid-item :label="t('status')">
 				<template v-slot:value>
 					<div class="row items-center">
 						<div class="bg-positive backup-status"></div>
 						<div>
-							{{ t('completed') }}
+							{{ plan.phase ? plan.phase : '-' }}
 						</div>
 					</div>
 				</template>
 			</bt-grid-item>
-			<bt-grid-item :label="t('next_snapshot')" value="-" />
+			<bt-grid-item :label="t('next_snapshot')" :value="nextSnapShot" />
 			<bt-grid-item
 				:label="t('frequency')"
 				:value="
@@ -51,19 +51,19 @@
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
-import { BackupPlanItem } from '@bytetrade/core';
-import { format } from 'quasar';
+import { date, format } from 'quasar';
 import { useRouter } from 'vue-router';
 import BtGridItem from '../base/BtGridItem.vue';
 import BtGrid from '../base/BtGrid.vue';
 import humanStorageSize = format.humanStorageSize;
 import { useI18n } from 'vue-i18n';
+import { BackupPlanItem2 } from '../../stores/backup2';
 
 const router = useRouter();
 
 const props = defineProps({
 	plan: {
-		type: Object as PropType<BackupPlanItem>,
+		type: Object as PropType<BackupPlanItem2>,
 		require: true
 	}
 });
@@ -76,6 +76,26 @@ const size = computed(() => {
 	} else {
 		return '-';
 	}
+});
+
+const lastSnapShot = computed(() => {
+	if (props.plan && props.plan.creationTimestamp) {
+		return date.formatDate(
+			props.plan.creationTimestamp * 1000,
+			'YYYY-MM-DD HH:mm'
+		);
+	}
+	return '-';
+});
+
+const nextSnapShot = computed(() => {
+	if (props.plan && props.plan.nextBackupTimestamp) {
+		return date.formatDate(
+			props.plan.nextBackupTimestamp * 1000,
+			'YYYY-MM-DD HH:mm'
+		);
+	}
+	return '-';
 });
 
 async function gotoBackup() {
