@@ -19,7 +19,8 @@ export interface DatasetFolder {
 	status: string; //indexing | running | errored
 	lastUpdateTime: string;
 	indexDocNum: number;
-	Paths: string[];
+	paths: string[];
+	linkedAgentNum: number;
 }
 
 export const useFilesStore = defineStore('files', {
@@ -40,12 +41,6 @@ export const useFilesStore = defineStore('files', {
 				`${tokenStore.url}/api/files/GetSearchFolderStatus`
 			);
 
-			// this.folder = data;
-			// if (this.folder.paths == '') {
-			// 	this.folder.p = [];
-			// } else {
-			// 	this.folder.p = this.folder.paths.split(',');
-			// }
 			this.UpdateSearchFolderPaths(['/data/Home/Documents']);
 			return data;
 		},
@@ -58,10 +53,16 @@ export const useFilesStore = defineStore('files', {
 		},
 		async GetDatasetFolderStatus() {
 			const tokenStore = useTokenStore();
-			const data: DatasetFolder[] = await axios.get(
+			console.log('request GetDatasetFolderStatus');
+
+			const data: any = await axios.get(
 				`${tokenStore.url}/api/files/GetDatasetFolderStatus`
 			);
-
+			console.log('data ==>');
+			console.log(data);
+			console.log(Object.values(data));
+			this.datasets = Object.values(data);
+			console.log(this.datasets);
 			return data;
 		},
 		async UpdateDatasetFolderPaths(datasetID: string, paths: string[]) {

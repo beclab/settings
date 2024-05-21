@@ -72,10 +72,12 @@ export class FilesController {
       datasetID,
       datasetName,
       paths,
+      create_or_delete,
     }: {
-      datasetID: string;
-      datasetName: string;
-      paths: string[];
+      datasetID?: string;
+      datasetName?: string;
+      paths?: string[];
+      create_or_delete?: number;
     },
   ) {
     this.logger.debug('/UpdateDatasetFolderPaths');
@@ -84,7 +86,8 @@ export class FilesController {
     const data = await client.execute('/UpdateDatasetFolderPaths', {
       paths,
       dataset_id: datasetID,
-      datasetName,
+      dataset_name: datasetName,
+      create_or_delete,
     });
     this.logger.debug(data);
     return returnSucceed(null);

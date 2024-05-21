@@ -415,5 +415,6 @@ export default {
 	docs: 'docs',
 	add_new_knowledge_base: 'Add New Knowledge Base',
 	save_knowledge_base: 'Save Knowledge Base {base}',
-	no_knowledge_bases_available: 'No Knowledge Bases available'
+	no_knowledge_bases_available: 'No Knowledge Bases available',
+	number_linked_agent: '{number} linked agent'
 };

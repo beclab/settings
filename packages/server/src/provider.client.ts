@@ -117,6 +117,8 @@ export class ProviderClient {
       this.group +
       '/v1' +
       path;
+    console.log('request data ===>');
+    console.log(data);
 
     const response = await instance.post(url, data);
 

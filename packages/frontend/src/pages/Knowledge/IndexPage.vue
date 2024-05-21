@@ -39,7 +39,7 @@
 						noSpinner
 					/>
 					<div class="text-body2 text-grey-10 path">
-						{{ folder.Paths.join(',') }}
+						{{ folder.paths.join(',') }}
 					</div>
 				</div>
 				<q-btn dense flat icon="sym_r_more_horiz">
@@ -94,7 +94,13 @@
 				</div>
 				<div class="row items-center q-ml-lg">
 					<q-icon name="sym_r_robot_2" size="16px" class="q-mr-xs" />
-					<div>0 linked agent</div>
+					<div>
+						{{
+							t('number_linked_agent', {
+								number: folder.linkedAgentNum
+							})
+						}}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -116,6 +122,9 @@ const fileStore = useFilesStore();
 
 onMounted(() => {
 	fileStore.GetDatasetFolderStatus();
+	// fileStore.UpdateDatasetFolderPaths('258d7bf5-e3e0-4f67-acfb-5dbcfd28b201', [
+	// 	'/data/Home/Documents'
+	// ]);
 });
 
 const addOrEditSearchFolderPath = (folder?: DatasetFolder) => {
