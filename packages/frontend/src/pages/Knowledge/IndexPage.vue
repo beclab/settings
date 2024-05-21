@@ -39,7 +39,7 @@
 						noSpinner
 					/>
 					<div class="text-body2 text-grey-10 path">
-						{{ folder.paths.join(',') }}
+						{{ folder.paths != null ? folder.paths.join(',') : '' }}
 					</div>
 				</div>
 				<q-btn dense flat icon="sym_r_more_horiz">
@@ -66,6 +66,7 @@
 								class="row items-center justify-start popup-item text-grey-8"
 								style="padding: 8px; border-radius: 4px"
 								clickable
+								:disable="folder.default"
 								v-close-popup
 								@click="showRemoveDialog(folder)"
 							>
@@ -90,14 +91,14 @@
 						size="16px"
 						class="q-mr-xs"
 					/>
-					<div>{{ folder.indexDocNum + ' ' + t('docs') }}</div>
+					<div>{{ (folder.indexDocNum || 0) + ' ' + t('docs') }}</div>
 				</div>
 				<div class="row items-center q-ml-lg">
 					<q-icon name="sym_r_robot_2" size="16px" class="q-mr-xs" />
 					<div>
 						{{
 							t('number_linked_agent', {
-								number: folder.linkedAgentNum
+								number: folder.linkedAgentNum || 0
 							})
 						}}
 					</div>
@@ -133,7 +134,17 @@ const addOrEditSearchFolderPath = (folder?: DatasetFolder) => {
 		componentProps: {
 			datasetID: folder ? folder.datasetID : ''
 		}
-	}).onOk(async () => {});
+	}).onOk(async (data: { name: string; paths: string[] }) => {
+		// if (folder) {
+
+		// }
+		fileStore.UpdateDatasetFolderPaths(
+			folder ? folder.datasetID : undefined,
+			folder ? undefined : data.name,
+			data.paths,
+			folder ? 0 : 1
+		);
+	});
 };
 
 const showRemoveDialog = (folder: DatasetFolder) => {
@@ -151,7 +162,12 @@ const showRemoveDialog = (folder: DatasetFolder) => {
 			confirmText: t('remove')
 		}
 	}).onOk(() => {
-		// deleteUserSureAction();
+		fileStore.UpdateDatasetFolderPaths(
+			folder.datasetID,
+			undefined,
+			undefined,
+			-1
+		);
 	});
 };
 </script>

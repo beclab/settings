@@ -18,9 +18,10 @@ export interface DatasetFolder {
 	datasetID: string;
 	status: string; //indexing | running | errored
 	lastUpdateTime: string;
-	indexDocNum: number;
+	indexDocNum?: number;
 	paths: string[];
-	linkedAgentNum: number;
+	linkedAgentNum?: number;
+	default: boolean;
 }
 
 export const useFilesStore = defineStore('files', {
@@ -65,12 +66,28 @@ export const useFilesStore = defineStore('files', {
 			console.log(this.datasets);
 			return data;
 		},
-		async UpdateDatasetFolderPaths(datasetID: string, paths: string[]) {
+		// datasetID,
+		// datasetName,
+		// paths,
+		// create_or_delete,
+		// 4. create_or_delete: 1表示新建（仅当提交的数据集名称不存在对应数据集时），-1表示删除（需要同时提交paths为空列表），其余值或不传不会引发特殊操作
+		async UpdateDatasetFolderPaths(
+			datasetID?: string,
+			datasetName?: string,
+			paths = [] as string[],
+			create_or_delete = 0
+		) {
 			const tokenStore = useTokenStore();
-			await axios.post(
+			const data = await axios.post(
 				`${tokenStore.url}/api/files/UpdateDatasetFolderPaths`,
-				{ paths, datasetID }
+				{ paths, datasetID, datasetName, create_or_delete }
 			);
+
+			console.log();
+			console.log('data ==>');
+			console.log(data);
+			await this.GetDatasetFolderStatus();
+			return data;
 		}
 	}
 });
