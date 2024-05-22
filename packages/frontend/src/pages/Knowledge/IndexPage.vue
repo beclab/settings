@@ -239,7 +239,6 @@ const showRemoveDialog = (folder: DatasetFolder) => {
 	width: 120px;
 	padding: 8px;
 	border-radius: 8px;
-	opacity: 0px;
 	box-shadow: 0px 4px 10px 0px #00000033;
 }
 .empty-image {
