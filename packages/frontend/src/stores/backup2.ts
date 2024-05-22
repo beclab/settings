@@ -11,8 +11,20 @@ import {
 } from '@bytetrade/core';
 
 export type BackupState = {
-	plans: BackupPlanItem[];
+	plans: BackupPlanItem2[];
 };
+
+export interface BackupPlanItem2 extends BackupPlanItem {
+	creationTimestamp?: number;
+	nextBackupTimestamp?: number;
+	phase?: string;
+	snapshotName?: string;
+}
+
+export interface BackupPlanItems2 {
+	total: number;
+	items: BackupPlanItem2[];
+}
 
 export const useBackup2Store = defineStore('backup2', {
 	state: () => {
@@ -28,7 +40,10 @@ export const useBackup2Store = defineStore('backup2', {
 		updateOnePlan(data: BackupPlanItem) {
 			for (let i = 0; i < this.plans.length; ++i) {
 				if (this.plans[i].name === data.name) {
-					this.plans[i] = data;
+					this.plans[i] = {
+						...this.plans[i],
+						...data
+					};
 					return;
 				}
 			}
@@ -64,7 +79,7 @@ export const useBackup2Store = defineStore('backup2', {
 		},
 		async getPlans() {
 			const tokenStore = useTokenStore();
-			const data: BackupPlanItems = await axios.get(
+			const data: BackupPlanItems2 = await axios.get(
 				tokenStore.url + '/api/backup/plans'
 			);
 			this.plans = data.items;

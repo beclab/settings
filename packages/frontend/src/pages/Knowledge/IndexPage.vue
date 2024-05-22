@@ -39,7 +39,7 @@
 						noSpinner
 					/>
 					<div class="text-body2 text-grey-10 path">
-						{{ folder.Paths.join(',') }}
+						{{ folder.paths != null ? folder.paths.join(',') : '' }}
 					</div>
 				</div>
 				<q-btn dense flat icon="sym_r_more_horiz">
@@ -66,6 +66,7 @@
 								class="row items-center justify-start popup-item text-grey-8"
 								style="padding: 8px; border-radius: 4px"
 								clickable
+								:disable="folder.default"
 								v-close-popup
 								@click="showRemoveDialog(folder)"
 							>
@@ -90,11 +91,17 @@
 						size="16px"
 						class="q-mr-xs"
 					/>
-					<div>{{ folder.indexDocNum + ' ' + t('docs') }}</div>
+					<div>{{ (folder.indexDocNum || 0) + ' ' + t('docs') }}</div>
 				</div>
 				<div class="row items-center q-ml-lg">
 					<q-icon name="sym_r_robot_2" size="16px" class="q-mr-xs" />
-					<div>0 linked agent</div>
+					<div>
+						{{
+							t('number_linked_agent', {
+								number: folder.linkedAgentNum || 0
+							})
+						}}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -109,6 +116,7 @@ import AddKnowledgeBaseDialog from './dialog/AddKnowledgeBaseDialog.vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
+import { notifyFailed, notifySuccess } from '../../utils/btNotify';
 const { t } = useI18n();
 
 const $q = useQuasar();
@@ -116,6 +124,9 @@ const fileStore = useFilesStore();
 
 onMounted(() => {
 	fileStore.GetDatasetFolderStatus();
+	// fileStore.UpdateDatasetFolderPaths('258d7bf5-e3e0-4f67-acfb-5dbcfd28b201', [
+	// 	'/data/Home/Documents'
+	// ]);
 });
 
 const addOrEditSearchFolderPath = (folder?: DatasetFolder) => {
@@ -124,7 +135,26 @@ const addOrEditSearchFolderPath = (folder?: DatasetFolder) => {
 		componentProps: {
 			datasetID: folder ? folder.datasetID : ''
 		}
-	}).onOk(async () => {});
+	}).onOk(async (data: { name: string; paths: string[] }) => {
+		// if (folder) {
+
+		// }
+		$q.loading.show();
+		try {
+			await fileStore.UpdateDatasetFolderPaths(
+				folder ? folder.datasetID : undefined,
+				folder ? undefined : data.name,
+				data.paths,
+				folder ? 0 : 1
+			);
+			notifySuccess();
+		} catch (error) {
+			console.log(error);
+			notifyFailed(error.message);
+		} finally {
+			$q.loading.hide();
+		}
+	});
 };
 
 const showRemoveDialog = (folder: DatasetFolder) => {
@@ -141,8 +171,20 @@ const showRemoveDialog = (folder: DatasetFolder) => {
 			isReminder: true,
 			confirmText: t('remove')
 		}
-	}).onOk(() => {
-		// deleteUserSureAction();
+	}).onOk(async () => {
+		$q.loading.show();
+		try {
+			await fileStore.UpdateDatasetFolderPaths(
+				folder.datasetID,
+				undefined,
+				undefined,
+				-1
+			);
+		} catch (error) {
+			notifyFailed(error.message);
+		} finally {
+			$q.loading.hide();
+		}
 	});
 };
 </script>

@@ -81,11 +81,11 @@ export class SecretService implements OnModuleInit {
       { name, value },
     );
 
-    // if (name == 'settings-account-space') {
-    //   this.spaceAccount = JSON.parse(value);
+    if (name == 'settings-account-space') {
+      this.spaceAccount = JSON.parse(value);
 
-    //   this.registerSpace();
-    // }
+      //   this.registerSpace();
+    }
 
     this.logger.debug(data);
   }
