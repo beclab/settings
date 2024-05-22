@@ -68,7 +68,7 @@
 			<!-- <div style="position: absolute; right: 0;height: 100%; width: 100px; background: green"/> -->
 		</div>
 		<div
-			class="text-body3 terminus-edit__error"
+			class="text-overline terminus-edit__error"
 			v-if="errorMessage.length > 0 && isError"
 		>
 			{{ errorMessage }}
@@ -248,7 +248,7 @@ const submit = () => {
 
 	&__error {
 		width: 100%;
-		margin-top: 12px;
+		margin-top: 4px;
 		color: $red;
 	}
 }

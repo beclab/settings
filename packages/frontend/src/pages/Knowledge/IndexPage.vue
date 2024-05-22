@@ -116,6 +116,7 @@ import AddKnowledgeBaseDialog from './dialog/AddKnowledgeBaseDialog.vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
+import { notifyFailed, notifySuccess } from '../../utils/btNotify';
 const { t } = useI18n();
 
 const $q = useQuasar();
@@ -138,12 +139,21 @@ const addOrEditSearchFolderPath = (folder?: DatasetFolder) => {
 		// if (folder) {
 
 		// }
-		fileStore.UpdateDatasetFolderPaths(
-			folder ? folder.datasetID : undefined,
-			folder ? undefined : data.name,
-			data.paths,
-			folder ? 0 : 1
-		);
+		$q.loading.show();
+		try {
+			await fileStore.UpdateDatasetFolderPaths(
+				folder ? folder.datasetID : undefined,
+				folder ? undefined : data.name,
+				data.paths,
+				folder ? 0 : 1
+			);
+			notifySuccess();
+		} catch (error) {
+			console.log(error);
+			notifyFailed(error.message);
+		} finally {
+			$q.loading.hide();
+		}
 	});
 };
 
@@ -161,13 +171,20 @@ const showRemoveDialog = (folder: DatasetFolder) => {
 			isReminder: true,
 			confirmText: t('remove')
 		}
-	}).onOk(() => {
-		fileStore.UpdateDatasetFolderPaths(
-			folder.datasetID,
-			undefined,
-			undefined,
-			-1
-		);
+	}).onOk(async () => {
+		$q.loading.show();
+		try {
+			await fileStore.UpdateDatasetFolderPaths(
+				folder.datasetID,
+				undefined,
+				undefined,
+				-1
+			);
+		} catch (error) {
+			notifyFailed(error.message);
+		} finally {
+			$q.loading.hide();
+		}
 	});
 };
 </script>

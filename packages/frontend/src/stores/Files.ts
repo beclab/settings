@@ -83,9 +83,6 @@ export const useFilesStore = defineStore('files', {
 				{ paths, datasetID, datasetName, create_or_delete }
 			);
 
-			console.log();
-			console.log('data ==>');
-			console.log(data);
 			await this.GetDatasetFolderStatus();
 			return data;
 		}

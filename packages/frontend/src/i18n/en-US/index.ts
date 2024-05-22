@@ -75,7 +75,9 @@ export default {
 			'Please input 6 digit email verification code',
 		please_input_url: 'please input URL',
 		secret_is_required: 'Secret is required',
-		name_is_required: 'Name is required'
+		name_is_required: 'Name is required',
+		knowledge_base_name_already_taken: 'Knowldege base name	already taken',
+		paths_must_start_with_data_home: 'The path must start with /data/Home/'
 	},
 	pictures: 'Pictures',
 	login_background: 'Login Background',

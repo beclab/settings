@@ -12,8 +12,15 @@
 					:show-password-img="false"
 					style="width: 100%"
 					:isReadOnly="datasetID.length > 0"
+					:is-error="nameIsError"
+					:error-message="
+						t('errors.knowledge_base_name_already_taken')
+					"
 				/>
-				<div class="text-overline text-grey-5 q-mt-xs">
+				<div
+					class="text-overline text-grey-5 q-mt-xs"
+					v-if="!nameIsError"
+				>
 					{{ t('knowldege_base_name') }}
 				</div>
 
@@ -24,8 +31,13 @@
 					:is-textarea="true"
 					style="width: 100%"
 					class="q-mt-lg"
+					:is-error="pathsIsError"
+					:error-message="t('errors.paths_must_start_with_data_home')"
 				/>
-				<div class="text-overline text-grey-5 q-mt-xs">
+				<div
+					v-if="!pathsIsError"
+					class="text-overline text-grey-5 q-mt-xs"
+				>
 					{{ t('separate_different_paths_with_a_comma') }}
 				</div>
 
@@ -82,11 +94,32 @@ if (props.datasetID) {
 const enableCreate = computed(() => {
 	return (
 		name.value.length > 0 &&
+		!nameIsError.value &&
 		paths.value.length > 0 &&
 		(!dataset ||
 			(dataset.paths == null && paths.value) ||
-			dataset.paths.join(',') != paths.value)
+			dataset.paths.join(',') != paths.value) &&
+		!pathsIsError.value
 	);
+});
+
+const nameIsError = computed(() => {
+	return (
+		props.datasetID.length == 0 &&
+		fileStore.datasets.find((e) => e.datasetName == name.value) != undefined
+	);
+});
+
+const pathsIsError = computed(() => {
+	return (
+		paths.value != null &&
+		paths.value.length > 0 &&
+		paths.value
+			.split(',')
+			.find((e) => e.length > 11 && !e.startsWith('/data/Home/')) !=
+			undefined
+	);
+	// return false;
 });
 
 const createUserName = () => {
