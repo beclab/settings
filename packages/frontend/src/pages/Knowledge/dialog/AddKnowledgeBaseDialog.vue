@@ -95,7 +95,7 @@ const enableCreate = computed(() => {
 	return (
 		name.value.length > 0 &&
 		!nameIsError.value &&
-		paths.value.length > 0 &&
+		paths.value.length >= 11 &&
 		(!dataset ||
 			(dataset.paths == null && paths.value) ||
 			dataset.paths.join(',') != paths.value) &&
@@ -116,7 +116,7 @@ const pathsIsError = computed(() => {
 		paths.value.length > 0 &&
 		paths.value
 			.split(',')
-			.find((e) => e.length > 11 && !e.startsWith('/data/Home/')) !=
+			.find((e) => e.length >= 11 && !e.startsWith('/data/Home/')) !=
 			undefined
 	);
 	// return false;
