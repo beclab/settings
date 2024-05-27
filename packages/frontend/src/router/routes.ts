@@ -87,14 +87,6 @@ const routes: RouteRecordRaw[] = [
 					)
 			},
 
-			{
-				path: 'application/authlevel/:name/:entrance',
-				component: () =>
-					import(
-						'src/pages/Application/pages/ApplicationAuthLevelPage.vue'
-					)
-			},
-
 			/// service
 			// {
 			// 	path: '/notification',
