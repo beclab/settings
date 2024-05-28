@@ -39,3 +39,6 @@ packages/server/dist
 .lintcache
 packages/server/data
 .eslintcache
+
+packages/frontend/src/assets/fonts/nyTnjDwKNJ_190FjzaqkNCeE.woff2
+fonttools/*

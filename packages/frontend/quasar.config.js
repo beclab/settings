@@ -33,22 +33,11 @@ module.exports = configure(function (ctx) {
 		boot: ['axios', 'smartEnginEntrance', 'i18n'],
 
 		// https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-css
-		css: ['app.scss'],
+		css: ['app.scss', ctx.dev ? 'font.dev.scss' : 'font.pro.scss'],
 
 		// https://github.com/quasarframework/quasar/tree/dev/extras
 		extras: [
-			// 'ionicons-v4',
-			// 'mdi-v5',
-			// 'fontawesome-v6',
-			// 'eva-icons',
-			// 'themify',
-			// 'line-awesome',
-			// 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-			'roboto-font', // optional, you are not bound to it
-			'material-icons', // optional, you are not bound to it
-			'bootstrap-icons',
-			'material-symbols-rounded'
+			'material-icons' // optional, you are not bound to it
 		],
 
 		// Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-build
