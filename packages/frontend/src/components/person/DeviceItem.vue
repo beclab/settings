@@ -73,6 +73,7 @@ const getIconName = () => {
 	if (props.device) {
 		switch (props.device.platform) {
 			case 'android':
+			case 'Android':
 				switch (props.device.manufacturer) {
 					case 'Xiaomi':
 						return 'xiaomi';
@@ -92,6 +93,7 @@ const getIconName = () => {
 						return 'android';
 				}
 			case 'ios':
+			case 'iOS':
 				return 'iPhone';
 			case 'chrome extends':
 				return 'chrome';

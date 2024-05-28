@@ -39,3 +39,6 @@ packages/server/dist
 .lintcache
 packages/server/data
 .eslintcache
+
+packages/frontend/src/assets/fonts/MaterialSymbolsRounded.woff2
+fonttools/*
