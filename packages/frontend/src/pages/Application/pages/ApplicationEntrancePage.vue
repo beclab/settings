@@ -79,21 +79,21 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { firstToUpper } from 'src/constant';
-import { useApplicationStore } from 'src/stores/Application';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
-import BtFormItem from 'components/base/BtFormItem.vue';
-import BtSelect from 'components/base/BtSelect.vue';
+import { firstToUpper } from '../../../constant';
+import { useApplicationStore } from '../../../stores/Application';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
+import BtSelect from '../../../components/base/BtSelect.vue';
 import {
 	FACTOR_MODEL,
 	factorModelOptions,
 	authLevelOptions,
 	EntrancePolicy,
 	AUTH_LEVEL
-} from 'src/utils/constants';
-import PoliciesCard from 'components/application/PoliciesCard.vue';
+} from '../../../utils/constants';
+import PoliciesCard from '../../../components/application/PoliciesCard.vue';
 import BtTimePicker from '../../../components/base/BtTimePicker.vue';
-import ErrorMessageTip from 'components/base/ErrorMessageTip.vue';
+import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 import { notifyFailed, notifyWarning } from '../../../utils/btNotify';
 
 import { useI18n } from 'vue-i18n';
@@ -181,10 +181,10 @@ async function updateFactorModel() {
 }
 
 async function onSubmitAuthLevel() {
-	let value = '';
 	if (
-		authorizationLevel.value !== AUTH_LEVEL.Public &&
-		authorizationLevel.value !== AUTH_LEVEL.Private
+		!authorizationLevel.value ||
+		(authorizationLevel.value !== AUTH_LEVEL.Public &&
+			authorizationLevel.value !== AUTH_LEVEL.Private)
 	) {
 		notifyWarning(
 			t('auth_level_is_error_error', {
@@ -198,7 +198,7 @@ async function onSubmitAuthLevel() {
 		application.value?.name,
 		entrance_name,
 		{
-			authorization_level: value
+			authorization_level: authorizationLevel.value
 		}
 	);
 
@@ -208,8 +208,12 @@ async function onSubmitAuthLevel() {
 async function updateAuthLevel() {
 	const res =
 		applicationStore.entrances[application_name.value][entrance_name];
-	authorizationLevel.value = res.authLevel;
-	oldAuthorizationLevel.value = res.authLevel;
+
+	console.log('res.authLevel ===>');
+	console.log(res);
+
+	authorizationLevel.value = res.authLevel || AUTH_LEVEL.Public;
+	oldAuthorizationLevel.value = res.authLevel || AUTH_LEVEL.Public;
 }
 
 const resultCode = computed(() => {
