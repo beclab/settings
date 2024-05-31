@@ -39,7 +39,7 @@
 				</div>
 			</q-item-section>
 			<q-item-section side>
-				<q-icon name="sym_r_chevron_right" color="grey-8" size="20px" />
+				<q-icon name="sym_r_chevron_right" color="ink-1" size="20px" />
 			</q-item-section>
 		</q-item>
 		<account-item
@@ -105,10 +105,10 @@ const featuresToast = () => {
 }
 
 .application-name {
-	color: $text1;
+	color: $ink-1;
 }
 
 .application-label {
-	color: $grey-5;
+	color: $ink-2;
 }
 </style>

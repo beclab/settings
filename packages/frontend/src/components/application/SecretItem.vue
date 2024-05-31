@@ -50,6 +50,6 @@ const emit = defineEmits(['onUpdate', 'onDelete']);
 
 <style scoped lang="scss">
 .secret-label {
-	color: $text1;
+	color: $ink-1;
 }
 </style>

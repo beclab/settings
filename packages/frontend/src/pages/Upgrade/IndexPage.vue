@@ -32,11 +32,18 @@
 					</div>
 				</q-item-section>
 				<q-item-section side>
-					<div class="upgradeNow" v-if="upgradeState === 'running'">
+					<div
+						class="upgradeNow text-body3"
+						v-if="upgradeState === 'running'"
+					>
 						<span class="loader"></span>
 						{{ t('upgrading') }}
 					</div>
-					<div class="upgradeNow" @click="handleUpgrade" v-else>
+					<div
+						class="upgradeNow text-body3"
+						@click="handleUpgrade"
+						v-else
+					>
 						{{ t('upgrade_now') }}
 					</div>
 				</q-item-section>
@@ -131,15 +138,15 @@ onUnmounted(() => {
 }
 
 .upgradeNow {
-	border: 1px solid rgba(0, 0, 0, 0.12);
-	padding: 4px 6px;
+	border: 1px solid $separator;
+	padding: 8px 12px;
 	border-radius: 6px;
 	cursor: pointer;
-	color: #757575;
-	background-color: #fffffb;
+	color: $ink-2;
+	background-color: $background-3;
 
 	&:hover {
-		background: #eeeeeb;
+		background: $background-5;
 	}
 }
 

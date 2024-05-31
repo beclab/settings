@@ -18,7 +18,7 @@
 					"
 				/>
 				<div
-					class="text-overline text-grey-5 q-mt-xs"
+					class="text-overline text-ink-2 q-mt-xs"
 					v-if="!nameIsError"
 				>
 					{{ t('knowldege_base_name') }}
@@ -36,7 +36,7 @@
 				/>
 				<div
 					v-if="!pathsIsError"
-					class="text-overline text-grey-5 q-mt-xs"
+					class="text-overline text-ink-2 q-mt-xs"
 				>
 					{{ t('separate_different_paths_with_a_comma') }}
 				</div>

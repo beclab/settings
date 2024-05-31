@@ -15,7 +15,7 @@
 					>
 						<div class="row justify-start" style="width: 100%">
 							<div
-								class="bg-grey-1 row items-center justify-center device-title-image"
+								class="bg-background-3 row items-center justify-center device-title-image"
 							>
 								<q-img
 									class="icon"
@@ -34,21 +34,21 @@
 							>
 								<div class="row items-center">
 									<div
-										class="text-subtitle1 text-text1"
+										class="text-subtitle1 text-ink-1"
 										@click.stop="titleAction"
 									>
 										{{ device?.givenName }}
 									</div>
 									<q-icon
 										@click.stop="titleAction"
-										class="q-ml-sm text-text2"
+										class="q-ml-sm text-ink-2"
 										name="sym_r_edit_square"
 										size="20px"
 									/>
 								</div>
 								<div class="tags-bg row q-gutter-xs">
 									<div
-										class="bg-grey-1 text-overline row items-center justiy-center tags-add"
+										class="bg-background-3 text-overline row items-center justiy-center tags-add"
 										@click.stop="addTag"
 									>
 										<q-icon name="sym_r_add" class="icon" />
@@ -58,7 +58,7 @@
 										v-for="(i, index) in tags"
 										@click.stop="deleteTag(index)"
 										:key="index"
-										class="bg-grey-1 text-overline row items-center justiy-center tags-item"
+										class="bg-background-3 text-overline row items-center justiy-center tags-item"
 									>
 										<div>
 											{{ i }}
@@ -84,7 +84,7 @@
 			</q-item-section>
 		</template>
 		<q-card class="device-item-content">
-			<q-separator class="text-grey-2" />
+			<q-separator class="bg-separator" />
 			<q-list style="padding: 0">
 				<q-item style="padding: 0">
 					<q-item-section class="text-body2 title">
@@ -412,7 +412,7 @@ export default defineComponent({
 				margin-right: 8px;
 			}
 
-			color: $grey-5;
+			color: $ink-2;
 		}
 
 		.tags-item {
@@ -420,13 +420,13 @@ export default defineComponent({
 			border-radius: 4px;
 			height: 20px;
 
-			color: $text1;
+			color: $ink-1;
 
 			.icon {
 				width: 12px;
 				height: 12px;
 				margin-left: 8px;
-				color: $grey-5;
+				color: $ink-2;
 			}
 
 			/* 120% */
@@ -438,11 +438,11 @@ export default defineComponent({
 	padding: 0 20px;
 
 	.title {
-		color: $text2;
+		color: $ink-2;
 	}
 
 	.detail {
-		color: $text1;
+		color: $ink-1;
 	}
 
 	.route-base {

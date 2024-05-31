@@ -4,7 +4,7 @@
 		:title="t('home_menus.wallpaper')"
 	/>
 
-	<bt-scroll-area class="nav-height-scroll-area-conf text-text1">
+	<bt-scroll-area class="nav-height-scroll-area-conf text-ink-1">
 		<div class="row">
 			<wallpaper-image
 				:width="258"
@@ -52,11 +52,7 @@
 				<div
 					class="select-avatar-title-bg row items-center justify-start"
 				>
-					<q-icon
-						name="sym_r_imagesmode"
-						color="grey-10"
-						size="20px"
-					/>
+					<q-icon name="sym_r_imagesmode" color="ink-1" size="20px" />
 					<div class="text-subtitle2 select-avatar-title">
 						{{ t('pictures') }}
 					</div>

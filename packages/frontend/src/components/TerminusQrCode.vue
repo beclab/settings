@@ -14,7 +14,7 @@
 				class="refresh-icon cursor-pointer"
 				src="../assets/refresh_qr_code.svg"
 			/>
-			<span class="refresh-text text-grey-10 q-mt-lg" :class="textStyle">
+			<span class="refresh-text text-ink-1 q-mt-lg" :class="textStyle">
 				{{ t('login.qr_code_expired_refresh') }}
 			</span>
 		</div>
@@ -27,7 +27,7 @@
 				class="refresh-icon cursor-pointer"
 				src="../assets/qr_refresh_success.svg"
 			/>
-			<span class="refresh-text text-grey-10 q-mt-lg" :class="textStyle">
+			<span class="refresh-text text-ink-1 q-mt-lg" :class="textStyle">
 				{{ t('login.scan_successful') }}
 			</span>
 		</div>

@@ -59,10 +59,9 @@ const imgContentModeRef = ref(imgContentModes[0]);
 	text-decoration: none;
 
 	.background-mode-item-normal {
-		background: #fff;
 		border-radius: 4px;
 		padding: var(--padding);
-		border: 1px solid #fff;
+		border: 1px solid transparent;
 	}
 
 	.background-mode-item-select {

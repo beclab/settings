@@ -84,11 +84,11 @@ console.log('roles ===>', props.account);
 		padding: 0;
 
 		.person-name {
-			color: $text1;
+			color: $ink-1;
 		}
 
 		.person-role {
-			color: $grey-5;
+			color: $ink-2;
 		}
 	}
 }

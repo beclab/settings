@@ -35,12 +35,6 @@ export interface EntrancePolicy {
 	valid_duration: number;
 }
 
-export enum ConfirmButtonStatus {
-	normal = 1,
-	error = 2,
-	disable = 3
-}
-
 export const locationOptions = [
 	{
 		label: i18n.global.t('server_location.terminus_space'),

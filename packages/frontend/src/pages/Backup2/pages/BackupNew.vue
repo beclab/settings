@@ -144,14 +144,14 @@
 							v-if="frequency == BackupFrequency.Weekly"
 						/>
 
-						<div class="text-body2 text-grey-10 q-ml-md">
+						<div class="text-body2 text-ink-1 q-ml-md">
 							{{ time }}
 						</div>
 
 						<q-icon
 							size="20px"
 							name="sym_r_access_time"
-							color="grey-10"
+							color="ink-1"
 							class="time-clock"
 						>
 							<q-popup-proxy
@@ -190,11 +190,11 @@
 													? 'sym_r_check'
 													: 'sym_r_clear'
 											"
-											class="text-grey-5"
+											class="text-ink-2"
 											size="16px"
 										/>
 									</div>
-									<div class="text-body3 text-grey-5">
+									<div class="text-body3 text-ink-2">
 										{{
 											t('must_have_at_least_4_characters')
 										}}

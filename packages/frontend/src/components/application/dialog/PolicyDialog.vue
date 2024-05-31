@@ -12,7 +12,7 @@
 				<q-icon
 					size="16px"
 					name="sym_r_clear"
-					color="grey-8"
+					color="ink-1"
 					@click="onDialogCancel"
 				/>
 			</div>
@@ -159,14 +159,13 @@ async function onOKClick() {
 	max-width: 400px;
 	width: 400px;
 	height: auto;
-	background: #fff;
 	padding: 0;
 	position: relative;
 
 	.policy-dialog-header {
 		width: 100%;
 		height: 32px;
-		background: $grey-1;
+		background: $background-3;
 		padding-left: 12px;
 		padding-right: 12px;
 	}

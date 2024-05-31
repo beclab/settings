@@ -38,7 +38,7 @@
 		<q-separator class="separator-background" />
 		<div class="bottom-part__content row items-center justify-between">
 			<div
-				class="text-body3 text-text1 row items-center justify-center reminder"
+				class="text-body3 text-ink-1 row items-center justify-center reminder"
 			>
 				{{ t('select_the_image_to_complete_binding_nft_message') }}
 			</div>

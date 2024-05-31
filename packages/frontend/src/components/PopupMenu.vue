@@ -6,14 +6,14 @@
 	>
 		<q-list dense padding style="width: 120px">
 			<q-item
-				class="row items-center justify-start popup-item text-grey-8"
+				class="row items-center justify-start popup-item text-ink-2"
 				clickable
 				v-close-popup
 			>
 				<q-item-section class="menuName">ssss</q-item-section>
 			</q-item>
 			<q-item
-				class="row items-center justify-start popup-item text-grey-8"
+				class="row items-center justify-start popup-item text-ink-2"
 				clickable
 				v-close-popup
 			>

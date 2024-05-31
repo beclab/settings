@@ -29,20 +29,19 @@ const funcOnClick = () => {
 .func-btn-bg {
 	.func-btn {
 		height: 24px;
-		background: #fff;
 		border-radius: 8px;
-		border: 1px solid $grey-2;
+		border: 1px solid $btn-stroke;
 		width: auto;
 		padding: 4px 12px;
 
 		.title {
 			text-align: center;
-			color: $text2;
+			color: $ink-2;
 		}
 	}
 
 	.func-btn:hover {
-		background-color: $grey-1;
+		background-color: $btn-stroke;
 	}
 }
 </style>

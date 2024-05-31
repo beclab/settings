@@ -5,7 +5,7 @@
 				class="add-btn row justify-center items-center"
 				@click="addOrEditSearchFolderPath()"
 			>
-				<q-icon size="16px" name="sym_r_add" color="grey-8" />
+				<q-icon size="16px" name="sym_r_add" color="ink-1" />
 				<div class="text-body3 add-title">
 					{{ t('create_new') }}
 				</div>
@@ -27,7 +27,7 @@
 			v-for="folder in fileStore.datasets"
 			:key="folder.datasetID"
 		>
-			<div class="text-subtitle1 text-grey-10 q-mb-md">
+			<div class="text-subtitle1 text-ink-1 q-mb-md">
 				{{ folder.datasetName }}
 			</div>
 			<q-separator class="separator-background" />
@@ -38,7 +38,7 @@
 						src="folder_documents.svg"
 						noSpinner
 					/>
-					<div class="text-body2 text-grey-10 path">
+					<div class="text-body2 text-ink-1 path">
 						{{ folder.paths != null ? folder.paths.join(',') : '' }}
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 					<q-menu :offset="[90, 5]">
 						<q-list dense class="popup-list">
 							<q-item
-								class="row items-center justify-start popup-item text-grey-8"
+								class="row items-center justify-start popup-item text-ink-2"
 								style="padding: 8px; border-radius: 4px"
 								clickable
 								v-close-popup
@@ -57,13 +57,12 @@
 									size="20px"
 									class="q-mr-sm"
 								/>
-								<q-item-section
-									class="text-body3 text-grey-8"
-									>{{ t('edit') }}</q-item-section
-								>
+								<q-item-section class="text-body3 text-ink-2">{{
+									t('edit')
+								}}</q-item-section>
 							</q-item>
 							<q-item
-								class="row items-center justify-start popup-item text-grey-8"
+								class="row items-center justify-start popup-item text-ink-2"
 								style="padding: 8px; border-radius: 4px"
 								clickable
 								:disable="folder.default"
@@ -75,16 +74,15 @@
 									size="20px"
 									class="q-mr-sm"
 								/>
-								<q-item-section
-									class="text-body3 text-grey-8"
-									>{{ t('remove') }}</q-item-section
-								>
+								<q-item-section class="text-body3 text-ink-2">{{
+									t('remove')
+								}}</q-item-section>
 							</q-item>
 						</q-list>
 					</q-menu>
 				</q-btn>
 			</div>
-			<div class="row items-center text-grey-5 text-body3">
+			<div class="row items-center text-ink-2 text-body3">
 				<div class="row items-center">
 					<q-icon
 						name="sym_r_description"
@@ -193,22 +191,22 @@ const showRemoveDialog = (folder: DatasetFolder) => {
 .directory-tips {
 	margin-top: 12px;
 	margin-bottom: 12px;
-	color: $grey-5;
+	color: $ink-2;
 }
 
 .add-btn {
 	border-radius: 8px;
 	padding: 6px 12px;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	cursor: pointer;
 	text-decoration: none;
 
 	.add-title {
-		color: $text2;
+		color: $ink-2;
 	}
 }
 .add-btn:hover {
-	background-color: $grey-1;
+	background-color: $background-3;
 }
 .directory-image {
 	width: 24px;

@@ -39,7 +39,7 @@ defineProps({
 <style scoped lang="scss">
 .bt-grid-item-root {
 	.bt-grid-item-value {
-		color: $text1;
+		color: $ink-1;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
@@ -55,7 +55,7 @@ defineProps({
 	.bt-grid-item-label {
 		text-transform: capitalize;
 		margin-top: 4px;
-		color: $grey-5;
+		color: $ink-2;
 	}
 }
 </style>

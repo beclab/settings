@@ -1,7 +1,7 @@
 <template>
 	<page-title-component :show-back="true" :title="t('account_info')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf" v-if="userInfo">
-		<div v-show="usage" class="text-subtitle1 text-text1 resource-title">
+		<div v-show="usage" class="text-subtitle1 text-ink-1 resource-title">
 			{{ t('resource_usage') }}
 		</div>
 		<div
@@ -26,7 +26,7 @@
 			/>
 		</div>
 
-		<div class="text-subtitle1 text-text1 resource-title">
+		<div class="text-subtitle1 text-ink-1 resource-title">
 			{{ t('info') }}
 		</div>
 

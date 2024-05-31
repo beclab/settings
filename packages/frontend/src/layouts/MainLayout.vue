@@ -28,8 +28,8 @@
 									class="text-subtitle1 person-name"
 									:class="
 										itemMenu === '/'
-											? 'text-blue-6'
-											: 'text-grey-10'
+											? 'text-blue-default'
+											: 'text-ink-1'
 									"
 								>
 									{{ adminStore.user.name }}
@@ -38,8 +38,8 @@
 									class="text-body3 person-id"
 									:class="
 										itemMenu === '/'
-											? 'text-blue-5'
-											: 'text-grey-8'
+											? 'text-blue-default'
+											: 'text-ink-2'
 									"
 								>
 									{{
@@ -205,9 +205,8 @@ onMounted(() => {
 	.settings_left {
 		width: 240px;
 		height: 100%;
-		background-color: #ffffff;
 		border-right-width: 1px;
-		border-right: $grey-2;
+		border-right: $separator;
 		border-right-style: solid;
 
 		.person-item {
@@ -229,7 +228,7 @@ onMounted(() => {
 		height: 100%;
 
 		.settings_content_view {
-			background: white;
+			// background: white;
 			overflow: hidden;
 			height: 100%;
 			width: 100%;
@@ -239,7 +238,7 @@ onMounted(() => {
 }
 
 .main-layout::v-deep .my-active-link {
-	color: $blue;
-	background-color: $blue-1;
+	color: $blue-default;
+	background-color: $blue-alpha;
 }
 </style>

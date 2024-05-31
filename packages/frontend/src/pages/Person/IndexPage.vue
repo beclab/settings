@@ -3,15 +3,15 @@
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<div class="avatar-layout column items-center justify-center">
 			<setting-avatar :size="72" />
-			<div class="text-h4 text-grey-10 admin-name">
+			<div class="text-h4 text-ink-1 admin-name">
 				{{ adminStore.user.name }}
 			</div>
-			<div class="text-grey-5 text-body1 admin-name">
+			<div class="text-ink-3 text-body1 admin-name">
 				{{ '@' + adminStore.terminus.terminusName.split('@')[1] }}
 			</div>
 		</div>
 
-		<div class="text-subtitle1 text-text1 person-title">
+		<div class="text-subtitle1 text-ink-1 person-title">
 			{{ t('device') }}
 		</div>
 		<template
@@ -21,7 +21,7 @@
 			<device-item :device="device" />
 		</template>
 
-		<div class="text-subtitle1 text-text1 person-title">
+		<div class="text-subtitle1 text-ink-1 person-title">
 			{{ t('security') }}
 		</div>
 		<q-list class="q-list-class">

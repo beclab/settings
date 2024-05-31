@@ -4,7 +4,7 @@
 		<bt-form v-model:can-submit="canSubmit">
 			<q-list class="q-list-class">
 				<bt-form-item :title="t('backup_name')">
-					<div class="text-body2 text-grey-5">{{ name }}</div>
+					<div class="text-body2 text-ink-2">{{ name }}</div>
 				</bt-form-item>
 
 				<bt-form-item :title="t('snapshot_frequency')">
@@ -24,14 +24,14 @@
 							:options="weekOption"
 							v-if="frequency == BackupFrequency.Weekly"
 						/>
-						<div class="text-body2 text-grey-10 q-ml-md">
+						<div class="text-body2 text-ink-1 q-ml-md">
 							{{ time }}
 						</div>
 
 						<q-icon
 							size="20px"
 							name="sym_r_access_time"
-							color="grey-10"
+							color="ink-1"
 							class="time-clock"
 						>
 							<q-popup-proxy
@@ -93,7 +93,7 @@
 		<div class="q-list-class" v-if="snapshots.length > 0">
 			<q-table
 				tableHeaderStyle="height: 32px;"
-				table-header-class="text-body3 text-text2"
+				table-header-class="text-body3 text-ink-2"
 				flat
 				:bordered="false"
 				:rows="snapshots"
@@ -114,7 +114,7 @@
 								<q-icon
 									name="sym_r_chevron_right"
 									size="16px"
-									color="grey-8"
+									color="ink-1"
 								/>
 							</div>
 						</div>
@@ -333,7 +333,7 @@ const pagination = ref({
 
 <style lang="scss" scoped>
 .resource-title {
-	color: $text1;
+	color: $ink-1;
 	margin-top: 12px;
 	margin-bottom: 8px;
 }
@@ -342,7 +342,7 @@ const pagination = ref({
 	width: 24px;
 	height: 24px;
 	border-radius: 8px;
-	background: $grey-1;
+	background: $background-3;
 	text-align: right;
 }
 

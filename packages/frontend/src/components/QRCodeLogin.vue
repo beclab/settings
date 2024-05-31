@@ -1,9 +1,7 @@
 <template>
 	<div class="content-bg column items-center justify-center">
 		<slot name="mode" />
-		<div
-			class="row justify-center items-center text-grey-8 text-body-1 q-mt-md"
-		>
+		<div class="row justify-center items-center text-body-1 q-mt-md">
 			<div>{{ t('scan_qr_code_with') }}</div>
 			<q-img
 				src="../assets/termipass_logo.svg"
@@ -150,15 +148,16 @@ const emit = defineEmits(['success']);
 .content-bg {
 	width: 400px;
 	height: 424px;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	margin-top: 64px;
 	border-radius: 12px;
 }
 
 .cloud-qr-code {
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	border-radius: 10px;
 	width: 240px;
 	height: 240px;
+	background-color: white;
 }
 </style>

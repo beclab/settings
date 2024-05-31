@@ -14,7 +14,7 @@
 .bt-grid-root {
 	width: 100%;
 	height: auto;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	border-radius: 12px;
 	padding: 12px 20px;
 	margin-top: 12px;

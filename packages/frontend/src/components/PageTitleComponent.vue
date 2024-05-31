@@ -6,7 +6,7 @@
 				class="back-btn row items-center justify-center"
 				@click="backToPrePage"
 			>
-				<q-icon name="bi-chevron-left" size="16px" />
+				<q-icon name="sym_r_chevron_left" size="24px" />
 			</div>
 			<div class="text-h5 text-text1">
 				{{ title }}
@@ -59,7 +59,7 @@ const backToPrePage = () => {
 		margin-right: 2px;
 
 		&:hover {
-			background-color: $grey-1;
+			background-color: $background-3;
 		}
 	}
 }
