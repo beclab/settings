@@ -375,7 +375,12 @@ export default defineComponent({
 .device-item-title {
 	height: auto;
 
+	.common-background {
+		background-color: $background-3;
+	}
+
 	.device-title-image {
+		@extend .common-background;
 		height: 32px;
 		width: 32px;
 		border-radius: 16px;
@@ -402,6 +407,7 @@ export default defineComponent({
 		height: auto;
 
 		.tags-add {
+			@extend .common-background;
 			border-radius: 4px;
 			padding: 0px 8px;
 			height: 20px;
@@ -416,6 +422,7 @@ export default defineComponent({
 		}
 
 		.tags-item {
+			@extend .common-background;
 			padding: 0px 8px;
 			border-radius: 4px;
 			height: 20px;

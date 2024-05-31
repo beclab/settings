@@ -103,6 +103,10 @@ module.exports = configure(function (ctx) {
 				'/kapis': {
 					target: 'https://settings.guojianmin.myterminus.com/',
 					changeOrigin: true
+				},
+				'/headscale': {
+					target: 'https://settings.guojianmin.myterminus.com/',
+					changeOrigin: true
 				}
 			},
 			port: 9000
