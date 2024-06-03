@@ -253,3 +253,12 @@ export enum QR_STATUS {
 	EXPIRED,
 	SUCCESSFUL
 }
+
+export function getSecondLevelDomain() {
+	const domainParts = window.location.hostname.split('.');
+	if (domainParts.length >= 3) {
+		return domainParts.slice(-3).join('.');
+	} else {
+		return window.location.hostname;
+	}
+}

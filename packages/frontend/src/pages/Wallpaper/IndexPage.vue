@@ -252,20 +252,6 @@ const uploadBackgrounds = computed(() => {
 
 const exteriorUpdate = (value: Exterior) => {
 	// backgroundStore.exterior = value;
-	console.log('window.location.host ===>', window.location.host);
-	console.log(Cookies.get('exterior_value'));
-
-	// Cookies.set('exterior_value', `${value}`, {
-	// 	domain: 'localhost',
-	// 	path: '/',
-	// 	sameSite: 'None',
-	// 	secure: true
-	// });
-	// if (backgroundStore.exterior == Exterior.AUTO) {
-	// 	$q.dark.set('auto');
-	// } else {
-	// 	$q.dark.set(backgroundStore.exterior == Exterior.DARK);
-	// }
 	backgroundStore.exteriorUpdate(value);
 };
 </script>

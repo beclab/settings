@@ -2,6 +2,7 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
 import { Cookies, Dark } from 'quasar';
+import { getSecondLevelDomain } from '../utils/constants';
 
 export interface Wallpaper {
 	desktop: string;
@@ -143,6 +144,7 @@ export const useBackgroundStore = defineStore('background', {
 
 			Cookies.set(exterior_mode, `${exterior}`, {
 				path: '/',
+				domain: getSecondLevelDomain(),
 				sameSite: 'None',
 				secure: true
 			});
