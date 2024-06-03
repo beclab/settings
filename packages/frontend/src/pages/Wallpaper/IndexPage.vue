@@ -116,16 +116,16 @@
 					<!-- <q-icon name="sym_r_imagesmode" color="ink-1" size="20px" /> -->
 					<div class="text-subtitle2 select-avatar-title">
 						<!-- {{ t('pictures') }} -->
-						Exterior
+						Theme
 					</div>
 				</div>
 			</div>
 			<div class="q-pa-lg">
 				<q-option-group
-					v-model="backgroundStore.exterior"
-					:options="exteriorOptions"
+					v-model="backgroundStore.theme"
+					:options="themeOptions"
 					color="primary"
-					@update:model-value="exteriorUpdate"
+					@update:model-value="themeUpdate"
 					inline
 				/>
 			</div>
@@ -136,21 +136,17 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { BackgroundMode } from 'src/constant';
-import {
-	useBackgroundStore,
-	exteriorOptions,
-	Exterior
-} from '../../stores/Background';
+import { useBackgroundStore, themeOptions } from '../../stores/Background';
 import WallpaperImage from '../../components/WallpaperImage.vue';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import { debounce, useQuasar, Cookies } from 'quasar';
+import { debounce } from 'quasar';
 import { useI18n } from 'vue-i18n';
+import { ThemeDefinedMode } from '@bytetrade/ui';
 
 const backgroundStore = useBackgroundStore();
 const selectBackgroundMode = ref(BackgroundMode.desktop);
 
 const { t } = useI18n();
-const $q = useQuasar();
 
 const ok = async (response: any) => {
 	if (selectBackgroundMode.value == BackgroundMode.desktop) {
@@ -250,9 +246,8 @@ const uploadBackgrounds = computed(() => {
 //        */
 //       other?: string;
 
-const exteriorUpdate = (value: Exterior) => {
-	// backgroundStore.exterior = value;
-	backgroundStore.exteriorUpdate(value);
+const themeUpdate = (theme: ThemeDefinedMode) => {
+	backgroundStore.themeUpdate(theme);
 };
 </script>
 

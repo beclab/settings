@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
 import { Cookies, Dark } from 'quasar';
 import { getSecondLevelDomain } from '../utils/constants';
+import { ThemeDefinedMode, themeModeName } from '@bytetrade/ui';
 
 export interface Wallpaper {
 	desktop: string;
@@ -11,40 +12,32 @@ export interface Wallpaper {
 	upload_login_backgrounds: string[];
 }
 
-export enum Exterior {
-	AUTO = 0,
-	WHITE = 1,
-	DARK = 2
-}
-
-export const exteriorOptions = [
+export const themeOptions = [
 	{
-		label: 'White',
-		value: Exterior.WHITE
+		label: 'Light',
+		value: ThemeDefinedMode.LIGHT
 	},
 	{
 		label: 'Dark',
-		value: Exterior.DARK
+		value: ThemeDefinedMode.DARK
 	},
 	{
 		label: 'Auto',
-		value: Exterior.AUTO
+		value: ThemeDefinedMode.AUTO
 	}
 ];
 
 export type BackgroundState = {
 	//
 	wallpaper: Wallpaper;
-	exterior: Exterior;
+	theme: ThemeDefinedMode;
 };
-
-export const exterior_mode = 'exterior_mode';
 
 export const useBackgroundStore = defineStore('background', {
 	state: () => {
 		return {
 			wallpaper: {},
-			exterior: Exterior.AUTO
+			theme: ThemeDefinedMode.AUTO
 		} as BackgroundState;
 	},
 
@@ -54,13 +47,10 @@ export const useBackgroundStore = defineStore('background', {
 
 	actions: {
 		async init() {
-			const exterior_name = Cookies.get(exterior_mode);
-			console.log('exterior_name', exterior_name);
-
-			if (exterior_name) {
-				this.exterior = Number(exterior_name);
+			const themeName = Cookies.get(themeModeName);
+			if (themeName) {
+				this.theme = Number(themeName);
 			}
-			this.updateQuasarDark();
 		},
 		async get_wallpaper() {
 			const tokenStore = useTokenStore();
@@ -138,11 +128,10 @@ export const useBackgroundStore = defineStore('background', {
 			);
 			return data;
 		},
-		async exteriorUpdate(exterior: Exterior) {
-			this.exterior = exterior;
+		async themeUpdate(theme: ThemeDefinedMode) {
+			this.theme = theme;
 			this.updateQuasarDark();
-
-			Cookies.set(exterior_mode, `${exterior}`, {
+			Cookies.set(themeModeName, `${theme}`, {
 				path: '/',
 				domain: getSecondLevelDomain(),
 				sameSite: 'None',
@@ -150,10 +139,10 @@ export const useBackgroundStore = defineStore('background', {
 			});
 		},
 		async updateQuasarDark() {
-			if (this.exterior == Exterior.AUTO) {
+			if (this.theme == ThemeDefinedMode.AUTO) {
 				Dark.set('auto');
 			} else {
-				Dark.set(this.exterior == Exterior.DARK);
+				Dark.set(this.theme == ThemeDefinedMode.DARK);
 			}
 		}
 	}
