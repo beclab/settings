@@ -28,6 +28,7 @@ export default defineComponent({
 		const adminStore = useAdminStore();
 		const accountStore = useAccountStore();
 		const backgroundStore = useBackgroundStore();
+		backgroundStore.init();
 
 		return new Promise((resolve) => {
 			axios.get(tokenStore.url + '/api/init').then((data) => {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
+import { Cookies, Dark } from 'quasar';
 
 export interface Wallpaper {
 	desktop: string;
@@ -9,15 +10,40 @@ export interface Wallpaper {
 	upload_login_backgrounds: string[];
 }
 
+export enum Exterior {
+	AUTO = 0,
+	WHITE = 1,
+	DARK = 2
+}
+
+export const exteriorOptions = [
+	{
+		label: 'White',
+		value: Exterior.WHITE
+	},
+	{
+		label: 'Dark',
+		value: Exterior.DARK
+	},
+	{
+		label: 'Auto',
+		value: Exterior.AUTO
+	}
+];
+
 export type BackgroundState = {
 	//
 	wallpaper: Wallpaper;
+	exterior: Exterior;
 };
+
+export const exterior_mode = 'exterior_mode';
 
 export const useBackgroundStore = defineStore('background', {
 	state: () => {
 		return {
-			wallpaper: {}
+			wallpaper: {},
+			exterior: Exterior.AUTO
 		} as BackgroundState;
 	},
 
@@ -26,6 +52,15 @@ export const useBackgroundStore = defineStore('background', {
 	},
 
 	actions: {
+		async init() {
+			const exterior_name = Cookies.get(exterior_mode);
+			console.log('exterior_name', exterior_name);
+
+			if (exterior_name) {
+				this.exterior = Number(exterior_name);
+			}
+			this.updateQuasarDark();
+		},
 		async get_wallpaper() {
 			const tokenStore = useTokenStore();
 
@@ -101,6 +136,23 @@ export const useBackgroundStore = defineStore('background', {
 				{ bg }
 			);
 			return data;
+		},
+		async exteriorUpdate(exterior: Exterior) {
+			this.exterior = exterior;
+			this.updateQuasarDark();
+
+			Cookies.set(exterior_mode, `${exterior}`, {
+				path: '/',
+				sameSite: 'None',
+				secure: true
+			});
+		},
+		async updateQuasarDark() {
+			if (this.exterior == Exterior.AUTO) {
+				Dark.set('auto');
+			} else {
+				Dark.set(this.exterior == Exterior.DARK);
+			}
 		}
 	}
 });

@@ -108,22 +108,49 @@
 				</template>
 			</div>
 		</div>
+		<div class="select-avatar-list-bg">
+			<div class="row items-center justify-between">
+				<div
+					class="select-avatar-title-bg row items-center justify-start"
+				>
+					<!-- <q-icon name="sym_r_imagesmode" color="ink-1" size="20px" /> -->
+					<div class="text-subtitle2 select-avatar-title">
+						<!-- {{ t('pictures') }} -->
+						Exterior
+					</div>
+				</div>
+			</div>
+			<div class="q-pa-lg">
+				<q-option-group
+					v-model="backgroundStore.exterior"
+					:options="exteriorOptions"
+					color="primary"
+					@update:model-value="exteriorUpdate"
+					inline
+				/>
+			</div>
+		</div>
 	</bt-scroll-area>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { BackgroundMode } from 'src/constant';
-import { useBackgroundStore } from 'src/stores/Background';
+import {
+	useBackgroundStore,
+	exteriorOptions,
+	Exterior
+} from '../../stores/Background';
 import WallpaperImage from '../../components/WallpaperImage.vue';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import { debounce } from 'quasar';
+import { debounce, useQuasar, Cookies } from 'quasar';
 import { useI18n } from 'vue-i18n';
 
 const backgroundStore = useBackgroundStore();
 const selectBackgroundMode = ref(BackgroundMode.desktop);
 
 const { t } = useI18n();
+const $q = useQuasar();
 
 const ok = async (response: any) => {
 	if (selectBackgroundMode.value == BackgroundMode.desktop) {
@@ -192,6 +219,55 @@ const uploadBackgrounds = computed(() => {
 		return backgroundStore.wallpaper.upload_login_backgrounds;
 	}
 });
+
+// watch(
+// 	() => backgroundStore.exterior,
+// 	() => {
+
+// 	}
+// );
+
+// */
+//       path?: string;
+//       /**
+//        * Cookie domain
+//        */
+//       domain?: string;
+//       /**
+//        * SameSite cookie option
+//        */
+//       sameSite?: "Lax" | "Strict" | "None";
+//       /**
+//        * Is cookie Http Only?
+//        */
+//       httpOnly?: boolean;
+//       /**
+//        * Is cookie secure? (https only)
+//        */
+//       secure?: boolean;
+//       /**
+//        * Raw string for other cookie options; To be used as a last resort for possible newer props that are currently not yet implemented in Quasar
+//        */
+//       other?: string;
+
+const exteriorUpdate = (value: Exterior) => {
+	// backgroundStore.exterior = value;
+	console.log('window.location.host ===>', window.location.host);
+	console.log(Cookies.get('exterior_value'));
+
+	// Cookies.set('exterior_value', `${value}`, {
+	// 	domain: 'localhost',
+	// 	path: '/',
+	// 	sameSite: 'None',
+	// 	secure: true
+	// });
+	// if (backgroundStore.exterior == Exterior.AUTO) {
+	// 	$q.dark.set('auto');
+	// } else {
+	// 	$q.dark.set(backgroundStore.exterior == Exterior.DARK);
+	// }
+	backgroundStore.exteriorUpdate(value);
+};
 </script>
 
 <style scoped lang="scss">

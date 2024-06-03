@@ -106,7 +106,7 @@ const adminMenu = [
 			{
 				label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
 				key: '/knowledge',
-				img: 'imgs/root/background.svg'
+				img: 'imgs/root/knowledge.svg'
 			},
 			// {
 			// 	label: t('home_menus.' + MENU_TYPE.Notification.toLowerCase()),

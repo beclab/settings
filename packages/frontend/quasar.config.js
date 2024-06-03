@@ -109,7 +109,8 @@ module.exports = configure(function (ctx) {
 					changeOrigin: true
 				}
 			},
-			port: 9000
+			port: 9000,
+			https: true
 		},
 
 		// https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework
@@ -129,7 +130,7 @@ module.exports = configure(function (ctx) {
 			// directives: [],
 
 			// Quasar plugins
-			plugins: ['Dialog', 'Notify', 'Loading']
+			plugins: ['Dialog', 'Notify', 'Loading', 'Cookies']
 		},
 
 		// animations: 'all', // --- includes all animations
