@@ -126,6 +126,6 @@ async function deleteSecret(key: string) {
 .secret-title {
 	margin-top: 12px;
 	margin-bottom: 8px;
-	color: $text1;
+	color: $ink-1;
 }
 </style>

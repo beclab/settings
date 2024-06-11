@@ -59,7 +59,7 @@
 							<q-icon
 								name="sym_r_link_off"
 								size="16px"
-								color="grey-8"
+								color="ink-1"
 							/>
 						</div>
 					</div>
@@ -167,7 +167,7 @@
 							<q-icon
 								name="sym_r_link_off"
 								size="16px"
-								color="grey-8"
+								color="ink-1"
 							/>
 						</div>
 					</div>
@@ -526,11 +526,11 @@ const onRemoveSign = async () => {
 	width: 100%;
 
 	.person-name {
-		color: $text1;
+		color: $ink-1;
 	}
 
 	.person-id {
-		color: $text2;
+		color: $ink-2;
 	}
 }
 
@@ -540,7 +540,7 @@ const onRemoveSign = async () => {
 }
 
 .reminder-info {
-	color: $text2;
+	color: $ink-2;
 	padding: 0;
 }
 
@@ -552,11 +552,11 @@ const onRemoveSign = async () => {
 		width: 100%;
 
 		.name {
-			color: $text1;
+			color: $ink-1;
 		}
 
 		.text {
-			color: $grey-5;
+			color: $ink-2;
 		}
 	}
 }
@@ -565,6 +565,6 @@ const onRemoveSign = async () => {
 	width: 24px;
 	height: 24px;
 	border-radius: 8px;
-	background: $grey-1;
+	background: $background-3;
 }
 </style>

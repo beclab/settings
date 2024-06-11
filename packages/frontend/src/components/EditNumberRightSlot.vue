@@ -1,6 +1,6 @@
 <template>
 	<div class="row items-center justify-end">
-		<div class="text-body3 text-text2 cpu-core q-mr-md">{{ label }}</div>
+		<div class="text-body3 text-ink-2 cpu-core q-mr-md">{{ label }}</div>
 		<div
 			class="column items-center justify-center"
 			style="font-weight: 600"
@@ -15,7 +15,9 @@
 					size="8px"
 					name="sym_r_expand_less"
 					:class="
-						Number(modelValue) < max ? 'text-grey-8' : 'text-grey-3'
+						Number(modelValue) < max
+							? 'text-ink-2'
+							: 'text-background-5'
 					"
 				/>
 			</div>
@@ -29,7 +31,9 @@
 					size="8px"
 					name="sym_r_expand_more"
 					:class="
-						Number(modelValue) > min ? 'text-grey-8' : 'text-grey-3'
+						Number(modelValue) > min
+							? 'text-ink-2'
+							: 'text-background-5'
 					"
 				/>
 			</div>
@@ -92,7 +96,7 @@ const emit = defineEmits(['update:modelValue']);
 	height: 10px;
 
 	&:hover {
-		background: $grey-1;
+		background: $background-3;
 		filter: brightness(0.9);
 	}
 }

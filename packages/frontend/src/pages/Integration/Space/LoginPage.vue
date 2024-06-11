@@ -4,7 +4,14 @@
 	<div class="terminus-cloud-page column items-center">
 		<QRCodeLogin @success="router.back()">
 			<template v-slot:mode>
-				<q-img class="terminus-cloud-icon" src="terminus_cloud.png" />
+				<q-img
+					class="terminus-cloud-icon"
+					:src="
+						$q.dark.isActive
+							? 'terminus_cloud_dark.png'
+							: 'terminus_cloud.png'
+					"
+				/>
 			</template>
 		</QRCodeLogin>
 	</div>
@@ -31,7 +38,7 @@ const router = useRouter();
 	width: 100%;
 	height: calc(100% - 56px);
 	.terminus-cloud-icon {
-		width: 208px;
+		width: 170px;
 	}
 }
 </style>

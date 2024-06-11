@@ -103,14 +103,21 @@ module.exports = configure(function (ctx) {
 				'/kapis': {
 					target: 'https://settings.guojianmin.myterminus.com/',
 					changeOrigin: true
+				},
+				'/headscale': {
+					target: 'https://settings.guojianmin.myterminus.com/',
+					changeOrigin: true
 				}
 			},
-			port: 9000
+			port: 9000,
+			https: true
 		},
 
 		// https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework
 		framework: {
-			config: {},
+			config: {
+				dark: false
+			},
 
 			// iconSet: 'material-icons', // Quasar icon set
 			// lang: 'en-US', // Quasar language pack
@@ -123,7 +130,7 @@ module.exports = configure(function (ctx) {
 			// directives: [],
 
 			// Quasar plugins
-			plugins: ['Dialog', 'Notify', 'Loading']
+			plugins: ['Dialog', 'Notify', 'Loading', 'Cookies']
 		},
 
 		// animations: 'all', // --- includes all animations

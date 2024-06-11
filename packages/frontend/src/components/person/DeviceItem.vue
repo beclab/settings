@@ -18,7 +18,7 @@
 						<div class="title-vpn-label">{{ t('vpn') }}</div>
 					</div>
 				</div>
-				<div v-if="isMe" class="local-machine text-caption text-grey-5">
+				<div v-if="isMe" class="local-machine text-caption text-ink-2">
 					{{ t('local_machine') }}
 				</div>
 			</div>
@@ -126,20 +126,20 @@ const isMe = computed(() => {
 	}
 
 	.local-machine {
-		border: 1px solid $grey-2;
+		border: 1px solid $separator;
 		padding: 4px 8px;
 		border-radius: 8px;
 	}
 
 	.title-left-label {
 		margin-left: 8px;
-		color: $text1;
+		color: $ink-1;
 	}
 
 	.title-left-vpn {
 		margin-left: 4px;
 		border-radius: 12px;
-		border: 1px solid $grey-2;
+		border: 1px solid $separator;
 		padding: 4px 8px;
 
 		.title-vpn-image {
@@ -149,7 +149,7 @@ const isMe = computed(() => {
 
 		.title-vpn-label {
 			margin-left: 4px;
-			color: $text1;
+			color: $ink-1;
 		}
 	}
 }

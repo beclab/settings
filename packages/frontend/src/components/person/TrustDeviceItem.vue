@@ -95,7 +95,7 @@ const getIconName = () => {
 
 	.title-left-label {
 		margin-left: 8px;
-		color: $text1;
+		color: $ink-1;
 	}
 }
 </style>

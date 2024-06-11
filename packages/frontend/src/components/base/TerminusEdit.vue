@@ -31,8 +31,8 @@
 				:autogrow="isTextarea"
 				:placeholder="hintText"
 				borderless
+				:inputClass="inputClass"
 				:input-style="{
-					color: inputColor,
 					fontWeight: `${
 						inputTypeRef === 'password' ? '800' : '400'
 					}`,
@@ -120,9 +120,9 @@ const props = defineProps({
 		default: '',
 		require: false
 	},
-	inputColor: {
+	inputClass: {
 		type: String,
-		default: '#1F1814',
+		default: 'text-ink-1',
 		require: false
 	},
 	errorMessage: {
@@ -202,31 +202,31 @@ const submit = () => {
 
 <style lang="scss" scoped>
 .terminus_background_edt {
-	background: #fff;
+	background: $background-1;
 	backdrop-filter: blur(6.07811px);
 	border-radius: 8px;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 }
 
 .terminus_background_edt_error {
-	background: #fff;
+	// background: ;
 	backdrop-filter: blur(6.07811px);
 	border-radius: 8px;
 	border: 1px solid $red;
 }
 
 .terminus_background_edt_read_only {
-	background: linear-gradient(0deg, $grey-1, $grey-1);
+	background: linear-gradient(0deg, $background-3, $background-3);
 	backdrop-filter: blur(6.07811px);
 	border-radius: 8px;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 }
 
 .terminus-edit {
 	width: auto;
 
 	&__label {
-		color: $grey-5;
+		color: $ink-2;
 	}
 
 	&__bg {
@@ -238,7 +238,7 @@ const submit = () => {
 			height: 100%;
 			width: calc(100% - 30px);
 			margin-left: 16px;
-			color: $text2;
+			color: $ink-2;
 		}
 	}
 

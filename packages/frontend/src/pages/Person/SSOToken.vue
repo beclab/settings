@@ -7,7 +7,7 @@
 		<div class="q-pa-md column q-list-class">
 			<q-table
 				tableHeaderStyle="height: 32px;"
-				table-header-class="text-body3 text-text2"
+				table-header-class="text-body3 text-ink-2"
 				flat
 				:bordered="false"
 				:rows="sso"
@@ -19,7 +19,7 @@
 				hide-bottom
 			>
 				<template v-slot:body-cell-actions="props">
-					<q-td :props="props" class="text-grey-8">
+					<q-td :props="props" class="text-ink-2">
 						<q-icon
 							v-if="
 								props.row.termiPass &&

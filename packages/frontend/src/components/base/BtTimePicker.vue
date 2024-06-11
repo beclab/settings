@@ -131,7 +131,7 @@ onMounted(() => {
 		width: 20px;
 		margin-top: -8px;
 		border-radius: 4px;
-		background: $grey-1;
+		background: $background-3;
 		cursor: pointer;
 		overflow: hidden;
 		text-decoration: none;
@@ -141,7 +141,7 @@ onMounted(() => {
 			height: 10px;
 
 			&:hover {
-				background: $grey-1;
+				background: $background-3;
 				filter: brightness(0.9);
 			}
 		}

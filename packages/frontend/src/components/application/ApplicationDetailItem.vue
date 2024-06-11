@@ -76,7 +76,7 @@ async function toggle() {
 
 	.application-name {
 		text-transform: capitalize;
-		color: $text1;
+		color: $ink-1;
 		margin-left: 8px;
 	}
 
@@ -90,7 +90,7 @@ async function toggle() {
 
 	.application-status {
 		text-align: right;
-		color: $text2;
+		color: $ink-2;
 		text-transform: capitalize;
 		margin-left: 4px;
 	}

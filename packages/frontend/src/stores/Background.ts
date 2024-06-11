@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
+import { Cookies, Dark } from 'quasar';
+import { getSecondLevelDomain } from '../utils/constants';
+import { ThemeDefinedMode, themeModeName } from '@bytetrade/ui';
 
 export interface Wallpaper {
 	desktop: string;
@@ -9,15 +12,32 @@ export interface Wallpaper {
 	upload_login_backgrounds: string[];
 }
 
+export const themeOptions = [
+	{
+		label: 'Light',
+		value: ThemeDefinedMode.LIGHT
+	},
+	{
+		label: 'Dark',
+		value: ThemeDefinedMode.DARK
+	},
+	{
+		label: 'Auto',
+		value: ThemeDefinedMode.AUTO
+	}
+];
+
 export type BackgroundState = {
 	//
 	wallpaper: Wallpaper;
+	theme: ThemeDefinedMode;
 };
 
 export const useBackgroundStore = defineStore('background', {
 	state: () => {
 		return {
-			wallpaper: {}
+			wallpaper: {},
+			theme: ThemeDefinedMode.LIGHT
 		} as BackgroundState;
 	},
 
@@ -26,6 +46,12 @@ export const useBackgroundStore = defineStore('background', {
 	},
 
 	actions: {
+		async init() {
+			const themeName = Cookies.get(themeModeName);
+			if (themeName) {
+				this.theme = Number(themeName);
+			}
+		},
 		async get_wallpaper() {
 			const tokenStore = useTokenStore();
 
@@ -101,6 +127,23 @@ export const useBackgroundStore = defineStore('background', {
 				{ bg }
 			);
 			return data;
+		},
+		async themeUpdate(theme: ThemeDefinedMode) {
+			this.theme = theme;
+			this.updateQuasarDark();
+			Cookies.set(themeModeName, `${theme}`, {
+				path: '/',
+				domain: getSecondLevelDomain(),
+				sameSite: 'None',
+				secure: true
+			});
+		},
+		async updateQuasarDark() {
+			if (this.theme == ThemeDefinedMode.AUTO) {
+				Dark.set('auto');
+			} else {
+				Dark.set(this.theme == ThemeDefinedMode.DARK);
+			}
 		}
 	}
 });

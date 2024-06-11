@@ -11,7 +11,7 @@
 					v-if="message.length > 0"
 				>
 					<div
-						class="text-body3 text-grey-8"
+						class="text-body3 text-ink-2"
 						:class="hasBorder ? 'message-content' : ''"
 						v-html="message"
 					/>
@@ -74,7 +74,7 @@ const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 .message-content {
 	width: 100%;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	padding: 8px 12px;
 	border-radius: 8px;
 }

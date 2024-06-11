@@ -32,8 +32,8 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('src/pages/Person/AuthorityPage.vue')
 			},
 			{
-				path: 'wallpaper',
-				component: () => import('src/pages/Wallpaper/IndexPage.vue')
+				path: 'appearance',
+				component: () => import('src/pages/Appearance/IndexPage.vue')
 			},
 			{
 				path: 'knowledge',

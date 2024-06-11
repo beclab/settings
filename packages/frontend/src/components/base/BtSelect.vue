@@ -1,12 +1,9 @@
 <template>
 	<div class="row justify-center items-center select-root">
-		<!-- <div v-if="selected" class="text-body2 selected-title">
-			{{ selected.label }}
-		</div> -->
 		<q-btn-dropdown
-			class="selected-arrow text-body2 text-grey-10"
+			class="selected-arrow text-body2 text-ink-1"
 			ref="dropdown"
-			dropdown-icon="img:/arrow.svg"
+			dropdown-icon="sym_r_keyboard_arrow_down"
 			:label="selected ? selected.label : ''"
 			no-caps
 			flat
@@ -14,32 +11,14 @@
 			:menu-offset="[0, 5]"
 		>
 			<q-list style="padding: 8px">
-				<!-- <template v-for="(item, index) in options" :key="item">
-					<div
-						class="text-body2"
-						:class="
-							item.enable
-								? item.value === selected.value
-									? 'select-item-selected'
-									: 'select-item-normal'
-								: 'select-item-disable'
-						"
-						v-close-popup
-						:style="{ marginTop: `${index === 0 ? '0' : '4px'}` }"
-						@click="onItemClick(item)"
-					>
-						{{ item.label }}
-					</div>
-				</template> -->
-				<!-- <q-item v-for="(item, index) in options" :key="item">
-
-				</q-item> -->
 				<q-item
 					v-for="(item, index) in options"
 					:key="index"
 					:clickable="item.enable"
 					class="select-item-root"
-					:class="item.value === selected?.value ? 'bg-grey-1' : ''"
+					:class="
+						item.value === selected?.value ? 'bg-background-3' : ''
+					"
 					@click="onItemClick(item)"
 					v-close-popup
 				>
@@ -49,7 +28,7 @@
 							item.enable
 								? item.value === selected?.value
 									? 'text-blue-6'
-									: 'text-grey-8'
+									: 'text-ink-2'
 								: 'text-grey-4'
 						"
 					>
@@ -128,49 +107,18 @@ const onItemClick = (item: SelectData) => {
 .selected-title {
 	margin-right: 8px;
 	text-align: right;
-	color: $text1;
+	color: $ink-1;
 }
 
 .selected-arrow {
-	// width: 20px;
-	// height: 20px;
-	// background: $grey-1;
 	height: 40px;
 	border-radius: 4px;
 	padding-left: 10px;
 	border-radius: 8px;
 }
 
-// .select-item-title {
-// 	width: 134px;
-// 	height: 24px;
-// 	padding: 2px 8px;
-// 	border-radius: 4px;
-// }
-
-.select-item-normal {
-	// background: #fff;
-	// color: $text1;
-	// @extend .select-item-title;
-	// cursor: pointer;
-	// text-decoration: none;
-
-	// &:hover {
-	// 	background: $grey-1;
-	// }
-}
-
-.select-item-disable {
-	// background: $grey-2;
-	// color: $grey-5;
-	// @extend .select-item-title;
-}
-
 .select-item-selected {
 	color: $blue-6;
-	// @extend .select-item-title;
-	// cursor: pointer;
-	// text-decoration: none;
 }
 
 .select-item-root {

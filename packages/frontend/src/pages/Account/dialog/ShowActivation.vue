@@ -18,9 +18,9 @@
 			</div>
 			<div class="activate-info text-body3">
 				<div class="row q-mb-sm">
-					<div class="col-5 text-grey-5">Original password</div>
+					<div class="col-5 text-ink-2">Original password</div>
 					<div
-						class="col-7 text-grey-10 row items-center justify-start"
+						class="col-7 text-ink-1 row items-center justify-start"
 					>
 						<span>{{ data.userPassword }}</span>
 						<q-icon
@@ -33,8 +33,8 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-5 text-grey-5">Wizard URL</div>
-					<div class="col-7 text-grey-10">{{ data.wizard }}</div>
+					<div class="col-5 text-ink-2">Wizard URL</div>
+					<div class="col-7 text-ink-1">{{ data.wizard }}</div>
 				</div>
 			</div>
 
@@ -123,7 +123,6 @@ const toWizardUrl = () => {
 		height: 32px;
 		background: linear-gradient(135deg, #ff8a48 0%, #ff4667 100%);
 		border-radius: 8px;
-		color: #ffffff;
 		font-family: Roboto;
 		font-size: 12px;
 		font-style: normal;

@@ -6,7 +6,7 @@
 				v-if="
 					isError && errorMessage && errorMessage.length > 0 && blured
 				"
-				class="text-overline message-parent row items-center bg-grey-1 q-mb-md"
+				class="text-overline message-parent row items-center bg-background-3 q-mb-md"
 			>
 				<q-icon
 					v-if="withPopup"

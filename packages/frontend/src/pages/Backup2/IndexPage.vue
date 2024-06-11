@@ -5,7 +5,7 @@
 				class="add-btn row justify-center items-center"
 				@click="newBackup()"
 			>
-				<q-icon size="20px" name="sym_r_add" color="grey-8" />
+				<q-icon size="20px" name="sym_r_add" color="ink-1" />
 				<div class="text-body3 add-title">{{ t('add_backup') }}</div>
 			</div>
 		</template>
@@ -19,7 +19,7 @@
 			<QRCodeLogin>
 				<template v-slot:mode>
 					<div
-						class="text-subtitle1 text-grey-10 row items-center justify-center terminus-space-backup-title"
+						class="text-subtitle1 text-ink-1 row items-center justify-center terminus-space-backup-title"
 					>
 						{{
 							t(
@@ -76,17 +76,17 @@ function newBackup() {
 .add-btn {
 	border-radius: 8px;
 	padding: 6px 8px;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	cursor: pointer;
 	text-decoration: none;
 
 	.add-title {
-		color: $text2;
+		color: $ink-2;
 	}
 }
 
 .add-btn:hover {
-	background-color: $grey-1;
+	background-color: $background-3;
 }
 
 .empty-parent {
@@ -101,7 +101,7 @@ function newBackup() {
 
 	.empty-text {
 		text-align: center;
-		color: $text2;
+		color: $ink-2;
 	}
 }
 .terminus-space-backup-title {

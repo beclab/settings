@@ -1,35 +1,16 @@
 <template>
 	<q-card class="bt-dialog">
-		<div class="bt-dialog-header row justify-between items-center">
-			<div class="text-subtitle3">{{ title }}</div>
-			<q-icon
-				size="16px"
-				name="sym_r_clear"
-				color="grey-8"
-				@click="emit('onCancel')"
-			/>
-		</div>
-		<div class="bt-dialog-content column justify-start">
-			<slot />
-
-			<div class="row justify-end" style="margin-top: 12px">
-				<q-btn
-					dense
-					style="margin-right: 12px"
-					class="submit-btn"
-					text-color="black"
-					:label="t('cancel')"
-					@click="emit('onCancel')"
-					color="white"
-				/>
-
-				<q-btn
-					dense
-					class="submit-btn"
-					:disable="!confirmClickAble"
-					:label="t('confirm')"
-					@click="emit('onConfirm')"
-					color="primary"
+		<DialogHeader :title="title" @close-action="emit('onCancel')" />
+		<div
+			class="common-dialog bt-dialog-content"
+			style="border-radius: 16px"
+		>
+			<div class="column justify-start">
+				<slot />
+				<dialog-footer
+					:confirm-text="t('confirm')"
+					@cancel-action="emit('onCancel')"
+					@confirm-action="emit('onConfirm')"
 				/>
 			</div>
 		</div>
@@ -38,6 +19,8 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
+import DialogHeader from '../DialogHeader.vue';
+import DialogFooter from '../DialogFooter.vue';
 
 defineProps({
 	title: {
@@ -59,14 +42,13 @@ const emit = defineEmits(['onCancel', 'onConfirm']);
 	max-width: 400px;
 	width: 400px;
 	height: auto;
-	background: #fff;
 	padding: 0;
 	position: relative;
 
 	.bt-dialog-header {
 		width: 100%;
 		height: 32px;
-		background: $grey-1;
+		background: $background-3;
 		padding-left: 12px;
 		padding-right: 12px;
 	}

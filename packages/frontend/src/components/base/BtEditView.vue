@@ -123,7 +123,7 @@ function onInput(value: string) {
 		.inner-input {
 			width: var(--width);
 			padding-left: (--paddingLeft);
-			color: 1px solid $grey-2;
+			color: 1px solid $separator;
 		}
 
 		.text-resize {

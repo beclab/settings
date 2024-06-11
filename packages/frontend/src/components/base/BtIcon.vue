@@ -1,6 +1,6 @@
 <template>
 	<q-icon
-		class="cursor-pointer bt-icon-background text-grey-8"
+		class="cursor-pointer bt-icon-background text-ink-2"
 		:name="`sym_r_${name}`"
 		size="20px"
 	/>
@@ -17,7 +17,7 @@ defineProps({
 
 <style scoped lang="scss">
 .bt-icon-background {
-	background: $grey-1;
+	background: $background-3;
 	border-radius: 4px;
 
 	&:hover {

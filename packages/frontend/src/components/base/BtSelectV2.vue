@@ -85,7 +85,7 @@ const onItemClick = (item: SelectData) => {
 .selected-title {
 	margin-right: 8px;
 	text-align: right;
-	color: $text1;
+	color: $ink-1;
 }
 
 .selected-arrow {
@@ -101,26 +101,24 @@ const onItemClick = (item: SelectData) => {
 }
 
 .select-item-normal {
-	background: #fff;
-	color: $text1;
+	color: $ink-1;
 	@extend .select-item-title;
 	cursor: pointer;
 	text-decoration: none;
 
 	&:hover {
-		background: $grey-1;
+		background: $background-3;
 	}
 }
 
 .select-item-disable {
-	background: $grey-2;
-	color: $grey-5;
+	background: $separator;
+	color: $ink-2;
 	@extend .select-item-title;
 }
 
 .select-item-selected {
 	background: $blue;
-	color: #fff;
 	@extend .select-item-title;
 	cursor: pointer;
 	text-decoration: none;

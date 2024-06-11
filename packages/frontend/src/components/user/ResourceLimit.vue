@@ -13,7 +13,7 @@
 			size="56px"
 			:thickness="0.4"
 			:color="progressColor"
-			track-color="grey-1"
+			track-color="background-3"
 			class="text-subtitle3 knob-class"
 			:style="{ '--textColor': textColor }"
 		>
@@ -97,7 +97,7 @@ const textColor = computed(() => {
 .resource-limit-root {
 	width: 100%;
 	border-radius: 20px;
-	border: 1px solid $grey-2;
+	border: 1px solid $separator;
 	padding: 20px;
 	height: 96px;
 
@@ -107,11 +107,11 @@ const textColor = computed(() => {
 
 	.resource-value {
 		margin-top: 4px;
-		color: $text1;
+		color: $ink-1;
 	}
 
 	.knob-class {
-		color: $text2;
+		color: $ink-2;
 	}
 }
 </style>

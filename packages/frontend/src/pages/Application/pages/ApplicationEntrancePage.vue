@@ -264,6 +264,6 @@ async function onSubmit() {
 .details-title {
 	margin-top: 20px;
 	margin-bottom: 11px;
-	color: $text1;
+	color: $ink-1;
 }
 </style>

@@ -1,15 +1,7 @@
 <template>
 	<q-dialog ref="dialogRef">
-		<q-card class="policy-dialog">
-			<div class="policy-dialog-header row justify-between items-center">
-				<div class="text-subtitle3 policy-title">{{ title }}</div>
-				<q-icon
-					size="16px"
-					name="sym_r_clear"
-					color="grey-8"
-					@click="onDialogCancel"
-				/>
-			</div>
+		<div class="common-dialog policy-dialog" style="border-radius: 16px">
+			<DialogHeader :title="title" @close-action="onDialogCancel" />
 			<div class="policy-content column justify-start">
 				<div class="text-body3 policy-content__info">
 					{{ info }}
@@ -19,23 +11,22 @@
 					:src="imagePath"
 					v-if="imagePath && imagePath.length"
 				/>
-				<div class="row justify-end" style="margin-top: 52px">
-					<q-btn
-						dense
-						class="confirm-btn confirm-r-btn"
-						:label="t('confirm')"
-						flat
-						@click="onOKClick"
-					/>
-				</div>
+				<dialog-footer
+					:confirm-text="t('confirm')"
+					:hasCancel="false"
+					@cancel-action="onDialogCancel"
+					@confirm-action="onOKClick"
+				/>
 			</div>
-		</q-card>
+		</div>
 	</q-dialog>
 </template>
 
 <script lang="ts" setup>
 import { useDialogPluginComponent } from 'quasar';
 import { useI18n } from 'vue-i18n';
+import DialogHeader from '../DialogHeader.vue';
+import DialogFooter from '../DialogFooter.vue';
 
 defineProps({
 	title: {
@@ -64,17 +55,13 @@ async function onOKClick() {
 </script>
 <style lang="scss" scoped>
 .policy-dialog {
-	max-width: 400px;
-	width: 400px;
 	height: auto;
-	background: #fff;
 	padding: 0;
 	position: relative;
 
 	.policy-dialog-header {
 		width: 100%;
 		height: 32px;
-		background: $grey-1;
 		padding-left: 12px;
 		padding-right: 12px;
 	}
@@ -85,7 +72,7 @@ async function onOKClick() {
 		padding: 20px;
 
 		&__info {
-			color: $text2;
+			color: $ink-2;
 		}
 
 		&__image {

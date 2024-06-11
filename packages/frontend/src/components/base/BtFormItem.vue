@@ -64,12 +64,12 @@ defineProps({
 		padding: 0;
 
 		.form-item-title {
-			color: $text1;
+			color: $ink-1;
 		}
 
 		.form-item-data {
 			text-align: right;
-			color: $text2;
+			color: $ink-2;
 		}
 	}
 }

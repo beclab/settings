@@ -70,11 +70,11 @@ const formattedDate = (datetime: string) => {
 }
 
 .directory-title {
-	color: $text1;
+	color: $ink-1;
 }
 
 .directory-label {
-	color: $grey-5;
+	color: $ink-2;
 }
 
 .directory-circle {

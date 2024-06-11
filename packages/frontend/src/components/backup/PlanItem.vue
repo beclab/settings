@@ -110,7 +110,7 @@ async function gotoBackup() {
 	width: 100%;
 	height: 24px;
 	margin-bottom: 8px;
-	color: $text1;
+	color: $ink-1;
 }
 
 .plan-item-type-img {

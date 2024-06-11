@@ -16,7 +16,8 @@ export enum MENU_TYPE {
 	Services = 'Services',
 	Authority = 'Authority',
 	Upgrade = 'Upgrade',
-	Backup = 'Backup'
+	Backup = 'Backup',
+	Appearance = 'Appearance'
 }
 
 export function getRoleName(role: string) {
@@ -33,12 +34,6 @@ export interface EntrancePolicy {
 	policy: string;
 	uri: string;
 	valid_duration: number;
-}
-
-export enum ConfirmButtonStatus {
-	normal = 1,
-	error = 2,
-	disable = 3
 }
 
 export const locationOptions = [
@@ -258,4 +253,13 @@ export enum QR_STATUS {
 	NORMAL,
 	EXPIRED,
 	SUCCESSFUL
+}
+
+export function getSecondLevelDomain() {
+	const domainParts = window.location.hostname.split('.');
+	if (domainParts.length >= 3) {
+		return domainParts.slice(-3).join('.');
+	} else {
+		return window.location.hostname;
+	}
 }

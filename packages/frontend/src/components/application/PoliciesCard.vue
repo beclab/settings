@@ -19,21 +19,21 @@
 					</div>
 					<div>
 						<div>
-							<span class="text-grey-10 text-subtitle3 q-mr-md">{{
+							<span class="text-ink-1 text-subtitle3 q-mr-md">{{
 								policy.uri
 							}}</span>
 							<span
-								class="text-grey-8 text-caption q-px-md q-py-xs policy-label"
+								class="text-ink-2 text-caption q-px-md q-py-xs policy-label"
 								>{{ policy.policy }}</span
 							>
 						</div>
-						<div class="text-overline text-grey-5 q-mt-xs">
+						<div class="text-overline text-ink-2 q-mt-xs">
 							{{ policy.valid_duration }}
 						</div>
 					</div>
 				</div>
 
-				<div class="row items-center justify-center text-grey-8">
+				<div class="row items-center justify-center text-ink-2">
 					<q-icon
 						class="cursor-pointer"
 						name="sym_r_edit_square"
@@ -127,7 +127,7 @@ const deletePolicy = (policy: EntrancePolicy) => {
 	min-height: 44px;
 
 	.policies-content {
-		background: $grey-1;
+		background: $background-3;
 		border-radius: 12px;
 		margin-top: 12px;
 		padding: 12px;
@@ -138,12 +138,11 @@ const deletePolicy = (policy: EntrancePolicy) => {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: #fff;
 			border-radius: 16px;
 		}
 
 		.policy-label {
-			border: 1px solid $grey-2;
+			border: 1px solid $separator;
 			border-radius: 20px;
 		}
 	}
