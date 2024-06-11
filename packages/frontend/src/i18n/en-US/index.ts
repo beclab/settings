@@ -9,7 +9,8 @@ export default {
 		services: 'Services',
 		authority: 'Authority',
 		upgrade: 'Upgrade',
-		backup: 'Backup'
+		backup: 'Backup',
+		appearance: 'Appearance'
 	},
 	role: {
 		admin: 'Admin',
@@ -418,5 +419,7 @@ export default {
 	add_new_knowledge_base: 'Add New Knowledge Base',
 	save_knowledge_base: 'Save Knowledge Base {base}',
 	no_knowledge_bases_available: 'No Knowledge Bases available',
-	number_linked_agent: '{number} linked agent'
+	number_linked_agent: '{number} linked agent',
+	theme: 'Theme',
+	wallpaper: 'Wallpaper'
 };

@@ -16,7 +16,8 @@ export enum MENU_TYPE {
 	Services = 'Services',
 	Authority = 'Authority',
 	Upgrade = 'Upgrade',
-	Backup = 'Backup'
+	Backup = 'Backup',
+	Appearance = 'Appearance'
 }
 
 export function getRoleName(role: string) {

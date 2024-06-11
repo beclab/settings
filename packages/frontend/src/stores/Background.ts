@@ -37,7 +37,7 @@ export const useBackgroundStore = defineStore('background', {
 	state: () => {
 		return {
 			wallpaper: {},
-			theme: ThemeDefinedMode.AUTO
+			theme: ThemeDefinedMode.LIGHT
 		} as BackgroundState;
 	},
 

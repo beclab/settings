@@ -99,9 +99,9 @@ const adminMenu = [
 				img: 'imgs/root/integration.svg'
 			},
 			{
-				label: t('home_menus.' + MENU_TYPE.Wallpaper.toLowerCase()),
-				key: '/wallpaper',
-				img: 'imgs/root/wallpaper.svg'
+				label: t('home_menus.' + MENU_TYPE.Appearance.toLowerCase()),
+				key: '/appearance',
+				img: 'imgs/root/appearance.svg'
 			},
 			{
 				label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
