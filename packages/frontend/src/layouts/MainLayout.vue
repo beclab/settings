@@ -113,11 +113,11 @@ const adminMenu = [
 			// 	key: '/ns',
 			// 	img: 'imgs/root/background.svg'
 			// },
-			{
-				label: t('home_menus.' + MENU_TYPE.Backup.toLowerCase()),
-				key: '/backup',
-				img: 'imgs/root/backup.svg'
-			},
+			// {
+			// 	label: t('home_menus.' + MENU_TYPE.Backup.toLowerCase()),
+			// 	key: '/backup',
+			// 	img: 'imgs/root/backup.svg'
+			// },
 			{
 				label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
 				key: '/upgrade',

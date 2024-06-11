@@ -121,7 +121,7 @@
 				<div class="images-list-bg row justify-start">
 					<BtUploader
 						:size="5"
-						:width="106"
+						:width="105"
 						:height="51"
 						fileName="image"
 						accept=".jpg, image/*"
@@ -131,7 +131,7 @@
 						@fail="fail"
 					>
 						<wallpaper-image
-							:width="95.5"
+							:width="95"
 							src="upload_default.svg"
 							:selected="false"
 						/>
@@ -143,7 +143,7 @@
 					>
 						<wallpaper-image
 							v-if="!!item"
-							:width="95.5"
+							:width="99.5"
 							:src="
 								item.replace(
 									'/resources/Home/Pictures',
@@ -160,8 +160,9 @@
 						:key="`paper` + index"
 					>
 						<wallpaper-image
-							:width="95.5"
+							:width="99.5"
 							:src="image"
+							:padding="2"
 							:selected="selectedImgUrl.value === image"
 							@click="onSelectPicture(image)"
 						/>
