@@ -12,6 +12,7 @@ export interface NFTTokenData {
 	date?: string;
 	dna?: string;
 	_id: string;
+	contract_id: string;
 }
 
 export interface NFTItem {
@@ -40,6 +41,7 @@ export interface ProfileNFT {
 	token_id: string;
 	nft_name: string;
 	image: string;
+	contract_id: string;
 }
 
 export interface AuthenticatedAddress {

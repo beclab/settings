@@ -60,7 +60,7 @@ defineProps({
 	width: 96px;
 	height: 96px;
 	border-radius: 4px;
-	background-color: $grey-1;
+	background-color: $background-3;
 	overflow: hidden;
 }
 
