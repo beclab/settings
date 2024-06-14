@@ -86,7 +86,6 @@ import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import EditNumberRightSlot from '../../../components/EditNumberRightSlot.vue';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
-// import ShowActivation from './ShowActivation.vue';
 
 const { t } = useI18n();
 

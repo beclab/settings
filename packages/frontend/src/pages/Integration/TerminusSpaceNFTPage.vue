@@ -16,10 +16,15 @@
 					@click="onItemClick(item)"
 					:bound="
 						BoundNFTAddressList.find(
-							(e) => e.tokenID == item.token_id
+							(e) =>
+								e.tokenID == item.token_id &&
+								e.chainType == item.chain &&
+								e.tokenAddress == item.contract_id
 						)
 					"
 				/>
+				<!-- <div>sasdsd</div>
+				<div>{{ item.contract_id }}</div> -->
 			</template>
 		</div>
 		<div
@@ -86,7 +91,7 @@ async function updateNFT(address: string) {
 		nft_loaded.value = false;
 		const data: any = await axios.post(
 			'https://ndbq.ursa-services.bttcdn.com/batch_query_fast_only_img_by_address',
-			{ address, limit_in_collection: 100, cache: true }
+			{ address, limit_in_collection: 10, cache: true }
 		);
 		if (data.code == 0) {
 			const nfts: NFTItem[] = (nftImageSet.value = data.nfts);
@@ -101,6 +106,9 @@ async function updateNFT(address: string) {
 				}
 				for (const token of nft.tokenDatas) {
 					let image = token.image;
+					if (!token.image) {
+						continue;
+					}
 					if (token.image) {
 						if (token.image.startsWith('ipfs://')) {
 							image = token.image.replace(
@@ -116,7 +124,8 @@ async function updateNFT(address: string) {
 						token_address: nft.token_meta.address,
 						token_id: token.token_id,
 						nft_name: token.name,
-						image: image
+						image: image,
+						contract_id: token.contract_id
 					});
 				}
 			}
@@ -146,7 +155,10 @@ async function bindNFT() {
 	}
 
 	const hasBound = BoundNFTAddressList.value.find(
-		(e) => e.tokenID == current_nft.value!.token_id
+		(e) =>
+			e.tokenID == current_nft.value!.token_id &&
+			e.chainType == current_nft.value?.chain &&
+			e.tokenAddress == current_nft.value.contract_id
 	);
 
 	if (hasBound != undefined) {
