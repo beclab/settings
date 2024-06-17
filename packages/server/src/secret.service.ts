@@ -243,40 +243,4 @@ export class SecretService implements OnModuleInit {
       }
     }
   }
-
-  //   async registerSpace() {
-  //     console.log('registerSpace');
-  //     try {
-  //       const instance = axios.create({
-  //         baseURL: this.cloudUrl,
-  //         timeout: 1000 * 10,
-  //         headers: {},
-  //       });
-
-  //       const response = await instance.post(
-  //         '/v1/resource/register',
-  //         qs.stringify({
-  //           userid: this.spaceAccount.userid,
-  //           token: this.spaceAccount.token,
-  //           terminusName: this.terminusInfo.terminusName,
-  //           email: '',
-  //           osVersion: this.terminusInfo.osVersion,
-  //           instanceRoot: '',
-  //           cpuCoreCount: 4,
-  //           memorySize: 16,
-  //           privateIp: '',
-  //           publicIp: '',
-  //           hostName: '',
-  //           roleAdmin:
-  //             this.userInfo.owner_role == 'platform-admin' ? 'admin' : 'member',
-  //         }),
-  //       );
-  //       console.log(response.data);
-  //       if (response.data.code == 200) {
-  //         console.log(response.data.data);
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
 }
