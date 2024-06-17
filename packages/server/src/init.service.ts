@@ -57,12 +57,23 @@ export class InitService implements OnModuleInit {
       );
       console.log(response.data);
       if (response.data.code != 200) {
-        return null;
+        return {
+          current_version: terminusInfo.osVersion,
+          new_version: terminusInfo.osVersion,
+          is_new: false,
+        };
       }
       const ob = {
         current_version: terminusInfo.osVersion,
-        new_version: response.data.data.tag,
-        is_new: response.data.data.tag != terminusInfo.osVersion,
+        new_version:
+          response.data && response.data.data && response.data.data.tag
+            ? response.data.data.tag
+            : terminusInfo.osVersion,
+        is_new:
+          response.data &&
+          response.data.data &&
+          response.data.data.tag &&
+          response.data.data.tag != terminusInfo.osVersion,
       };
       //   if (dev_mode) {
       //     this.devVersion = ob;

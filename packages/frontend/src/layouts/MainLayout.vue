@@ -201,6 +201,7 @@ onMounted(() => {
 	justify-content: center;
 	border-radius: 8px;
 	overflow: hidden;
+	background-color: $background-1;
 
 	.settings_left {
 		width: 240px;
