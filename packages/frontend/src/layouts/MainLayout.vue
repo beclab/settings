@@ -241,4 +241,8 @@ onMounted(() => {
 	color: $blue-default;
 	background-color: $blue-alpha;
 }
+
+.main-layout {
+	background-color: $background-1;
+}
 </style>

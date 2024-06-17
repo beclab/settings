@@ -42,3 +42,6 @@ packages/server/data
 
 packages/frontend/src/assets/fonts/MaterialSymbolsRounded.woff2
 fonttools/*
+
+dockerBuild.sh
+build.sh
