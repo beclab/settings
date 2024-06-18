@@ -6,7 +6,7 @@ on:
     push:
         branches:
             - "main"
-            - "chore/server"
+            - "dev/server_update"
         tags:
           - 'v*'
 
