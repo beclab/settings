@@ -70,7 +70,7 @@
 import { useRouter } from 'vue-router';
 import { useAccountStore } from '../../stores/Account';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import SettingConnectStatus from 'components/base/SettingConnectStatus.vue';
+import SettingConnectStatus from '../../components/base/SettingConnectStatus.vue';
 import AccountItem from '../../components/account/AccountItem.vue';
 import { ThirdPartyAccountList } from '../../utils/constants';
 import { useI18n } from 'vue-i18n';

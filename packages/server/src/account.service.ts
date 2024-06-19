@@ -17,7 +17,7 @@ import {
 export class AccountService implements OnModuleInit {
   private readonly logger = new Logger(AccountService.name);
 
-  accounts: IntegrationAccount[];
+  accounts: IntegrationAccount[] = [];
 
   constructor(private secretService: SecretService) {
     //
@@ -77,10 +77,12 @@ export class AccountService implements OnModuleInit {
   }
 
   async updateIntegrationAccount(account: IntegrationAccount) {
-    const found = this.accounts.find((a) => a.name == account.get_store_key());
+    const found = this.accounts.find(
+      (a) => a.name == account.name && a.type == account.type,
+    );
     if (found) {
       this.accounts = this.accounts.map((a) => {
-        if (a.name == account.get_store_key()) {
+        if (a.name == account.name && a.type == account.type) {
           return account;
         }
         return a;
@@ -116,7 +118,7 @@ export class AccountService implements OnModuleInit {
     console.log(this.accounts);
   }
 
-  @Cron('0/10 * * * * *')
+  @Cron('0 */10 * * * *')
   async refreshToken() {
     this.logger.log('refresh Token');
 

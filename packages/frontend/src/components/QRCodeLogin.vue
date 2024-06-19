@@ -85,17 +85,19 @@ async function updateInfo() {
 		if (user_info_interval) {
 			clearInterval(user_info_interval);
 		}
-		const saveData: SpaceSaveData = {
-			email: '',
-			token: token.token,
-			userid: token.userid,
-			expired: token.expired
-		};
+		// const saveData: SpaceSaveData = {
+		// 	email: '',
+		// 	token: token.token,
+		// 	userid: token.userid,
+		// 	expired: token.expired
+		// };
 
-		await accountStore.createSecret(
-			'settings-account-space',
-			JSON.stringify(saveData)
-		);
+		await accountStore.createSecret(adminStore.terminus.did, {
+			refresh_token: token.token,
+			access_token: token.token,
+			expires_in: 60 * 30 * 1000,
+			expires_at: token.expired
+		});
 
 		await accountStore.listSecret();
 		loginQrCodeStatus.value = QR_STATUS.SUCCESSFUL;

@@ -55,7 +55,7 @@ export class AccountController {
     }
   }
 
-  @Post('/')
+  @Post('/create')
   async CreateOrUpdateAccount(
     @Body() raw_account: IntegrationAccount,
   ): Promise<Result<null>> {
