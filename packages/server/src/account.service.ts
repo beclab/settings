@@ -85,7 +85,7 @@ export class AccountService implements OnModuleInit {
         }
         return a;
       });
-      this.secretService.UpdateSecret(
+      await this.secretService.UpdateSecret(
         account.get_store_key(),
         JSON.stringify(account.raw_data),
       );
