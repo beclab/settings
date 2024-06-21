@@ -17,6 +17,8 @@ import { DataStoreService } from './datastore.service';
 import { DataStoreController } from './datastore.controller';
 import { AppService } from './app.service';
 import { AccountController } from './account.controller';
+import { AccountService } from './account.service';
+import { CookieController } from './cookie.controller';
 import { AppController } from './app.controller';
 import { EventController } from './event.controller';
 
@@ -34,6 +36,7 @@ import { EventController } from './event.controller';
     DataStoreController,
     AccountController,
     EventController,
+    CookieController,
   ],
   providers: [
     SecretService,
@@ -42,6 +45,7 @@ import { EventController } from './event.controller';
     AppService,
     WallpaperService,
     InitService,
+    AccountService,
   ],
 })
 export class AppModule {}

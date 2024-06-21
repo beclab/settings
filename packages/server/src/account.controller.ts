@@ -1,30 +1,51 @@
-import { Controller, Logger, Post, Body, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Logger,
+  Post,
+  Body,
+  HttpCode,
+  Get,
+  Delete,
+  Put,
+  Param,
+} from '@nestjs/common';
 
-import { Result, ProviderRequest, returnError, Secret } from '@bytetrade/core';
+import {
+  Result,
+  ProviderRequest,
+  returnError,
+  Secret,
+  returnSucceed,
+} from '@bytetrade/core';
+import { AccountService } from './account.service';
+import { IntegrationAccount } from './utils';
 import { SecretService } from './secret.service';
 
 @Controller('/api/account')
 export class AccountController {
   private readonly logger = new Logger(AccountController.name);
 
-  constructor(private secretService: SecretService) {
+  constructor(
+    private accountService: AccountService,
+    private secretService: SecretService,
+  ) {
     //
   }
 
   @Post('/')
   @HttpCode(200)
-  async getAccount(
+  async getAccountByProvider(
     @Body() data: ProviderRequest<string>,
   ): Promise<Result<Secret>> {
-    this.logger.log('getaccount');
+    this.logger.log('getAccountByProvider');
     this.logger.log(data);
     const name = data.data;
     this.logger.log(name);
     try {
-      const res: any = await this.secretService.RetrieveSecret(name);
-      console.log(res);
-      if (res.code == 0) {
-        return res.data;
+      const res: IntegrationAccount | undefined =
+        await this.accountService.getIntegrationAccountFullInfoByKey(name);
+      if (res) {
+        return returnSucceed({ name, value: JSON.stringify(res.raw_data) });
       } else {
         return returnError(1, '');
       }
@@ -32,5 +53,49 @@ export class AccountController {
       console.log(e);
       return returnError(1, '');
     }
+  }
+
+  @Post('/create')
+  async CreateOrUpdateAccount(
+    @Body() raw_account: IntegrationAccount,
+  ): Promise<Result<null>> {
+    this.logger.debug('/create', raw_account);
+
+    const account = this.accountService.getInstanceByData(
+      raw_account.name,
+      raw_account.type,
+      raw_account.raw_data,
+    );
+
+    await this.accountService.updateIntegrationAccount(account);
+    return returnSucceed(null);
+  }
+
+  @Get('/:account_type')
+  async RetrieveAccount(
+    @Param('account_type') account_type,
+  ): Promise<Result<Secret>> {
+    this.logger.debug('get accounts ', account_type);
+
+    if (account_type == 'all') {
+      return returnSucceed(
+        await this.accountService.getAllIntegrationAccount(),
+      );
+    } else {
+      return returnSucceed(
+        await this.accountService.getIntegrationAccountByAccountType(
+          account_type,
+        ),
+      );
+    }
+  }
+
+  @Delete('/:key')
+  async DeleteAccount(@Param('key') key): Promise<Result<null>> {
+    this.logger.debug('/delete', key);
+
+    return returnSucceed(
+      await this.accountService.removeIntegrationAccount(key),
+    );
   }
 }

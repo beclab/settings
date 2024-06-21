@@ -4,7 +4,6 @@ import {
   Get,
   Post,
   Body,
-  Param,
   Req,
   HttpCode,
 } from '@nestjs/common';
@@ -12,15 +11,14 @@ import {
   Result,
   returnError,
   returnSucceed,
-  MessageBody,
   MessageData,
-  MessageTopic,
 } from '@bytetrade/core';
 import axios, { AxiosInstance } from 'axios';
 import { Cloud_URL } from './utils';
 import * as qs from 'qs';
 import { createSystemMessage, postSystemNotification } from '@bytetrade/core';
 import { SecretService } from './secret.service';
+import { AccountService } from './account.service';
 
 @Controller('/api/cloud')
 export class CloudController {
@@ -37,7 +35,10 @@ export class CloudController {
     '0xe2eaba0979277a90511f8873ae1e8ca26b54e740';
   private cloudUrl = process.env.APP_SERVICE_CLOUD_URL || Cloud_URL;
 
-  constructor(private secretService: SecretService) {
+  constructor(
+    private secretService: SecretService,
+    private accountService: AccountService,
+  ) {
     this.instance = axios.create({
       baseURL: this.cloudUrl,
       timeout: 1000 * 10,
@@ -47,7 +48,8 @@ export class CloudController {
 
   @Get('/getBindingTerminusNames')
   async getTerminusNames(): Promise<Result<any>> {
-    if (!this.secretService.spaceAccount) {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
       return returnError(1, 'Terminus Space not loggin');
     }
 
@@ -55,8 +57,8 @@ export class CloudController {
       const response = await this.instance.post(
         '/v1/bind/getTerminusNames',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
         }),
       );
 
@@ -86,7 +88,8 @@ export class CloudController {
 
   @Get('/getNFTAddress')
   async getNFTAddress(): Promise<Result<any>> {
-    if (!this.secretService.spaceAccount) {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
       return returnError(1, 'Terminus Space not loggin');
     }
 
@@ -94,8 +97,8 @@ export class CloudController {
       const response = await this.instance.post(
         '/v1/bind/getNFTAddress',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
           terminusName: this.secretService.terminusInfo.terminusName,
         }),
       );
@@ -118,7 +121,8 @@ export class CloudController {
     console.log('host:' + host);
     const isLocal = host.indexOf('.local.') >= 0;
     console.log('isLocal:' + isLocal);
-    if (!this.secretService.spaceAccount) {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
       return returnError(1, 'Terminus Space not loggin');
     }
     const id = '' + new Date().getTime();
@@ -133,7 +137,7 @@ export class CloudController {
           this.secretService.terminusInfo.terminusName.replace('@', '.') +
           '/api/cloud/sign/bindTerminusNames',
         sign_body: {
-          userid: this.secretService.spaceAccount.userid,
+          userid: spaceAccountData.userid,
           terminusName: this.secretService.terminusInfo.terminusName,
         },
       },
@@ -175,7 +179,8 @@ export class CloudController {
       userid: string;
     },
   ): Promise<Result<null>> {
-    if (!this.secretService.spaceAccount) {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
       return returnError(1, 'Terminus Space not loggin');
     }
 
@@ -190,8 +195,8 @@ export class CloudController {
       const response = await this.instance.post(
         '/v1/bind/bindTerminusName',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
           isAdmin: false,
           terminusName,
           jwt: jws,
@@ -240,7 +245,8 @@ export class CloudController {
     @Body()
     { id }: { id: number },
   ): Promise<Result<null>> {
-    if (!this.secretService.spaceAccount) {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
       return returnError(1, 'Terminus Space not loggin');
     }
 
@@ -248,8 +254,8 @@ export class CloudController {
       const response = await this.instance.post(
         '/v1/bind/unbindTerminusName',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
           id,
         }),
       );
@@ -273,12 +279,16 @@ export class CloudController {
     @Body()
     { terminusName }: { terminusName?: string },
   ): Promise<Result<null>> {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
+      return returnError(1, 'Terminus Space not loggin');
+    }
     try {
       const response = await this.instance.post(
         '/v1/bind/getEthAddress',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
           terminusName,
         }),
       );
@@ -320,8 +330,9 @@ export class CloudController {
     console.log('host:' + host);
     const isLocal = host.indexOf('.local.') >= 0;
     console.log('isLocal:' + isLocal);
-    if (!this.secretService.spaceAccount) {
-      return returnError(500, 'Please login Terminus Space first');
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
+      return returnError(1, 'Terminus Space not loggin');
     }
     if (
       signData.domain !=
@@ -343,7 +354,7 @@ export class CloudController {
             this.secretService.terminusInfo.terminusName.replace('@', '.') +
             '/api/cloud/sign/bindEthAddress',
           sign_body: {
-            userid: this.secretService.spaceAccount.userid,
+            userid: spaceAccountData.userid,
             terminusName: this.secretService.terminusInfo.terminusName,
           },
           sign_eth: {
@@ -428,6 +439,10 @@ export class CloudController {
     },
   ): Promise<Result<null>> {
     try {
+      const spaceAccountData = this.accountService.getSpaceAccount();
+      if (!spaceAccountData) {
+        return returnError(1, 'Terminus Space not loggin');
+      }
       if (!(id in this.signMessage)) {
         throw new Error('invalid id');
       }
@@ -441,8 +456,8 @@ export class CloudController {
       const response = await this.instance.post(
         '/v1/bind/bindEthAddress',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
           terminusName,
           jwt: jws,
           did,
@@ -513,14 +528,16 @@ export class CloudController {
       index: number;
     },
   ): Promise<Result<null>> {
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
+      return returnError(1, 'Terminus Space not loggin');
+    }
+
     const host: string = request.headers['host'];
     console.log('host:' + host);
     const isLocal = host.indexOf('.local.') >= 0;
     console.log('isLocal:' + isLocal);
 
-    if (!this.secretService.spaceAccount) {
-      return returnError(500, 'Please login Terminus Space first');
-    }
     if (
       signData.domain !=
       this.secretService.terminusInfo.terminusName.replace('@', '.')
@@ -540,7 +557,7 @@ export class CloudController {
             this.secretService.terminusInfo.terminusName.replace('@', '.') +
             '/api/cloud/sign/unBindEthAddress',
           sign_body: {
-            userid: this.secretService.spaceAccount.userid,
+            userid: spaceAccountData.userid,
             terminusName: this.secretService.terminusInfo.terminusName,
           },
           sign_eth: {
@@ -626,6 +643,11 @@ export class CloudController {
     },
   ): Promise<Result<null>> {
     try {
+      const spaceAccountData = this.accountService.getSpaceAccount();
+      if (!spaceAccountData) {
+        return returnError(1, 'Terminus Space not loggin');
+      }
+
       if (!(id in this.signMessage)) {
         throw new Error('invalid id');
       }
@@ -640,8 +662,8 @@ export class CloudController {
       const response = await this.instance.post(
         '/v1/bind/unBindEthAddress',
         qs.stringify({
-          userid: this.secretService.spaceAccount.userid,
-          token: this.secretService.spaceAccount.token,
+          userid: spaceAccountData.userid,
+          token: spaceAccountData.access_token,
           terminusName,
           jwt: jws,
           did,
@@ -716,8 +738,9 @@ export class CloudController {
     const isLocal = host.indexOf('.local.') >= 0;
     console.log('isLocal:' + isLocal);
 
-    if (!this.secretService.spaceAccount) {
-      return returnError(500, 'Please login Terminus Space first');
+    const spaceAccountData = this.accountService.getSpaceAccount();
+    if (!spaceAccountData) {
+      return returnError(1, 'Terminus Space not loggin');
     }
 
     try {
@@ -729,7 +752,7 @@ export class CloudController {
         image,
         chain_type,
         owner,
-        cloud_id: this.secretService.spaceAccount.userid,
+        cloud_id: spaceAccountData.userid,
         terminusName: this.secretService.terminusInfo.terminusName,
       };
       const id = '' + new Date().getTime();
@@ -744,7 +767,7 @@ export class CloudController {
             this.secretService.terminusInfo.terminusName.replace('@', '.') +
             '/api/cloud/sign/bindNFT',
           sign_body: {
-            userid: this.secretService.spaceAccount.userid,
+            userid: spaceAccountData.userid,
             terminusName: this.secretService.terminusInfo.terminusName,
           },
           sign_vc: {

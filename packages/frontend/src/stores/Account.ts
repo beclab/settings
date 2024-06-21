@@ -48,16 +48,9 @@ export const useAccountStore = defineStore('account', {
 				(item) => item.id === 'space'
 			) as AccountInfo;
 		},
-		// has_space_account(): boolean {
-		// 	return (
-		// 		this.secrets.find(
-		// 			(item) => item.name === 'settings-account-space'
-		// 		) !== undefined
-		// 	);
-		// },
 		space_account(): SpaceSaveData | undefined {
-			const res = this.secrets.find(
-				(item) => item.name === 'settings-account-space'
+			const res = this.secrets.find((item) =>
+				item.name.startsWith('integration-account:space')
 			);
 			if (res) {
 				return JSON.parse(res.value);
@@ -68,12 +61,16 @@ export const useAccountStore = defineStore('account', {
 	},
 
 	actions: {
-		async createSecret(name: string, value: string) {
+		async createSecret(name: string, value: any) {
 			const tokenStore = useTokenStore();
-			const data: any = await axios.post(`${tokenStore.url}/api/secret`, {
-				name,
-				value
-			});
+			const data: any = await axios.post(
+				`${tokenStore.url}/api/account/create`,
+				{
+					name,
+					type: 'space',
+					raw_data: value
+				}
+			);
 			return data;
 		},
 

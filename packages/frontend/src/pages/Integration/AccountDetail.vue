@@ -252,9 +252,9 @@ const blockChainStoreAddressAuthed = ref(false);
 
 const account_type = 'space';
 onMounted(async () => {
-	name.value = 'settings-account-space';
-	const res: any = accountStore.secrets.find(
-		(item) => item.name === name.value
+	name.value = 'integration-account:space';
+	const res: any = accountStore.secrets.find((item) =>
+		item.name.startsWith(name.value)
 	);
 	if (res) {
 		secert.value = JSON.parse(res.value);
