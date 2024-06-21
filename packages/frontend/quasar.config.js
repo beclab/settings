@@ -58,7 +58,7 @@ module.exports = configure(function (ctx) {
 				CONTRACT_ROOT_RESOLVER:
 					'0xe2eaba0979277a90511f8873ae1e8ca26b54e740',
 				CONTRACT_REGISTRY: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d'
-			}
+			},
 
 			// Add dependencies for transpiling with Babel (Array of string/regex)
 			// (from node_modules, which are by default not transpiled).
@@ -76,7 +76,12 @@ module.exports = configure(function (ctx) {
 
 			// https://v2.quasar.dev/quasar-cli-webpack/handling-webpack
 			// "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-			// chainWebpack (/* chain */) {}
+			chainWebpack(chain) {
+				chain
+					.entry('darkDefault.js')
+					.add('./build/darkDefault.ts')
+					.end();
+			}
 		},
 
 		// Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-devServer
