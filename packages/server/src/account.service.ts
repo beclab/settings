@@ -157,7 +157,8 @@ export class AccountService implements OnModuleInit {
         continue;
       }
 
-      ((await account) as SpaceAccount).refreshMonitor();
+      await (account as SpaceAccount).refreshMonitor();
+      break;
     }
   }
 }
