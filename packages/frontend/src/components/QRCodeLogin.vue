@@ -29,7 +29,7 @@ import { useAdminStore } from '../stores/Admin';
 import { useAccountStore } from '../stores/Account';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import axios from 'axios';
-import { Encoder, MessageTopic, SpaceSaveData } from '@bytetrade/core';
+import { Encoder, MessageTopic } from '@bytetrade/core';
 import { uid } from 'quasar';
 import { QR_STATUS } from '../utils/constants';
 
@@ -92,11 +92,12 @@ async function updateInfo() {
 		// 	expired: token.expired
 		// };
 
-		await accountStore.createSecret(adminStore.terminus.did, {
+		await accountStore.createAccount(adminStore.terminus.terminusName, {
 			refresh_token: token.token,
 			access_token: token.token,
 			expires_in: 60 * 30 * 1000,
-			expires_at: token.expired
+			expires_at: token.expired,
+			userid: adminStore.terminus.did
 		});
 
 		await accountStore.listSecret();

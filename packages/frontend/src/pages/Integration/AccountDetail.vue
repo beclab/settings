@@ -1,14 +1,5 @@
 <template>
 	<page-title-component :show-back="true" :title="t('terminus_space')">
-		<!-- <template v-slot:end>
-			<q-btn
-				dense
-				flat
-				class="confirm-btn bound-btn"
-				:label="t('logout')"
-				@click="logOut"
-			/>
-		</template> -->
 	</page-title-component>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
@@ -217,11 +208,10 @@ import { useBlockchainStore } from '../../stores/Blockchain';
 import { toUtf8Bytes, keccak256, ethers } from 'ethers';
 import ResolverABI from '../../core/RootResolverABI';
 import baseinfo from '../../core/baseinfo';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
-// import AccountItem from 'components/account/AccountItem.vue';
+import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import SettingAvatar from '../../components/base/SettingAvatar.vue';
-import AccountConnectStatus from 'components/account/AccountConnectStatus.vue';
-import AccountRequestSignDialog from 'components/account/AccountRequestSignDialog.vue';
+import AccountConnectStatus from '../../components/account/AccountConnectStatus.vue';
+import AccountRequestSignDialog from '../../components/account/AccountRequestSignDialog.vue';
 import { notifyFailed, notifyWarning } from '../../utils/btNotify';
 
 import { useI18n } from 'vue-i18n';

@@ -7,6 +7,7 @@ export enum AccountType {
   Google = 'google',
   Dropbox = 'dropbox',
   OneDrive = 'onedrive',
+  AWSS3 = 'awss3',
 }
 
 export class DomainCookieRecord {
@@ -67,6 +68,8 @@ export class IntegrationAccountData {
   access_token: string;
   expires_in: number;
   expires_at: number;
+  create_at: number;
+  available?: boolean;
 
   constructor(props?: Partial<IntegrationAccountData>) {
     props && Object.assign(this, props);
@@ -99,10 +102,21 @@ export class DropboxAccountData extends IntegrationAccountData {
   }
 }
 
+export class AWSS3boxAccountData extends IntegrationAccountData {
+  endpoint: string;
+  bucket: string;
+  constructor(props?: Partial<DropboxAccountData>) {
+    super(props);
+    props && Object.assign(this, props);
+  }
+}
+
 export class IntegrationAccountMiniData {
   name: string;
   type: AccountType;
   expires_at: number;
+  available: boolean;
+  create_at: number;
 
   data? = '';
 
@@ -129,6 +143,8 @@ export abstract class IntegrationAccount {
       name: this.name,
       type: this.type,
       expires_at: this.raw_data.expires_at,
+      available: this.raw_data.available,
+      create_at: this.raw_data.create_at,
     };
   }
 
@@ -278,3 +294,15 @@ export class SpaceAccount extends IntegrationAccount {
 }
 
 export class OneDriveRefresh {}
+
+export class AWSS3Account extends IntegrationAccount {
+  type = AccountType.AWSS3;
+  async refresh() {
+    // throw new Error('Method not implemented.');
+    return;
+  }
+  constructor(props?: Partial<AWSS3Account>) {
+    super(props);
+    props && Object.assign(this, props);
+  }
+}
