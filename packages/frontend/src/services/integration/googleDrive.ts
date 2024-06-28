@@ -15,9 +15,7 @@ export class GoogleAuthService extends OperateIntegrationAuth {
 		};
 	}
 
-	signIn(options: any) {
-		console.log(options);
-	}
+	signIn() {}
 
 	detailPath(account: IntegrationAccountMiniData) {
 		return (

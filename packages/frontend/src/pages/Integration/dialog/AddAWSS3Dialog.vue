@@ -90,10 +90,6 @@ import { computed, ref } from 'vue';
 import DialogHeader from '../../../components/DialogHeader.vue';
 import DialogFooter from '../../../components/DialogFooter.vue';
 import { useI18n } from 'vue-i18n';
-// import integraionService from '../../../services/integration/index';
-// import { getRequireImage } from '../../../utils/helper';
-// import { IntegrationAccountInfo } from '../../../services/abstractions/integration/integrationService';
-// import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
 import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import AddIntegrationDialog from './AddIntegrationDialog.vue';
 import integrationService from '../../../services/integration/index';
@@ -171,8 +167,6 @@ const enableCreate = computed(() => {
 });
 
 const createAWSS3 = async () => {
-	console.log('createAWSS3');
-
 	try {
 		const awss3Object: AWSS3IntegrationAccount = {
 			name: accessKeyID.value,
@@ -189,8 +183,6 @@ const createAWSS3 = async () => {
 		await integrationStore.createAccount(awss3Object);
 		step.value = 2;
 	} catch (error) {
-		console.log('error ===>');
-
 		console.log(error);
 	}
 };

@@ -25,7 +25,7 @@
 							{{ title }}
 						</div>
 						<div
-							class="status-common q-px-md q-ml-sm"
+							class="status-common text-caption q-px-md q-ml-sm row items-center justify-center"
 							:class="
 								available
 									? 'status-available'

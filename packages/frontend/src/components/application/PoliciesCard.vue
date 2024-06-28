@@ -79,8 +79,6 @@ const { t } = useI18n();
 
 const emit = defineEmits(['update:policies']);
 
-console.log(props.policies);
-
 const defaultPolicy: EntrancePolicy = {
 	one_time: true,
 	policy: 'one_factor',

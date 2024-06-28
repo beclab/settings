@@ -60,17 +60,13 @@ export class Domain {
 		watch(
 			() => account.walletHolderEvm.accounts.value,
 			() => {
-				console.log('account.walletHolderEvm.accounts.value update');
 				this.domainFetching.value = 'true';
-				// console.log(this.domainFetching)
-				// setTimeout(this.fetchDomainsFromBlock, 1000)
 				this.fetchDomainsFromBlock();
 			}
 		);
 		watch(
 			() => account.cloudHolder.cloudId.value,
 			() => {
-				console.log('account.cloudHolder.cloudId.value update');
 				this.domainFetching.value = 'true';
 				this.fetchDomainsFromCloud();
 			}
@@ -87,9 +83,6 @@ export class Domain {
 						item.name.split('.').length
 				) {
 					const subdomains = findSubdomain(item);
-					console.log('subdomains:');
-					console.log(subdomains);
-
 					item.subdomains = subdomains;
 					arr.push(item);
 				}
@@ -100,16 +93,12 @@ export class Domain {
 		watch(
 			() => this.allDomains.value,
 			() => {
-				console.log('on this.allDomains.value update');
 				const newArr: DomainNode[] = Object.assign(
 					[],
 					this.domains.value
 				);
 				newArr.forEach((item) => {
 					const domains = findSubdomain(item);
-					console.log('domains:');
-					console.log(domains);
-
 					item.subdomains = domains;
 				});
 
@@ -210,13 +199,10 @@ export class Domain {
 		//TODO FIXME fetch cloudId
 
 		this.domainsForWallet.value = arr;
-		console.log(this.domains);
 		this.domainFetching.value = 'false';
 	};
 
 	fetchSubdomain = async (callback: any) => {
-		console.log('fetchSubdomain');
-
 		const contract = this.getContract();
 		const totalSupply = await contract.totalSupply();
 		const arr: DomainNode[] = [];
@@ -238,9 +224,6 @@ export class Domain {
 		//TODO FIXME fetch cloudId
 
 		this.allDomains.value = arr;
-
-		console.log('all domain');
-		console.log(this.allDomains.value);
 
 		callback();
 	};

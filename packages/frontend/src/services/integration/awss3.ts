@@ -18,7 +18,6 @@ export class AWSS3AuthService extends OperateIntegrationAuth {
 	}
 
 	signIn(options: any) {
-		console.log(options);
 		const quasar = options.quasar as QVueGlobals;
 		quasar
 			.dialog({

@@ -67,9 +67,6 @@ export class ExtendsInfo {
 					`http://api-goerli-optimism.etherscan.io/api?module=contract&action=getabi&address=${resolver}&format=raw`
 				)
 				.then((resp) => {
-					console.log('loadResolver');
-					console.log(resp);
-
 					this.resolverABIS.set(resolver, resp.data);
 				})
 				.catch((error) => {
@@ -89,9 +86,6 @@ export class ExtendsInfo {
 		const contractRegistrar = this.getContractRegistrar();
 		const tagKeys = await contract.getTagKeys(domain.choosed.value?.id);
 
-		console.log('tagKeys:');
-		console.log(tagKeys);
-
 		const tags: Tag[] = [];
 		for (const tag of tagKeys) {
 			if (tag < 0xffff) {
@@ -105,15 +99,7 @@ export class ExtendsInfo {
 			const resolver = ret.substring(0, 42);
 			const selector = '0x' + ret.substring(42, 50);
 
-			console.log('resolver:');
-			console.log(resolver);
-
-			console.log('selector:');
-			console.log(selector);
-
 			const contractResolver = await this.loadResolver(resolver);
-			console.log('contractResolver:');
-			console.log(contractResolver);
 
 			const fragments = contractResolver.interface.fragments;
 			let value = '';

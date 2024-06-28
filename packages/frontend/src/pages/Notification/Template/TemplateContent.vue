@@ -126,11 +126,9 @@ export default {
 
 		onMounted(() => {
 			id.value = Route.params.id;
-			console.log(id.value);
 			template.value = applicationStore.templates.find(
 				(t) => t.id == id.value
 			);
-			console.log(template);
 			templateContent.value = applicationStore.templateContent.filter(
 				(t) => t.templateId == id.value
 			);

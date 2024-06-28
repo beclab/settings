@@ -73,9 +73,6 @@ function clickCloud(account: IntegrationAccountMiniData) {
 		.getInstanceByType(account.type)
 		?.detailPath(account);
 	if (path) {
-		console.log('path');
-		console.log(path);
-
 		router.push({ path });
 	}
 }

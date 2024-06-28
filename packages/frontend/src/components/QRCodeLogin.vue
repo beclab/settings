@@ -113,7 +113,6 @@ async function updateInfo() {
 function resetDID() {
 	//did.value = d;
 	secret.value = uid().replace(/-/g, '');
-	console.log(secret.value);
 	const time = new Date().getTime();
 	loginUrl.value =
 		'space://' +

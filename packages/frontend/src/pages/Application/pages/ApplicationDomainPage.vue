@@ -138,14 +138,12 @@ const addDomain = (isParty: boolean) => {
 		}
 	}).onOk((data: string) => {
 		if (isParty) {
-			console.log(third_party_domain.value);
 			tryAddThirdPartyDomain.value = third_party_domain.value !== data;
 			if (tryAddThirdPartyDomain.value) {
 				third_party_domain.value = data;
 				onSubmit();
 			}
 		} else {
-			console.log(third_level_domain.value);
 			tryAddThirdLevelDomain.value = third_level_domain.value !== data;
 			if (tryAddThirdLevelDomain.value) {
 				third_level_domain.value = data;

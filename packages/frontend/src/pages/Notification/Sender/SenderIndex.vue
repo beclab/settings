@@ -132,7 +132,6 @@ export default {
 					category: category.value,
 					content: JSON.stringify(list.value.map((t) => t.id))
 				};
-				console.log(obj);
 
 				if (isNew) {
 					await applicationStore.createTopicList(obj);

@@ -93,7 +93,6 @@ export const useDifyStore = defineStore('dify', {
 			if (info && model && info?.id === model.id) {
 				model.status = info.status;
 				model.progress = info.progress;
-				console.log('update');
 			}
 		},
 		async uninstall_model(model: DifyModelInfo) {

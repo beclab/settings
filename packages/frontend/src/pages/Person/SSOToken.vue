@@ -62,7 +62,6 @@ const adminStore = useAdminStore();
 const $q = useQuasar();
 const sso = ref<SSOResult[]>([]);
 const allCookies = ref(document.cookie);
-console.log('allCookies ===>', allCookies);
 
 onMounted(async () => {
 	// allCookies.value = document.cookie;

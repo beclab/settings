@@ -45,15 +45,13 @@ export class Account {
 	};
 
 	watchAccount() {
+		if (!window.ethereum) {
+			return;
+		}
 		try {
-			console.log((window as any).ethereum.chainId);
 			(window as any).ethereum.on(
 				'accountsChanged',
 				(accounts: string[]) => {
-					// console.group('on accountsChanged')
-					// console.log(accounts)
-					// console.groupEnd()
-
 					this.walletHolderEvm.accounts.value = accounts;
 					this.walletHolderEvm.chain.value = (
 						window as any
@@ -61,7 +59,6 @@ export class Account {
 				}
 			);
 			(window as any).ethereum.on('chainChanged', (chainId: any) => {
-				console.log('chainChanged:', chainId);
 				this.walletHolderEvm.chain.value = chainId;
 			});
 			(window as any).ethereum.on('connect', (connectInfo: any) => {
@@ -74,7 +71,6 @@ export class Account {
 	}
 
 	getUserAddress(): Promise<WalletHolder> {
-		// console.log('on metamask')
 		return new Promise((resolve, reject) => {
 			(window as any).ethereum
 				.request({ method: 'eth_requestAccounts' })

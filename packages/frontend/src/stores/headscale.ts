@@ -127,7 +127,6 @@ export const useHeadScaleStore = defineStore('headScale', {
 					this.headscaleURL + endpointURL
 				);
 
-				console.log(data);
 				return data.routes;
 			} catch (e) {
 				console.log(e);
