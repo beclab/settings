@@ -1,5 +1,5 @@
 <template>
-	<page-title-component :show-back="false" title="Upgrade" />
+	<page-title-component :show-back="false" :title="t('upgrade')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<q-list class="q-list-class">
 			<q-item class="list_section">

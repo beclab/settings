@@ -421,5 +421,16 @@ export default {
 	no_knowledge_bases_available: 'No Knowledge Bases available',
 	number_linked_agent: '{number} linked agent',
 	theme: 'Theme',
-	wallpaper: 'Wallpaper'
+	wallpaper: 'Wallpaper',
+	upgrade: 'Upgrade',
+	light: 'Light',
+	dark: 'Dark',
+	auto: 'Auto',
+	profile_avatar: 'Profile Avatar',
+	effected_urls: 'Effected URLs',
+	default_route_id: 'Default route id',
+	setup_custom_route_id: 'Setup custom route id',
+	setup_custom_domain: 'Setup custom domain',
+	device_of_vault_trustee: 'Device of Vault Trustee',
+	actions: 'Actions'
 };
