@@ -1,6 +1,9 @@
 <template>
 	<!-- <div class="column"> -->
-	<page-title-component :show-back="true" title="Device of Vault Truste" />
+	<page-title-component
+		:show-back="true"
+		:title="t('device_of_vault_trustee')"
+	/>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<template v-for="(device, index) in devices" :key="'device' + index">
 			<trust-device-item :device="device" />
@@ -13,8 +16,10 @@ import { onMounted, ref } from 'vue';
 import { useAdminStore } from 'src/stores/Admin';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import TrustDeviceItem from 'components/person/TrustDeviceItem.vue';
+import { useI18n } from 'vue-i18n';
 
 const adminStore = useAdminStore();
+const { t } = useI18n();
 
 const devices = ref([]);
 onMounted(async () => {

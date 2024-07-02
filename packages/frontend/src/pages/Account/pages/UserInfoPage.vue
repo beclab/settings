@@ -31,7 +31,7 @@
 		</div>
 
 		<q-list class="q-list-class">
-			<bt-form-item title="Profile Avatar" :margin-top="false">
+			<bt-form-item :title="t('profile_avatar')" :margin-top="false">
 				<q-avatar :size="`40px`">
 					<TerminusAvatar
 						:info="{
