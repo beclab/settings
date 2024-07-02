@@ -11,6 +11,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const { configure } = require('quasar/wrappers');
+const dotenv = require('dotenv');
+
+dotenv.config();
+console.log(process.env);
+
+const path = require('path');
 
 module.exports = configure(function (ctx) {
 	return {
@@ -150,36 +156,28 @@ module.exports = configure(function (ctx) {
 
 		// Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-devServer
 		devServer: {
+			port: 9000,
+			https: true,
+			host: process.env.DEV_DOMAIN || 'localhost',
 			open: true, // opens browser window automatically,
 			proxy: {
-				'/bfl': {
-					target: process.env.URL, //代理地址，这里设置的地址会代替axios中设置的baseURL
-					changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
-					pathRewrite: {
-						'^/bfl': 'bfl'
-					}
-					//ws: true, // proxy websockets
-					//pathRewrite方法重写url
-				},
 				'/api': {
-					target: 'https://settings.guojianmin.myterminus.com/',
+					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
 					changeOrigin: true
 				},
 				'/admin': {
-					target: 'https://settings.guojianmin.myterminus.com/',
+					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
 					changeOrigin: true
 				},
 				'/kapis': {
-					target: 'https://settings.guojianmin.myterminus.com/',
+					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
 					changeOrigin: true
 				},
 				'/headscale': {
-					target: 'https://settings.guojianmin.myterminus.com/',
+					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
 					changeOrigin: true
 				}
-			},
-			port: 9000,
-			https: true
+			}
 		},
 
 		// https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework

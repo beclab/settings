@@ -47,3 +47,4 @@ docker-build-server.sh
 docker-build-front.sh
 build-front.sh
 build-server.sh
+.env
