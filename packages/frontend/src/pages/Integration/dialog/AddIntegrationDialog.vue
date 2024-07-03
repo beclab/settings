@@ -21,7 +21,7 @@
 								:noSpinner="true"
 								:src="
 									getRequireImage(
-										`inegration/${item.detail.icon}`
+										`integration/${item.detail.icon}`
 									)
 								"
 							/>

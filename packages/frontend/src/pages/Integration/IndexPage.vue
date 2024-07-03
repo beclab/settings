@@ -14,19 +14,10 @@
 		</template>
 	</page-title-component>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<div
+		<empty-component
 			v-if="integrationStore.accounts.length === 0"
-			class="empty-parent column items-center"
-		>
-			<q-img src="default_empty.svg" class="empty-image" />
-			<div class="text-body2 empty-text">
-				{{
-					t('no_item_available', {
-						item: t('account')
-					})
-				}}
-			</div>
-		</div>
+			:empty-item="t('account')"
+		/>
 		<account-item
 			v-for="item in integrationStore.accounts"
 			:key="`${item.type}_${item.name}`"
@@ -60,6 +51,7 @@ import { IntegrationAccountMiniData } from '../../services/abstractions/integrat
 import { getRequireImage } from '../../utils/helper';
 import AddIntegrationDialog from './dialog/AddIntegrationDialog.vue';
 import integraionService from '../../services/integration/index';
+import EmptyComponent from '../../components/EmptyComponent.vue';
 const { t } = useI18n();
 
 const router = useRouter();
@@ -129,21 +121,5 @@ const addAccount = () => {
 }
 .add-btn:hover {
 	background-color: $background-3;
-}
-
-.empty-parent {
-	width: 100%;
-	height: calc(100% - 56px);
-
-	.empty-image {
-		margin-top: 144px;
-		width: 160px;
-		height: 160px;
-	}
-
-	.empty-text {
-		text-align: center;
-		color: $ink-2;
-	}
 }
 </style>
