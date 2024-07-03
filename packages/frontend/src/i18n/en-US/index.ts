@@ -434,5 +434,16 @@ export default {
 	optional: 'Optional',
 	previous: 'Previous',
 	mount_network_drive: 'Mount Network Drive',
-	no_item_available: 'No {item} available'
+	no_item_available: 'No {item} available',
+	upgrade: 'Upgrade',
+	light: 'Light',
+	dark: 'Dark',
+	auto: 'Auto',
+	profile_avatar: 'Profile Avatar',
+	effected_urls: 'Effected URLs',
+	default_route_id: 'Default route id',
+	setup_custom_route_id: 'Setup custom route id',
+	setup_custom_domain: 'Setup custom domain',
+	device_of_vault_trustee: 'Device of Vault Trustee',
+	actions: 'Actions'
 };

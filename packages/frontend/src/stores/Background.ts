@@ -4,6 +4,7 @@ import { useTokenStore } from './token';
 import { Cookies, Dark } from 'quasar';
 import { getSecondLevelDomain } from '../utils/constants';
 import { ThemeDefinedMode, themeModeName } from '@bytetrade/ui';
+import { i18n } from '../boot/i18n';
 
 export interface Wallpaper {
 	desktop: string;
@@ -14,15 +15,15 @@ export interface Wallpaper {
 
 export const themeOptions = [
 	{
-		label: 'Light',
+		label: i18n.global.t('light'),
 		value: ThemeDefinedMode.LIGHT
 	},
 	{
-		label: 'Dark',
+		label: i18n.global.t('dark'),
 		value: ThemeDefinedMode.DARK
 	},
 	{
-		label: 'Auto',
+		label: i18n.global.t('auto'),
 		value: ThemeDefinedMode.AUTO
 	}
 ];

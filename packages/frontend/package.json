@@ -33,6 +33,7 @@
 		"vue-router": "^4.0.0"
 	},
 	"devDependencies": {
+		"dotenv": "^16.4.5",
 		"@quasar/app-webpack": "^3.0.0",
 		"@types/js-md5": "^0.7.2",
 		"@types/node": "^12.20.21",

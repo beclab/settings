@@ -139,7 +139,7 @@ const columns = [
 	},
 	{
 		name: 'actions',
-		label: 'Actions',
+		label: t('actions'),
 		field: 'termiPass',
 		align: 'right'
 	}

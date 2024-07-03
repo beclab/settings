@@ -25,7 +25,7 @@
 							:error-message="t('errors.please_input_url')"
 						>
 							<bt-form-item
-								title="Effected URLs"
+								:title="t('effected_urls')"
 								:margin-top="false"
 								:width-separator="false"
 							>

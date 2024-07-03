@@ -56,7 +56,7 @@
 				</terminus-edit>
 
 				<dialog-footer
-					confirm-text="Save"
+					:confirm-text="t('save')"
 					:confirm-disable="!enableCreate"
 					@cancel-action="onDialogCancel"
 					@confirm-action="createUserName"

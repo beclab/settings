@@ -7,11 +7,11 @@
 	>
 		<q-list class="q-list-class">
 			<bt-form-item
-				:title="t('Default route id')"
+				:title="t('default_route_id')"
 				:margin-top="false"
 				:data="application.id"
 			/>
-			<bt-form-item :title="t('Setup custom route id')">
+			<bt-form-item :title="t('setup_custom_route_id')">
 				<div class="row justify-between items-center">
 					<bt-edit-view
 						style="width: calc(100% - 32px)"
@@ -29,7 +29,7 @@
 			</bt-form-item>
 
 			<bt-form-item
-				:title="t('Setup custom domain')"
+				:title="t('setup_custom_domain')"
 				:width-separator="tryAddThirdPartyDomain"
 			>
 				<div class="row justify-between items-center">
