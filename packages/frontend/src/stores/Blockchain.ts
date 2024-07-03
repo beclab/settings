@@ -66,7 +66,6 @@ export const useBlockchainStore = defineStore('blockchain', {
 				ethereum
 					.enable()
 					.catch((reason: any) => {
-						console.log(reason);
 						if (reason.code === 4001) {
 							console.log('User rejected the request');
 						} else if (reason.code == -32002) {
@@ -77,7 +76,6 @@ export const useBlockchainStore = defineStore('blockchain', {
 					})
 					.then(async (accountsMM: any) => {
 						// You also should verify the user is on the correct network:
-						//console.log("networkVersion " + ethereum.networkVersion)
 
 						const chainId = (window as any).ethereum.chainId;
 

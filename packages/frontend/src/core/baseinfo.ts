@@ -44,7 +44,6 @@ const getHex = (data: any) => {
 		}
 		hex += hexCode;
 	}
-	console.log(hex);
 	return hex;
 };
 
@@ -55,17 +54,13 @@ const getBase64 = (data: any) => {
 		const code = parseInt(hex.slice(i, i + 2), 16);
 		arr.push(code);
 	}
-	console.log(arr);
 
 	let str = '';
 	for (let i = 0; i < arr.length; i++) {
 		const char = String.fromCharCode(arr[i]);
 		str += char;
 	}
-	console.log(str);
 	const base64 = btoa(str);
-	console.log(base64);
-
 	return base64;
 };
 
@@ -141,7 +136,6 @@ export class BaseInfo {
 		let pubKey = '';
 		try {
 			if (rsaKey != '0x') {
-				console.log('rsaKey:');
 				const str = String.fromCharCode(
 					...rsaKey
 						.match(/.{1,2}/g)
@@ -150,7 +144,6 @@ export class BaseInfo {
 				const encoded = btoa(str);
 				const base64 = getBase64(rsaKey.replaceAll('0x', ''));
 
-				// console.log(Buffer.from(rsaKey, 'hex').toString('base64'))
 				console.log(
 					CryptoJS.enc.Base64.stringify(
 						CryptoJS.enc.Hex.parse(rsaKey)
@@ -172,9 +165,6 @@ export class BaseInfo {
 		const authenticatedAddress = await contract.authenticationAddress(
 			domain.viewDomain.value?.id
 		);
-
-		console.log('authenticatedAddress:');
-		console.log(authenticatedAddress);
 
 		const baseInfo: BaseInfoData = Object.assign(
 			{
@@ -423,15 +413,6 @@ export class BaseInfo {
 		const provider = new ethers.BrowserProvider((window as any).ethereum);
 		const signer = await provider.getSigner();
 		const signed = await signer.signTypedData(signDomain, types, value);
-		console.log('signed:');
-		console.log(signed);
-
-		// console.log(this.baseInfo.value)
-		// console.log(this.baseInfo.value?.authenticateds)
-		// console.log(this.baseInfo.value?.authenticateds.filter(item => item[1].toLowerCase() == addr.toLowerCase()))
-
-		// const index = this.baseInfo.value?.authenticateds.filter(item => item[1].toLowerCase() == addr.toLowerCase())[0]["0"].toString()
-		// console.log('index', index)
 		return {
 			data: value,
 			signed

@@ -53,9 +53,8 @@
 import { PropType } from 'vue';
 import { AccountInfo } from '../../global';
 import { getRoleName } from '../../utils/constants';
-import SettingConnectStatus from 'components/base/SettingConnectStatus.vue';
-
-const props = defineProps({
+import SettingConnectStatus from '../../components/base/SettingConnectStatus.vue';
+defineProps({
 	account: {
 		type: Object as PropType<AccountInfo>,
 		require: true
@@ -69,8 +68,6 @@ const props = defineProps({
 		default: true
 	}
 });
-
-console.log('roles ===>', props.account);
 </script>
 
 <style scoped lang="scss">

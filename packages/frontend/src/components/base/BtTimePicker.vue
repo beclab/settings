@@ -68,7 +68,6 @@ const valueWithUnit = computed({
 	get: () => `${props.modelValue}${unitSign.value ? props.unit : ''}`,
 	set: (value) => {
 		const parsedValue = parseFloat(value);
-		console.log(parsedValue);
 		emit(
 			'update:modelValue',
 			isNaN(parsedValue)
@@ -79,7 +78,6 @@ const valueWithUnit = computed({
 });
 
 const onInputChange = (value: string) => {
-	console.log(value);
 	if (props.unit) {
 		const valueWithoutUnitSign = value.replace(props.unit, '');
 		emit('onUpdate', valueWithoutUnitSign);
@@ -89,7 +87,6 @@ const onInputChange = (value: string) => {
 const increasePercentage = () => {
 	if (props.modelValue !== undefined && props.modelValue < props.max) {
 		const value = (props.modelValue + 1).toFixed(0);
-		console.log(value);
 		valueWithUnit.value = value;
 		emit('onUpdate', value);
 	}

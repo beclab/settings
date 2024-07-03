@@ -61,6 +61,11 @@ export class AccountController {
   ): Promise<Result<null>> {
     this.logger.debug('/create', raw_account);
 
+    if (raw_account.raw_data.available == undefined) {
+      raw_account.raw_data.available = true;
+    }
+    raw_account.raw_data.create_at = new Date().getTime();
+
     const account = this.accountService.getInstanceByData(
       raw_account.name,
       raw_account.type,
@@ -71,9 +76,10 @@ export class AccountController {
     return returnSucceed(null);
   }
 
-  @Get('/:account_type')
+  @Get('/:account_type/:name?')
   async RetrieveAccount(
     @Param('account_type') account_type,
+    @Param('name') name,
   ): Promise<Result<Secret>> {
     this.logger.debug('get accounts ', account_type);
 
@@ -85,6 +91,7 @@ export class AccountController {
       return returnSucceed(
         await this.accountService.getIntegrationAccountByAccountType(
           account_type,
+          name,
         ),
       );
     }

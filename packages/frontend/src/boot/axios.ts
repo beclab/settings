@@ -90,8 +90,6 @@ export default boot(({ app }) => {
 					//return response;
 				}
 
-				console.log(response.config.url);
-
 				if (
 					response.config.url!.indexOf('kapis') >= 0 ||
 					response.config.url!.indexOf(
@@ -112,7 +110,6 @@ export default boot(({ app }) => {
 						throw Error(data.message);
 					}
 
-					console.log(data);
 					if (data.code == 0 || data.code == 200) {
 						return data.data;
 					} else {

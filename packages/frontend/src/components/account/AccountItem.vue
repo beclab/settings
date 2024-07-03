@@ -1,7 +1,7 @@
 <template>
 	<q-item
-		class="q-list-class"
-		style="height: 80px"
+		:class="border ? 'q-list-class' : 'q-pa-none'"
+		:style="border ? 'height: 80px' : ''"
 		:clickable="clickable"
 		@click="accountClick"
 	>
@@ -24,9 +24,19 @@
 						<div class="text-subtitle2 account-title">
 							{{ title }}
 						</div>
+						<div
+							class="status-common text-caption q-px-md q-ml-sm row items-center justify-center"
+							:class="
+								available
+									? 'status-available'
+									: 'status-unabled'
+							"
+						>
+							{{ available ? t('active') : t('inactive') }}
+						</div>
 					</div>
 					<div
-						class="text-body3 account-detail"
+						class="text-body3 account-detail q-mt-xs"
 						v-if="detail && detail.length"
 					>
 						{{ detail }}
@@ -44,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 defineProps({
 	imgName: {
 		required: false,
@@ -70,8 +81,19 @@ defineProps({
 		required: false,
 		default: true,
 		type: Boolean
+	},
+	available: {
+		required: true,
+		type: Boolean
+	},
+	border: {
+		type: Boolean,
+		required: false,
+		default: true
 	}
 });
+
+const { t } = useI18n();
 
 const accountClick = () => {
 	emit('accountClick');
@@ -85,7 +107,22 @@ const emit = defineEmits(['accountClick']);
 	color: $ink-1;
 }
 
+.status-common {
+	height: 20px;
+	border-radius: 4px;
+}
+
+.status-available {
+	background: var(---green-soft, #e5ffee);
+	color: var(--positive, #29cc5f);
+}
+
+.status-unabled {
+	background: var(---red-soft, #fff2f2);
+	color: var(--negative, #ff4d4d);
+}
+
 .account-detail {
-	color: $ink-2;
+	color: $ink-3;
 }
 </style>

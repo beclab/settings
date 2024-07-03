@@ -115,7 +115,6 @@ async function updateNFT(address: string) {
 								'ipfs://',
 								'https://gateway.ipfs.io/ipfs/'
 							);
-							console.log(token.image);
 						}
 					}
 					arr.push({

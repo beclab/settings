@@ -251,5 +251,8 @@ const submit = () => {
 		margin-top: 4px;
 		color: $red;
 	}
+	.q-field__control-container input::placeholder {
+		color: green;
+	}
 }
 </style>

@@ -13,15 +13,10 @@
 		</template>
 	</page-title-component>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<div
+		<empty-component
 			v-if="fileStore.datasets.length === 0"
-			class="empty-parent column items-center"
-		>
-			<q-img src="default_empty.svg" class="empty-image" />
-			<div class="text-body2 empty-text">
-				{{ t('no_knowledge_bases_available') }}
-			</div>
-		</div>
+			:empty-item="t('knowledge')"
+		/>
 		<div
 			class="q-list-class"
 			v-for="folder in fileStore.datasets"
@@ -115,6 +110,8 @@ import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
 import { notifyFailed, notifySuccess } from '../../utils/btNotify';
+import EmptyComponent from '../../components/EmptyComponent.vue';
+
 const { t } = useI18n();
 
 const $q = useQuasar();

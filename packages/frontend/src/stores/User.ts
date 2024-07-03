@@ -92,9 +92,6 @@ export const useUserStore = defineStore('user', {
 			});
 
 			this.accounts = [...admins, ...actives, ...noActives];
-
-			console.log('account ===>');
-			console.log(this.accounts);
 		},
 
 		getUserByName(name: string) {

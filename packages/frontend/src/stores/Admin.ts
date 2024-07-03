@@ -91,7 +91,6 @@ export const useAdminStore = defineStore('admin', {
 			await axios.delete(
 				`${tokenStore.url}/api/device/sso/${token.termiPass.sso}`
 			);
-			// console.log(token);
 		}
 	}
 });

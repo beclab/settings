@@ -138,7 +138,6 @@ export const useBackgroundStore = defineStore('background', {
 				sameSite: 'None',
 				secure: true
 			});
-			console.log('post window.parent ===>');
 			window.parent.postMessage(
 				{
 					message: 'theme_update',
