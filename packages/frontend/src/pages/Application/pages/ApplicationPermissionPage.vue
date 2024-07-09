@@ -12,6 +12,7 @@
 				:detail="permission.uri"
 			/>
 		</template>
+		{{ JSON.stringify(permissionProviderRegister) }}
 	</bt-scroll-area>
 </template>
 
