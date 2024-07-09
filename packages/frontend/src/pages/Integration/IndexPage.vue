@@ -2,99 +2,95 @@
 	<page-title-component
 		:show-back="false"
 		:title="t('home_menus.integration')"
-	/>
+	>
+		<template v-slot:end>
+			<div
+				class="add-btn row justify-center items-center"
+				@click="addAccount()"
+			>
+				<q-icon size="20px" name="sym_r_add" color="ink-1" />
+				<div class="text-body3 add-title">{{ t('add_account') }}</div>
+			</div>
+		</template>
+	</page-title-component>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-item
-			class="q-list-class"
-			clickable
-			v-if="!accountStore.space_account"
-		>
-			<q-item-section>
-				<div class="row items-center" @click="clickCloud('space')">
-					<img
-						class="application-logo"
-						src="../../assets/cloud/login/icon.svg"
-						style="border-radius: 10px"
-					/>
-					<div
-						class="column justify-start"
-						style="margin-left: 8px; width: calc(100% - 48px)"
-					>
-						<div class="row">
-							<div class="text-subtitle2 application-name">
-								{{ t('terminus_space') }}
-							</div>
-							<setting-connect-status
-								:connected="!!accountStore.space_account"
-							/>
-						</div>
-						<div class="text-body3 application-label">
-							{{
-								t(
-									'check_resource_usage_you_can_check_the_binding_message'
-								)
-							}}
-						</div>
-					</div>
-				</div>
-			</q-item-section>
-			<q-item-section side>
-				<q-icon name="sym_r_chevron_right" color="ink-1" size="20px" />
-			</q-item-section>
-		</q-item>
+		<empty-component
+			v-if="integrationStore.accounts.length === 0"
+			:empty-item="t('account')"
+		/>
 		<account-item
-			v-else
-			:title="adminStore.user.name"
-			:detail="'@' + adminStore.terminus.terminusName.split('@')[1]"
-			@account-click="clickCloud('space')"
+			v-for="item in integrationStore.accounts"
+			:key="`${item.type}_${item.name}`"
+			:title="item.name"
+			:available="item.available"
+			:detail="`Authorized time:${formattedDate(item.create_at)}`"
+			@account-click="clickCloud(item)"
 		>
 			<template v-slot:avatar>
-				<setting-avatar :size="40" style="margin-left: 8px" />
+				<!-- <setting-avatar :size="40" style="margin-left: 8px" /> -->
+				<q-img
+					width="40px"
+					height="40px"
+					:noSpinner="true"
+					:src="getAccountIcon(item)"
+				/>
 			</template>
 		</account-item>
-
-		<div class="mode-title-class q-mt-md">
-			{{ t('third_party_account') }}
-		</div>
-		<account-item
-			v-for="(item, index) in ThirdPartyAccountList"
-			:key="index"
-			:title="item.name"
-			:img-name="item.name"
-			@click="featuresToast"
-		/>
 	</bt-scroll-area>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useAccountStore } from '../../stores/Account';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
-import SettingConnectStatus from '../../components/base/SettingConnectStatus.vue';
+import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import AccountItem from '../../components/account/AccountItem.vue';
-import { ThirdPartyAccountList } from '../../utils/constants';
 import { useI18n } from 'vue-i18n';
-import { notifySuccess } from '../../utils/btNotify';
-import { useAdminStore } from '../../stores/Admin';
-import SettingAvatar from '../../components/base/SettingAvatar.vue';
+import { onMounted } from 'vue';
+import { useIntegrationStore } from '../../stores/integration';
+import { date, useQuasar } from 'quasar';
+import { IntegrationAccountMiniData } from '../../services/abstractions/integration/integrationService';
+import { getRequireImage } from '../../utils/helper';
+import AddIntegrationDialog from './dialog/AddIntegrationDialog.vue';
+import integraionService from '../../services/integration/index';
+import EmptyComponent from '../../components/EmptyComponent.vue';
 const { t } = useI18n();
 
 const router = useRouter();
 
-const accountStore = useAccountStore();
+const $q = useQuasar();
 
-const adminStore = useAdminStore();
+const integrationStore = useIntegrationStore();
 
-function clickCloud(account_type: string) {
-	if (accountStore.space_account) {
-		router.push({ path: '/integration/detail/space' });
-	} else {
-		router.push({ path: '/integration/login/' + account_type });
+function clickCloud(account: IntegrationAccountMiniData) {
+	const path = integraionService
+		.getInstanceByType(account.type)
+		?.detailPath(account);
+	if (path) {
+		router.push({ path });
 	}
 }
+const formattedDate = (datetime: number) => {
+	if (datetime <= 0) {
+		return '--';
+	}
+	return date.formatDate(datetime, 'YYYY-MM-DD HH:mm:ss');
+};
 
-const featuresToast = () => {
-	notifySuccess(t('features_under_development'));
+const getAccountIcon = (data: IntegrationAccountMiniData) => {
+	const account = integrationStore.getAccountByType(data);
+	if (!account) {
+		return '';
+	}
+	return getRequireImage(`integration/${account.detail.icon}`);
+};
+
+onMounted(() => {
+	integrationStore.getAccount('all');
+});
+
+const addAccount = () => {
+	$q.dialog({
+		component: AddIntegrationDialog
+	}).onOk(() => {});
 };
 </script>
 
@@ -110,5 +106,20 @@ const featuresToast = () => {
 
 .application-label {
 	color: $ink-2;
+}
+
+.add-btn {
+	border-radius: 8px;
+	padding: 6px 12px;
+	border: 1px solid $separator;
+	cursor: pointer;
+	text-decoration: none;
+
+	.add-title {
+		color: $ink-2;
+	}
+}
+.add-btn:hover {
+	background-color: $background-3;
 }
 </style>

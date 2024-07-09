@@ -100,15 +100,6 @@ const userStore = useUserStore();
 const headScaleStore = useHeadScaleStore();
 const router = useRouter();
 
-console.log('adminStore.user --->', adminStore.user);
-
-// function clickCloud(account_type: string) {
-// 	if (accountStore.space_account) {
-// 		router.push({ path: '/accounts/detail/' + account_type });
-// 	} else {
-// 		router.push({ path: '/accounts/login/' + account_type });
-// 	}
-// }
 const userInfo = ref<AccountInfo | undefined>();
 
 onMounted(async () => {

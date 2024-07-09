@@ -145,7 +145,6 @@ const isRegIP = computed(() => {
 	const reg = new RegExp(
 		/^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])(\/(?:[1-9]|[12][0-9]|3[012])+)[,]?)+$/
 	);
-	console.log();
 
 	if (appointIP.value && reg.test(appointIP.value)) {
 		return true;

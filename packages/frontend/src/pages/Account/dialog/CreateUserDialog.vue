@@ -130,7 +130,6 @@ const createUserName = async () => {
 	}
 	Loading.show();
 	const data = await didStore.resolve_name(adminStore.terminus.terminusName);
-	console.log(data);
 	if (!data) {
 		notifyFailed(t('terminus_name_not_exists_on_blockchain'));
 		Loading.hide();

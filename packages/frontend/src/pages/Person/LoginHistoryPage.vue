@@ -128,7 +128,6 @@ const fetchHistory = (params: UsersParam) => {
 	accountStore
 		.getLoginrecords(params)
 		.then((res: any) => {
-			console.log(res);
 			rows.value = res.items.map((item: any) => ({
 				createTime: item.metadata.creationTimestamp,
 				status: item.spec.success,

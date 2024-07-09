@@ -146,6 +146,11 @@ const routes: RouteRecordRaw[] = [
 				component: () =>
 					import('src/pages/Integration/TerminusSpaceNFTPage.vue')
 			},
+			{
+				path: '/integration/common/detail/:type/:name',
+				component: () =>
+					import('src/pages/Integration/IntegrationDetailPage.vue')
+			},
 
 			//Notification
 			{

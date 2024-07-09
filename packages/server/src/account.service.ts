@@ -3,6 +3,7 @@ import { Interval, Cron } from '@nestjs/schedule';
 import { Secret } from '@bytetrade/core';
 import { SecretService } from './secret.service';
 import {
+  AWSS3Account,
   AccountType,
   DropboxAccount,
   GoogleAccount,
@@ -42,15 +43,27 @@ export class AccountService implements OnModuleInit {
         type: AccountType.Space,
         raw_data: value,
       });
+    } else if (type == AccountType.AWSS3) {
+      return new AWSS3Account({
+        name,
+        type: AccountType.AWSS3,
+        raw_data: value,
+      });
     } else {
       throw new Error('not support');
     }
   }
 
   getSpaceAccount(): SpaceAccountData | undefined {
-    return this.accounts.find((a) =>
-      a.name.startsWith('integration-account:space'),
-    )?.raw_data as SpaceAccountData;
+    console.log('getSpaceAccount this.accounts');
+    console.log(this.accounts);
+
+    const result = this.accounts.find((a) => a.type == AccountType.Space)
+      ?.raw_data as SpaceAccountData;
+    console.log('result ===>');
+    console.log(result);
+
+    return result;
   }
 
   getIntegrationAccountFullInfoByKey(
@@ -61,9 +74,10 @@ export class AccountService implements OnModuleInit {
 
   getIntegrationAccountByAccountType(
     type: AccountType,
+    name?: string,
   ): IntegrationAccountMiniData[] {
     return this.accounts
-      .filter((a) => a.type == type)
+      .filter((a) => a.type == type && (name ? a.name == name : true))
       .map((a) => a.get_mini_data());
   }
 
@@ -114,7 +128,7 @@ export class AccountService implements OnModuleInit {
         this.getInstanceByData(name, arr[1], JSON.parse(secret.value)),
       );
     }
-
+    console.log('this.accounts ===>');
     console.log(this.accounts);
   }
 
@@ -123,8 +137,14 @@ export class AccountService implements OnModuleInit {
     this.logger.log('refresh Token');
 
     const now = new Date().getTime();
-    const removed = [];
+    // const removed = [];
     for (let i = 0; i < this.accounts.length; i++) {
+      if (!this.accounts[i].raw_data.available) {
+        continue;
+      }
+      if (this.accounts[i].raw_data.expires_at <= 0) {
+        continue;
+      }
       if (now < this.accounts[i].raw_data.expires_at - 60 * 60 * 1000) {
         continue;
       }
@@ -137,15 +157,20 @@ export class AccountService implements OnModuleInit {
           JSON.stringify(this.accounts[i].raw_data),
         );
       } catch (e) {
-        console.log(e);
-        removed.push(this.accounts[i].get_store_key());
+        if (now > this.accounts[i].raw_data.expires_at) {
+          this.accounts[i].raw_data.available = false;
+          await this.secretService.UpdateSecret(
+            this.accounts[i].get_store_key(),
+            JSON.stringify(this.accounts[i].raw_data),
+          );
+        }
       }
     }
 
-    for (const key of removed) {
-      this.accounts = this.accounts.filter((a) => a.get_store_key() != key);
-      await this.secretService.DeleteSecret(key);
-    }
+    // for (const key of removed) {
+    //   //   this.accounts = this.accounts.filter((a) => a.get_store_key() != key);
+    //   await this.secretService.DeleteSecret(key);
+    // }
   }
 
   @Interval(1000 * 60 * 2)

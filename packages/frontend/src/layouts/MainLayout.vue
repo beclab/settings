@@ -166,7 +166,6 @@ const itemsRef = ref();
 const itemMenu = ref('/');
 
 const changeItemMenu = (data: any): void => {
-	console.log('datatatatt ===>', data);
 	const type = data.key;
 	itemMenu.value = type;
 	router.push({ path: type });

@@ -123,7 +123,6 @@ const oldValidDuration = ref(0);
 const oldSubPolicies = ref<EntrancePolicy[]>([]);
 
 const gotoDomainSetup = () => {
-	console.log('gotoDomainSetup' + entrance_name);
 	router.push(
 		'/application/domain/' + application.value?.name + '/' + entrance_name
 	);
@@ -209,9 +208,6 @@ async function updateAuthLevel() {
 	const res =
 		applicationStore.entrances[application_name.value][entrance_name];
 
-	console.log('res.authLevel ===>');
-	console.log(res);
-
 	authorizationLevel.value = res.authLevel || AUTH_LEVEL.Public;
 	oldAuthorizationLevel.value = res.authLevel || AUTH_LEVEL.Public;
 }
@@ -222,8 +218,6 @@ const resultCode = computed(() => {
 	}
 
 	const condition1 = oldAuthorizationLevel.value == authorizationLevel.value;
-
-	console.log(condition1);
 
 	const condition2 =
 		oldOnTimeMode.value == oneTimeMode.value &&

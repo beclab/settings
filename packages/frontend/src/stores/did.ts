@@ -40,7 +40,6 @@ export const useDIDStore = defineStore('did', {
 				return null;
 			} catch (err) {
 				console.log(err);
-				console.log('not found name err: ' + did);
 				return undefined;
 			}
 		},
@@ -56,7 +55,6 @@ export const useDIDStore = defineStore('did', {
 				return null;
 			} catch (err) {
 				console.log(err);
-				console.log('not found name err: ' + name);
 				return null;
 			}
 		},
@@ -65,14 +63,12 @@ export const useDIDStore = defineStore('did', {
 				const get_name_response = await this.did_instance!.get(
 					'/1.0/name/' + name.replace('@', '.')
 				);
-				console.log(get_name_response);
 				if (get_name_response && get_name_response.status == 200) {
 					return get_name_response.data;
 				}
 				return null;
 			} catch (err) {
 				console.log(err);
-				console.log('not found name err: ' + name);
 				return null;
 			}
 		},

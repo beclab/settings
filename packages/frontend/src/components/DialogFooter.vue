@@ -9,6 +9,7 @@
 			@click="cancelAction"
 		/>
 		<q-btn
+			v-if="hasConfirm"
 			dense
 			flat
 			:class="isReminder ? 'reminder-btn q-px-md' : 'confirm-btn q-px-md'"
@@ -29,13 +30,15 @@ withDefaults(
 		confirmDisable: boolean;
 		hasCancel: boolean;
 		isReminder: boolean;
+		hasConfirm: boolean;
 	}>(),
 	{
 		cancelText: i18n.global.t('cancel'),
 		confirmText: i18n.global.t('ok'),
 		confirmDisable: false,
 		hasCancel: true,
-		isReminder: false
+		isReminder: false,
+		hasConfirm: true
 	}
 );
 

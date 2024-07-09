@@ -140,8 +140,6 @@ export default {
 					category: category.value,
 					content: JSON.stringify(list.value.map((t) => t.id))
 				};
-				console.log(obj);
-
 				if (isNew) {
 					await applicationStore.createTopicList(obj);
 				} else {
@@ -150,7 +148,6 @@ export default {
 
 				updateList();
 			} catch (e) {
-				console.log(e);
 				notifyFailed(
 					e.message || t('errors.something_wrong_please_try_again')
 				);

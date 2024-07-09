@@ -30,15 +30,11 @@
 				</template>
 			</QRCodeLogin>
 		</div>
-		<div
+
+		<EmptyComponent
 			v-else-if="backupStore.plans.length === 0"
-			class="empty-parent column items-center"
-		>
-			<q-img src="default_empty.svg" class="empty-image" />
-			<div class="text-body2 empty-text">
-				{{ t('no_backup_available') }}
-			</div>
-		</div>
+			:info="t('no_backup_available')"
+		/>
 		<div v-else>
 			<template v-for="(plan, index) of backupStore.plans" :key="index">
 				<plan-item :plan="plan" />
@@ -56,6 +52,7 @@ import PlanItem from '../../components/backup/PlanItem.vue';
 import { useI18n } from 'vue-i18n';
 import QRCodeLogin from '../../components/QRCodeLogin.vue';
 import { useAccountStore } from '../../stores/Account';
+import EmptyComponent from '../../components/EmptyComponent.vue';
 
 const { t } = useI18n();
 
@@ -89,21 +86,6 @@ function newBackup() {
 	background-color: $background-3;
 }
 
-.empty-parent {
-	width: 100%;
-	height: calc(100% - 56px);
-
-	.empty-image {
-		margin-top: 144px;
-		width: 160px;
-		height: 160px;
-	}
-
-	.empty-text {
-		text-align: center;
-		color: $ink-2;
-	}
-}
 .terminus-space-backup-title {
 	text-align: center;
 	width: 336px;

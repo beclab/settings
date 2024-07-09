@@ -169,9 +169,7 @@ export default {
 
 		onMounted(async () => {
 			id.value = Route.params.id;
-			console.log(id.value);
 			job.value = applicationStore.jobs.find((t) => t.id == id.value);
-			console.log(job.value);
 			messages.value = await applicationStore.getMessageByJob(id.value);
 		});
 

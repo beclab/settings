@@ -3,6 +3,12 @@ import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
 import { SpaceSaveData, Secret } from '@bytetrade/core';
 
+import {
+	AccountType,
+	IntegrationAccount,
+	IntegrationAccountMiniData
+} from 'src/services/abstractions/integration/integrationService';
+
 const SPACE_URL = process.env.SPACE_URL || 'https://cloud-api.bttcdn.com';
 
 export interface AccountData {
@@ -61,19 +67,6 @@ export const useAccountStore = defineStore('account', {
 	},
 
 	actions: {
-		async createSecret(name: string, value: any) {
-			const tokenStore = useTokenStore();
-			const data: any = await axios.post(
-				`${tokenStore.url}/api/account/create`,
-				{
-					name,
-					type: 'space',
-					raw_data: value
-				}
-			);
-			return data;
-		},
-
 		async retrieveSecret(name: string): Promise<Secret | null> {
 			const tokenStore = useTokenStore();
 
@@ -107,6 +100,39 @@ export const useAccountStore = defineStore('account', {
 			);
 			this.secrets = data;
 			return data;
+		},
+		async createAccount(name: string, value: any) {
+			const tokenStore = useTokenStore();
+			const data: any = await axios.post(
+				`${tokenStore.url}/api/account/create`,
+				{
+					name,
+					type: 'space',
+					raw_data: value
+				}
+			);
+			return data;
+		},
+		async getAccount(
+			type: AccountType | 'all'
+		): Promise<IntegrationAccountMiniData[]> {
+			const tokenStore = useTokenStore();
+			const result: any = await axios.get(
+				`${tokenStore.url}/api/account/` + type
+			);
+			return result;
+		},
+		async deleteAccount(data: IntegrationAccountMiniData) {
+			const key = this.get_store_key(data);
+			const tokenStore = useTokenStore();
+			return await axios.delete(`${tokenStore.url}/api/account/${key}`);
+		},
+		get_store_key(data: IntegrationAccountMiniData | IntegrationAccount) {
+			if (data.name) {
+				return 'integration-account:' + data.type + ':' + data.name;
+			} else {
+				return 'integration-account:' + data.type;
+			}
 		}
 	}
 });

@@ -1,14 +1,5 @@
 <template>
 	<page-title-component :show-back="true" :title="t('terminus_space')">
-		<!-- <template v-slot:end>
-			<q-btn
-				dense
-				flat
-				class="confirm-btn bound-btn"
-				:label="t('logout')"
-				@click="logOut"
-			/>
-		</template> -->
 	</page-title-component>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
@@ -217,11 +208,10 @@ import { useBlockchainStore } from '../../stores/Blockchain';
 import { toUtf8Bytes, keccak256, ethers } from 'ethers';
 import ResolverABI from '../../core/RootResolverABI';
 import baseinfo from '../../core/baseinfo';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
-// import AccountItem from 'components/account/AccountItem.vue';
+import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import SettingAvatar from '../../components/base/SettingAvatar.vue';
-import AccountConnectStatus from 'components/account/AccountConnectStatus.vue';
-import AccountRequestSignDialog from 'components/account/AccountRequestSignDialog.vue';
+import AccountConnectStatus from '../../components/account/AccountConnectStatus.vue';
+import AccountRequestSignDialog from '../../components/account/AccountRequestSignDialog.vue';
 import { notifyFailed, notifyWarning } from '../../utils/btNotify';
 
 import { useI18n } from 'vue-i18n';
@@ -314,30 +304,6 @@ async function gotoNFTPage(address: string) {
 	router.push({ path: '/integration/detail/space/' + address });
 }
 
-// async function logOut() {
-// 	$q.dialog({
-// 		title: 'Delete Account',
-// 		message: `<div>${t('are_you_sure_you_want_to_delete_item', {
-// 			item: name.value
-// 		})}</div>`,
-// 		html: true,
-// 		cancel: true,
-// 		persistent: true
-// 	}).onOk(async () => {
-// 		$q.loading.show();
-// 		try {
-// 			await accountStore.deleteSecret(name.value);
-// 			await accountStore.listSecret();
-// 			router.push({ path: '/accounts/' });
-// 		} catch (e) {
-// 			console.log(e);
-// 		} finally {
-// 			$q.loading.hide();
-// 		}
-// 		// console.log('OK')
-// 	});
-// }
-
 function getProvider(): JsonRpcProvider {
 	const provider = new ethers.JsonRpcProvider(process.env.NODE_RPC);
 	return provider;
@@ -402,8 +368,6 @@ async function updateAddress() {
 	}
 
 	if (authenticatedAddress.value.length > 0 && blockChainStore.account) {
-		console.log(blockChainStore.account);
-
 		const items = authenticatedAddress.value.filter(
 			(item: AuthenticatedAddress) =>
 				item.address.toLowerCase() ==
@@ -490,13 +454,11 @@ const onRemoveSign = async () => {
 			)
 		).substring(0, 34);
 
-		console.log(authenticatedAddress.value);
 		const index = authenticatedAddress.value.filter(
 			(item: AuthenticatedAddress) =>
 				item.address.toLowerCase() ==
 				blockChainStore.account!.toLowerCase()
 		)[0].index;
-		console.log(index);
 		await spaceStore.requestTermiPassSignRemoveEthAddress(
 			signData.signed,
 			signData.data,

@@ -23,14 +23,9 @@ const addChildComponent = (componentRef: any) => {
 
 const executeCheck = async () => {
 	let isOK = true;
-	console.log('childComponents.value.length');
-	console.log(childComponents.value);
 
 	await nextTick(() => {
 		childComponents.value.forEach((item) => {
-			console.log('item' + item.value.exposed.getErrorStatus());
-			console.log(item.value);
-
 			if (item.value.exposed.getErrorStatus()) {
 				isOK = false;
 			}
@@ -41,7 +36,6 @@ const executeCheck = async () => {
 
 const onErrorStatusChange = (isError: boolean) => {
 	if (isError) {
-		console.log(false);
 		emit('update:canSubmit', false);
 	} else {
 		executeCheck();
