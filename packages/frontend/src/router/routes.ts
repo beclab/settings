@@ -86,6 +86,13 @@ const routes: RouteRecordRaw[] = [
 						'src/pages/Application/pages/ApplicationDomainPage.vue'
 					)
 			},
+			{
+				path: 'application/permission/detail',
+				component: () =>
+					import(
+						'src/pages/Application/pages/ApplicationPermissionPage.vue'
+					)
+			},
 
 			/// service
 			// {
