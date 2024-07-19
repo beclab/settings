@@ -177,6 +177,11 @@
 }
 
 .header_extension {
-	background-color: $background-1;
+	background-color: $background-2;
 	padding: 12px 20px;
+}
+
+.custom-placeholder::placeholder {
+	color: $ink-3;
+	opacity: 1;
 }

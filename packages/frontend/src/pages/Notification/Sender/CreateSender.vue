@@ -1,5 +1,5 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogHide">
+	<q-dialog ref="dialogRef" @hide="onDialogCancel">
 		<q-card class="q-dialog-plugin q-pa-lg" style="min-height: 200px">
 			<q-input
 				class="q-pt-sm"
@@ -91,8 +91,7 @@ function updateVariables() {
 }
 updateVariables();
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } =
-	useDialogPluginComponent();
+const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 async function onOKClick() {
 	Loading.show();

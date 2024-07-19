@@ -2,7 +2,11 @@
 	<page-title-component :show-back="true" :title="t('add_backup')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<bt-form v-model:can-submit="canSubmit">
-			<q-list class="q-list-class">
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
 				<error-message-tip
 					:is-error="
 						location === BackupLocation.TerminusCloud &&
@@ -30,6 +34,7 @@
 				<error-message-tip
 					:is-error="!nameRule"
 					:error-message="t('errors.naming_is_not_compliant')"
+					:with-popup="true"
 				>
 					<bt-form-item
 						:title="t('backup_name')"
@@ -171,15 +176,13 @@
 							</q-popup-proxy>
 						</q-icon>
 					</div>
-					<!--				<q-input filled v-model="time" mask="time" :rules="['time']">-->
-					<!--				</q-input>-->
 				</bt-form-item>
 				<error-message-tip :is-error="password.length < 4">
 					<bt-form-item :width-separator="false">
 						<template v-slot:title>
 							<div class="column">
 								<div>{{ t('backup_password') }}</div>
-								<div class="row">
+								<div class="row" v-if="!deviceStore.isMobile">
 									<div
 										style="width: 16px; height: 16px"
 										class="row items-center justify-center"
@@ -190,11 +193,11 @@
 													? 'sym_r_check'
 													: 'sym_r_clear'
 											"
-											class="text-ink-2"
+											class="text-ink-3"
 											size="16px"
 										/>
 									</div>
-									<div class="text-body3 text-ink-2">
+									<div class="text-body3 text-ink-3">
 										{{
 											t('must_have_at_least_4_characters')
 										}}
@@ -211,11 +214,40 @@
 							:placeholder="t('please_enter_a_password')"
 						/>
 					</bt-form-item>
+					<template v-slot:reminder v-if="deviceStore.isMobile">
+						<div
+							class="row bg-background-3 items-center q-mb-sm q-px-xs"
+							style="
+								width: 100%;
+								height: 24px;
+								border-radius: 4px;
+							"
+						>
+							<div
+								style="width: 16px; height: 16px"
+								class="row items-center justify-center"
+							>
+								<q-icon
+									:name="
+										password.length >= 4
+											? 'sym_r_check'
+											: 'sym_r_clear'
+									"
+									class="text-ink-3"
+									size="16px"
+								/>
+							</div>
+							<div class="q-ml-sm text-overline-m text-ink-3">
+								{{ t('must_have_at_least_4_characters') }}
+							</div>
+						</div>
+					</template>
 				</error-message-tip>
 				<error-message-tip
 					:is-error="password2.length === 0 || password !== password2"
 					:error-message="t('errors.passwords_are_inconsistent')"
 					:width-separator="false"
+					:with-popup="true"
 				>
 					<bt-form-item
 						:title="t('confirm_password')"
@@ -270,6 +302,7 @@ import BtEditView from '../../../components/base/BtEditView.vue';
 import { timeToTimeStemp } from './FormatBackupTime';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed } from '../../../utils/btNotify';
+import { useDeviceStore } from '../../../stores/device';
 
 const { t } = useI18n();
 
@@ -277,6 +310,7 @@ const $q = useQuasar();
 const backupStore = useBackup2Store();
 const accountStore = useAccountStore();
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const location = ref(BackupLocation.TerminusCloud);
 const name = ref('');

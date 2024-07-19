@@ -1,36 +1,66 @@
 <template>
 	<page-title-component :show-back="true" :title="t('account_info')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf" v-if="userInfo">
-		<div v-show="usage" class="text-subtitle1 text-ink-1 resource-title">
+		<div
+			v-show="usage"
+			class="text-ink-1 resource-title"
+			:class="deviceStore.isMobile ? 'text-subtitle1-m' : 'text-subtitle'"
+		>
 			{{ t('resource_usage') }}
 		</div>
-		<div
-			class="row justify-between"
-			style="
-				grid-column-gap: 20px;
-				display: grid;
-				grid-template-columns: repeat(2, minmax(0, 1fr));
-			"
-		>
-			<resource-limit
-				:total="usage?.user_cpu_total"
-				:usage="usage?.user_cpu_usage"
-				:label="t('cpu_core')"
-				unit-key="cpu"
-			/>
-			<resource-limit
-				:total="usage?.user_memory_total"
-				:usage="usage?.user_memory_usage"
-				:label="t('memory_gi')"
-				unit-key="memory"
-			/>
-		</div>
+		<adaptive-layout v-show="usage">
+			<template v-slot:pc>
+				<div
+					class="row justify-between"
+					style="
+						grid-column-gap: 20px;
+						display: grid;
+						grid-template-columns: repeat(2, minmax(0, 1fr));
+					"
+				>
+					<resource-limit
+						:total="usage?.user_cpu_total"
+						:usage="usage?.user_cpu_usage"
+						:label="t('cpu_core')"
+						unit-key="cpu"
+					/>
+					<resource-limit
+						:total="usage?.user_memory_total"
+						:usage="usage?.user_memory_usage"
+						:label="t('memory_gi')"
+						unit-key="memory"
+					/>
+				</div>
+			</template>
+			<template v-slot:mobile>
+				<div>
+					<resource-limit
+						:total="usage?.user_cpu_total"
+						:usage="usage?.user_cpu_usage"
+						:label="t('cpu_core')"
+						unit-key="cpu"
+					/>
+					<resource-limit
+						class="q-mt-lg"
+						:total="usage?.user_memory_total"
+						:usage="usage?.user_memory_usage"
+						:label="t('memory_gi')"
+						unit-key="memory"
+					/>
+				</div>
+			</template>
+		</adaptive-layout>
 
-		<div class="text-subtitle1 text-ink-1 resource-title">
+		<div
+			class="text-ink-1 resource-title"
+			:class="deviceStore.isMobile ? 'text-subtitle1-m' : 'text-subtitle'"
+		>
 			{{ t('info') }}
 		</div>
 
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
 			<bt-form-item :title="t('profile_avatar')" :margin-top="false">
 				<q-avatar :size="`40px`">
 					<TerminusAvatar
@@ -95,7 +125,7 @@
 				adminStore.isAdmin &&
 				accountIsNotMe
 			"
-			class="q-list-class"
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
 		>
 			<bt-form-item
 				:title="t('reset_password')"
@@ -106,15 +136,58 @@
 			/>
 		</q-list>
 
-		<q-list v-if="!userInfo?.wizard_complete" class="q-list-class">
-			<bt-form-item
-				:title="t('wizard_url')"
-				:data="`https://wizard-${userInfo?.name}.${url_domain}`"
-				:width-separator="false"
-			/>
+		<q-list
+			v-if="!userInfo?.wizard_complete"
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
+			<AdaptiveLayout>
+				<template v-slot:pc>
+					<bt-form-item
+						:title="t('wizard_url')"
+						:width-separator="false"
+						:data="`https://wizard-${userInfo?.name}.${url_domain}`"
+					/>
+				</template>
+				<template v-slot:mobile>
+					<bt-form-item
+						:title="t('wizard_url')"
+						:width-separator="false"
+					>
+						<!-- <template v-slot:> -->
+						<!-- :data="`https://wizard-${userInfo?.name}.${url_domain}`" -->
+						<!-- </template> -->
+						<div
+							class="row items-center justify-end"
+							@click="
+								setCopyInfo(
+									`https://wizard-${userInfo?.name}.${url_domain}`
+								)
+							"
+						>
+							<div
+								style="
+									max-width: 130px;
+									overflow: hidden;
+									white-space: nowrap;
+									text-overflow: ellipsis;
+								"
+								class="text-body-3 text-ink-3"
+							>
+								{{
+									`https://wizard-${userInfo?.name}.${url_domain}`
+								}}
+							</div>
+							<q-icon name="sym_r_content_copy" size="24px" />
+						</div>
+					</bt-form-item>
+				</template>
+			</AdaptiveLayout>
 		</q-list>
 
-		<q-list v-if="userInfo?.wizard_complete" class="q-list-class">
+		<q-list
+			v-if="userInfo?.wizard_complete"
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
 			<div v-if="adminStore.isAdmin">
 				<div v-if="accountIsNotMe">
 					<bt-form-item
@@ -177,16 +250,21 @@ import { useQuasar, Loading } from 'quasar';
 import UpdateUserPassworDialog from '../dialog/UpdateUserPassworDialog.vue';
 import { AccountInfo, AccountModifyStatus, AccountStatus } from 'src/global';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import ResourceLimit from 'components/user/ResourceLimit.vue';
-import BtFormItem from 'components/base/BtFormItem.vue';
+import ResourceLimit from '../../../components/user/ResourceLimit.vue';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
 import { getRoleName } from 'src/utils/constants';
 import { useAdminStore } from 'src/stores/Admin';
 import { generatePasword } from '../utils';
 import { useI18n } from 'vue-i18n';
+import AdaptiveLayout from '../../../components/AdaptiveLayout.vue';
+import { copyToClipboard } from 'quasar';
+import { notifySuccess } from '../../../utils/btNotify';
+import { useDeviceStore } from '../../../stores/device';
 
 const userStore = useUserStore();
 const tokenStore = useTokenStore();
 const adminStore = useAdminStore();
+const deviceStore = useDeviceStore();
 const { t } = useI18n();
 
 const url_domain = computed(() => {
@@ -383,6 +461,12 @@ onUnmounted(() => {
 		checkAccountDeleteProgress = null;
 	}
 });
+
+const setCopyInfo = (info: string) => {
+	copyToClipboard(info).then(() => {
+		notifySuccess(t('copy_successfully'));
+	});
+};
 </script>
 
 <style scoped lang="scss">

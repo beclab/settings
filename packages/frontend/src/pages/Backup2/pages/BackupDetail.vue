@@ -2,9 +2,13 @@
 	<page-title-component :show-back="true" :title="t('manage_backup')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<bt-form v-model:can-submit="canSubmit">
-			<q-list class="q-list-class">
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
 				<bt-form-item :title="t('backup_name')">
-					<div class="text-body2 text-ink-2">{{ name }}</div>
+					<div class="text-body2 text-ink-3">{{ name }}</div>
 				</bt-form-item>
 
 				<bt-form-item :title="t('snapshot_frequency')">
@@ -64,7 +68,6 @@
 				@click="onDelete"
 			/>
 
-			<!-- <q-btn dense class="submit-btn" :disable="disableSave" label="Save" @click="onSubmit" color="primary" /> -->
 			<q-btn
 				dense
 				flat
@@ -185,6 +188,7 @@ import { useRouter } from 'vue-router';
 import { toZeroZoneTime, timestempToTime } from './FormatBackupTime';
 
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
 const { humanStorageSize } = format;
@@ -193,6 +197,7 @@ const backupStore = useBackup2Store();
 const route = useRoute();
 const name = ref('');
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const backupSize = ref(0);
 

@@ -12,7 +12,7 @@
 				}"
 				:input-class="`${height ? 'text-resize' : ''} ${
 					right ? 'text-right' : ''
-				}`"
+				} custom-placeholder`"
 				borderless
 				dense
 				name="search"
@@ -27,6 +27,7 @@
 				@keyup.enter="onInput(modelValue)"
 				:model-value="modelValue"
 				@update:model-value="onInput"
+				placeholder-color="red"
 			/>
 		</div>
 	</div>

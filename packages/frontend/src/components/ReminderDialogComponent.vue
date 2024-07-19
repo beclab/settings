@@ -3,7 +3,7 @@
 		<div class="common-dialog" style="border-radius: 16px">
 			<DialogHeader
 				:title="title"
-				@close-action="dialogRef?.hide()"
+				@close-action="onDialogCancel"
 			></DialogHeader>
 			<div class="content-root">
 				<div
@@ -35,24 +35,38 @@ import DialogHeader from './DialogHeader.vue';
 import DialogFooter from './DialogFooter.vue';
 import { i18n } from '../boot/i18n';
 
-withDefaults(
-	defineProps<{
-		title: string;
-		message: string;
-		useCancel: boolean;
-		confirmText: string;
-		hasBorder: boolean;
-		isReminder: boolean;
-	}>(),
-	{
-		title: '',
-		message: '',
-		useCancel: true,
-		confirmText: i18n.global.t('ok'),
-		hasBorder: false,
-		isReminder: false
+defineProps({
+	title: {
+		type: String,
+		required: false,
+		default: ''
+	},
+	message: {
+		type: String,
+		required: false,
+		default: ''
+	},
+	useCancel: {
+		type: Boolean,
+		required: false,
+		default: true
+	},
+	confirmText: {
+		type: String,
+		required: false,
+		default: i18n.global.t('ok')
+	},
+	hasBorder: {
+		type: Boolean,
+		required: false,
+		default: false
+	},
+	isReminder: {
+		type: Boolean,
+		required: false,
+		default: false
 	}
-);
+});
 
 const sureAction = () => {
 	onDialogOK();

@@ -5,6 +5,7 @@ import { Cookies, Dark } from 'quasar';
 import { getSecondLevelDomain } from '../utils/constants';
 import { ThemeDefinedMode, themeModeName } from '@bytetrade/ui';
 import { i18n } from '../boot/i18n';
+import { useDeviceStore } from './device';
 
 export interface Wallpaper {
 	desktop: string;
@@ -32,13 +33,15 @@ export type BackgroundState = {
 	//
 	wallpaper: Wallpaper;
 	theme: ThemeDefinedMode;
+	isMobile: boolean;
 };
 
 export const useBackgroundStore = defineStore('background', {
 	state: () => {
 		return {
 			wallpaper: {},
-			theme: ThemeDefinedMode.LIGHT
+			theme: ThemeDefinedMode.LIGHT,
+			isMobile: false
 		} as BackgroundState;
 	},
 
@@ -51,6 +54,7 @@ export const useBackgroundStore = defineStore('background', {
 			const themeName = Cookies.get(themeModeName);
 			if (themeName) {
 				this.theme = Number(themeName);
+				this.themeUpdate(Number(themeName));
 			}
 		},
 		async get_wallpaper() {
@@ -147,6 +151,19 @@ export const useBackgroundStore = defineStore('background', {
 				},
 				'*'
 			);
+			this.updateBodyBg();
+		},
+		updateBodyBg() {
+			if (this.theme == ThemeDefinedMode.DARK) {
+				document.body.style.background = '#1f1f1f';
+			} else {
+				const deviceStore = useDeviceStore();
+				if (deviceStore.isMobile) {
+					document.body.style.background = '#f6f6f6';
+				} else {
+					document.body.style.background = '#ffffff';
+				}
+			}
 		},
 		async updateQuasarDark() {
 			if (this.theme == ThemeDefinedMode.AUTO) {

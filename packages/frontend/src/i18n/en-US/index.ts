@@ -444,6 +444,7 @@ export default {
 	default_route_id: 'Default route id',
 	setup_custom_route_id: 'Setup custom route id',
 	setup_custom_domain: 'Setup custom domain',
-	device_of_vault_trustee: 'Device of Vault Trustee',
-	actions: 'Actions'
+	device_of_vault_trustee: 'Device of Vault Truste',
+	actions: 'Actions',
+	'SSO authorization token': 'SSO authorization token'
 };

@@ -1,46 +1,101 @@
 <template>
-	<div class="row justify-end q-mt-md q-pb-lg confirm-bg">
-		<q-btn
-			v-if="hasCancel"
-			dense
-			flat
-			class="cancle-btn q-px-md"
-			:label="cancelText"
-			@click="cancelAction"
-		/>
-		<q-btn
-			v-if="hasConfirm"
-			dense
-			flat
-			:class="isReminder ? 'reminder-btn q-px-md' : 'confirm-btn q-px-md'"
-			style="height: 24px; margin-top: 20px"
-			:label="confirmText"
-			@click="confirmAction"
-			:disable="confirmDisable"
-		/>
-	</div>
+	<AdaptiveLayout>
+		<template v-slot:pc>
+			<div class="row justify-end q-mt-md q-pb-lg confirm-bg">
+				<q-btn
+					v-if="hasCancel"
+					dense
+					flat
+					class="cancle-btn q-px-md"
+					:label="cancelText"
+					@click="cancelAction"
+				/>
+				<q-btn
+					v-if="hasConfirm"
+					dense
+					flat
+					:class="
+						isReminder
+							? 'reminder-btn q-px-md'
+							: 'confirm-btn q-px-md'
+					"
+					:label="confirmText"
+					@click="confirmAction"
+					:disable="confirmDisable"
+				/>
+			</div>
+		</template>
+		<template v-slot:mobile>
+			<div
+				class="row items-center justify-between confirm-bg-mobile q-mb-lg"
+			>
+				<q-btn
+					v-if="hasCancel"
+					dense
+					flat
+					class="cancle-btn"
+					:class="{
+						'button-full-width': !hasConfirm,
+						'button-half-width': hasConfirm
+					}"
+					:label="cancelText"
+					@click="cancelAction"
+				/>
+
+				<q-btn
+					v-if="hasConfirm"
+					dense
+					flat
+					:class="{
+						'reminder-btn': isReminder,
+						'confirm-btn': !isReminder,
+						'button-full-width': !hasCancel,
+						'button-half-width': hasCancel
+					}"
+					:label="confirmText"
+					@click="confirmAction"
+					:disable="confirmDisable"
+				/>
+			</div>
+		</template>
+	</AdaptiveLayout>
 </template>
 
 <script lang="ts" setup>
-import { i18n } from 'src/boot/i18n';
-withDefaults(
-	defineProps<{
-		cancelText: string;
-		confirmText: string;
-		confirmDisable: boolean;
-		hasCancel: boolean;
-		isReminder: boolean;
-		hasConfirm: boolean;
-	}>(),
-	{
-		cancelText: i18n.global.t('cancel'),
-		confirmText: i18n.global.t('ok'),
-		confirmDisable: false,
-		hasCancel: true,
-		isReminder: false,
-		hasConfirm: true
+import { i18n } from '../boot/i18n';
+import AdaptiveLayout from './AdaptiveLayout.vue';
+defineProps({
+	cancelText: {
+		type: String,
+		required: false,
+		default: i18n.global.t('cancel')
+	},
+	confirmText: {
+		type: String,
+		required: false,
+		default: i18n.global.t('ok')
+	},
+	confirmDisable: {
+		type: Boolean,
+		required: false,
+		default: false
+	},
+	hasCancel: {
+		type: Boolean,
+		required: false,
+		default: true
+	},
+	isReminder: {
+		type: Boolean,
+		required: false,
+		default: false
+	},
+	hasConfirm: {
+		type: Boolean,
+		required: false,
+		default: true
 	}
-);
+});
 
 const cancelAction = () => {
 	emit('cancelAction');
@@ -58,9 +113,9 @@ const emit = defineEmits(['cancelAction', 'confirmAction']);
 
 	.confirm-btn {
 		height: 24px;
-		background: $blue;
 		border-radius: 4px;
 		width: auto;
+		margin-top: 20px;
 	}
 
 	.cancle-btn {
@@ -75,6 +130,29 @@ const emit = defineEmits(['cancelAction', 'confirmAction']);
 
 	.reminder-btn:hover {
 		background-color: $red-8;
+	}
+}
+
+.confirm-bg-mobile {
+	margin-top: 36px;
+	width: 100%;
+	height: 48px;
+	.cancle-btn {
+		height: 100%;
+	}
+	.confirm-btn {
+		height: 100%;
+	}
+	.reminder-btn {
+		height: 100%;
+	}
+
+	.button-full-width {
+		width: 100%;
+	}
+
+	.button-half-width {
+		width: 47%;
 	}
 }
 </style>

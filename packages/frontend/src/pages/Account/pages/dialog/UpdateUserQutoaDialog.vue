@@ -1,9 +1,9 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogHide">
+	<q-dialog ref="dialogRef" @hide="onDialogCancel">
 		<div class="common-dialog" style="border-radius: 16px">
 			<DialogHeader
 				:title="t('modify_limits')"
-				@close-action="dialogRef?.hide()"
+				@close-action="onDialogCancel"
 			></DialogHeader>
 			<div class="dialog-content-root">
 				<terminus-edit
@@ -83,8 +83,7 @@ onMounted(() => {
 	memoryLimit.value = `${props.memory}`;
 });
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } =
-	useDialogPluginComponent();
+const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 function onOKClick() {
 	onDialogOK({ cpuLimit: cpuLimit.value, memoryLimit: memoryLimit.value });
