@@ -15,11 +15,16 @@ import LayoutMobile from './LayoutMobile.vue';
 import AdaptiveLayout from '../components/AdaptiveLayout.vue';
 import '../css/common.scss';
 import { useDeviceStore } from '../stores/device';
+import { useRouter } from 'vue-router';
 
 const deviceStore = useDeviceStore();
+const router = useRouter();
 
 window.addEventListener('resize', function () {
 	const isMoble = window.innerWidth < 768;
+	if (!deviceStore.isMobile && isMoble) {
+		router.replace('/');
+	}
 	deviceStore.updateIsMobile(isMoble);
 });
 </script>

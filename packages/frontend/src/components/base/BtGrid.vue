@@ -23,7 +23,7 @@ import { useDeviceStore } from '../../stores/device';
 defineProps({
 	repeatCount: {
 		type: Number,
-		required: true,
+		required: false,
 		default: 3
 	}
 });
