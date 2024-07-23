@@ -18,7 +18,7 @@ import {
   returnSucceed,
 } from '@bytetrade/core';
 import { AccountService } from './account.service';
-import { IntegrationAccount, AccountType } from './utils';
+import { IntegrationAccount, IntegrationAccountMiniData } from './utils';
 import { SecretService } from './secret.service';
 
 @Controller('/api/account')
@@ -99,25 +99,30 @@ export class AccountController {
 
   @Post('/retrieve')
   @HttpCode(200)
-  async RetrieveAccountByPost(
-    @Body()
-    { account_type, name }: { account_type?: AccountType; name?: string },
+  async RetrieveAccountByName(
+    @Body() { name }: { name: string },
   ): Promise<Result<Secret>> {
-    this.logger.debug('RetrieveAccountByPost ', account_type);
-    this.logger.debug('RetrieveAccountByPost ', name);
-
-    if (!name || !account_type) {
-      return returnSucceed(
-        await this.accountService.getAllIntegrationAccount(),
-      );
-    } else {
-      return returnSucceed(
-        await this.accountService.getIntegrationAccountByAccountType(
-          account_type,
-          name,
-        ),
-      );
+    this.logger.log('RetrieveAccountByName');
+    this.logger.log(name);
+    try {
+      const res: IntegrationAccount | undefined =
+        await this.accountService.getIntegrationAccountFullInfoByKey(name);
+      if (res) {
+        return returnSucceed({ name, value: JSON.stringify(res.raw_data) });
+      } else {
+        return returnError(1, '');
+      }
+    } catch (e) {
+      console.log(e);
+      return returnError(1, '');
     }
+  }
+
+  @Get('/all')
+  async ListAllAccount(): Promise<Result<IntegrationAccountMiniData[]>> {
+    this.logger.debug('ListAllAccount ');
+
+    return returnSucceed(await this.accountService.getAllIntegrationAccount());
   }
 
   @Delete('/:key')
