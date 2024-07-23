@@ -18,7 +18,7 @@ import {
   returnSucceed,
 } from '@bytetrade/core';
 import { AccountService } from './account.service';
-import { IntegrationAccount } from './utils';
+import { IntegrationAccount, AccountType } from './utils';
 import { SecretService } from './secret.service';
 
 @Controller('/api/account')
@@ -84,6 +84,29 @@ export class AccountController {
     this.logger.debug('get accounts ', account_type);
 
     if (account_type == 'all') {
+      return returnSucceed(
+        await this.accountService.getAllIntegrationAccount(),
+      );
+    } else {
+      return returnSucceed(
+        await this.accountService.getIntegrationAccountByAccountType(
+          account_type,
+          name,
+        ),
+      );
+    }
+  }
+
+  @Post('/retrieve')
+  @HttpCode(200)
+  async RetrieveAccountByPost(
+    @Body()
+    { account_type, name }: { account_type?: AccountType; name?: string },
+  ): Promise<Result<Secret>> {
+    this.logger.debug('RetrieveAccountByPost ', account_type);
+    this.logger.debug('RetrieveAccountByPost ', name);
+
+    if (!name || !account_type) {
       return returnSucceed(
         await this.accountService.getAllIntegrationAccount(),
       );
