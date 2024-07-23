@@ -225,15 +225,20 @@
 							</template>
 
 							<template
-								v-for="(image, index) in imgList"
+								v-for="index in 28"
 								:key="`paper` + index"
 							>
 								<wallpaper-image
 									:width="99.5"
-									:src="image"
+									:src="`/bg/${index - 1}.jpg`"
 									:padding="2"
-									:selected="selectedImgUrl.value === image"
-									@click="onSelectPicture(image)"
+									:selected="
+										selectedImgUrl.value ===
+										`/bg/${index - 1}.jpg`
+									"
+									@click="
+										onSelectPicture(`/bg/${index - 1}.jpg`)
+									"
 								/>
 							</template>
 						</div>
@@ -294,21 +299,6 @@ onMounted(async () => {
 	backgroundStore.get_wallpaper();
 });
 
-const imgList = ref([
-	'/bg/0.jpg',
-	'/bg/1.jpg',
-	'/bg/2.jpg',
-	'/bg/3.jpg',
-	'/bg/4.jpg',
-	'/bg/5.jpg',
-	'/bg/6.jpg',
-	'/bg/7.jpg',
-	'/bg/8.jpg',
-	'/bg/9.jpg',
-	'/bg/11.jpg',
-	'/bg/12.jpg',
-	'/bg/13.jpg'
-]);
 const desktopImgUrl = ref(backgroundStore.wallpaper.desktop);
 const loginImgUrl = ref(backgroundStore.wallpaper.login);
 
