@@ -54,7 +54,7 @@ defineProps({
 	borderWidth: {
 		type: Number,
 		required: false,
-		default: 4
+		default: 2
 	},
 	borderRadius: {
 		type: Number,
