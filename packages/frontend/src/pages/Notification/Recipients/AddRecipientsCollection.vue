@@ -1,5 +1,5 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogHide">
+	<q-dialog ref="dialogRef" @hide="onDialogCancel">
 		<q-card class="q-dialog-plugin q-pa-lg" style="min-height: 200px">
 			<q-select
 				:label="t('template')"
@@ -56,8 +56,7 @@ const applicationStore = useNotificationStore();
 const name = ref('');
 const templateId = ref(recipientTemplates[0].name);
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } =
-	useDialogPluginComponent();
+const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 async function onOKClick() {
 	Loading.show();
 

@@ -5,16 +5,75 @@
 	/>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf text-ink-1">
-		<div class="q-list-class" style="padding-bottom: 0px">
-			<div class="row justify-between select-radio-bg">
-				<div class="text-subtitle1">
+		<AdaptiveLayout>
+			<template v-slot:pc>
+				<div class="q-list-class" style="padding-bottom: 0px">
+					<div class="row justify-between select-radio-bg">
+						<div class="text-subtitle1">
+							{{ t('theme') }}
+						</div>
+						<div class="row">
+							<wallpaper-image
+								class="q-mr-xs"
+								:width="166"
+								src="theme/light.jpg"
+								:selected="
+									backgroundStore.theme ==
+									ThemeDefinedMode.LIGHT
+								"
+								@click="themeUpdate(ThemeDefinedMode.LIGHT)"
+							>
+								<template v-slot:legend>
+									<q-radio
+										size="xs"
+										v-model="backgroundStore.theme"
+										:val="ThemeDefinedMode.LIGHT"
+										:label="themeOptions[0].label"
+										class="text-body2 radio-class"
+										@update:model-value="themeUpdate"
+									/>
+								</template>
+							</wallpaper-image>
+
+							<wallpaper-image
+								:width="166"
+								style=""
+								src="theme/dark.jpg"
+								:selected="
+									backgroundStore.theme ==
+									ThemeDefinedMode.DARK
+								"
+								@click="themeUpdate(ThemeDefinedMode.DARK)"
+							>
+								<template v-slot:legend>
+									<q-radio
+										size="xs"
+										v-model="backgroundStore.theme"
+										:val="ThemeDefinedMode.DARK"
+										:label="themeOptions[1].label"
+										class="text-body2 radio-class"
+										@update:model-value="themeUpdate"
+									/>
+								</template>
+							</wallpaper-image>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-slot:mobile>
+				<div class="text-subtitle1-m q-mt-lg">
 					{{ t('theme') }}
 				</div>
-				<div class="row">
+				<div
+					class="row mobile-items-list items-center justify-center"
+					style="height: 212px"
+				>
 					<wallpaper-image
-						class="q-mr-xs"
-						:width="166"
-						src="theme/light.jpg"
+						class="q-mr-xl"
+						:width="72"
+						src="theme/mobile_light.png"
+						:border-width="2"
+						:border-radius="12"
 						:selected="
 							backgroundStore.theme == ThemeDefinedMode.LIGHT
 						"
@@ -33,9 +92,10 @@
 					</wallpaper-image>
 
 					<wallpaper-image
-						:width="166"
-						style=""
-						src="theme/dark.jpg"
+						:width="72"
+						:border-width="2"
+						:border-radius="12"
+						src="theme/mobile_dark.png"
 						:selected="
 							backgroundStore.theme == ThemeDefinedMode.DARK
 						"
@@ -53,123 +113,134 @@
 						</template>
 					</wallpaper-image>
 				</div>
-			</div>
-		</div>
+			</template>
+		</AdaptiveLayout>
+		<AdaptiveLayout>
+			<template v-slot:pc>
+				<div class="q-list-class">
+					<div class="row justify-between select-radio-bg">
+						<div class="text-subtitle1">
+							{{ t('wallpaper') }}
+						</div>
+						<div class="row">
+							<wallpaper-image
+								:width="166"
+								class="q-mr-xs"
+								:src="desktopImgUrl"
+								:selected="
+									selectBackgroundMode ==
+									BackgroundMode.desktop
+								"
+								@click="
+									selectBackgroundMode =
+										BackgroundMode.desktop
+								"
+							>
+								<template v-slot:legend>
+									<q-radio
+										size="xs"
+										v-model="selectBackgroundMode"
+										:val="BackgroundMode.desktop"
+										:label="t('desktop_background')"
+										class="text-body2 radio-class"
+									/>
+								</template>
+							</wallpaper-image>
 
-		<div class="q-list-class">
-			<div class="row justify-between select-radio-bg">
-				<div class="text-subtitle1">
-					{{ t('wallpaper') }}
-				</div>
-				<div class="row">
-					<wallpaper-image
-						:width="166"
-						class="q-mr-xs"
-						:src="desktopImgUrl"
-						:selected="
-							selectBackgroundMode == BackgroundMode.desktop
-						"
-						@click="selectBackgroundMode = BackgroundMode.desktop"
-					>
-						<template v-slot:legend>
-							<q-radio
-								size="xs"
-								v-model="selectBackgroundMode"
-								:val="BackgroundMode.desktop"
-								:label="t('desktop_background')"
-								class="text-body2 radio-class"
-							/>
-						</template>
-					</wallpaper-image>
+							<wallpaper-image
+								:width="166"
+								style=""
+								:src="loginImgUrl"
+								:selected="
+									selectBackgroundMode == BackgroundMode.login
+								"
+								@click="
+									selectBackgroundMode = BackgroundMode.login
+								"
+							>
+								<template v-slot:legend>
+									<q-radio
+										size="xs"
+										v-model="selectBackgroundMode"
+										:val="BackgroundMode.login"
+										:label="t('login_background')"
+										class="text-body2 radio-class"
+									/>
+								</template>
+							</wallpaper-image>
+						</div>
+					</div>
+					<q-separator class="separator-background" />
 
-					<wallpaper-image
-						:width="166"
-						style=""
-						:src="loginImgUrl"
-						:selected="selectBackgroundMode == BackgroundMode.login"
-						@click="selectBackgroundMode = BackgroundMode.login"
-					>
-						<template v-slot:legend>
-							<q-radio
-								size="xs"
-								v-model="selectBackgroundMode"
-								:val="BackgroundMode.login"
-								:label="t('login_background')"
-								class="text-body2 radio-class"
-							/>
-						</template>
-					</wallpaper-image>
-				</div>
-			</div>
-			<q-separator class="separator-background" />
+					<div class="select-avatar-list-bg">
+						<div class="row items-center justify-between">
+							<div
+								class="select-avatar-title-bg row items-center justify-start"
+							>
+								<q-icon
+									name="sym_r_imagesmode"
+									color="ink-1"
+									size="20px"
+								/>
+								<div class="text-subtitle2 select-avatar-title">
+									{{ t('pictures') }}
+								</div>
+							</div>
+						</div>
+						<div class="images-list-bg row justify-start">
+							<BtUploader
+								:size="5"
+								:width="105"
+								:height="51"
+								fileName="image"
+								accept=".jpg, image/*"
+								action="/images/upload/v1"
+								:parmas="{}"
+								@ok="ok"
+								@fail="fail"
+							>
+								<wallpaper-image
+									:width="95"
+									src="upload_default.svg"
+									:selected="false"
+								/>
+							</BtUploader>
 
-			<div class="select-avatar-list-bg">
-				<div class="row items-center justify-between">
-					<div
-						class="select-avatar-title-bg row items-center justify-start"
-					>
-						<q-icon
-							name="sym_r_imagesmode"
-							color="ink-1"
-							size="20px"
-						/>
-						<div class="text-subtitle2 select-avatar-title">
-							{{ t('pictures') }}
+							<template
+								v-for="(item, index) of uploadBackgrounds"
+								:key="`bg` + index"
+							>
+								<wallpaper-image
+									v-if="!!item"
+									:width="99.5"
+									:src="
+										item.replace(
+											'/resources/Home/Pictures',
+											'/api/preview/big/Home/Pictures'
+										) + '?auth=&inline=true'
+									"
+									:selected="selectedImgUrl.value === item"
+									@click="onSelectPicture(item)"
+								/>
+							</template>
+
+							<template
+								v-for="(image, index) in imgList"
+								:key="`paper` + index"
+							>
+								<wallpaper-image
+									:width="99.5"
+									:src="image"
+									:padding="2"
+									:selected="selectedImgUrl.value === image"
+									@click="onSelectPicture(image)"
+								/>
+							</template>
 						</div>
 					</div>
 				</div>
-				<div class="images-list-bg row justify-start">
-					<BtUploader
-						:size="5"
-						:width="105"
-						:height="51"
-						fileName="image"
-						accept=".jpg, image/*"
-						action="/images/upload/v1"
-						:parmas="{}"
-						@ok="ok"
-						@fail="fail"
-					>
-						<wallpaper-image
-							:width="95"
-							src="upload_default.svg"
-							:selected="false"
-						/>
-					</BtUploader>
-
-					<template
-						v-for="(item, index) of uploadBackgrounds"
-						:key="`bg` + index"
-					>
-						<wallpaper-image
-							v-if="!!item"
-							:width="99.5"
-							:src="
-								item.replace(
-									'/resources/Home/Pictures',
-									'/api/preview/big/Home/Pictures'
-								) + '?auth=&inline=true'
-							"
-							:selected="selectedImgUrl.value === item"
-							@click="onSelectPicture(item)"
-						/>
-					</template>
-
-					<template
-						v-for="(image, index) in imgList"
-						:key="`paper` + index"
-					>
-						<wallpaper-image
-							:width="99.5"
-							:src="image"
-							:padding="2"
-							:selected="selectedImgUrl.value === image"
-							@click="onSelectPicture(image)"
-						/>
-					</template>
-				</div>
-			</div>
-		</div>
+			</template>
+		</AdaptiveLayout>
 	</bt-scroll-area>
 </template>
 
@@ -178,10 +249,11 @@ import { computed, onMounted, ref } from 'vue';
 import { BackgroundMode } from '../../constant';
 import { useBackgroundStore, themeOptions } from '../../stores/Background';
 import WallpaperImage from '../../components/WallpaperImage.vue';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { debounce } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { ThemeDefinedMode } from '@bytetrade/ui';
+import AdaptiveLayout from '../../components/AdaptiveLayout.vue';
 
 const backgroundStore = useBackgroundStore();
 const selectBackgroundMode = ref(BackgroundMode.desktop);

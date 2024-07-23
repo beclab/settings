@@ -1,7 +1,10 @@
 <template>
 	<page-title-component :show-back="false" :title="t('home_menus.account')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list class="q-list-class" v-show="accountStore.accounts.length > 0">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			v-show="accountStore.accounts.length > 0"
+		>
 			<template
 				v-for="(account, index) in accountStore.accounts"
 				:key="account.uid"
@@ -35,11 +38,13 @@ import { onMounted } from 'vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import UserItem from '../../components/user/UserItem.vue';
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../stores/device';
 
 const accountStore = useUserStore();
 const quasar = useQuasar();
 const $router = useRouter();
 const { t } = useI18n();
+const deviceStore = useDeviceStore();
 
 const pushToUserInfo = (account: AccountInfo) => {
 	$router.push(`account/info/${account.name}`);

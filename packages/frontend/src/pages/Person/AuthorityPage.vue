@@ -5,7 +5,13 @@
 	/>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list class="q-list-class">
+		<q-list
+			:class="
+				deviceStore.isMobile
+					? 'mobile-items-list q-mt-lg'
+					: 'q-list-class'
+			"
+		>
 			<!-- <bt-form-item :title="t('select_authority')">
 				<bt-select v-model="authorityType" :options="authorityLevel" />
 			</bt-form-item>
@@ -53,6 +59,7 @@ import PageTitleComponent from 'components/PageTitleComponent.vue';
 import BtSelect from 'components/base/BtSelect.vue';
 import BtFormItem from 'components/base/BtFormItem.vue';
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../stores/device';
 
 export interface AuthorityType {
 	label: string;
@@ -64,6 +71,7 @@ export interface AuthorityType {
 const { t } = useI18n();
 
 const authorityStore = useAuthorityStore();
+const deviceStore = useDeviceStore();
 
 const appointIP = ref<string | undefined | null>('');
 const privateIP = ref<string | undefined | null>('');

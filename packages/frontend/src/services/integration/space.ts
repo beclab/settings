@@ -3,6 +3,7 @@ import {
 	OperateIntegrationAuth
 	// SpaceIntegrationAccount
 } from '../abstractions/integration/integrationService';
+import { Platform } from 'quasar';
 
 export class SpaceAuthService extends OperateIntegrationAuth {
 	type = AccountType.Space;
@@ -19,6 +20,9 @@ export class SpaceAuthService extends OperateIntegrationAuth {
 	}
 
 	detailPath() {
+		if (Platform.is.mobile) {
+			return '';
+		}
 		return '/integration/detail/space';
 	}
 	async permissions() {

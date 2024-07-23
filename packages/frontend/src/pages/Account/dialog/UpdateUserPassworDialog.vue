@@ -3,7 +3,7 @@
 		<div class="common-dialog" style="border-radius: 16px">
 			<DialogHeader
 				:title="t('change_password')"
-				@close-action="dialogRef?.hide()"
+				@close-action="onDialogCancel"
 			></DialogHeader>
 			<div class="dialog-content-root">
 				<terminus-edit
@@ -61,7 +61,7 @@ import { computed, ref } from 'vue';
 import DialogHeader from '../../../components/DialogHeader.vue';
 import DialogFooter from '../../../components/DialogFooter.vue';
 import { useUserStore } from '../../../stores/User';
-import TerminusEdit from 'components/base/TerminusEdit.vue';
+import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import { useI18n } from 'vue-i18n';
 
 const oldPassword = ref('');
@@ -72,14 +72,13 @@ const accountStore = useUserStore();
 const quasar = useQuasar();
 const { t } = useI18n();
 
-const props = withDefaults(
-	defineProps<{
-		name: string;
-	}>(),
-	{
-		name: ''
+const props = defineProps({
+	name: {
+		type: String,
+		required: false,
+		default: ''
 	}
-);
+});
 
 const enableSave = computed(() => {
 	return (

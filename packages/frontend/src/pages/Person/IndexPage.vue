@@ -14,17 +14,29 @@
 		<div class="text-subtitle1 text-ink-1 person-title">
 			{{ t('device') }}
 		</div>
-		<template
-			v-for="(device, index) in adminStore.devices"
-			:key="'device' + index"
+		<div
+			:class="deviceStore.isMobile ? 'mobile-items-list' : ''"
+			:style="deviceStore.isMobile ? 'margin-top: 12px' : ''"
 		>
-			<device-item :device="device" />
-		</template>
+			<template
+				v-for="(device, index) in adminStore.devices"
+				:key="'device' + index"
+			>
+				<device-item
+					:device="device"
+					:is-latest="index + 1 == adminStore.devices.length"
+					:is-first="index == 0"
+				/>
+			</template>
+		</div>
 
 		<div class="text-subtitle1 text-ink-1 person-title">
 			{{ t('security') }}
 		</div>
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			:style="deviceStore.isMobile ? 'margin-top: 12px' : ''"
+		>
 			<bt-form-item
 				:title="t('change_password')"
 				@click="updatePassword"
@@ -44,7 +56,10 @@
 				:width-separator="false"
 			/>
 		</q-list>
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			:style="deviceStore.isMobile ? 'margin-top: 20px' : ''"
+		>
 			<bt-form-item
 				@click="gotoPage('/active_session')"
 				:title="t('view_the_active_session_of_the_vault')"
@@ -84,13 +99,14 @@ import { useQuasar } from 'quasar';
 import { useUserStore } from 'src/stores/User';
 import { useHeadScaleStore } from 'src/stores/headscale';
 // import { useAccountStore } from 'src/stores/Account';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import BtFormItem from 'components/base/BtFormItem.vue';
 import SettingAvatar from 'components/base/SettingAvatar.vue';
 // import SettingConnectStatus from 'components/base/SettingConnectStatus.vue';
 import DeviceItem from '../../components/person/DeviceItem.vue';
 import { AccountInfo } from 'src/global';
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../stores/device';
 
 const { t } = useI18n();
 const adminStore = useAdminStore();
@@ -99,6 +115,7 @@ const userStore = useUserStore();
 // const accountStore = useAccountStore();
 const headScaleStore = useHeadScaleStore();
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const userInfo = ref<AccountInfo | undefined>();
 

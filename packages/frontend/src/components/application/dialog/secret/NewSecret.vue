@@ -9,7 +9,7 @@
 			<terminus-edit
 				:is-error="key === ''"
 				:label="t('name')"
-				:error-message="t(errors.name_is_required)"
+				:error-message="t('errors.name_is_required')"
 				v-model="key"
 			/>
 

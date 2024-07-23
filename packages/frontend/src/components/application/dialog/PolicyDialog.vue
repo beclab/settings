@@ -1,21 +1,14 @@
 <template>
 	<q-dialog ref="dialogRef">
 		<q-card class="policy-dialog">
-			<div class="policy-dialog-header row justify-between items-center">
-				<div class="text-subtitle3 policy-title">
-					{{
-						t('action_sub_policies', {
-							action: editMode ? t('edit') : t('add')
-						})
-					}}
-				</div>
-				<q-icon
-					size="16px"
-					name="sym_r_clear"
-					color="ink-1"
-					@click="onDialogCancel"
-				/>
-			</div>
+			<DialogHeader
+				:title="
+					t('action_sub_policies', {
+						action: editMode ? t('edit') : t('add')
+					})
+				"
+				@close-action="onDialogCancel"
+			></DialogHeader>
 			<div class="policy-content column justify-start">
 				<bt-form v-model:can-submit="canSubmit">
 					<q-list class="q-list-class">
@@ -71,25 +64,14 @@
 						</error-message-tip>
 					</q-list>
 				</bt-form>
-				<div class="row justify-end" style="margin-top: 12px">
-					<q-btn
-						dense
-						style="margin-right: 12px"
-						class="submit-btn"
-						:label="t('cancel')"
-						@click="onDialogCancel"
-						color="primary"
-					/>
 
-					<q-btn
-						dense
-						class="submit-btn"
-						:disable="!canSubmit"
-						:label="t('submit')"
-						@click="onOKClick"
-						color="primary"
-					/>
-				</div>
+				<dialog-footer
+					:confirm-text="t('submit')"
+					:has-cancel="true"
+					@cancel-action="onDialogCancel"
+					@confirm-action="onOKClick"
+					:confirmDisable="!canSubmit"
+				/>
 			</div>
 		</q-card>
 	</q-dialog>
@@ -110,6 +92,8 @@ import ErrorMessageTip from '../../base/ErrorMessageTip.vue';
 import BtEditView from '../../base/BtEditView.vue';
 import BtForm from '../../base/BtForm.vue';
 import { useI18n } from 'vue-i18n';
+import DialogHeader from '../../DialogHeader.vue';
+import DialogFooter from '../../DialogFooter.vue';
 
 const props = defineProps({
 	editMode: {

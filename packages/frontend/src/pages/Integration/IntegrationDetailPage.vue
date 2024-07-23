@@ -2,7 +2,15 @@
 	<page-title-component :show-back="true" :title="t('account_settings')">
 	</page-title-component>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<div v-if="accountData" class="q-list-class">
+		<div
+			v-if="accountData"
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			:style="
+				deviceStore.isMobile
+					? 'padding-top: 12px; padding-bottom: 12px'
+					: ''
+			"
+		>
 			<account-item
 				:border="false"
 				:title="accountData.name"
@@ -77,6 +85,8 @@ import { date, useQuasar } from 'quasar';
 import { getRequireImage } from '../../utils/helper';
 import integraionService from '../../services/integration/index';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
+import { notifyFailed } from '../../utils/btNotify';
+import { useDeviceStore } from '../../stores/device';
 const { t } = useI18n();
 
 const route = useRoute();
@@ -86,6 +96,7 @@ const router = useRouter();
 const $q = useQuasar();
 
 const integrationStore = useIntegrationStore();
+const deviceStore = useDeviceStore();
 
 const type = route.params.type as AccountType;
 const name = route.params.name as string;
@@ -135,8 +146,21 @@ const deleteAction = async () => {
 			useCancel: true
 		}
 	}).onOk(async () => {
-		await integrationStore.deleteAccount(accountData.value);
-		router.back();
+		try {
+			$q.loading.show();
+			await integrationStore.deleteAccount(accountData.value);
+			integrationStore.accounts = integrationStore.accounts.filter(
+				(e) =>
+					e.type != accountData.value?.type ||
+					(e.type == accountData.value?.type &&
+						e.name != accountData.value?.name)
+			);
+			$q.loading.hide();
+			router.back();
+		} catch (error) {
+			$q.loading.hide();
+			notifyFailed(error.message);
+		}
 	});
 };
 </script>

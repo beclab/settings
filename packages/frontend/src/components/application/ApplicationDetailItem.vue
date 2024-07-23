@@ -64,9 +64,11 @@ async function toggle() {
 
 <style scoped lang="scss">
 .application-detail-item {
-	height: 32px;
-	min-height: 32px;
+	// height: 32px;
+	// min-height: 32px;
 	padding: 0;
+	// background-color: red;
+	height: 56px;
 
 	.application-logo {
 		width: 32px;

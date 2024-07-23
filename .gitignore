@@ -48,3 +48,6 @@ docker-build-front.sh
 build-front.sh
 build-server.sh
 .env
+packages/frontend/.yalc/*
+.env
+packages/frontend/yalc.lock

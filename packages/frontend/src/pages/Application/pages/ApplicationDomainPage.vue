@@ -5,7 +5,9 @@
 		v-if="application && domainInfo"
 		class="nav-height-scroll-area-conf"
 	>
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
 			<bt-form-item
 				:title="t('default_route_id')"
 				:margin-top="false"
@@ -99,15 +101,17 @@ import BtFormItem from 'components/base/BtFormItem.vue';
 import AddDomain from 'components/application/dialog/domain/AddDomain.vue';
 import BtIcon from 'components/base/BtIcon.vue';
 import BtEditView from 'components/base/BtEditView.vue';
-import ActivationDomain from 'components/application/dialog/domain/ActivationDomain.vue';
+import ActivationDomain from '../../../components/application/dialog/domain/ActivationDomain.vue';
 
 import { useI18n } from 'vue-i18n';
 import { notifyWarning } from '../../../utils/btNotify';
+import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
 const Route = useRoute();
 const $q = useQuasar();
+const deviceStore = useDeviceStore();
 
 const application = ref(
 	applicationStore.getApplicationById(Route.params.name as string)

@@ -1,52 +1,124 @@
 <template>
-	<bt-grid>
-		{{ plan?.name }}
-		<template v-slot:title>
-			<div
-				class="text-subtitle1 plan-item-title row justify-between items-center clickable-view"
-				@click="gotoBackup"
+	<adaptive-layout>
+		<template v-slot:pc>
+			<bt-grid>
+				{{ plan?.name }}
+				<template v-slot:title>
+					<div
+						class="text-subtitle1 plan-item-title row justify-between items-center clickable-view"
+						@click="gotoBackup"
+					>
+						<div>{{ plan?.name }}</div>
+						<q-icon name="sym_r_chevron_right" size="20px" />
+					</div>
+				</template>
+				<template v-slot:grid>
+					<bt-grid-item :label="t('location')">
+						<template v-slot:value>
+							<div class="row items-center">
+								<q-img
+									src="../../assets/cloud/login/icon.svg"
+									class="plan-item-type-img"
+								/>
+								<div>
+									{{ t('terminus_space') }}
+								</div>
+							</div>
+						</template>
+					</bt-grid-item>
+					<bt-grid-item
+						:label="t('last_snapshot')"
+						:value="lastSnapShot"
+					/>
+					<bt-grid-item :label="t('total_size')" :value="size" />
+					<bt-grid-item :label="t('status')">
+						<template v-slot:value>
+							<div class="row items-center">
+								<div class="bg-positive backup-status"></div>
+								<div>
+									{{ plan.phase ? plan.phase : '-' }}
+								</div>
+							</div>
+						</template>
+					</bt-grid-item>
+					<bt-grid-item
+						:label="t('next_snapshot')"
+						:value="nextSnapShot"
+					/>
+					<bt-grid-item
+						:label="t('frequency')"
+						:value="
+							plan?.backupPolicies.snapshotFrequency?.replace(
+								'@',
+								''
+							)
+						"
+					/>
+				</template>
+			</bt-grid>
+		</template>
+		<template v-slot:mobile>
+			<bt-grid
+				:class="deviceStore.isMobile ? 'mobile-items-list' : ''"
+				:repeat-count="2"
 			>
-				<div>{{ plan?.name }}</div>
-				<q-icon name="sym_r_chevron_right" size="20px" />
-			</div>
-		</template>
-		<template v-slot:grid>
-			<!-- value="Terminus Space"
-				icon="terminus_icon.svg" -->
-			<bt-grid-item :label="t('location')">
-				<template v-slot:value>
-					<div class="row items-center">
-						<q-img
-							src="../../assets/cloud/login/icon.svg"
-							class="plan-item-type-img"
-						/>
-						<div>
-							{{ t('terminus_space') }}
-						</div>
+				{{ plan?.name }}
+				<template v-slot:title>
+					<div
+						class="text-subtitle1 plan-item-title row justify-between items-center clickable-view"
+						@click="gotoBackup"
+					>
+						<div>{{ plan?.name }}</div>
+						<q-icon name="sym_r_chevron_right" size="20px" />
 					</div>
 				</template>
-			</bt-grid-item>
-			<bt-grid-item :label="t('last_snapshot')" :value="lastSnapShot" />
-			<bt-grid-item :label="t('total_size')" :value="size" />
-			<bt-grid-item :label="t('status')">
-				<template v-slot:value>
-					<div class="row items-center">
-						<div class="bg-positive backup-status"></div>
-						<div>
-							{{ plan.phase ? plan.phase : '-' }}
-						</div>
-					</div>
+				<template v-slot:grid>
+					<bt-grid-item :label="t('location')">
+						<template v-slot:value>
+							<div class="row items-center">
+								<q-img
+									src="../../assets/cloud/login/icon.svg"
+									class="plan-item-type-img"
+								/>
+								<div>
+									{{ t('terminus_space') }}
+								</div>
+							</div>
+						</template>
+					</bt-grid-item>
+					<bt-grid-item :label="t('status')">
+						<template v-slot:value>
+							<div class="row items-center">
+								<div class="bg-positive backup-status"></div>
+								<div>
+									{{ plan.phase ? plan.phase : '-' }}
+								</div>
+							</div>
+						</template>
+					</bt-grid-item>
+					<bt-grid-item
+						:label="t('last_snapshot')"
+						:value="lastSnapShot"
+					/>
+					<bt-grid-item :label="t('total_size')" :value="size" />
+
+					<bt-grid-item
+						:label="t('next_snapshot')"
+						:value="nextSnapShot"
+					/>
+					<bt-grid-item
+						:label="t('frequency')"
+						:value="
+							plan?.backupPolicies.snapshotFrequency?.replace(
+								'@',
+								''
+							)
+						"
+					/>
 				</template>
-			</bt-grid-item>
-			<bt-grid-item :label="t('next_snapshot')" :value="nextSnapShot" />
-			<bt-grid-item
-				:label="t('frequency')"
-				:value="
-					plan?.backupPolicies.snapshotFrequency?.replace('@', '')
-				"
-			/>
+			</bt-grid>
 		</template>
-	</bt-grid>
+	</adaptive-layout>
 </template>
 
 <script lang="ts" setup>
@@ -58,8 +130,11 @@ import BtGrid from '../base/BtGrid.vue';
 import humanStorageSize = format.humanStorageSize;
 import { useI18n } from 'vue-i18n';
 import { BackupPlanItem2 } from '../../stores/backup2';
+import AdaptiveLayout from '../AdaptiveLayout.vue';
+import { useDeviceStore } from '../../stores/device';
 
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const props = defineProps({
 	plan: {

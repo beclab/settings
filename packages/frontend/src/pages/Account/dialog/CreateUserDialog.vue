@@ -1,9 +1,9 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogHide">
+	<q-dialog ref="dialogRef" @hide="onDialogCancel">
 		<div class="common-dialog" style="border-radius: 16px">
 			<DialogHeader
 				:title="t('create_account')"
-				@close-action="dialogRef?.hide()"
+				@close-action="onDialogCancel"
 			></DialogHeader>
 			<div class="dialog-content-root">
 				<terminus-edit
@@ -217,8 +217,7 @@ async function checkAccountCreate(username: string) {
 	}
 }
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } =
-	useDialogPluginComponent();
+const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 const usernameRule = (val: string) => {
 	if (val.length === 0) {

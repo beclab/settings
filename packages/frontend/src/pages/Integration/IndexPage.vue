@@ -5,11 +5,18 @@
 	>
 		<template v-slot:end>
 			<div
-				class="add-btn row justify-center items-center"
+				class="row justify-center items-center"
+				:class="deviceStore.isMobile ? '' : 'add-btn'"
 				@click="addAccount()"
 			>
-				<q-icon size="20px" name="sym_r_add" color="ink-1" />
-				<div class="text-body3 add-title">{{ t('add_account') }}</div>
+				<q-icon
+					name="sym_r_add"
+					color="ink-1"
+					:size="deviceStore.isMobile ? '32px' : '20px'"
+				/>
+				<div class="text-body3 add-title" v-if="!deviceStore.isMobile">
+					{{ t('add_account') }}
+				</div>
 			</div>
 		</template>
 	</page-title-component>
@@ -25,6 +32,12 @@
 			:available="item.available"
 			:detail="`Authorized time:${formattedDate(item.create_at)}`"
 			@account-click="clickCloud(item)"
+			:style="deviceStore.isMobile ? 'height: 64px' : ''"
+			:side="
+				deviceStore.isMobile && item.type == AccountType.Space
+					? false
+					: true
+			"
 		>
 			<template v-slot:avatar>
 				<!-- <setting-avatar :size="40" style="margin-left: 8px" /> -->
@@ -47,19 +60,23 @@ import { useI18n } from 'vue-i18n';
 import { onMounted } from 'vue';
 import { useIntegrationStore } from '../../stores/integration';
 import { date, useQuasar } from 'quasar';
-import { IntegrationAccountMiniData } from '../../services/abstractions/integration/integrationService';
+import {
+	IntegrationAccountMiniData,
+	AccountType
+} from '../../services/abstractions/integration/integrationService';
 import { getRequireImage } from '../../utils/helper';
 import AddIntegrationDialog from './dialog/AddIntegrationDialog.vue';
 import integraionService from '../../services/integration/index';
 import EmptyComponent from '../../components/EmptyComponent.vue';
+import { useDeviceStore } from '../../stores/device';
 const { t } = useI18n();
 
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const $q = useQuasar();
 
 const integrationStore = useIntegrationStore();
-
 function clickCloud(account: IntegrationAccountMiniData) {
 	const path = integraionService
 		.getInstanceByType(account.type)
@@ -88,9 +105,13 @@ onMounted(() => {
 });
 
 const addAccount = () => {
-	$q.dialog({
-		component: AddIntegrationDialog
-	}).onOk(() => {});
+	if (deviceStore.isMobile) {
+		router.push('/integration/add');
+	} else {
+		$q.dialog({
+			component: AddIntegrationDialog
+		}).onOk(() => {});
+	}
 };
 </script>
 
