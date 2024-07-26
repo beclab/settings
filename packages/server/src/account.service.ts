@@ -93,6 +93,8 @@ export class AccountService implements OnModuleInit {
   }
 
   async updateIntegrationAccount(account: IntegrationAccount) {
+    console.log('updateIntegrationAccount');
+    console.log(account);
     const found = this.accounts.find(
       (a) => a.name == account.name && a.type == account.type,
     );
@@ -114,6 +116,7 @@ export class AccountService implements OnModuleInit {
         JSON.stringify(account.raw_data),
       );
     }
+    console.log(this.accounts);
   }
 
   async onModuleInit(): Promise<void> {
