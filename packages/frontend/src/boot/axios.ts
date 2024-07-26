@@ -100,10 +100,7 @@ export default boot(({ app }) => {
 				} else {
 					if (data.code != 0 && data.code != 200 && !data.items) {
 						//kapis return used in login history
-						if (
-							data.message &&
-							response.config.url!.indexOf('permissions') < 0
-						) {
+						if (data.message) {
 							notifyFailed(
 								data.message ||
 									'Something wrong, please try again.'
