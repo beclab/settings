@@ -155,3 +155,31 @@ export interface SetupDomain {
 export interface AuthLevel {
 	authorization_level: string;
 }
+
+export interface Permission {
+	dataType: string;
+	group: string;
+	ops: string[];
+	version: string;
+}
+
+export interface AppPermission {
+	app: string;
+	owner: string;
+	permissions: Permission[];
+}
+
+export interface ProviderRegisterApi {
+	name: string;
+	uri: string;
+}
+
+export interface PermissionProviderRegister {
+	dataType: string;
+	deployment: string;
+	endpoint: string;
+	group: string;
+	kind: string;
+	namespace: string;
+	opApis: ProviderRegisterApi[];
+}
