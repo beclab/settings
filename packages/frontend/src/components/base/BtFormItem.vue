@@ -1,18 +1,32 @@
 <template>
 	<div class="form-item-root column justify-start">
-		<q-item
-			:clickable="chevronRight"
-			class="form-item"
-			:style="marginTop ? 'margin-top: 4px' : ''"
-		>
-			<q-item-section class="text-body2 form-item-title" v-if="title">
+		<q-item :clickable="chevronRight" class="form-item">
+			<q-item-section
+				class="form-item-title"
+				:class="
+					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body2'
+				"
+				v-if="title"
+			>
 				{{ title }}
 			</q-item-section>
-			<q-item-section class="text-body2 form-item-title" v-else>
+			<q-item-section
+				v-else
+				class="form-item-title"
+				:class="
+					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body2'
+				"
+			>
 				<slot name="title" />
 			</q-item-section>
 			<q-item-section side>
-				<div class="text-body2 form-item-data" v-if="data">
+				<div
+					class="form-item-data"
+					v-if="data"
+					:class="
+						deviceStore.isMobile ? 'text-body3-m' : 'text-body2'
+					"
+				>
 					{{ data }}
 				</div>
 				<q-icon
@@ -28,6 +42,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useDeviceStore } from '../../stores/device';
+
 defineProps({
 	title: {
 		type: String,
@@ -51,6 +67,7 @@ defineProps({
 		default: true
 	}
 });
+const deviceStore = useDeviceStore();
 </script>
 
 <style scoped lang="scss">
@@ -59,8 +76,8 @@ defineProps({
 	height: auto;
 
 	.form-item {
-		height: 52px;
-		min-height: 52px;
+		height: 56px;
+		min-height: 56px;
 		padding: 0;
 
 		.form-item-title {

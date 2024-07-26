@@ -1,9 +1,9 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogHide">
+	<q-dialog ref="dialogRef" @hide="onDialogCancel">
 		<div class="common-dialog" style="border-radius: 16px">
 			<DialogHeader
 				:title="t('mount_network_drive')"
-				@close-action="dialogRef?.hide()"
+				@close-action="onDialogCancel"
 			></DialogHeader>
 			<div class="dialog-content-root">
 				<div v-if="step == 1">
@@ -104,8 +104,7 @@ const { t } = useI18n();
 
 const $q = useQuasar();
 
-const { dialogRef, onDialogHide, onDialogCancel, onDialogOK } =
-	useDialogPluginComponent();
+const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
 
 const accessKeyID = ref('');
 

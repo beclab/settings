@@ -1,31 +1,94 @@
 <template>
 	<page-title-component :show-back="true" :title="t('login_history')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<div v-if="userInfo?.wizard_complete === true" class="q-list-class">
-			<q-table
-				:rows="rows"
-				flat
-				:columns="columns"
-				row-key="name"
-				:loading="loading2"
-				@request="onRequest"
-				v-model:pagination="pagination"
-				style="margin-top: 12px"
-			>
-				<template v-slot:body-cell-status="props">
-					<q-td :props="props">
-						<q-badge
-							rounded
-							:color="props.row.status ? 'primary' : 'red'"
-							class="q-mr-sm"
-						/>
-						<span>{{
-							props.row.status ? t('successful') : t('failed')
-						}}</span>
-					</q-td>
-				</template>
-			</q-table>
-		</div>
+		<AdaptiveLayout>
+			<template v-slot:pc>
+				<div
+					v-if="userInfo?.wizard_complete === true"
+					class="q-list-class"
+				>
+					<q-table
+						:rows="rows"
+						flat
+						:columns="columns"
+						row-key="name"
+						:loading="loading2"
+						@request="onRequest"
+						v-model:pagination="pagination"
+						style="margin-top: 12px"
+					>
+						<template v-slot:body-cell-status="props">
+							<q-td :props="props">
+								<q-badge
+									rounded
+									:color="
+										props.row.status ? 'primary' : 'red'
+									"
+									class="q-mr-sm"
+								/>
+								<span>{{
+									props.row.status
+										? t('successful')
+										: t('failed')
+								}}</span>
+							</q-td>
+						</template>
+					</q-table>
+				</div>
+			</template>
+			<template v-slot:mobile>
+				<q-infinite-scroll @load="onLoad" :offset="250">
+					<bt-grid
+						class="mobile-items-list"
+						:repeat-count="2"
+						v-for="(token, index) in rows"
+						:key="index"
+					>
+						<template v-slot:title>
+							<div
+								class="text-subtitle1 row justify-between items-center clickable-view q-mb-md"
+							>
+								<div>{{ token.source_ip }}</div>
+								<div class="row items-center justify-end">
+									<div
+										class="login-token-base-status"
+										:class="
+											token.status ? 'bg-info' : 'bg-red'
+										"
+									></div>
+									<div class="q-ml-md text-body-3 text-ink-1">
+										{{
+											token.status
+												? t('successful')
+												: t('failed')
+										}}
+									</div>
+								</div>
+							</div>
+						</template>
+						<template v-slot:grid>
+							<bt-grid-item
+								:label="t('time')"
+								:value="
+									getLocalTime(token.time).format(
+										'YYYY-MM-DD HH:mm'
+									)
+								"
+							/>
+							<bt-grid-item
+								:label="t('reason')"
+								:value="token.reason"
+							/>
+						</template>
+					</bt-grid>
+					<template v-slot:loading>
+						<div class="row justify-center q-my-md">
+							<q-spinner-dots color="primary" size="40px" />
+						</div>
+					</template>
+				</q-infinite-scroll>
+			</template>
+		</AdaptiveLayout>
 	</bt-scroll-area>
 </template>
 
@@ -37,6 +100,10 @@ import { onMounted, ref } from 'vue';
 import { useUserStore } from '../../stores/User';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import AdaptiveLayout from '../../components/AdaptiveLayout.vue';
+import BtGridItem from '../../components/base/BtGridItem.vue';
+import BtGrid from '../../components/base/BtGrid.vue';
+import { useDeviceStore } from '../../stores/device';
 
 const { t } = useI18n();
 
@@ -77,7 +144,7 @@ const pagination = ref({
 });
 
 const loading2 = ref(false);
-const rows = ref([]);
+const rows = ref<any[]>([]);
 
 const onRequest = (props: {
 	pagination: {
@@ -100,17 +167,18 @@ const onRequest = (props: {
 	fetchHistory(params);
 };
 
-const fetchLoginRecords = () => {
+const fetchLoginRecords = async () => {
 	const params = {
 		page: pagination.value.page,
 		limit: pagination.value.rowsPerPage,
 		user: userInfo.value?.name
 	};
-	fetchHistory(params);
+	await fetchHistory(params);
 };
 
 const accountStore = useUserStore();
 const Route = useRoute();
+const deviceStore = useDeviceStore();
 
 const userInfo = ref<AccountInfo | undefined>(
 	accountStore.getUserByName(Route.params.name as string)
@@ -120,26 +188,50 @@ onMounted(async () => {
 	userInfo.value = await accountStore.get_account_info(
 		Route.params.name as string
 	);
-	fetchLoginRecords();
+	if (!deviceStore.isMobile) {
+		fetchLoginRecords();
+	}
 });
 
-const fetchHistory = (params: UsersParam) => {
+const fetchHistory = async (params: UsersParam) => {
 	loading2.value = true;
-	accountStore
-		.getLoginrecords(params)
-		.then((res: any) => {
-			rows.value = res.items.map((item: any) => ({
+	const res = await accountStore.getLoginrecords(params);
+	if (deviceStore.isMobile) {
+		rows.value = rows.value.concat(
+			res.items.map((item: any) => ({
 				createTime: item.metadata.creationTimestamp,
 				status: item.spec.success,
 				source_ip: item.spec.sourceIP,
 				reason: item.spec.reason
-			}));
-			pagination.value.rowsNumber = res.totalItems;
-		})
-		.finally(() => {
-			loading2.value = false;
-		});
+			}))
+		);
+	} else {
+		rows.value = res.items.map((item: any) => ({
+			createTime: item.metadata.creationTimestamp,
+			status: item.spec.success,
+			source_ip: item.spec.sourceIP,
+			reason: item.spec.reason
+		}));
+	}
+
+	pagination.value.rowsNumber = res.totalItems;
+};
+
+const onLoad = async (index: number, done: (stop?: boolean) => void) => {
+	pagination.value.page = index;
+	try {
+		await fetchLoginRecords();
+		done(pagination.value.rowsNumber == rows.value.length);
+	} catch (error) {
+		done(pagination.value.rowsNumber == rows.value.length);
+	}
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.login-token-base-status {
+	width: 8px;
+	height: 8px;
+	border-radius: 4px;
+}
+</style>

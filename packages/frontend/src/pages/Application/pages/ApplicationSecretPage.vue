@@ -47,8 +47,8 @@ import UpdateSecret from 'src/components/application/dialog/secret/UpdateSecret.
 import DeleteSecret from 'src/components/application/dialog/secret/DeleteSecret.vue';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import { Secret } from 'src/utils/constants';
-import PathLocation from 'components/PathLocation.vue';
-import SecretItem from 'components/application/SecretItem.vue';
+import PathLocation from '../../../components/PathLocation.vue';
+import SecretItem from '../../../components/application/SecretItem.vue';
 import ListBottomFuncBtn from 'components/ListBottomFuncBtn.vue';
 
 import { useI18n } from 'vue-i18n';

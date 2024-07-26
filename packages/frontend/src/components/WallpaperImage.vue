@@ -7,7 +7,9 @@
 	>
 		<div
 			:style="{
-				'--padding': `${padding}px`
+				'--padding': `${padding}px`,
+				'--borderWidth': `${borderWidth}px`,
+				'--borderRadius': `${borderRadius}px`
 			}"
 			:class="
 				selected
@@ -22,7 +24,7 @@
 				:width="`${width}px`"
 				:fit="imgContentModeRef"
 				:noSpinner="true"
-				:ratio="16 / 9"
+				:ratio="deviceStore.isMobile ? 6 / 11 : 16 / 9"
 				style="border-radius: 4px"
 			/>
 		</div>
@@ -35,6 +37,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { imgContentModes } from '../constant';
+import { useDeviceStore } from '../stores/device';
+const deviceStore = useDeviceStore();
 
 defineProps({
 	width: Number,
@@ -46,6 +50,16 @@ defineProps({
 	selected: {
 		type: Boolean,
 		default: false
+	},
+	borderWidth: {
+		type: Number,
+		required: false,
+		default: 2
+	},
+	borderRadius: {
+		type: Number,
+		required: false,
+		default: 4
 	}
 });
 
@@ -59,15 +73,15 @@ const imgContentModeRef = ref(imgContentModes[0]);
 	text-decoration: none;
 
 	.background-mode-item-normal {
-		border-radius: 4px;
+		border-radius: var(--borderRadius);
 		padding: var(--padding);
-		border: 1px solid transparent;
+		border: var(--borderWidth) solid transparent;
 	}
 
 	.background-mode-item-select {
-		border-radius: 4px;
+		border-radius: var(--borderRadius);
 		padding: var(--padding);
-		border: 1px solid $blue;
+		border: var(--borderWidth) solid $blue;
 	}
 }
 </style>

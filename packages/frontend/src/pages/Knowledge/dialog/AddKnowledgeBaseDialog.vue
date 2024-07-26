@@ -1,9 +1,9 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogHide">
+	<q-dialog ref="dialogRef" @hide="onDialogCancel">
 		<div class="common-dialog" style="border-radius: 16px">
 			<DialogHeader
 				:title="title"
-				@close-action="dialogRef?.hide()"
+				@close-action="onDialogCancel"
 			></DialogHeader>
 			<div class="dialog-content-root">
 				<terminus-edit
@@ -69,8 +69,7 @@ const props = defineProps({
 	}
 });
 
-const { dialogRef, onDialogHide, onDialogCancel, onDialogOK } =
-	useDialogPluginComponent();
+const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
 const { t } = useI18n();
 
 const title = ref(t('add_new_knowledge_base'));

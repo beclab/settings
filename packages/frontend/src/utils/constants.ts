@@ -263,3 +263,9 @@ export function getSecondLevelDomain() {
 		return window.location.hostname;
 	}
 }
+
+export enum ConfirmButtonStatus {
+	normal = 1,
+	error = 2,
+	disable = 3
+}

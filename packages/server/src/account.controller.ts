@@ -18,7 +18,7 @@ import {
   returnSucceed,
 } from '@bytetrade/core';
 import { AccountService } from './account.service';
-import { IntegrationAccount } from './utils';
+import { IntegrationAccount, IntegrationAccountMiniData } from './utils';
 import { SecretService } from './secret.service';
 
 @Controller('/api/account')
@@ -95,6 +95,34 @@ export class AccountController {
         ),
       );
     }
+  }
+
+  @Post('/retrieve')
+  @HttpCode(200)
+  async RetrieveAccountByName(
+    @Body() { name }: { name: string },
+  ): Promise<Result<Secret>> {
+    this.logger.log('RetrieveAccountByName');
+    this.logger.log(name);
+    try {
+      const res: IntegrationAccount | undefined =
+        await this.accountService.getIntegrationAccountFullInfoByKey(name);
+      if (res) {
+        return returnSucceed(res);
+      } else {
+        return returnError(1, '');
+      }
+    } catch (e) {
+      console.log(e);
+      return returnError(1, '');
+    }
+  }
+
+  @Get('/all')
+  async ListAllAccount(): Promise<Result<IntegrationAccountMiniData[]>> {
+    this.logger.debug('ListAllAccount ');
+
+    return returnSucceed(await this.accountService.getAllIntegrationAccount());
   }
 
   @Delete('/:key')

@@ -3,7 +3,7 @@
 		<template v-slot:start>
 			<q-icon size="20px" name="sym_r_lock" />
 			<div class="text-body2 secret-label" style="margin-left: 4px">
-				{{ secret.Key }}
+				{{ secret?.Key }}
 			</div>
 		</template>
 		<template v-slot:midden>
@@ -16,13 +16,13 @@
 					style="margin-right: 12px"
 					size="20px"
 					name="sym_r_edit_square"
-					@click="emit('onUpdate', secret.Key)"
+					@click="emit('onUpdate', secret?.Key)"
 				/>
 				<q-icon
 					class="cursor-pointer"
 					size="20px"
 					name="sym_r_delete"
-					@click="emit('onDelete', secret.Key)"
+					@click="emit('onDelete', secret?.Key)"
 				/>
 			</div>
 		</template>

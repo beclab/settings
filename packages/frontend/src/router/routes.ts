@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
+// import { Platform } from 'quasar';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -7,6 +8,10 @@ const routes: RouteRecordRaw[] = [
 		children: [
 			{
 				path: '',
+				component: () => import('src/pages/RootPage.vue')
+			},
+			{
+				path: '/person',
 				component: () => import('src/pages/Person/IndexPage.vue')
 			},
 			{
@@ -151,6 +156,18 @@ const routes: RouteRecordRaw[] = [
 				component: () =>
 					import('src/pages/Integration/IntegrationDetailPage.vue')
 			},
+			{
+				path: '/integration/add',
+				component: () =>
+					import('src/pages/Integration/pages/IntegrationAddPage.vue')
+			},
+			{
+				path: '/integration/aws/add',
+				component: () =>
+					import(
+						'src/pages/Integration/pages/AwsAddIntegrationPage.vue'
+					)
+			},
 
 			//Notification
 			{
@@ -228,5 +245,29 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('pages/ErrorNotFound.vue')
 	}
 ];
+
+// if (Platform.is.mobile) {
+// 	routes.push({
+// 		path: '',
+// 		component: () => import('layouts/MainLayout.vue'),
+// 		children: [
+// 			{
+// 				path: '',
+// 				component: () => import('src/pages/Mobile/RootPage.vue')
+// 			}
+// 		]
+// 	});
+// } else {
+// 	routes.push({
+// 		path: '',
+// 		component: () => import('layouts/MainLayout.vue'),
+// 		children: [
+// 			{
+// 				path: '',
+// 				component: () => import('src/pages/Person/IndexPage.vue')
+// 			}
+// 		]
+// 	});
+// }
 
 export default routes;

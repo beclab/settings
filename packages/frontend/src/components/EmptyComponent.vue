@@ -1,7 +1,14 @@
 <template>
 	<div class="empty-parent column items-center">
 		<q-img src="default_empty.svg" class="empty-image" />
-		<div class="text-body2 empty-text">
+		<div
+			class="empty-text"
+			:class="
+				deviceStore.isMobile
+					? 'text-subtitle1-m text-ink-1'
+					: 'text-body2 text-ink-2'
+			"
+		>
 			{{
 				info.length > 0
 					? info
@@ -12,10 +19,12 @@
 					: ''
 			}}
 		</div>
+		<slot name="more" />
 	</div>
 </template>
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../stores/device';
 defineProps({
 	info: {
 		type: String,
@@ -29,6 +38,7 @@ defineProps({
 	}
 });
 const { t } = useI18n();
+const deviceStore = useDeviceStore();
 </script>
 
 <style scoped lang="scss">
@@ -38,13 +48,12 @@ const { t } = useI18n();
 
 	.empty-image {
 		margin-top: 144px;
-		width: 160px;
-		height: 160px;
+		width: 240px;
+		height: 240px;
 	}
 
 	.empty-text {
 		text-align: center;
-		color: $ink-2;
 	}
 }
 </style>

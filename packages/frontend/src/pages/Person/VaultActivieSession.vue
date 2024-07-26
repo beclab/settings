@@ -6,7 +6,7 @@
 	/>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<template v-for="(device, index) in devices" :key="'device' + index">
-			<trust-device-item :device="device" />
+			<trust-device-item :device="device" class="mobile-items-list" />
 		</template>
 	</bt-scroll-area>
 </template>
@@ -15,7 +15,7 @@
 import { onMounted, ref } from 'vue';
 import { useAdminStore } from 'src/stores/Admin';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import TrustDeviceItem from 'components/person/TrustDeviceItem.vue';
+import TrustDeviceItem from '../../components/person/TrustDeviceItem.vue';
 import { useI18n } from 'vue-i18n';
 
 const adminStore = useAdminStore();

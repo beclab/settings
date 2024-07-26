@@ -14,7 +14,7 @@
 			"
 			:style="
 				(transaction ? 'background : transparent;' : '') +
-				(isTextarea ? '' : 'height: 32px;')
+				(isTextarea ? '' : 'height: 36px;')
 			"
 		>
 			<img
@@ -26,7 +26,7 @@
 				:model-value="modelValue"
 				:type="inputTypeRef"
 				class="text-body3 terminus-edit__bg__input"
-				:style="isTextarea ? '' : 'margin-top: -8px;'"
+				:style="isTextarea ? '' : 'margin-top: -6px;'"
 				bg-color="transparent"
 				:autogrow="isTextarea"
 				:placeholder="hintText"
@@ -34,11 +34,15 @@
 				:inputClass="inputClass"
 				:input-style="{
 					fontWeight: `${
-						inputTypeRef === 'password' ? '800' : '400'
+						inputTypeRef === 'password' && !$q.platform.is.ios
+							? '600'
+							: '400'
 					}`,
 					fontSize: `${
-						inputTypeRef === 'password' && !isMobile
+						inputTypeRef === 'password' && !$q.platform.is.ios
 							? '22px'
+							: inputTypeRef === 'password' && $q.platform.is.ios
+							? '7px'
 							: '12px'
 					}`,
 					maxHeight: isTextarea ? '100px' : ''
@@ -147,7 +151,6 @@ const props = defineProps({
 	}
 });
 
-const isMobile = ref(false);
 const inputImageRef = ref();
 const inputTypeRef = ref<
 	| 'text'
@@ -202,7 +205,7 @@ const submit = () => {
 
 <style lang="scss" scoped>
 .terminus_background_edt {
-	background: $background-1;
+	// background: $background-1;
 	backdrop-filter: blur(6.07811px);
 	border-radius: 8px;
 	border: 1px solid $separator;

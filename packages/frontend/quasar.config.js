@@ -14,7 +14,7 @@ const { configure } = require('quasar/wrappers');
 const dotenv = require('dotenv');
 
 dotenv.config();
-console.log(process.env);
+// console.log(process.env);
 
 const path = require('path');
 
@@ -43,7 +43,8 @@ module.exports = configure(function (ctx) {
 
 		// https://github.com/quasarframework/quasar/tree/dev/extras
 		extras: [
-			'material-icons' // optional, you are not bound to it
+			'material-icons',
+			'roboto-font' // optional, you are not bound to it
 		],
 
 		// Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-build

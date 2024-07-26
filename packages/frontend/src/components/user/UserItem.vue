@@ -2,8 +2,8 @@
 	<div class="user-item-root column justify-start" v-if="account">
 		<q-item
 			clickable
-			class="user-item"
-			:style="marginTop ? 'margin-top: 8px' : ''"
+			:class="deviceStore.isMobile ? 'user-item-mobile' : 'user-item'"
+			:style="marginTop && !deviceStore.isMobile ? 'margin-top: 8px' : ''"
 		>
 			<q-item-section>
 				<div class="row items-center">
@@ -21,7 +21,14 @@
 						style="margin-left: 8px; height: 40px"
 					>
 						<div class="row justify-start">
-							<div class="text-subtitle2 person-name">
+							<div
+								class="person-name"
+								:class="
+									deviceStore.isMobile
+										? 'text-subtitle2-m'
+										: 'text-subtitle2'
+								"
+							>
 								{{ account.name }}
 							</div>
 							<setting-connect-status
@@ -54,6 +61,7 @@ import { PropType } from 'vue';
 import { AccountInfo } from '../../global';
 import { getRoleName } from '../../utils/constants';
 import SettingConnectStatus from '../../components/base/SettingConnectStatus.vue';
+import { useDeviceStore } from '../../stores/device';
 defineProps({
 	account: {
 		type: Object as PropType<AccountInfo>,
@@ -68,6 +76,7 @@ defineProps({
 		default: true
 	}
 });
+const deviceStore = useDeviceStore();
 </script>
 
 <style scoped lang="scss">
@@ -79,14 +88,20 @@ defineProps({
 		height: 56px;
 		min-height: 56px;
 		padding: 0;
+	}
 
-		.person-name {
-			color: $ink-1;
-		}
+	.user-item-mobile {
+		height: 64px;
+		min-height: 64px;
+		padding: 0;
+	}
 
-		.person-role {
-			color: $ink-2;
-		}
+	.person-name {
+		color: $ink-1;
+	}
+
+	.person-role {
+		color: $ink-3;
 	}
 }
 </style>

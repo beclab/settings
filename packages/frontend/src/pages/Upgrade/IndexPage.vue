@@ -1,49 +1,90 @@
 <template>
 	<page-title-component :show-back="false" :title="t('upgrade')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list class="q-list-class">
-			<q-item class="list_section">
-				<q-item-section> {{ t('current_version') }} </q-item-section>
-				<q-item-section side>
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
+			<q-item class="list_section item-padding-zero">
+				<q-item-section
+					class="text-ink-1"
+					:class="
+						deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
+					"
+				>
+					{{ t('current_version') }}
+				</q-item-section>
+				<q-item-section
+					side
+					class="text-ink-2"
+					:class="
+						deviceStore.isMobile ? 'text-body3-m' : 'text-body1'
+					"
+				>
 					{{ versionInfo?.current_version }}
 				</q-item-section>
 			</q-item>
-			<q-separator class="q-list-sep-line" />
-			<q-item class="list_section">
-				<q-item-section> {{ t('development_mode') }} </q-item-section>
-				<q-item-section side>
+			<q-separator
+				:class="deviceStore.isMobile ? '' : 'q-list-sep-line'"
+			/>
+			<q-item class="list_section item-padding-zero">
+				<q-item-section
+					class="text-ink-1"
+					:class="
+						deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
+					"
+				>
+					{{ t('development_mode') }}
+				</q-item-section>
+				<q-item-section
+					side
+					class="text-ink-2"
+					:class="
+						deviceStore.isMobile ? 'text-body3-m' : 'text-body1'
+					"
+				>
 					<q-toggle v-model="dev_mode" />
 				</q-item-section>
 			</q-item>
 			<q-separator
-				class="q-list-sep-line"
+				:class="deviceStore.isMobile ? '' : 'q-list-sep-line'"
 				v-if="versionInfo && versionInfo.is_new"
 			/>
 			<q-item
-				class="list_section"
+				class="list_section item-padding-zero"
 				v-if="versionInfo && versionInfo.is_new"
 			>
-				<q-item-section>
+				<q-item-section
+					class="text-ink-1"
+					:class="
+						deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
+					"
+				>
 					<div class="row items-center">
 						<div>{{ t('new_version') }}</div>
-						<div style="margin-left: 8px; color: #757575">
+						<div
+							style="margin-left: 5px"
+							:class="
+								deviceStore.isMobile
+									? 'text-blue'
+									: 'text-ink-3'
+							"
+						>
 							{{ versionInfo?.new_version }}
 						</div>
 					</div>
 				</q-item-section>
-				<q-item-section side>
-					<div
-						class="upgradeNow text-body3"
-						v-if="upgradeState === 'running'"
-					>
+				<q-item-section
+					side
+					class="text-ink-2"
+					:class="
+						deviceStore.isMobile ? 'text-overline-m' : 'text-body3'
+					"
+				>
+					<div class="upgradeNow" v-if="upgradeState === 'running'">
 						<span class="loader"></span>
 						{{ t('upgrading') }}
 					</div>
-					<div
-						class="upgradeNow text-body3"
-						@click="handleUpgrade"
-						v-else
-					>
+					<div class="upgradeNow" @click="handleUpgrade" v-else>
 						{{ t('upgrade_now') }}
 					</div>
 				</q-item-section>
@@ -58,9 +99,11 @@ import { useUpgradeStore } from '../../stores/Upgrade';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed, notifySuccess } from '../../utils/btNotify';
+import { useDeviceStore } from '../../stores/device';
 
 const { t } = useI18n();
 const upgradeStore = useUpgradeStore();
+const deviceStore = useDeviceStore();
 
 const versionInfo = ref();
 const upgradeState = ref();
@@ -97,12 +140,14 @@ const startUpgradeState = async () => {
 
 const handleUpgrade = async () => {
 	upgradeState.value = 'running';
-	const res = await upgradeStore.upgrade();
-	if (res) {
-		timer.value = setInterval(() => {
-			startUpgradeState();
-		}, 4000);
-	} else {
+	try {
+		const res = await upgradeStore.upgrade();
+		if (res) {
+			timer.value = setInterval(() => {
+				startUpgradeState();
+			}, 4000);
+		}
+	} catch (error) {
 		upgradeState.value = null;
 	}
 };
@@ -138,12 +183,11 @@ onUnmounted(() => {
 }
 
 .upgradeNow {
-	border: 1px solid $separator;
+	border: 1px solid $btn-stroke;
 	padding: 8px 12px;
-	border-radius: 6px;
+	border-radius: 8px;
 	cursor: pointer;
-	color: $ink-2;
-	background-color: $background-3;
+	// background-color: $background-3;
 
 	&:hover {
 		background: $background-5;

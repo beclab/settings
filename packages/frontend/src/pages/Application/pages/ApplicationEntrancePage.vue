@@ -5,7 +5,9 @@
 	/>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
 			<bt-form-item
 				:title="t('domain_setup')"
 				:margin-top="false"
@@ -18,7 +20,9 @@
 		<div class="text-subtitle1 details-title">
 			{{ t('setup_access_policies') }}
 		</div>
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
 			<bt-form-item :title="t('auth_level')">
 				<bt-select
 					v-model="authorizationLevel"
@@ -59,7 +63,9 @@
 			</error-message-tip>
 		</q-list>
 
-		<q-list class="q-list-class">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
 			<policies-card v-model:policies="sub_policies" />
 		</q-list>
 
@@ -97,11 +103,13 @@ import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 import { notifyFailed, notifyWarning } from '../../../utils/btNotify';
 
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
 const Route = useRoute();
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const application = ref(
 	applicationStore.getApplicationById(Route.params.name as string)

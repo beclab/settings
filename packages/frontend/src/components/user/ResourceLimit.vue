@@ -1,8 +1,23 @@
 <template>
-	<div class="resource-limit-root row justify-between">
+	<div
+		class="resource-limit-root row justify-between"
+		:class="
+			!deviceStore.isMobile ? 'resource-border' : 'resource-background'
+		"
+	>
 		<div class="column justify-between">
-			<div class="text-subtitle1 resource-label">{{ label }}</div>
-			<div class="text-h5 resource-value">
+			<div
+				class="resource-label"
+				:class="
+					deviceStore.isMobile ? 'text-subtitle1' : 'text-subtitle1-m'
+				"
+			>
+				{{ label }}
+			</div>
+			<div
+				class="text-h5 resource-value"
+				:class="deviceStore.isMobile ? 'text-h5' : 'text-h5-m'"
+			>
 				{{ usageFormat }}/{{ totalFormat }}
 			</div>
 		</div>
@@ -25,6 +40,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { getValueByUnit, getSuitableUnit } from '../../utils/monitoring';
+import { useDeviceStore } from '../../stores/device';
 
 const props = defineProps({
 	total: Number,
@@ -32,6 +48,8 @@ const props = defineProps({
 	label: String,
 	unitKey: String
 });
+
+const deviceStore = useDeviceStore();
 
 const totalFormat = computed(() => {
 	if (props.unitKey == 'cpu') {
@@ -96,8 +114,7 @@ const textColor = computed(() => {
 <style scoped lang="scss">
 .resource-limit-root {
 	width: 100%;
-	border-radius: 20px;
-	border: 1px solid $separator;
+	border-radius: 12px;
 	padding: 20px;
 	height: 96px;
 
@@ -113,5 +130,13 @@ const textColor = computed(() => {
 	.knob-class {
 		color: $ink-2;
 	}
+}
+
+.resource-border {
+	border: 1px solid $separator;
+}
+
+.resource-background {
+	background: $background-2;
 }
 </style>

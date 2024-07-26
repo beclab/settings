@@ -1,20 +1,42 @@
 <template>
 	<div class="bt-grid-item-root column justify-start">
-		<div class="row justify-start">
-			<div class="text-body2 bt-grid-item-value" v-if="value">
-				{{ value }}
-			</div>
-			<slot name="value" />
-			<q-popup-proxy class="reminder_banner" v-if="popupInfo">
-				<div v-html="popupInfo" />
-			</q-popup-proxy>
-			<q-img class="bt-grid-item-image" :src="icon" v-if="icon" />
-		</div>
-		<div class="text-overline bt-grid-item-label">{{ label }}</div>
+		<adaptive-layout>
+			<template v-slot:pc>
+				<div class="row justify-start">
+					<div class="text-body2 bt-grid-item-value" v-if="value">
+						{{ value }}
+					</div>
+					<slot name="value" />
+					<q-popup-proxy class="reminder_banner" v-if="popupInfo">
+						<div v-html="popupInfo" />
+					</q-popup-proxy>
+					<q-img class="bt-grid-item-image" :src="icon" v-if="icon" />
+				</div>
+				<div class="text-overline bt-grid-item-label q-mt-xs">
+					{{ label }}
+				</div>
+			</template>
+			<template v-slot:mobile>
+				<div class="text-overline bt-grid-item-label q-mb-xs">
+					{{ label }}
+				</div>
+				<div class="row justify-start">
+					<div class="text-body2 bt-grid-item-value" v-if="value">
+						{{ value }}
+					</div>
+					<slot name="value" />
+					<q-popup-proxy class="reminder_banner" v-if="popupInfo">
+						<div v-html="popupInfo" />
+					</q-popup-proxy>
+					<q-img class="bt-grid-item-image" :src="icon" v-if="icon" />
+				</div>
+			</template>
+		</adaptive-layout>
 	</div>
 </template>
 
 <script lang="ts" setup>
+import AdaptiveLayout from '../AdaptiveLayout.vue';
 defineProps({
 	label: {
 		type: String,
@@ -43,7 +65,7 @@ defineProps({
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		width: 170px;
+		// width: 170px;
 	}
 
 	.bt-grid-item-image {
@@ -54,8 +76,7 @@ defineProps({
 
 	.bt-grid-item-label {
 		text-transform: capitalize;
-		margin-top: 4px;
-		color: $ink-2;
+		color: $ink-3;
 	}
 }
 </style>

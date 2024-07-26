@@ -5,11 +5,16 @@
 	/>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list class="q-list-class">
-			<application-detail-item :app="application!" />
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		>
+			<application-detail-item :app="application" />
 		</q-list>
 
-		<q-list class="q-list-class" v-if="secretPermission">
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			v-if="secretPermission && !deviceStore.isMobile"
+		>
 			<bt-form-item
 				:title="t('secrets')"
 				@click="gotoSecret"
@@ -22,7 +27,11 @@
 		<div v-if="application?.entrances && application.entrances.length">
 			<div class="text-subtitle1 details-title">{{ t('entrances') }}</div>
 
-			<q-list class="q-list-class">
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
 				<template
 					v-for="(entrance, index) in application.entrances"
 					:key="index"
@@ -80,12 +89,15 @@ import ApplicationDetailItem from '../../../components/application/ApplicationDe
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import ApplicationItem from '../../../components/application/ApplicationItem.vue';
 
-import { useI18n } from 'vue-i18n';
 import { TerminusEntrance } from '@bytetrade/core';
+
+import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
 const secretStore = useSecretStore();
+const deviceStore = useDeviceStore();
 
 const Route = useRoute();
 

@@ -1,6 +1,7 @@
 <template>
 	<div class="error-root row justify-end items-center">
 		<slot />
+		<slot name="reminder" />
 		<transition name="fade">
 			<div
 				v-if="
@@ -15,7 +16,10 @@
 					color="red-6"
 					style="margin-right: 6px"
 				>
-					<q-popup-proxy class="error_banner">
+					<q-popup-proxy
+						class="error_banner"
+						v-if="popupMessage && popupMessage.length > 0"
+					>
 						<div class="banner_message" v-html="popupMessage" />
 					</q-popup-proxy>
 				</q-icon>

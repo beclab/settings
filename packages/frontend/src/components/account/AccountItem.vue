@@ -1,7 +1,11 @@
 <template>
 	<q-item
-		:class="border ? 'q-list-class' : 'q-pa-none'"
-		:style="border ? 'height: 80px' : ''"
+		:class="{
+			'q-list-class': border && !deviceStore.isMobile,
+			'mobile-items-list': border && deviceStore.isMobile,
+			'q-pa-none': !border
+		}"
+		:style="border && !deviceStore.isMobile ? 'height: 72px' : ''"
 		:clickable="clickable"
 		@click="accountClick"
 	>
@@ -16,16 +20,16 @@
 				/>
 				<slot name="avatar" v-else />
 				<div
-					class="column justify-start"
+					class="column justify-start info-part"
 					:class="detail && detail.length > 0 ? '' : 'justify-center'"
 					style="margin-left: 8px"
 				>
 					<div class="row">
-						<div class="text-subtitle2 account-title">
+						<div class="text-subtitle2 text-ink-1 content">
 							{{ title }}
 						</div>
 						<div
-							class="status-common text-caption q-px-md q-ml-sm row items-center justify-center"
+							class="status-common text-caption q-px-md q-ml-sm row items-center justify-center content"
 							:class="
 								available
 									? 'status-available'
@@ -47,14 +51,12 @@
 		<q-item-section side v-if="side">
 			<q-icon name="sym_r_chevron_right" color="ink-1" size="20px" />
 		</q-item-section>
-		<q-item-section side>
-			<slot name="side" />
-		</q-item-section>
 	</q-item>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../stores/device';
 defineProps({
 	imgName: {
 		required: false,
@@ -94,6 +96,7 @@ defineProps({
 });
 
 const { t } = useI18n();
+const deviceStore = useDeviceStore();
 
 const accountClick = () => {
 	emit('accountClick');
@@ -103,10 +106,6 @@ const emit = defineEmits(['accountClick']);
 </script>
 
 <style scoped lang="scss">
-.account-title {
-	color: $ink-1;
-}
-
 .status-common {
 	height: 20px;
 	border-radius: 4px;
@@ -124,5 +123,14 @@ const emit = defineEmits(['accountClick']);
 
 .account-detail {
 	color: $ink-3;
+}
+.info-part {
+	width: calc(100% - 48px);
+	.content {
+		max-width: calc(100% - 60px);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 }
 </style>
