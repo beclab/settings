@@ -67,9 +67,11 @@ export class AccountService implements OnModuleInit {
   }
 
   getIntegrationAccountFullInfoByKey(
-    name: string,
+    key: string,
   ): IntegrationAccount | undefined {
-    return this.accounts.find((a) => a.name == name);
+    console.log(key);
+    console.log(this.accounts);
+    return this.accounts.find((a) => a.get_store_key() == key);
   }
 
   getIntegrationAccountByAccountType(
