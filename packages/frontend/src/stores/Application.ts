@@ -4,7 +4,6 @@ import { useTokenStore } from './token';
 import { TerminusApp, TerminusEntrance } from '@bytetrade/core';
 import { i18n } from '../boot/i18n';
 import { notifySuccess } from 'src/utils/btNotify';
-import { AppPermission, PermissionProviderRegister } from 'src/global';
 
 export const systemApplicationIdList = [''];
 
@@ -179,33 +178,6 @@ export const useApplicationStore = defineStore('application', {
 			);
 			await this.getEntrances(name);
 			notifySuccess(i18n.global.t('success'));
-		},
-
-		async getPermissions(
-			app_name: string | undefined
-		): Promise<AppPermission | undefined> {
-			if (!app_name) {
-				return undefined;
-			}
-			const tokenStore = useTokenStore();
-			const data: AppPermission = await axios.get(
-				`${tokenStore.url}/api/applications/permissions/${app_name}`
-			);
-			return data;
-		},
-		async getProviderRegistry(permission?: {
-			dataType: string;
-			group: string;
-			version: string;
-		}): Promise<PermissionProviderRegister | undefined> {
-			if (!permission) {
-				return undefined;
-			}
-			const tokenStore = useTokenStore();
-			const data: any = await axios.get(
-				`${tokenStore.url}/api/applications/provider-registry/${permission.dataType}/${permission.group}/${permission.version}`
-			);
-			return data;
 		}
 	}
 });
