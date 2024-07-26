@@ -108,7 +108,7 @@ export class AccountController {
       const res: IntegrationAccount | undefined =
         await this.accountService.getIntegrationAccountFullInfoByKey(name);
       if (res) {
-        return returnSucceed({ name, value: JSON.stringify(res.raw_data) });
+        return returnSucceed(res);
       } else {
         return returnError(1, '');
       }
