@@ -147,7 +147,9 @@ export class AccountService implements OnModuleInit {
       if (this.accounts[i].raw_data.expires_at <= 0) {
         continue;
       }
-      if (now < this.accounts[i].raw_data.expires_at - 60 * 60 * 1000) {
+      const compare =
+        now < this.accounts[i].raw_data.expires_at - 60 * 60 * 1000;
+      if (compare) {
         continue;
       }
 
