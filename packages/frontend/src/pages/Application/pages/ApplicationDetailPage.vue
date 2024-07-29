@@ -55,20 +55,75 @@
 				</template>
 			</q-list>
 		</div>
+
+		<div v-if="appRegisterProviders && appRegisterProviders.length">
+			<div class="text-subtitle1 details-title">{{ t('providers') }}</div>
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
+				<template
+					v-for="(provider, index) in appRegisterProviders"
+					:key="index"
+				>
+					<bt-form-item
+						:title="`${provider.dataType}/${provider.group}/${provider.version}`"
+						:margin-top="false"
+						:width-separator="
+							index + 1 < appRegisterProviders.length
+						"
+						:chevron-right="true"
+						@click="gotoPermission(provider)"
+					/>
+				</template>
+			</q-list>
+		</div>
+
+		<div v-if="appPermissions && appPermissions.permissions.length">
+			<div class="text-subtitle1 details-title">
+				{{ t('permission') }}
+			</div>
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
+				<template
+					v-for="(permission, index) in appPermissions.permissions"
+					:key="index"
+				>
+					<bt-form-item
+						:title="`${permission.dataType}/${permission.group}/${permission.version}`"
+						@click="gotoPermission(permission)"
+						:margin-top="false"
+						:width-separator="
+							index + 1 < appPermissions.permissions.length
+						"
+						:chevron-right="true"
+					/>
+				</template>
+			</q-list>
+		</div>
 	</bt-scroll-area>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { firstToUpper } from 'src/constant';
-import { useApplicationStore } from 'src/stores/Application';
-import { useSecretStore } from 'src/stores/Secret';
-import { Entrance } from 'src/global';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import { firstToUpper } from '../../../constant';
+import { useApplicationStore } from '../../../stores/Application';
+import { useSecretStore } from '../../../stores/Secret';
+import {
+	AppPermission,
+	Permission,
+	PermissionProviderRegister
+} from '../../../global';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import ApplicationDetailItem from '../../../components/application/ApplicationDetailItem.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
-import ApplicationItem from 'components/application/ApplicationItem.vue';
+import ApplicationItem from '../../../components/application/ApplicationItem.vue';
+import { TerminusEntrance } from '@bytetrade/core';
 
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../../stores/device';
@@ -92,10 +147,28 @@ const gotoSecret = () => {
 	router.push('/application/secret/' + application.value?.name);
 };
 
-const gotoEntrance = (entrance: Entrance) => {
+const gotoEntrance = (entrance: TerminusEntrance) => {
 	router.push(
 		'/application/entrance/' + application.value?.name + '/' + entrance.name
 	);
+};
+
+const gotoPermission = (
+	permission: Permission | PermissionProviderRegister
+) => {
+	gotoPermissionDetail({
+		dataType: permission.dataType,
+		group: permission.group,
+		version: permission.version,
+		title: `${permission.dataType}/${permission.group}/${permission.version}`
+	});
+};
+
+const gotoPermissionDetail = (query: any) => {
+	router.push({
+		path: '/application/permission/detail',
+		query
+	});
 };
 
 async function checkSecretPermission() {
@@ -109,8 +182,34 @@ async function checkSecretPermission() {
 	}
 }
 
+const appPermissions = ref<AppPermission | undefined>(undefined);
+
+const getPermissions = async () => {
+	try {
+		appPermissions.value = await applicationStore.getPermissions(
+			application.value?.name
+		);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const appRegisterProviders = ref<PermissionProviderRegister[] | undefined>([]);
+const getProviders = async () => {
+	try {
+		appRegisterProviders.value =
+			await applicationStore.getProviderRegistryList(
+				application.value?.name
+			);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 onMounted(async () => {
-	await checkSecretPermission();
+	checkSecretPermission();
+	getPermissions();
+	getProviders();
 });
 </script>
 
