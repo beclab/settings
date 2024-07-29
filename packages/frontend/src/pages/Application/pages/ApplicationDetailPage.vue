@@ -57,7 +57,7 @@
 		</div>
 
 		<div v-if="appRegisterProviders && appRegisterProviders.length">
-			<div class="text-subtitle1 details-title">Providers</div>
+			<div class="text-subtitle1 details-title">{{ t('providers') }}</div>
 			<q-list
 				:class="
 					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
@@ -81,7 +81,9 @@
 		</div>
 
 		<div v-if="appPermissions && appPermissions.permissions.length">
-			<div class="text-subtitle1 details-title">Permission</div>
+			<div class="text-subtitle1 details-title">
+				{{ t('permission') }}
+			</div>
 			<q-list
 				:class="
 					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'

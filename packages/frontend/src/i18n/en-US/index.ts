@@ -452,5 +452,9 @@ export default {
 	version: 'Version',
 	namespace: 'Namespace',
 	deployment: 'Deployment',
-	operations: 'Operations'
+	operations: 'Operations',
+	permissions: 'Permissions',
+	providers: 'Providers',
+	'This provider registry could not be found':
+		'This provider registry could not be found'
 };
