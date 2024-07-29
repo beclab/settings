@@ -55,20 +55,39 @@
 				</template>
 			</q-list>
 		</div>
+
+		<div v-if="appPermissions && appPermissions.permissions.length">
+			<div class="text-subtitle1 details-title">Permission</div>
+			<q-list class="q-list-class">
+				<template
+					v-for="(permission, index) in appPermissions.permissions"
+					:key="index"
+				>
+					<bt-form-item
+						:title="permission.dataType"
+						@click="gotoPermission(permission)"
+						:margin-top="false"
+						:width-separator="false"
+						:chevron-right="true"
+					/>
+				</template>
+			</q-list>
+		</div>
 	</bt-scroll-area>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { firstToUpper } from 'src/constant';
-import { useApplicationStore } from 'src/stores/Application';
-import { useSecretStore } from 'src/stores/Secret';
-import { Entrance } from 'src/global';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import { firstToUpper } from '../../../constant';
+import { useApplicationStore } from '../../../stores/Application';
+import { useSecretStore } from '../../../stores/Secret';
+import { AppPermission, Permission } from '../../../global';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import ApplicationDetailItem from '../../../components/application/ApplicationDetailItem.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
-import ApplicationItem from 'components/application/ApplicationItem.vue';
+import ApplicationItem from '../../../components/application/ApplicationItem.vue';
+import { TerminusEntrance } from '@bytetrade/core';
 
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../../stores/device';
@@ -92,10 +111,22 @@ const gotoSecret = () => {
 	router.push('/application/secret/' + application.value?.name);
 };
 
-const gotoEntrance = (entrance: Entrance) => {
+const gotoEntrance = (entrance: TerminusEntrance) => {
 	router.push(
 		'/application/entrance/' + application.value?.name + '/' + entrance.name
 	);
+};
+
+const gotoPermission = (permission: Permission) => {
+	router.push({
+		path: '/application/permission/detail',
+		query: {
+			// :dataType/:group/:version
+			dataType: permission.dataType,
+			group: permission.group,
+			version: permission.version
+		}
+	});
 };
 
 async function checkSecretPermission() {
@@ -109,8 +140,20 @@ async function checkSecretPermission() {
 	}
 }
 
+const appPermissions = ref<AppPermission | undefined>(undefined);
+const getPermissions = async () => {
+	try {
+		appPermissions.value = await applicationStore.getPermissions(
+			application.value?.name
+		);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 onMounted(async () => {
-	await checkSecretPermission();
+	checkSecretPermission();
+	getPermissions();
 });
 </script>
 

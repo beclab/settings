@@ -14,6 +14,10 @@ import { Cron } from '@nestjs/schedule';
 export class ApplicationController {
   private readonly logger = new Logger(ApplicationController.name);
 
+  private permissionApplicationNameRedirect = {
+    market: 'appstore',
+  };
+
   // @Get('/')
   // async get_applications(@Req() request: Request): Promise<any> {
   //   this.logger.debug('get_applications');
@@ -213,6 +217,48 @@ export class ApplicationController {
       throw new Error(data.statusText);
     }
 
+    this.logger.debug(data.data);
+    return data.data;
+  }
+
+  @Get('/permissions/:name')
+  async permissions(
+    @Req() request: Request,
+    @Param('name') name,
+  ): Promise<any> {
+    this.logger.debug('application permissions');
+    let realName = name;
+    if (name && this.permissionApplicationNameRedirect[name]) {
+      realName = this.permissionApplicationNameRedirect[name];
+    }
+    const path = '/bfl/settings/v1alpha1/apps/permissions/' + realName;
+    const data: any = await createInstance(request).get(path);
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
+
+  @Get('/provider-registry/:dataType/:group/:version')
+  async providerRegistry(
+    @Req() request: Request,
+    @Param('dataType') dataType,
+    @Param('group') group,
+    @Param('version') version,
+  ): Promise<any> {
+    this.logger.debug('Provider Registry');
+    const path =
+      '/bfl/settings/v1alpha1/apps/provider-registry/' +
+      dataType +
+      '/' +
+      group +
+      '/' +
+      version;
+    const data: any = await createInstance(request).get(path);
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
     this.logger.debug(data.data);
     return data.data;
   }
