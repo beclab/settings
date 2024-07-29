@@ -79,6 +79,7 @@ export class IntegrationAccountData {
 export class GoogleAccountData extends IntegrationAccountData {
   scope: string;
   id_token: string;
+  client_id: string;
 
   constructor(props?: Partial<GoogleAccountData>) {
     super(props);
@@ -157,17 +158,19 @@ export abstract class IntegrationAccount {
 
 export class GoogleAccount extends IntegrationAccount {
   type = AccountType.Google;
-  client_id =
-    '343424174381-vrtlie7g85jcso7c98c4vavo17qoied7.apps.googleusercontent.com';
+  //   client_id =
+  //     '343424174381-vrtlie7g85jcso7c98c4vavo17qoied7.apps.googleusercontent.com';
   scoped = '';
 
   async refresh() {
     const data: GoogleAccountData = this.raw_data as GoogleAccountData;
+    console.log('google refresh');
+
     const response: any = await axios.post(
       'https://oauth2.googleapis.com/token',
       qs.stringify({
         grant_type: 'refresh_token',
-        client_id: this.client_id,
+        client_id: data.client_id,
         refresh_token: data.refresh_token,
       }),
     );
