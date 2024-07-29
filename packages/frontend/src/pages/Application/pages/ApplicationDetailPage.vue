@@ -56,18 +56,48 @@
 			</q-list>
 		</div>
 
+		<div v-if="appRegisterProviders && appRegisterProviders.length">
+			<div class="text-subtitle1 details-title">Providers</div>
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
+				<template
+					v-for="(provider, index) in appRegisterProviders"
+					:key="index"
+				>
+					<bt-form-item
+						:title="`${provider.dataType}/${provider.group}/${provider.version}`"
+						:margin-top="false"
+						:width-separator="
+							index + 1 < appRegisterProviders.length
+						"
+						:chevron-right="true"
+						@click="gotoPermission(provider)"
+					/>
+				</template>
+			</q-list>
+		</div>
+
 		<div v-if="appPermissions && appPermissions.permissions.length">
 			<div class="text-subtitle1 details-title">Permission</div>
-			<q-list class="q-list-class">
+			<q-list
+				:class="
+					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
+				"
+			>
 				<template
 					v-for="(permission, index) in appPermissions.permissions"
 					:key="index"
 				>
 					<bt-form-item
-						:title="permission.dataType"
+						:title="`${permission.dataType}/${permission.group}/${permission.version}`"
 						@click="gotoPermission(permission)"
 						:margin-top="false"
-						:width-separator="false"
+						:width-separator="
+							index + 1 < appPermissions.permissions.length
+						"
 						:chevron-right="true"
 					/>
 				</template>
@@ -82,7 +112,11 @@ import { useRoute, useRouter } from 'vue-router';
 import { firstToUpper } from '../../../constant';
 import { useApplicationStore } from '../../../stores/Application';
 import { useSecretStore } from '../../../stores/Secret';
-import { AppPermission, Permission } from '../../../global';
+import {
+	AppPermission,
+	Permission,
+	PermissionProviderRegister
+} from '../../../global';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import ApplicationDetailItem from '../../../components/application/ApplicationDetailItem.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
@@ -117,15 +151,21 @@ const gotoEntrance = (entrance: TerminusEntrance) => {
 	);
 };
 
-const gotoPermission = (permission: Permission) => {
+const gotoPermission = (
+	permission: Permission | PermissionProviderRegister
+) => {
+	gotoPermissionDetail({
+		dataType: permission.dataType,
+		group: permission.group,
+		version: permission.version,
+		title: `${permission.dataType}/${permission.group}/${permission.version}`
+	});
+};
+
+const gotoPermissionDetail = (query: any) => {
 	router.push({
 		path: '/application/permission/detail',
-		query: {
-			// :dataType/:group/:version
-			dataType: permission.dataType,
-			group: permission.group,
-			version: permission.version
-		}
+		query
 	});
 };
 
@@ -141,6 +181,7 @@ async function checkSecretPermission() {
 }
 
 const appPermissions = ref<AppPermission | undefined>(undefined);
+
 const getPermissions = async () => {
 	try {
 		appPermissions.value = await applicationStore.getPermissions(
@@ -151,9 +192,22 @@ const getPermissions = async () => {
 	}
 };
 
+const appRegisterProviders = ref<PermissionProviderRegister[] | undefined>([]);
+const getProviders = async () => {
+	try {
+		appRegisterProviders.value =
+			await applicationStore.getProviderRegistryList(
+				application.value?.name
+			);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 onMounted(async () => {
 	checkSecretPermission();
 	getPermissions();
+	getProviders();
 });
 </script>
 

@@ -181,5 +181,7 @@ export interface PermissionProviderRegister {
 	group: string;
 	kind: string;
 	namespace: string;
+	description: string;
 	opApis: ProviderRegisterApi[];
+	version: string;
 }

@@ -206,6 +206,18 @@ export const useApplicationStore = defineStore('application', {
 				`${tokenStore.url}/api/applications/provider-registry/${permission.dataType}/${permission.group}/${permission.version}`
 			);
 			return data;
+		},
+		async getProviderRegistryList(
+			app_name?: string
+		): Promise<PermissionProviderRegister[] | undefined> {
+			if (!app_name) {
+				return undefined;
+			}
+			const tokenStore = useTokenStore();
+			const data: any = await axios.get(
+				`${tokenStore.url}/api/applications/provider/registry/${app_name}`
+			);
+			return data.items;
 		}
 	}
 });

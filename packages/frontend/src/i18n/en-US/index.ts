@@ -446,5 +446,11 @@ export default {
 	setup_custom_domain: 'Setup custom domain',
 	device_of_vault_trustee: 'Device of Vault Truste',
 	actions: 'Actions',
-	'SSO authorization token': 'SSO authorization token'
+	'SSO authorization token': 'SSO authorization token',
+	data_type: 'Data type',
+	data_group: 'Data group',
+	version: 'Version',
+	namespace: 'Namespace',
+	deployment: 'Deployment',
+	operations: 'Operations'
 };

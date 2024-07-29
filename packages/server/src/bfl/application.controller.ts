@@ -262,4 +262,19 @@ export class ApplicationController {
     this.logger.debug(data.data);
     return data.data;
   }
+
+  @Get('/provider/registry/:appName/')
+  async providerRegistryList(
+    @Req() request: Request,
+    @Param('appName') appName,
+  ): Promise<any> {
+    this.logger.debug('Provider Registry list');
+    const path = '/bfl/settings/v1alpha1/apps/provider-registry/' + appName;
+    const data: any = await createInstance(request).get(path);
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
 }

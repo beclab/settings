@@ -1,8 +1,11 @@
 <template>
-	<path-location style="height: 40px">
+	<path-location style="height: 60px">
 		<template v-slot:start>
 			<q-icon size="20px" name="sym_r_lock" />
-			<div class="text-body2 secret-label" style="margin-left: 4px">
+			<div
+				class="text-body2 secret-label"
+				style="margin-left: 4px; max-width: calc(100% - 100px)"
+			>
 				{{ secret?.Key }}
 			</div>
 		</template>
