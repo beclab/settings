@@ -166,14 +166,27 @@ export class GoogleAccount extends IntegrationAccount {
     const data: GoogleAccountData = this.raw_data as GoogleAccountData;
     console.log('google refresh');
 
-    const response: any = await axios.post(
-      'https://oauth2.googleapis.com/token',
-      qs.stringify({
-        grant_type: 'refresh_token',
-        client_id: data.client_id,
-        refresh_token: data.refresh_token,
-      }),
-    );
+    let response: any;
+    if (
+      data.client_id ==
+      '343424174381-vrtlie7g85jcso7c98c4vavo17qoied7.apps.googleusercontent.com'
+    ) {
+      response = await axios.post(
+        'https://oauth2.googleapis.com/token',
+        qs.stringify({
+          grant_type: 'refresh_token',
+          client_id: data.client_id,
+          refresh_token: data.refresh_token,
+        }),
+      );
+    } else {
+      response = await axios.post(
+        'https://cloud-api.jointerminus.com/v1/common/google/token/refresh',
+        {
+          refreshToken: data.refresh_token,
+        },
+      );
+    }
     console.log(response);
 
     const res = response.data as GoogleRefreshResponse;
