@@ -8,8 +8,9 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { returnSucceed, Result } from '@bytetrade/core';
+import { returnSucceed, Result, returnError } from '@bytetrade/core';
 import { ProviderClient } from './provider.client';
+import axios, { AxiosInstance } from 'axios';
 
 const client = new ProviderClient('files', 'service.files', 'files', [
   'GetSearchFolderStatus',
@@ -21,9 +22,16 @@ const client = new ProviderClient('files', 'service.files', 'files', [
 @Controller('/api/files')
 export class FilesController {
   private readonly logger = new Logger(FilesController.name);
-
+  private instance: AxiosInstance;
   constructor() {
     //
+    this.instance = axios.create({
+      baseURL: 'http://media-server-service.os-system:9090',
+      timeout: 10000,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   @Get('/GetSearchFolderStatus')
@@ -91,5 +99,42 @@ export class FilesController {
     });
     this.logger.debug(data);
     return returnSucceed(null);
+  }
+
+  @Get('/video/config')
+  async GetVideoConfig() {
+    console.log('GetVideoConfg start');
+
+    try {
+      const response = await this.instance.get(
+        '/System/Configuration/encoding',
+      );
+      this.logger.debug(response.data);
+      return returnSucceed(response.data);
+    } catch (e) {
+      console.log('System/Configuration/encoding error ==>', e);
+      return returnError(500, e.message || 'internal error');
+    }
+  }
+
+  @Post('/video/config')
+  async PostideoConfig(@Body() { data }) {
+    console.log('update video config');
+    console.log(data);
+    try {
+      const response = await this.instance.post(
+        '/System/Configuration/encoding',
+        data,
+      );
+      console.log('response');
+      console.log(response);
+      if (response.status == 204) {
+        return returnSucceed('');
+      }
+      return returnError(500, 'internal error');
+    } catch (e) {
+      console.log('System/Configuration/encoding error ==>', e);
+      return returnError(500, e.message || 'internal error');
+    }
   }
 }

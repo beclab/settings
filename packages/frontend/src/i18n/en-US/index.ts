@@ -10,7 +10,8 @@ export default {
 		authority: 'Authority',
 		upgrade: 'Upgrade',
 		backup: 'Backup',
-		appearance: 'Appearance'
+		appearance: 'Appearance',
+		video: 'Video'
 	},
 	role: {
 		admin: 'Admin',
@@ -456,5 +457,72 @@ export default {
 	permissions: 'Permissions',
 	providers: 'Providers',
 	'This provider registry could not be found':
-		'This provider registry could not be found'
+		'This provider registry could not be found',
+	video: 'Video',
+	'Hardware Acceleration': 'Hardware Acceleration',
+	'Encoding Scheme': 'Encoding Scheme',
+	'Transcoding Settings': 'Transcoding Settings',
+	'Audio Transcoding': 'Audio Transcoding',
+	'Encoding Quality': 'Encoding Quality',
+	Others: 'Others',
+	'Hardware acceleration requires additional configuration.':
+		'Hardware acceleration requires additional configuration.',
+	None: 'None',
+	'AMD AMF': 'AMD AMF',
+	'Enable hardware decoding': 'Enable hardware decoding',
+	'Hardware encoding options': 'Hardware encoding options',
+	'Encoding format options': 'Encoding format options',
+	'Select the video encoding that we should transcode to. We will use software encoding when hardware acceleration for the selected format is not available. H264 encoding will always be enabled.':
+		'Select the video encoding that we should transcode to. We will use software encoding when hardware acceleration for the selected format is not available. H264 encoding will always be enabled.',
+	'Transcoding thread count': 'Transcoding thread count',
+	'Select the maximum number of threads to use when transcoding. Reducing the thread count will lower CPU usage but may not convert fast enough for a smooth playback experience.':
+		'Select the maximum number of threads to use when transcoding. Reducing the thread count will lower CPU usage but may not convert fast enough for a smooth playback experience.',
+	Automatic: 'Automatic',
+	Max: 'Max',
+	'Specify a custom path for the transcode files served to clients. Leave blank to use the server default.':
+		'Specify a custom path for the transcode files served to clients. Leave blank to use the server default.',
+	'Transcode path': 'Transcode path',
+	'Browse or enter the path to use for transcode files. The folder must be writeable.':
+		'Browse or enter the path to use for transcode files. The folder must be writeable.',
+	Folder: 'Folder',
+	'Enable VBR audio encoding': 'Enable VBR audio encoding',
+	'Variable bitrate offers better quality to average bitrate ratio, but in some rare cases may cause buffering and compatibility issues.':
+		'Variable bitrate offers better quality to average bitrate ratio, but in some rare cases may cause buffering and compatibility issues.',
+	'Boost audio when downmixing. A value of one will preserve the original volume.':
+		'Boost audio when downmixing. A value of one will preserve the original volume.',
+	'Algorithm used to downmix multi-channel audio to stereo.':
+		'Algorithm used to downmix multi-channel audio to stereo.',
+	'H.265 encoding CRF': 'H.265 encoding CRF',
+	'H.264 encoding CRF': 'H.264 encoding CRF',
+	'Pick a faster value to improve performance, or a slower value to improve quality.':
+		'Pick a faster value to improve performance, or a slower value to improve quality.',
+	"The 'Constant Rate Factor' (CRF) is the default quality setting for the x264 and x265 software encoders. You can set the values between 0 and 51, where lower values would result in better quality (at the expense of higher file sizes). Sane values are between 18 and 28. The default for x264 is 23, and for x265 is 28, so you can use this as a starting point. Hardware encoders do not use these settings.":
+		"The 'Constant Rate Factor' (CRF) is the default quality setting for the x264 and x265 software encoders. You can set the values between 0 and 51, where lower values would result in better quality (at the expense of higher file sizes). Sane values are between 18 and 28. The default for x264 is 23, and for x265 is 28, so you can use this as a starting point. Hardware encoders do not use these settings.",
+	'Throttle Transcodes': 'Throttle Transcodes',
+	'When a transcode or remux gets far enough ahead from the current playback position, pause the process so it will consume fewer resources. This is most useful when watching without seeking often. Turn this off if you experience playback issues.':
+		'When a transcode or remux gets far enough ahead from the current playback position, pause the process so it will consume fewer resources. This is most useful when watching without seeking often. Turn this off if you experience playback issues.',
+	'Delete segments': 'Delete segments',
+	'Delete old segments after they have been downloaded by the client. This prevents having to store the entire transcoded file on disk. Turn this off if you experience playback issues.':
+		'Delete old segments after they have been downloaded by the client. This prevents having to store the entire transcoded file on disk. Turn this off if you experience playback issues.',
+	'Throttle after': 'Throttle after',
+	'Time in seconds after which the transcoder will be throttled. Must be large enough for the client to maintain a healthy buffer. Only works if throttling is enabled.':
+		'Time in seconds after which the transcoder will be throttled. Must be large enough for the client to maintain a healthy buffer. Only works if throttling is enabled.',
+	'Time to keep segments': 'Time to keep segments',
+	'Time in seconds for which segments should be kept after they are downloaded by the client. Only works if segment deletion is enabled.':
+		'Time in seconds for which segments should be kept after they are downloaded by the client. Only works if segment deletion is enabled.',
+	'Max muxing queue size': 'Max muxing queue size',
+	'Maximum number of packets that can be buffered while waiting for all streams to initialize. Try to increase it if you still meet "Too many packets buffered for output stream" error in FFmpeg logs. The recommended value is 2048.':
+		'Maximum number of packets that can be buffered while waiting for all streams to initialize. Try to increase it if you still meet "Too many packets buffered for output stream" error in FFmpeg logs. The recommended value is 2048.',
+	'Low-power encoding saves unnecessary CPU-GPU synchronization. The i915 HuC firmware must be configured correctly before use in Linux.':
+		'Low-power encoding saves unnecessary CPU-GPU synchronization. The i915 HuC firmware must be configured correctly before use in Linux.',
+	"Prefer the system's native DXVA or VA-API hardware decoder":
+		"Prefer the system's native DXVA or VA-API hardware decoder",
+	'Enable Enhanced NVDEC Decoder': 'Enable Enhanced NVDEC Decoder',
+	'Enable low-power Intel HEVC hardware encoder':
+		'Enable low-power Intel HEVC hardware encoder',
+	'Enable low-power Intel H.264 hardware encoder':
+		'Enable low-power Intel H.264 hardware encoder',
+	'Enable hardware encoding': 'Enable hardware encoding',
+	'VP9 10bit': 'VP9 10bit',
+	'HEVC 10bit': 'HEVC 10bit'
 };

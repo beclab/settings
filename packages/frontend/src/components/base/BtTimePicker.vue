@@ -3,6 +3,7 @@
 		<q-input
 			:disable="inputDisabled"
 			class="time-input"
+			input-style="text-align: right;"
 			borderless
 			@focus="focusChange(true)"
 			@blur="focusChange(false)"
@@ -80,7 +81,7 @@ const valueWithUnit = computed({
 const onInputChange = (value: string) => {
 	if (props.unit) {
 		const valueWithoutUnitSign = value.replace(props.unit, '');
-		emit('onUpdate', valueWithoutUnitSign);
+		emit('onUpdate', Number(valueWithoutUnitSign));
 	}
 };
 
@@ -88,7 +89,7 @@ const increasePercentage = () => {
 	if (props.modelValue !== undefined && props.modelValue < props.max) {
 		const value = (props.modelValue + 1).toFixed(0);
 		valueWithUnit.value = value;
-		emit('onUpdate', value);
+		emit('onUpdate', Number(value));
 	}
 };
 
@@ -96,7 +97,7 @@ const decreasePercentage = () => {
 	if (props.modelValue !== undefined && props.modelValue > props.min) {
 		const value = (props.modelValue - 1).toFixed(0);
 		valueWithUnit.value = value;
-		emit('onUpdate', value);
+		emit('onUpdate', Number(value));
 	}
 };
 
@@ -113,7 +114,7 @@ onMounted(() => {
 
 <style lang="scss">
 .time-picker-root {
-	width: 60px;
+	width: 160px;
 	height: 44px;
 
 	.time-input {

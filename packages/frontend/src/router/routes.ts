@@ -234,6 +234,44 @@ const routes: RouteRecordRaw[] = [
 				component: () =>
 					import('pages/Notification/Template/TemplateContent.vue'),
 				meta: {}
+			},
+			{
+				path: 'video',
+				component: () => import('src/pages/Video/IndexPage.vue')
+			},
+			{
+				path: 'video/hardwareAcceleration',
+				component: () =>
+					import('src/pages/Video/pages/HardwareAccelerationPage.vue')
+			},
+			{
+				path: 'video/encodingScheme',
+				component: () =>
+					import('src/pages/Video/pages/EncodingSchemePage.vue')
+			},
+			{
+				path: 'video/transcodingSettings',
+				component: () =>
+					import('src/pages/Video/pages/TranscodingSettingsPage.vue')
+			},
+			{
+				path: 'video/audioTranscoding',
+				component: () =>
+					import('src/pages/Video/pages/AudioTranscodingPage.vue')
+			},
+			{
+				path: 'video/encodingQuality',
+				component: () =>
+					import('src/pages/Video/pages/EncodingQualityPage.vue')
+			},
+			{
+				path: 'video/others',
+				component: () => import('src/pages/Video/pages/OthersPage.vue')
+			},
+			{
+				path: 'video/optionsSelect/:type',
+				component: () =>
+					import('src/pages/Video/pages/MobileOptionsSelectPage.vue')
 			}
 		]
 	},

@@ -118,6 +118,11 @@ const adminMenu = [
 			// 	img: 'imgs/root/backup.svg'
 			// },
 			{
+				label: t('home_menus.' + MENU_TYPE.Video.toLowerCase()),
+				key: '/video',
+				img: 'imgs/root/video.svg'
+			},
+			{
 				label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
 				key: '/upgrade',
 				img: 'imgs/root/upgrade.svg'
