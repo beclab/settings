@@ -1,6 +1,10 @@
 <template>
 	<div class="form-item-root column justify-start">
-		<q-item :clickable="chevronRight" class="form-item">
+		<q-item
+			:clickable="chevronRight || clickable"
+			class="form-item"
+			:style="{ '--height': `${itemHeight}px` }"
+		>
 			<q-item-section
 				class="form-item-title"
 				:class="
@@ -65,6 +69,15 @@ defineProps({
 	marginTop: {
 		type: Boolean,
 		default: true
+	},
+	itemHeight: {
+		type: Number,
+		default: 56
+	},
+	clickable: {
+		type: Boolean,
+		default: false,
+		required: false
 	}
 });
 const deviceStore = useDeviceStore();
@@ -74,10 +87,11 @@ const deviceStore = useDeviceStore();
 .form-item-root {
 	width: 100%;
 	height: auto;
+	min-height: 40px;
 
 	.form-item {
-		height: 56px;
-		min-height: 56px;
+		height: var(--height, 32px);
+		min-height: var(--height, 32px);
 		padding: 0;
 
 		.form-item-title {

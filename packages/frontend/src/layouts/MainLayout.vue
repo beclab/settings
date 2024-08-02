@@ -15,10 +15,14 @@ import LayoutMobile from './LayoutMobile.vue';
 import AdaptiveLayout from '../components/AdaptiveLayout.vue';
 import '../css/common.scss';
 import { useDeviceStore } from '../stores/device';
-import { useRouter } from 'vue-router';
-
+import { useRoute, useRouter } from 'vue-router';
 const deviceStore = useDeviceStore();
 const router = useRouter();
+const route = useRoute();
+
+if (route.fullPath.startsWith('/video') && route.fullPath.length > 6) {
+	router.replace('/video');
+}
 
 window.addEventListener('resize', function () {
 	const isMoble = window.innerWidth < 768;
