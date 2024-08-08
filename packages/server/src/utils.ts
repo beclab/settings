@@ -186,14 +186,15 @@ export class GoogleAccount extends IntegrationAccount {
           refreshToken: data.refresh_token,
         },
       );
+      response = response.data;
     }
     console.log(response);
 
-    const res = response.data as GoogleRefreshResponse;
-
-    data.access_token = res.access_token;
-    data.expires_in = res.expires_in;
-    data.expires_at = Date.now() + res.expires_in * 1000;
+    const res = response.data;
+    data.access_token = res.access_token || res.accessToken;
+    data.expires_in = res.expires_in || res.expiresIn;
+    data.expires_at =
+      Date.now() + (res.expires_in || res.expiresIn || 0) * 1000;
 
     this.raw_data = data;
   }
