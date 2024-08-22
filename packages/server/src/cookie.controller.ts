@@ -75,20 +75,21 @@ export class CookieController implements OnModuleInit {
     return returnSucceed(null);
   }
 
-  @Get('/')
-  async RetrieveAllCookies(): Promise<Result<Secret>> {
-    return returnSucceed(this.cookies);
+  @Post('/retrieve')
+  async RetrieveCookie(
+    @Body() domain: string,
+  ): Promise<Result<DomainCookie[]>> {
+    if (domain) {
+      this.logger.debug('get cookies ', domain);
+
+      return returnSucceed(this.cookies.filter((a) => a.domain == domain));
+    } else {
+      return returnSucceed(this.cookies);
+    }
   }
 
-  @Get('/:domain')
-  async RetrieveCookie(@Param('domain') domain): Promise<Result<Secret>> {
-    this.logger.debug('get cookies ', domain);
-
-    return returnSucceed(this.cookies.filter((a) => a.domain == domain));
-  }
-
-  @Delete('/:key')
-  async DeleteCookie(@Param('key') key): Promise<Result<null>> {
+  @Post('/delete')
+  async DeleteCookie(@Body() key: string): Promise<Result<null>> {
     this.logger.debug('/delete', key);
 
     this.cookies = this.cookies.filter((a) => a.get_store_key() != key);
