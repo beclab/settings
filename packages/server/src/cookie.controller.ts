@@ -71,12 +71,17 @@ export class CookieController implements OnModuleInit {
   ): Promise<Result<null>> {
     this.logger.debug('/create', raw_cookie);
 
-    await this.CreateOrUpdateCookie(raw_cookie);
+    await this.updateCookie(raw_cookie, true);
     return returnSucceed(null);
   }
 
+  @Get('/')
+  async RetrieveAllCookies(): Promise<Result<Secret>> {
+    return returnSucceed(this.cookies);
+  }
+
   @Get('/:domain')
-  async RetrieveAccount(@Param('domain') domain): Promise<Result<Secret>> {
+  async RetrieveCookie(@Param('domain') domain): Promise<Result<Secret>> {
     this.logger.debug('get cookies ', domain);
 
     return returnSucceed(this.cookies.filter((a) => a.domain == domain));
