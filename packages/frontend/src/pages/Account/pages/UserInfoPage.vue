@@ -305,7 +305,7 @@ async function changeQuota() {
 			try {
 				await userStore.update_account_quoto(userInfo.value.name, {
 					memory_limit: data.memoryLimit + 'G',
-					cpu_limit: data.cpuLimit
+					cpu_limit: '' + data.cpuLimit
 				});
 				userStore
 					.get_account_info(Route.params.name as string)
