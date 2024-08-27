@@ -6,7 +6,6 @@ import { getSecondLevelDomain } from '../utils/constants';
 import { ThemeDefinedMode, themeModeName } from '@bytetrade/ui';
 import { i18n } from '../boot/i18n';
 import { useDeviceStore } from './device';
-import { SupportLanguageType } from 'src/i18n';
 
 export interface Wallpaper {
 	desktop: string;
@@ -34,7 +33,6 @@ export type BackgroundState = {
 	//
 	wallpaper: Wallpaper;
 	theme: ThemeDefinedMode;
-	locale: SupportLanguageType;
 	isMobile: boolean;
 };
 
@@ -172,13 +170,6 @@ export const useBackgroundStore = defineStore('background', {
 				Dark.set('auto');
 			} else {
 				Dark.set(this.theme == ThemeDefinedMode.DARK);
-			}
-		},
-		async updateLanguageLocale(locale: SupportLanguageType) {
-			this.locale = locale;
-			// await userModeSetItem('locale', this.locale);
-			if (this.locale) {
-				i18n.global.locale.value = this.locale;
 			}
 		}
 	}
