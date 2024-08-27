@@ -218,13 +218,13 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 const $q = useQuasar();
-const accountStore = useAccountStore();
+// const accountStore = useAccountStore();
 const blockChainStore = useBlockchainStore();
 const adminStore = useAdminStore();
 const router = useRouter();
 
-const secert = ref();
-const name = ref();
+// const secert = ref();
+// const name = ref();
 const spaceStore = useSpaceStore();
 const bindTerminusName = ref<BindTerminusName | undefined>(undefined);
 
@@ -240,18 +240,18 @@ const ethLoading = ref(false);
 
 const blockChainStoreAddressAuthed = ref(false);
 
-const account_type = 'space';
+// const account_type = 'space';
 onMounted(async () => {
-	name.value = 'integration-account:space';
-	const res: any = accountStore.secrets.find((item) =>
-		item.name.startsWith(name.value)
-	);
-	if (res) {
-		secert.value = JSON.parse(res.value);
-	} else {
-		router.push({ path: '/integration/login/' + account_type });
-		return;
-	}
+	// name.value = 'integration-account:space';
+	// const res: any = accountStore.secrets.find((item) =>
+	// 	item.name.startsWith(name.value)
+	// );
+	// if (res) {
+	// 	secert.value = JSON.parse(res.value);
+	// } else {
+	// 	router.push({ path: '/integration/login/' + account_type });
+	// 	return;
+	// }
 	await setBindTerminusName(await spaceStore.getTerminsNames());
 
 	load.value = true;

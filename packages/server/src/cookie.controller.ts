@@ -30,8 +30,9 @@ export class CookieController implements OnModuleInit {
       if (!secret.name.startsWith('cookie:')) {
         continue;
       }
-
-      await this.updateCookie(JSON.parse(secret.value), false);
+      const object = JSON.parse(secret.value);
+      const rowCookieModel = new DomainCookie(object);
+      await this.updateCookie(rowCookieModel, false);
     }
 
     console.log(this.cookies);
@@ -71,13 +72,15 @@ export class CookieController implements OnModuleInit {
   ): Promise<Result<null>> {
     this.logger.debug('/create', raw_cookie);
 
-    await this.updateCookie(raw_cookie, true);
+    const rowCookieModel = new DomainCookie(raw_cookie);
+
+    await this.updateCookie(rowCookieModel, true);
     return returnSucceed(null);
   }
 
   @Post('/retrieve')
   async RetrieveCookie(
-    @Body() domain: string,
+    @Body() { domain }: { domain: string },
   ): Promise<Result<DomainCookie[]>> {
     if (domain) {
       this.logger.debug('get cookies ', domain);

@@ -154,6 +154,27 @@ export class WallpaperController implements OnModuleInit {
       return returnError(1, 'update login bg failed');
     }
   }
+
+  @Get('/config/system')
+  async get_config(@Req() request: Request): Promise<Result<null>> {
+    this.logger.debug('config/system');
+    try {
+      const response: any = await createInstance(request).get(
+        '/bfl/settings/v1alpha1/config-system',
+      );
+      this.logger.log('config_system');
+      this.logger.log(response.data);
+
+      if (response.data.code !== 0) {
+        throw new Error(response.data.message);
+      }
+
+      return returnSucceed(response.data.data);
+    } catch (e) {
+      console.log(e);
+      return returnError(1, 'get config_system failed');
+    }
+  }
 }
 
 /*
