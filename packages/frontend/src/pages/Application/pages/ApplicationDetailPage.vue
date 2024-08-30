@@ -82,7 +82,7 @@
 
 		<div v-if="appPermissions && appPermissions.permissions.length">
 			<div class="text-subtitle1 details-title">
-				{{ t('permission') }}
+				{{ t('permissions') }}
 			</div>
 			<q-list
 				:class="

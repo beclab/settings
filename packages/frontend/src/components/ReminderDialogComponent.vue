@@ -19,6 +19,7 @@
 
 				<dialog-footer
 					:confirm-text="confirmText"
+					:cancel-Text="cancelText"
 					:has-cancel="useCancel"
 					:is-reminder="isReminder"
 					@cancel-action="onDialogCancel"
@@ -55,6 +56,11 @@ defineProps({
 		type: String,
 		required: false,
 		default: i18n.global.t('ok')
+	},
+	cancelText: {
+		type: String,
+		required: false,
+		default: i18n.global.t('cancel')
 	},
 	hasBorder: {
 		type: Boolean,

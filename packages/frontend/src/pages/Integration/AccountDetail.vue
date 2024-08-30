@@ -201,7 +201,6 @@
 import { useQuasar } from 'quasar';
 import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAccountStore } from '../../stores/Account';
 import { useAdminStore } from '../../stores/Admin';
 import { useSpaceStore, BindTerminusName } from '../../stores/space';
 import { useBlockchainStore } from '../../stores/Blockchain';

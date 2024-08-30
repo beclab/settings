@@ -153,9 +153,6 @@
 						:title="t('wizard_url')"
 						:width-separator="false"
 					>
-						<!-- <template v-slot:> -->
-						<!-- :data="`https://wizard-${userInfo?.name}.${url_domain}`" -->
-						<!-- </template> -->
 						<div
 							class="row items-center justify-end"
 							@click="

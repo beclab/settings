@@ -7,6 +7,23 @@
 	<bt-scroll-area class="nav-height-scroll-area-conf text-ink-1">
 		<AdaptiveLayout>
 			<template v-slot:pc>
+				<div
+					class="q-list-class"
+					style="padding-bottom: 4px; padding-top: 4px"
+				>
+					<bt-form-item
+						:title="t('language')"
+						:margin-top="false"
+						:width-separator="false"
+					>
+						<bt-select
+							v-model="currentLanguage"
+							:options="languages"
+							@update:modelValue="languageUpdate"
+						/>
+					</bt-form-item>
+				</div>
+
 				<div class="q-list-class" style="padding-bottom: 0px">
 					<div class="row justify-between select-radio-bg">
 						<div class="text-subtitle1">
@@ -28,7 +45,7 @@
 										size="xs"
 										v-model="backgroundStore.theme"
 										:val="ThemeDefinedMode.LIGHT"
-										:label="themeOptions[0].label"
+										:label="t(themeOptionsRef[0].label)"
 										class="text-body2 radio-class"
 										@update:model-value="themeUpdate"
 									/>
@@ -50,7 +67,7 @@
 										size="xs"
 										v-model="backgroundStore.theme"
 										:val="ThemeDefinedMode.DARK"
-										:label="themeOptions[1].label"
+										:label="t(themeOptionsRef[1].label)"
 										class="text-body2 radio-class"
 										@update:model-value="themeUpdate"
 									/>
@@ -61,6 +78,22 @@
 				</div>
 			</template>
 			<template v-slot:mobile>
+				<div
+					class="mobile-items-list"
+					style="padding-bottom: 4px; padding-top: 4px"
+				>
+					<bt-form-item
+						:title="t('language')"
+						:margin-top="false"
+						:width-separator="false"
+					>
+						<bt-select
+							v-model="currentLanguage"
+							:options="languages"
+							@update:modelValue="languageUpdate"
+						/>
+					</bt-form-item>
+				</div>
 				<div class="text-subtitle1-m q-mt-lg">
 					{{ t('theme') }}
 				</div>
@@ -84,7 +117,7 @@
 								size="xs"
 								v-model="backgroundStore.theme"
 								:val="ThemeDefinedMode.LIGHT"
-								:label="themeOptions[0].label"
+								:label="t(themeOptionsRef[0].label)"
 								class="text-body2 radio-class"
 								@update:model-value="themeUpdate"
 							/>
@@ -106,7 +139,7 @@
 								size="xs"
 								v-model="backgroundStore.theme"
 								:val="ThemeDefinedMode.DARK"
-								:label="themeOptions[1].label"
+								:label="t(themeOptionsRef[1].label)"
 								class="text-body2 radio-class"
 								@update:model-value="themeUpdate"
 							/>
@@ -255,15 +288,21 @@ import { BackgroundMode } from '../../constant';
 import { useBackgroundStore, themeOptions } from '../../stores/Background';
 import WallpaperImage from '../../components/WallpaperImage.vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
-import { debounce } from 'quasar';
+import { debounce, useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { ThemeDefinedMode } from '@bytetrade/ui';
 import AdaptiveLayout from '../../components/AdaptiveLayout.vue';
+import BtSelect from '../../components/base/BtSelect.vue';
+import BtFormItem from '../../components/base/BtFormItem.vue';
+import { supportLanguages, SupportLanguageType } from '../../i18n';
+import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
 
 const backgroundStore = useBackgroundStore();
 const selectBackgroundMode = ref(BackgroundMode.desktop);
 
 const { t } = useI18n();
+
+const themeOptionsRef = ref(themeOptions);
 
 const ok = async (response: any) => {
 	if (selectBackgroundMode.value == BackgroundMode.desktop) {
@@ -318,38 +357,46 @@ const uploadBackgrounds = computed(() => {
 	}
 });
 
-// watch(
-// 	() => backgroundStore.exterior,
-// 	() => {
-
-// 	}
-// );
-
-// */
-//       path?: string;
-//       /**
-//        * Cookie domain
-//        */
-//       domain?: string;
-//       /**
-//        * SameSite cookie option
-//        */
-//       sameSite?: "Lax" | "Strict" | "None";
-//       /**
-//        * Is cookie Http Only?
-//        */
-//       httpOnly?: boolean;
-//       /**
-//        * Is cookie secure? (https only)
-//        */
-//       secure?: boolean;
-//       /**
-//        * Raw string for other cookie options; To be used as a last resort for possible newer props that are currently not yet implemented in Quasar
-//        */
-//       other?: string;
-
 const themeUpdate = (theme: ThemeDefinedMode) => {
 	backgroundStore.themeUpdate(theme);
+};
+
+const languages = ref(supportLanguages);
+
+const currentLanguage = ref(backgroundStore.locale);
+let lastLanguage = backgroundStore.locale;
+const $q = useQuasar();
+
+const languageUpdate = (language: SupportLanguageType) => {
+	if (backgroundStore.locale == language) {
+		return;
+	}
+	const languageItem = supportLanguages.find((e) => e.value == language);
+	if (!languageItem) {
+		return;
+	}
+	$q.dialog({
+		component: ReminderDialogComponent,
+		componentProps: {
+			title: t('Switch language'),
+			message: t(
+				'Are you sure you need to switch the system language to {language}?',
+				{
+					language: languageItem.label
+				}
+			),
+			useCancel: true,
+			confirmText: t('confirm'),
+			cancelText: t('cancel')
+		}
+	})
+		.onOk(async () => {
+			await backgroundStore.requestUpdateLanguage(language);
+			lastLanguage = language;
+		})
+		.onCancel(() => {
+			currentLanguage.value = lastLanguage;
+		});
 };
 </script>
 

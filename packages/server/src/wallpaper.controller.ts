@@ -175,6 +175,40 @@ export class WallpaperController implements OnModuleInit {
       return returnError(1, 'get config_system failed');
     }
   }
+
+  @Post('/update/language')
+  async update_language(
+    @Req() request: Request,
+    @Body() { language }: { language: string },
+  ): Promise<Result<null>> {
+    this.logger.debug('config/system');
+    try {
+      const gResponse: any = await createInstance(request).get(
+        '/bfl/settings/v1alpha1/config-system',
+      );
+
+      if (gResponse.data.code !== 0) {
+        throw new Error(gResponse.data.message);
+      }
+
+      const config = gResponse.data.data;
+      config.language = language;
+
+      const pResponse: any = await createInstance(request).post(
+        '/bfl/settings/v1alpha1/config-system',
+        config,
+      );
+
+      if (pResponse.data.code !== 0) {
+        throw new Error(gResponse.data.message);
+      }
+
+      return returnSucceed(null);
+    } catch (e) {
+      console.log(e);
+      return returnError(1, 'get config_system failed');
+    }
+  }
 }
 
 /*

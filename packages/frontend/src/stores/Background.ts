@@ -6,6 +6,7 @@ import { getSecondLevelDomain } from '../utils/constants';
 import { ThemeDefinedMode, themeModeName } from '@bytetrade/ui';
 import { i18n } from '../boot/i18n';
 import { useDeviceStore } from './device';
+import { defaultLanguage, SupportLanguageType } from 'src/i18n';
 
 export interface Wallpaper {
 	desktop: string;
@@ -16,15 +17,15 @@ export interface Wallpaper {
 
 export const themeOptions = [
 	{
-		label: i18n.global.t('light'),
+		label: 'light',
 		value: ThemeDefinedMode.LIGHT
 	},
 	{
-		label: i18n.global.t('dark'),
+		label: 'dark',
 		value: ThemeDefinedMode.DARK
 	},
 	{
-		label: i18n.global.t('auto'),
+		label: 'auto',
 		value: ThemeDefinedMode.AUTO
 	}
 ];
@@ -33,6 +34,7 @@ export type BackgroundState = {
 	//
 	wallpaper: Wallpaper;
 	theme: ThemeDefinedMode;
+	locale: SupportLanguageType;
 	isMobile: boolean;
 };
 
@@ -51,6 +53,7 @@ export const useBackgroundStore = defineStore('background', {
 
 	actions: {
 		async init() {
+			this.locale = defaultLanguage;
 			const themeName = Cookies.get(themeModeName);
 			if (themeName) {
 				this.theme = Number(themeName);
@@ -170,6 +173,25 @@ export const useBackgroundStore = defineStore('background', {
 				Dark.set('auto');
 			} else {
 				Dark.set(this.theme == ThemeDefinedMode.DARK);
+			}
+		},
+		async updateLanguageLocale(locale: SupportLanguageType) {
+			this.locale = locale;
+			// await userModeSetItem('locale', this.locale);
+			if (this.locale) {
+				i18n.global.locale.value = this.locale;
+			}
+		},
+		async requestUpdateLanguage(locale: SupportLanguageType) {
+			try {
+				const tokenStore = useTokenStore();
+				await axios.post(
+					`${tokenStore.url}/api/wallpaper/update/language`,
+					{ language: locale }
+				);
+				this.updateLanguageLocale(locale);
+			} catch (error) {
+				console.log(error);
 			}
 		}
 	}
