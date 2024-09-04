@@ -4,7 +4,7 @@
 		:class="deviceStore.isMobile ? '' : 'bt-grid-border'"
 	>
 		<slot name="title" />
-		<q-separator class="separator-background" />
+		<bt-separator />
 		<div
 			class="row bt-grid-grid"
 			:class="deviceStore.isMobile ? 'q-mt-lg' : 'q-mt-md'"
@@ -19,6 +19,7 @@
 
 <script lang="ts" setup>
 import { useDeviceStore } from '../../stores/device';
+import BtSeparator from '../base/BtSeparator.vue';
 
 defineProps({
 	repeatCount: {

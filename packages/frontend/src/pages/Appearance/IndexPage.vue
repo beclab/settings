@@ -183,7 +183,7 @@
 							<wallpaper-image
 								:width="166"
 								style=""
-								:src="loginImgUrl"
+								:src="loginImgUrl.replace('/bg/', '/login/')"
 								:selected="
 									selectBackgroundMode == BackgroundMode.login
 								"
@@ -203,7 +203,7 @@
 							</wallpaper-image>
 						</div>
 					</div>
-					<q-separator class="separator-background" />
+					<bt-separator />
 
 					<div class="select-avatar-list-bg">
 						<div class="row items-center justify-between">
@@ -258,12 +258,17 @@
 							</template>
 
 							<template
-								v-for="index in 28"
+								v-for="index in picturesCount"
 								:key="`paper` + index"
 							>
 								<wallpaper-image
 									:width="99.5"
-									:src="`/bg/${index - 1}.jpg`"
+									:src="
+										selectBackgroundMode ==
+										BackgroundMode.desktop
+											? `/bg/${index - 1}.jpg`
+											: `/login/${index - 1}.jpg`
+									"
 									:padding="2"
 									:selected="
 										selectedImgUrl.value ===
@@ -296,6 +301,7 @@ import BtSelect from '../../components/base/BtSelect.vue';
 import BtFormItem from '../../components/base/BtFormItem.vue';
 import { supportLanguages, SupportLanguageType } from '../../i18n';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
+import BtSeparator from '../../components/base/BtSeparator.vue';
 
 const backgroundStore = useBackgroundStore();
 const selectBackgroundMode = ref(BackgroundMode.desktop);
@@ -346,6 +352,14 @@ const selectedImgUrl = computed(() => {
 		return desktopImgUrl;
 	} else {
 		return loginImgUrl;
+	}
+});
+
+const picturesCount = computed(() => {
+	if (selectBackgroundMode.value == BackgroundMode.desktop) {
+		return 28;
+	} else {
+		return 29;
 	}
 });
 

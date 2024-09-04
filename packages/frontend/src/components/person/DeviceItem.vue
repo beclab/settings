@@ -105,7 +105,7 @@
 					<q-icon name="sym_r_devices" size="24px" color="ink-3" />
 				</q-item-section>
 			</q-item>
-			<q-separator v-if="!isLatest" color="separator" />
+			<bt-separator v-if="!isLatest" />
 		</template>
 	</AdaptiveLayout>
 </template>
@@ -119,6 +119,7 @@ import { date } from 'quasar';
 import { useAdminStore } from '../../stores/Admin';
 import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from '../AdaptiveLayout.vue';
+import BtSeparator from '../base/BtSeparator.vue';
 
 const { t } = useI18n();
 

@@ -24,7 +24,7 @@
 					<div>{{ t('action') }}</div>
 				</template>
 			</path-location>
-			<q-separator class="separator-background" />
+			<bt-separator />
 			<template v-for="item in secretList" :key="item.Key">
 				<secret-item
 					:secret="item"
@@ -50,6 +50,7 @@ import { Secret } from 'src/utils/constants';
 import PathLocation from '../../../components/PathLocation.vue';
 import SecretItem from '../../../components/application/SecretItem.vue';
 import ListBottomFuncBtn from 'components/ListBottomFuncBtn.vue';
+import BtSeparator from '../../../components/base/BtSeparator.vue';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();

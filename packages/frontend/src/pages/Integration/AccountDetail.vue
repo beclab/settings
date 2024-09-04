@@ -56,7 +56,7 @@
 					</div>
 				</div>
 			</q-item>
-			<q-separator class="separator-background q-mt-sm" />
+			<bt-separator class="q-mt-sm" />
 			<q-item
 				class="text-body3 reminder-info row items-center"
 				v-if="!bindTerminusName"
@@ -164,8 +164,8 @@
 					</div>
 				</div>
 			</q-item>
-			<q-separator
-				class="separator-background q-mt-sm"
+			<bt-separator
+				class="q-mt-sm"
 				v-if="
 					bindTerminusName &&
 					blockChainStore.account &&
@@ -212,6 +212,7 @@ import SettingAvatar from '../../components/base/SettingAvatar.vue';
 import AccountConnectStatus from '../../components/account/AccountConnectStatus.vue';
 import AccountRequestSignDialog from '../../components/account/AccountRequestSignDialog.vue';
 import { notifyFailed, notifyWarning } from '../../utils/btNotify';
+import BtSeparator from '../../components/base/BtSeparator.vue';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();

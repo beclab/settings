@@ -72,7 +72,7 @@
 						/>
 					</q-item-section>
 				</q-item>
-				<q-separator v-if="index + 1 < list.length" color="separator" />
+				<bt-separator v-if="index + 1 < list.length" />
 			</div>
 		</q-list>
 	</bt-scroll-area>
@@ -86,6 +86,7 @@ import { MENU_TYPE } from '../utils/constants';
 import { useI18n } from 'vue-i18n';
 import { onMounted, ref } from 'vue';
 import { useDeviceStore } from '../stores/device';
+import BtSeparator from '../components/base/BtSeparator.vue';
 
 const router = useRouter();
 const adminStore = useAdminStore();

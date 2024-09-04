@@ -40,7 +40,7 @@
 		<q-spinner-hourglass color="primary" size="2em" />
 	</div>
 	<div class="bottom-part">
-		<q-separator class="separator-background" />
+		<bt-separator />
 		<div class="bottom-part__content row items-center justify-between">
 			<div
 				class="text-body3 text-ink-1 row items-center justify-center reminder"
@@ -71,6 +71,8 @@ import PageTitleComponent from 'components/PageTitleComponent.vue';
 import AccountRequestSignDialog from 'components/account/AccountRequestSignDialog.vue';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed } from '../../utils/btNotify';
+import BtSeparator from '../../components/base/BtSeparator.vue';
+
 const { t } = useI18n();
 
 const spaceStore = useSpaceStore();

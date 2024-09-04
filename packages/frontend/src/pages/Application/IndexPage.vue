@@ -30,7 +30,7 @@ import { useApplicationStore } from 'src/stores/Application';
 import { useRouter } from 'vue-router';
 import { TerminusApp } from '@bytetrade/core';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import ApplicationItem from 'components/application/ApplicationItem.vue';
+import ApplicationItem from '../../components/application/ApplicationItem.vue';
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../stores/device';
 const { t } = useI18n();

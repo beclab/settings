@@ -37,12 +37,13 @@
 				<slot v-else />
 			</q-item-section>
 		</q-item>
-		<q-separator class="separator-background" v-if="widthSeparator" />
+		<bt-separator v-if="widthSeparator" />
 	</div>
 </template>
 
 <script lang="ts" setup>
 import { useDeviceStore } from '../../stores/device';
+import BtSeparator from '../base/BtSeparator.vue';
 
 defineProps({
 	title: {

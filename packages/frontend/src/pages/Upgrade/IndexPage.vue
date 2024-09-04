@@ -23,7 +23,7 @@
 					{{ versionInfo?.current_version }}
 				</q-item-section>
 			</q-item>
-			<q-separator
+			<bt-separator
 				:class="deviceStore.isMobile ? '' : 'q-list-sep-line'"
 			/>
 			<q-item class="list_section item-padding-zero">
@@ -45,7 +45,7 @@
 					<q-toggle v-model="dev_mode" />
 				</q-item-section>
 			</q-item>
-			<q-separator
+			<bt-separator
 				:class="deviceStore.isMobile ? '' : 'q-list-sep-line'"
 				v-if="versionInfo && versionInfo.is_new"
 			/>
@@ -100,6 +100,7 @@ import PageTitleComponent from 'components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed, notifySuccess } from '../../utils/btNotify';
 import { useDeviceStore } from '../../stores/device';
+import BtSeparator from '../../components/base/BtSeparator.vue';
 
 const { t } = useI18n();
 const upgradeStore = useUpgradeStore();
