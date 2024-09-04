@@ -25,7 +25,7 @@
 			<div class="text-subtitle1 text-ink-1 q-mb-md">
 				{{ folder.datasetName }}
 			</div>
-			<q-separator class="separator-background" />
+			<bt-separator />
 			<div class="row items-center justify-between folder-content">
 				<div class="row path_content">
 					<q-img
@@ -111,6 +111,7 @@ import { useI18n } from 'vue-i18n';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
 import { notifyFailed, notifySuccess } from '../../utils/btNotify';
 import EmptyComponent from '../../components/EmptyComponent.vue';
+import BtSeparator from '../../components/base/BtSeparator.vue';
 
 const { t } = useI18n();
 

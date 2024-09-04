@@ -13,6 +13,7 @@ import { useBackgroundStore } from './stores/Background';
 import { useDIDStore } from './stores/did';
 import axios from 'axios';
 import { WebPlatform } from './utils/platform';
+import { supportLanguages } from './i18n/index';
 
 const platform = new WebPlatform();
 
@@ -29,6 +30,22 @@ export default defineComponent({
 		const accountStore = useAccountStore();
 		const backgroundStore = useBackgroundStore();
 		backgroundStore.init();
+
+		let terminusLanguage = '';
+		let terminusLanguageInfo = document.querySelector(
+			'meta[name="terminus-language"]'
+		);
+		if (terminusLanguageInfo && terminusLanguageInfo.content) {
+			terminusLanguage = terminusLanguageInfo.content;
+		} else {
+			terminusLanguage = navigator.language || navigator.userLanguage;
+		}
+
+		if (terminusLanguage) {
+			if (supportLanguages.find((e) => e.value == terminusLanguage)) {
+				backgroundStore.updateLanguageLocale(terminusLanguage);
+			}
+		}
 
 		return new Promise((resolve) => {
 			axios.get(tokenStore.url + '/api/init').then((data) => {

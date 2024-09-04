@@ -196,6 +196,7 @@ onMounted(async () => {
 const fetchHistory = async (params: UsersParam) => {
 	loading2.value = true;
 	const res = await accountStore.getLoginrecords(params);
+	loading2.value = false;
 	if (deviceStore.isMobile) {
 		rows.value = rows.value.concat(
 			res.items.map((item: any) => ({

@@ -84,7 +84,7 @@
 			</q-item-section>
 		</template>
 		<q-card class="device-item-content bg-background-2">
-			<q-separator class="bg-separator" />
+			<bt-separator />
 			<q-list style="padding: 0 0 16px 0">
 				<AdaptiveLayout>
 					<template v-slot:pc>
@@ -322,6 +322,7 @@ import DeleteHeaderscaleDeviceDialog from '../../components/person/DeleteHeaders
 import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from '../../components/AdaptiveLayout.vue';
 import { useDeviceStore } from '../../stores/device';
+import BtSeparator from '../../components/base/BtSeparator.vue';
 
 const props = defineProps({
 	device: {

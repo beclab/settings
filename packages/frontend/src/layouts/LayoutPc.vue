@@ -64,91 +64,110 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAdminStore } from '../stores/Admin';
 import { MENU_TYPE } from '../utils/constants';
 import SettingAvatar from '../components/base/SettingAvatar.vue';
 import { useI18n } from 'vue-i18n';
+import { useBackgroundStore } from '../stores/Background';
 
 const router = useRouter();
 const route = useRoute();
 const adminStore = useAdminStore();
 
+const backgroundStore = useBackgroundStore();
+
 const { t } = useI18n();
 
-const adminMenu = [
-	{
-		label: '',
-		key: 'Settings',
-		children: [
-			{
-				label: t('home_menus.' + MENU_TYPE.Account.toLowerCase()),
-				key: '/account',
-				img: 'imgs/root/account.svg'
-			},
-			{
-				label: t('home_menus.' + MENU_TYPE.Application.toLowerCase()),
-				key: '/application',
-				img: 'imgs/root/application.svg'
-			},
-			{
-				label: t('home_menus.' + MENU_TYPE.Integration.toLowerCase()),
-				key: '/integration',
-				img: 'imgs/root/integration.svg'
-			},
-			{
-				label: t('home_menus.' + MENU_TYPE.Appearance.toLowerCase()),
-				key: '/appearance',
-				img: 'imgs/root/appearance.svg'
-			},
-			// {
-			// 	label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
-			// 	key: '/knowledge',
-			// 	img: 'imgs/root/knowledge.svg'
-			// },
-			// {
-			// 	label: t('home_menus.' + MENU_TYPE.Notification.toLowerCase()),
-			// 	key: '/ns',
-			// 	img: 'imgs/root/background.svg'
-			// },
-			// {
-			// 	label: t('home_menus.' + MENU_TYPE.Backup.toLowerCase()),
-			// 	key: '/backup',
-			// 	img: 'imgs/root/backup.svg'
-			// },
-			{
-				label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
-				key: '/upgrade',
-				img: 'imgs/root/upgrade.svg'
-			}
-		]
-	}
-];
+const adminMenu = computed(function () {
+	return [
+		{
+			label: '',
+			key: 'Settings',
+			children: [
+				{
+					label: t('home_menus.' + MENU_TYPE.Account.toLowerCase()),
+					key: '/account',
+					img: 'imgs/root/account.svg'
+				},
+				{
+					label: t(
+						'home_menus.' + MENU_TYPE.Application.toLowerCase()
+					),
+					key: '/application',
+					img: 'imgs/root/application.svg'
+				},
+				{
+					label: t(
+						'home_menus.' + MENU_TYPE.Integration.toLowerCase()
+					),
+					key: '/integration',
+					img: 'imgs/root/integration.svg'
+				},
+				{
+					label: t(
+						'home_menus.' + MENU_TYPE.Appearance.toLowerCase()
+					),
+					key: '/appearance',
+					img: 'imgs/root/appearance.svg'
+				},
+				// {
+				// 	label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
+				// 	key: '/knowledge',
+				// 	img: 'imgs/root/knowledge.svg'
+				// },
+				// {
+				// 	label: t('home_menus.' + MENU_TYPE.Notification.toLowerCase()),
+				// 	key: '/ns',
+				// 	img: 'imgs/root/background.svg'
+				// },
+				// {
+				// 	label: t('home_menus.' + MENU_TYPE.Backup.toLowerCase()),
+				// 	key: '/backup',
+				// 	img: 'imgs/root/backup.svg'
+				// },
+				{
+					label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
+					key: '/upgrade',
+					img: 'imgs/root/upgrade.svg'
+				}
+			]
+		}
+	];
+});
 
-const UserMenu = [
-	{
-		label: '',
-		key: 'Settings',
-		children: [
-			{
-				label: t('home_menus.' + MENU_TYPE.Application.toLowerCase()),
-				key: '/application',
-				img: 'imgs/root/application.svg'
-			},
-			{
-				label: t('home_menus.' + MENU_TYPE.Integration.toLowerCase()),
-				key: '/integration',
-				img: 'imgs/root/integration.svg'
-			},
-			{
-				label: t('home_menus.' + MENU_TYPE.Appearance.toLowerCase()),
-				key: '/appearance',
-				img: 'imgs/root/appearance.svg'
-			}
-		]
-	}
-];
+const userMenu = computed(function () {
+	return [
+		{
+			label: '',
+			key: 'Settings',
+			children: [
+				{
+					label: t(
+						'home_menus.' + MENU_TYPE.Application.toLowerCase()
+					),
+					key: '/application',
+					img: 'imgs/root/application.svg'
+				},
+				{
+					label: t(
+						'home_menus.' + MENU_TYPE.Integration.toLowerCase()
+					),
+					key: '/integration',
+					img: 'imgs/root/integration.svg'
+				},
+				{
+					label: t(
+						'home_menus.' + MENU_TYPE.Appearance.toLowerCase()
+					),
+					key: '/appearance',
+					img: 'imgs/root/appearance.svg'
+				}
+			]
+		}
+	];
+});
 
 const itemsRef = ref();
 
@@ -166,7 +185,11 @@ if (location.pathname === '/') {
 }
 
 onMounted(() => {
-	itemsRef.value = adminStore.isAdmin ? adminMenu : UserMenu;
+	configMenus();
+});
+
+const configMenus = () => {
+	itemsRef.value = adminStore.isAdmin ? adminMenu.value : userMenu.value;
 	if (itemsRef.value.length > 0) {
 		const finditem = itemsRef.value[0].children.find((e: { key: string }) =>
 			route.path.startsWith(e.key as string)
@@ -175,7 +198,14 @@ onMounted(() => {
 			itemMenu.value = finditem.key;
 		}
 	}
-});
+};
+
+watch(
+	() => backgroundStore.locale,
+	() => {
+		configMenus();
+	}
+);
 </script>
 
 <style lang="scss" scoped>

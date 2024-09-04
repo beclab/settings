@@ -52,7 +52,7 @@
 				<q-icon name="sym_r_chevron_right" size="20px" />
 			</q-item-section>
 		</q-item>
-		<q-separator class="separator-background" v-if="widthSeparator" />
+		<bt-separator v-if="widthSeparator" />
 	</div>
 </template>
 
@@ -62,6 +62,8 @@ import { AccountInfo } from '../../global';
 import { getRoleName } from '../../utils/constants';
 import SettingConnectStatus from '../../components/base/SettingConnectStatus.vue';
 import { useDeviceStore } from '../../stores/device';
+import BtSeparator from '../base/BtSeparator.vue';
+
 defineProps({
 	account: {
 		type: Object as PropType<AccountInfo>,

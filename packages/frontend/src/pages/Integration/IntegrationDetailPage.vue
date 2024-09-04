@@ -30,10 +30,7 @@
 					/>
 				</template>
 			</account-item>
-			<q-separator
-				class="separator-background"
-				v-if="detailInfo?.scopes.length > 0"
-			/>
+			<bt-separator v-if="detailInfo?.scopes.length > 0" />
 			<div
 				class="text-subtitle1 text-ink-1 q-mt-md"
 				v-if="detailInfo?.title"
@@ -87,6 +84,8 @@ import integraionService from '../../services/integration/index';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
 import { notifyFailed } from '../../utils/btNotify';
 import { useDeviceStore } from '../../stores/device';
+import BtSeparator from '../../components/base/BtSeparator.vue';
+
 const { t } = useI18n();
 
 const route = useRoute();
