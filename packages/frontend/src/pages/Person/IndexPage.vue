@@ -102,6 +102,7 @@
 				:title="t('Current Version')"
 				:chevron-right="false"
 				:width-separator="false"
+				:data="adminStore.terminus.osVersion"
 			/>
 		</q-list>
 	</bt-scroll-area>
@@ -110,14 +111,14 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAdminStore } from 'src/stores/Admin';
+import { useAdminStore } from '../../stores/Admin';
 import UpdateUserPassworDialog from '../Account/dialog/UpdateUserPassworDialog.vue';
 import { useQuasar } from 'quasar';
 import { useUserStore } from 'src/stores/User';
 import { useHeadScaleStore } from 'src/stores/headscale';
 // import { useAccountStore } from 'src/stores/Account';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
-import BtFormItem from 'components/base/BtFormItem.vue';
+import BtFormItem from '../../components/base/BtFormItem.vue';
 import SettingAvatar from 'components/base/SettingAvatar.vue';
 // import SettingConnectStatus from 'components/base/SettingConnectStatus.vue';
 import DeviceItem from '../../components/person/DeviceItem.vue';
