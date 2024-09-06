@@ -103,11 +103,17 @@ export const weekOption = [
 export enum FACTOR_MODEL {
 	One = 'one_factor',
 	Two = 'two_factor',
-	Public = 'public'
+	Public = 'public',
+	System = 'system'
 }
 
 export const factorModelOptions = () => {
 	return [
+		{
+			label: i18n.global.t('factor.system'),
+			value: FACTOR_MODEL.System,
+			enable: true
+		},
 		{
 			label: i18n.global.t('factor.one_factor'),
 			value: FACTOR_MODEL.One,
@@ -119,7 +125,7 @@ export const factorModelOptions = () => {
 			enable: true
 		},
 		{
-			label: i18n.global.t('factor.public'),
+			label: i18n.global.t('factor.none'),
 			value: FACTOR_MODEL.Public,
 			enable: true
 		}

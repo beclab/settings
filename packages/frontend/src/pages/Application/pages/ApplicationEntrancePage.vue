@@ -122,8 +122,8 @@ const application = ref(
 const application_name = ref(Route.params.name as string);
 const entrance_name = Route.params.entrance as string;
 
-const authorizationLevel = ref<string>();
-const factorMode = ref(FACTOR_MODEL.One);
+const authorizationLevel = ref();
+const factorMode = ref();
 const oneTimeMode = ref(true);
 const validDuration = ref(0);
 const sub_policies = ref<EntrancePolicy[]>([]);
