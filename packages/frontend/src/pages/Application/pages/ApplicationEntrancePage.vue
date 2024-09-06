@@ -26,7 +26,7 @@
 			<bt-form-item :title="t('auth_level')">
 				<bt-select
 					v-model="authorizationLevel"
-					:options="authLevelOptions"
+					:options="authLevelOptions()"
 				/>
 			</bt-form-item>
 			<bt-form-item
@@ -34,7 +34,10 @@
 				:margin-top="false"
 				:width-separator="factorMode === FACTOR_MODEL.Two"
 			>
-				<bt-select v-model="factorMode" :options="factorModelOptions" />
+				<bt-select
+					v-model="factorMode"
+					:options="factorModelOptions()"
+				/>
 			</bt-form-item>
 
 			<bt-form-item

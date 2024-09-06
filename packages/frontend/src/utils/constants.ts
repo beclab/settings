@@ -106,41 +106,45 @@ export enum FACTOR_MODEL {
 	Public = 'public'
 }
 
-export const factorModelOptions = [
-	{
-		label: i18n.global.t('factor.one_factor'),
-		value: FACTOR_MODEL.One,
-		enable: true
-	},
-	{
-		label: i18n.global.t('factor.two_factor'),
-		value: FACTOR_MODEL.Two,
-		enable: true
-	},
-	{
-		label: i18n.global.t('factor.public'),
-		value: FACTOR_MODEL.Public,
-		enable: true
-	}
-];
+export const factorModelOptions = () => {
+	return [
+		{
+			label: i18n.global.t('factor.one_factor'),
+			value: FACTOR_MODEL.One,
+			enable: true
+		},
+		{
+			label: i18n.global.t('factor.two_factor'),
+			value: FACTOR_MODEL.Two,
+			enable: true
+		},
+		{
+			label: i18n.global.t('factor.public'),
+			value: FACTOR_MODEL.Public,
+			enable: true
+		}
+	];
+};
 
 export enum AUTH_LEVEL {
 	Private = 'private',
 	Public = 'public'
 }
 
-export const authLevelOptions = [
-	{
-		label: 'Private',
-		value: AUTH_LEVEL.Private,
-		enable: true
-	},
-	{
-		label: 'Public',
-		value: AUTH_LEVEL.Public,
-		enable: true
-	}
-];
+export const authLevelOptions = () => {
+	return [
+		{
+			label: i18n.global.t('private'),
+			value: AUTH_LEVEL.Private,
+			enable: true
+		},
+		{
+			label: i18n.global.t('public'),
+			value: AUTH_LEVEL.Public,
+			enable: true
+		}
+	];
+};
 
 export interface Secret {
 	Key: string; //  key name

@@ -1,3 +1,4 @@
+import en_US_add from '../add/en-US';
 export default {
 	home_menus: {
 		wallpaper: 'Wallpaper',
@@ -444,7 +445,9 @@ export default {
 		'This provider registry could not be found',
 	'Switch language': 'Switch language',
 	'Are you sure you need to switch the system language to {language}?':
-		'Are you sure you need to switch the system language to {language}?'
+		'Are you sure you need to switch the system language to {language}?',
+
+	...en_US_add
 };
 
 // export default {

@@ -223,8 +223,8 @@
 						<div class="images-list-bg row justify-start">
 							<BtUploader
 								:size="5"
-								:width="105"
-								:height="51"
+								width="105px"
+								height="51px"
 								fileName="image"
 								accept=".jpg, image/*"
 								action="/images/upload/v1"

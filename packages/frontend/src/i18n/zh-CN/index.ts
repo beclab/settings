@@ -1,3 +1,5 @@
+import zh_CN_add from '../add/zh-CN';
+
 export default {
 	home_menus: {
 		wallpaper: '壁纸',
@@ -426,9 +428,11 @@ export default {
 	deployment: '部署',
 	operations: '操作',
 	permissions: '权限',
-	providers: '提供商',
-	'This provider registry could not be found': '找不到此提供商注册表',
+	providers: '服务提供者',
+	'This provider registry could not be found': '找不到此服务提供者注册表',
 	'Switch language': '切换语言',
 	'Are you sure you need to switch the system language to {language}?':
-		'切换系统语言为 {language} 吗?'
+		'切换系统语言为 {language} 吗?',
+
+	...zh_CN_add
 };
