@@ -73,7 +73,7 @@
 			<q-btn
 				dense
 				class="submit-btn submit-btn-margin"
-				:disable="resultCode === 3"
+				:disable="isLoading || resultCode === 3"
 				:label="t('submit')"
 				@click="onSubmit"
 				color="primary"
@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { firstToUpper } from '../../../constant';
 import { useApplicationStore } from '../../../stores/Application';
@@ -91,19 +91,20 @@ import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import BtSelect from '../../../components/base/BtSelect.vue';
 import {
-	FACTOR_MODEL,
-	factorModelOptions,
+	AUTH_LEVEL,
 	authLevelOptions,
 	EntrancePolicy,
-	AUTH_LEVEL
+	FACTOR_MODEL,
+	factorModelOptions
 } from '../../../utils/constants';
 import PoliciesCard from '../../../components/application/PoliciesCard.vue';
 import BtTimePicker from '../../../components/base/BtTimePicker.vue';
 import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 import { notifyFailed, notifyWarning } from '../../../utils/btNotify';
-
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../../stores/device';
+import _ from 'lodash';
+
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
@@ -129,6 +130,7 @@ const oldFactorMode = ref();
 const oldOnTimeMode = ref(false);
 const oldValidDuration = ref(0);
 const oldSubPolicies = ref<EntrancePolicy[]>([]);
+const isLoading = ref(true);
 
 const gotoDomainSetup = () => {
 	router.push(
@@ -143,6 +145,7 @@ onMounted(async () => {
 
 	await updateFactorModel();
 	await updateAuthLevel();
+	isLoading.value = false;
 });
 
 async function onSubmitFactorModel() {
@@ -184,7 +187,7 @@ async function updateFactorModel() {
 	oldFactorMode.value = res.default_policy;
 	oldOnTimeMode.value = res.one_time;
 	oldValidDuration.value = res.valid_duration;
-	oldSubPolicies.value = res.sub_policies || [];
+	oldSubPolicies.value = _.cloneDeep(res.sub_policies || []);
 }
 
 async function onSubmitAuthLevel() {
@@ -221,24 +224,25 @@ async function updateAuthLevel() {
 }
 
 const resultCode = computed(() => {
-	if (!oldAuthorizationLevel.value || !oldFactorMode.value) {
-		return 3;
-	}
-
 	const condition1 = oldAuthorizationLevel.value == authorizationLevel.value;
 
 	const condition2 =
 		oldOnTimeMode.value == oneTimeMode.value &&
 		oldFactorMode.value == factorMode.value &&
 		oldValidDuration.value == validDuration.value &&
-		JSON.stringify(oldSubPolicies.value) ==
+		JSON.stringify(oldSubPolicies.value) ===
 			JSON.stringify(sub_policies.value);
 
+	console.log(oldSubPolicies.value);
+	console.log(sub_policies.value);
+
 	const result = (condition1 ? 2 : 0) | (condition2 ? 1 : 0);
+	console.log(result);
 	return result;
 });
 
 async function onSubmit() {
+	isLoading.value = true;
 	try {
 		switch (resultCode.value) {
 			case 0:
@@ -254,6 +258,8 @@ async function onSubmit() {
 		}
 	} catch (e: any) {
 		notifyFailed(e.message);
+	} finally {
+		isLoading.value = false;
 	}
 }
 </script>
