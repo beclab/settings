@@ -1,3 +1,5 @@
+import zh_CN_add from '../add/zh-CN';
+
 export default {
 	home_menus: {
 		wallpaper: '壁纸',
@@ -24,7 +26,12 @@ export default {
 		friday: '星期五',
 		saturday: '星期六'
 	},
-	factor: { one_factor: '单因素', two_factor: '双因素', public: '公开' },
+	factor: {
+		system: '跟随系统',
+		one_factor: '单因素',
+		two_factor: '双因素',
+		none: '无'
+	},
 	success: '成功',
 	errors: {
 		connect_wallet_failed: '关联钱包失败',
@@ -255,7 +262,7 @@ export default {
 	auth_level_is_error_error: '认证级别错误：{error}',
 	domain_setup: '设置端点',
 	setup_access_policies: '创建访问策略',
-	second_factor_model: '第二因素模型',
+	second_factor_model: '认证模式',
 	one_time: '一次性',
 	valid_duration: '有效期',
 	please_add_a_dns_record_record_cname_to_cname:
@@ -426,9 +433,11 @@ export default {
 	deployment: '部署',
 	operations: '操作',
 	permissions: '权限',
-	providers: '提供商',
-	'This provider registry could not be found': '找不到此提供商注册表',
+	providers: '服务提供者',
+	'This provider registry could not be found': '找不到此服务提供者注册表',
 	'Switch language': '切换语言',
 	'Are you sure you need to switch the system language to {language}?':
-		'切换系统语言为 {language} 吗?'
+		'切换系统语言为 {language} 吗?',
+
+	...zh_CN_add
 };

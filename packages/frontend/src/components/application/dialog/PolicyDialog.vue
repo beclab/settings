@@ -31,7 +31,7 @@
 						>
 							<bt-select
 								v-model="factorMode"
-								:options="factorModelOptions"
+								:options="factorModelOptions()"
 							/>
 						</bt-form-item>
 

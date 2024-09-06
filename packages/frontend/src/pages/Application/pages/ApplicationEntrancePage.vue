@@ -26,7 +26,7 @@
 			<bt-form-item :title="t('auth_level')">
 				<bt-select
 					v-model="authorizationLevel"
-					:options="authLevelOptions"
+					:options="authLevelOptions()"
 				/>
 			</bt-form-item>
 			<bt-form-item
@@ -34,7 +34,10 @@
 				:margin-top="false"
 				:width-separator="factorMode === FACTOR_MODEL.Two"
 			>
-				<bt-select v-model="factorMode" :options="factorModelOptions" />
+				<bt-select
+					v-model="factorMode"
+					:options="factorModelOptions()"
+				/>
 			</bt-form-item>
 
 			<bt-form-item
@@ -119,8 +122,8 @@ const application = ref(
 const application_name = ref(Route.params.name as string);
 const entrance_name = Route.params.entrance as string;
 
-const authorizationLevel = ref<string>();
-const factorMode = ref(FACTOR_MODEL.One);
+const authorizationLevel = ref();
+const factorMode = ref();
 const oneTimeMode = ref(true);
 const validDuration = ref(0);
 const sub_policies = ref<EntrancePolicy[]>([]);

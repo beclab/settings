@@ -87,6 +87,23 @@
 				@click="goLoginHistory"
 			/>
 		</q-list>
+		<div class="text-subtitle1 text-ink-1 person-title">
+			{{ t('Terminus OS') }}
+		</div>
+		<q-list
+			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			:style="
+				deviceStore.isMobile
+					? 'margin-top: 12px'
+					: 'padding-top: 0px; padding-bottom: 0px;'
+			"
+		>
+			<bt-form-item
+				:title="t('Current Version')"
+				:chevron-right="false"
+				:width-separator="false"
+			/>
+		</q-list>
 	</bt-scroll-area>
 </template>
 

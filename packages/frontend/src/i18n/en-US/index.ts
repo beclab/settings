@@ -1,3 +1,4 @@
+import en_US_add from '../add/en-US';
 export default {
 	home_menus: {
 		wallpaper: 'Wallpaper',
@@ -25,9 +26,10 @@ export default {
 		saturday: 'Saturday'
 	},
 	factor: {
+		system: 'System',
 		one_factor: 'One factor',
 		two_factor: 'Two factor',
-		public: 'Public'
+		none: 'None'
 	},
 	success: 'Success',
 	errors: {
@@ -265,7 +267,7 @@ export default {
 	auth_level_is_error_error: 'Auth level is error: {error}',
 	domain_setup: 'Set up endpoint',
 	setup_access_policies: 'Create access policies',
-	second_factor_model: 'Second factor model',
+	second_factor_model: 'Authentication model',
 	one_time: 'One time',
 	valid_duration: 'Valid duration',
 	please_add_a_dns_record_record_cname_to_cname:
@@ -444,7 +446,9 @@ export default {
 		'This provider registry could not be found',
 	'Switch language': 'Switch language',
 	'Are you sure you need to switch the system language to {language}?':
-		'Are you sure you need to switch the system language to {language}?'
+		'Are you sure you need to switch the system language to {language}?',
+
+	...en_US_add
 };
 
 // export default {
