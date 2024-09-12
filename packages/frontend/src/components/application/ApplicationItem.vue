@@ -28,7 +28,7 @@
 						v-if="!hideStatus"
 						class="text-subtitle3 application-status"
 					>
-						{{ status }}
+						{{ realStatus }}
 					</div>
 					<q-icon
 						name="sym_r_chevron_right"
@@ -43,8 +43,10 @@
 </template>
 
 <script lang="ts" setup>
+import { watch, ref } from 'vue';
+import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
 import BtSeparator from '../base/BtSeparator.vue';
-defineProps({
+const props = defineProps({
 	icon: {
 		type: String,
 		require: true
@@ -70,6 +72,15 @@ defineProps({
 		default: true
 	}
 });
+
+watch(
+	() => props.status,
+	() => {
+		realStatus.value = getApplicationStatus(props.status as APP_STATUS);
+	}
+);
+
+const realStatus = ref(getApplicationStatus(props.status as APP_STATUS));
 </script>
 
 <style scoped lang="scss">

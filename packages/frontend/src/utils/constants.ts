@@ -279,3 +279,64 @@ export enum ConfirmButtonStatus {
 	error = 2,
 	disable = 3
 }
+
+export enum APP_STATUS {
+	installing = 'installing',
+	downloading = 'downloading',
+	pending = 'pending',
+	running = 'running',
+	resuming = 'resuming',
+	suspend = 'suspend',
+	uninstalling = 'uninstalling',
+	upgrading = 'Upgrading',
+	installed = 'installed',
+	uninstalled = 'uninstalled',
+	installable = 'installable',
+	waiting = 'waiting',
+	preflightFailed = 'preflightFailed'
+}
+
+export const getApplicationStatus = (status: APP_STATUS) => {
+	let realStatus = '';
+	switch (status) {
+		case APP_STATUS.preflightFailed:
+			realStatus = i18n.global.t('app_status.get');
+			break;
+		case APP_STATUS.uninstalled:
+			realStatus = i18n.global.t('app_status.get');
+			break;
+		case APP_STATUS.installable:
+			realStatus = i18n.global.t('app_status.install');
+			break;
+		case APP_STATUS.pending:
+			realStatus = i18n.global.t('app_status.installing');
+			break;
+		case APP_STATUS.installing:
+		case APP_STATUS.downloading:
+			realStatus = i18n.global.t('app_status.installing');
+			break;
+		case APP_STATUS.installed:
+			realStatus = i18n.global.t('app_status.installed');
+			break;
+		case APP_STATUS.suspend:
+			realStatus = i18n.global.t('app_status.suspend');
+			break;
+		case APP_STATUS.waiting:
+		case APP_STATUS.resuming:
+			realStatus = i18n.global.t('app_status.resume');
+			break;
+		case APP_STATUS.running:
+			realStatus = i18n.global.t('app_status.running');
+			break;
+		case APP_STATUS.uninstalling:
+			realStatus = i18n.global.t('app_status.uninstalling');
+			break;
+		case APP_STATUS.upgrading:
+			realStatus = i18n.global.t('app_status.updating');
+			break;
+		default:
+			break;
+	}
+
+	return realStatus;
+};

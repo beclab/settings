@@ -124,19 +124,19 @@ const adminMenu = [
 			key: '/appearance',
 			img: 'imgs/root/appearance.svg'
 		}
+	],
+	[
+		// {
+		// 	label: t('home_menus.' + MENU_TYPE.Backup.toLowerCase()),
+		// 	key: '/backup',
+		// 	img: 'imgs/root/backup.svg'
+		// },
+		{
+			label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
+			key: '/upgrade',
+			img: 'imgs/root/upgrade.svg'
+		}
 	]
-	// [
-	// {
-	// 	label: t('home_menus.' + MENU_TYPE.Backup.toLowerCase()),
-	// 	key: '/backup',
-	// 	img: 'imgs/root/backup.svg'
-	// },
-	// {
-	// 	label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
-	// 	key: '/upgrade',
-	// 	img: 'imgs/root/upgrade.svg'
-	// }
-	// ]
 ];
 
 const UserMenu = [

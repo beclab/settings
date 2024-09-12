@@ -1,4 +1,5 @@
 // import { DropboxAuth } from 'src/plugins/dropbox';
+import { i18n } from 'src/boot/i18n';
 import {
 	AccountType,
 	IntegrationAccountMiniData,
@@ -12,8 +13,9 @@ export class DropboxAuthService extends OperateIntegrationAuth {
 	async webSupport() {
 		return {
 			status: false,
-			message:
+			message: i18n.global.t(
 				'Due to some restrictions, we do not support binding this type of account in Settings. Please use TermiPass mobile app to complete the account authorization and binding.'
+			)
 		};
 	}
 

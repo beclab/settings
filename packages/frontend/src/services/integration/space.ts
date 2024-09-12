@@ -1,3 +1,4 @@
+import { i18n } from 'src/boot/i18n';
 import {
 	AccountType,
 	OperateIntegrationAuth
@@ -10,8 +11,9 @@ export class SpaceAuthService extends OperateIntegrationAuth {
 	async webSupport() {
 		return {
 			status: false,
-			message:
+			message: i18n.global.t(
 				'Due to some restrictions, we do not support binding this type of account in Settings. Please use TermiPass mobile app to complete the account authorization and binding.'
+			)
 		};
 	}
 
