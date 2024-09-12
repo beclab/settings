@@ -17,7 +17,7 @@
 					}"
 				></div>
 				<div class="text-subtitle3 application-status">
-					{{ app.state }}
+					{{ realStatus }}
 				</div>
 			</div>
 		</q-item-section>
@@ -29,10 +29,12 @@
 
 <script lang="ts" setup>
 import { TerminusApp } from '@bytetrade/core';
-import { PropType, ref } from 'vue';
+import { PropType, ref, watch } from 'vue';
 import { firstToUpper } from '../../constant';
 import { useQuasar } from 'quasar';
 import { useApplicationStore } from '../../stores/Application';
+import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
+
 const $q = useQuasar();
 const applicationStore = useApplicationStore();
 
@@ -60,6 +62,15 @@ async function toggle() {
 		$q.loading.hide();
 	}
 }
+
+watch(
+	() => props.app.state,
+	() => {
+		realStatus.value = getApplicationStatus(props.app.state as APP_STATUS);
+	}
+);
+
+const realStatus = ref(getApplicationStatus(props.app.state as APP_STATUS));
 </script>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <template>
-	<page-title-component :show-back="false" :title="t('terminus_id')" />
+	<page-title-component :show-back="false" :title="t('terminus_name')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<div class="avatar-layout column items-center justify-center">
 			<setting-avatar :size="72" />
@@ -87,7 +87,7 @@
 				@click="goLoginHistory"
 			/>
 		</q-list>
-		<div class="text-subtitle1 text-ink-1 person-title">
+		<!-- <div class="text-subtitle1 text-ink-1 person-title">
 			{{ t('Terminus OS') }}
 		</div>
 		<q-list
@@ -104,7 +104,7 @@
 				:width-separator="false"
 				:data="adminStore.terminus.osVersion"
 			/>
-		</q-list>
+		</q-list> -->
 	</bt-scroll-area>
 </template>
 

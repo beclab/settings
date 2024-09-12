@@ -7,7 +7,7 @@
 					dense
 					flat
 					class="cancle-btn q-px-md"
-					:label="cancelText"
+					:label="cancelText.length > 0 ? cancelText : t('cancel')"
 					@click="cancelAction"
 				/>
 				<q-btn
@@ -38,7 +38,7 @@
 						'button-full-width': !hasConfirm,
 						'button-half-width': hasConfirm
 					}"
-					:label="cancelText"
+					:label="cancelText.length > 0 ? cancelText : t('cancel')"
 					@click="cancelAction"
 				/>
 
@@ -62,13 +62,14 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
 import { i18n } from '../boot/i18n';
 import AdaptiveLayout from './AdaptiveLayout.vue';
 defineProps({
 	cancelText: {
 		type: String,
 		required: false,
-		default: i18n.global.t('cancel')
+		default: ''
 	},
 	confirmText: {
 		type: String,
@@ -105,6 +106,8 @@ const confirmAction = () => {
 };
 
 const emit = defineEmits(['cancelAction', 'confirmAction']);
+
+const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">

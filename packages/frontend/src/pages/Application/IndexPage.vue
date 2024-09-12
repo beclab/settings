@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationStore } from 'src/stores/Application';
+import { useApplicationStore } from '../../stores/Application';
 import { useRouter } from 'vue-router';
 import { TerminusApp } from '@bytetrade/core';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
