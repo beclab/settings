@@ -1,5 +1,6 @@
 import { Controller, Logger, Get, Post, Req, Body } from '@nestjs/common';
 import { createInstance } from './utils';
+import { returnError } from '@bytetrade/core';
 
 @Controller('/api')
 export class NetworkPolicyController {
@@ -90,5 +91,50 @@ export class NetworkPolicyController {
     }
     this.logger.debug(data.data);
     return data.data;
+  }
+
+  @Get('/reverse-proxy')
+  async getReverseProxy(@Req() request: Request): Promise<any> {
+    try {
+      this.logger.debug('get reverse-proxy');
+      const data: any = await createInstance(request).get(
+        '/bfl/settings/v1alpha1/reverse-proxy',
+      );
+      this.logger.debug('get reverse-proxy result');
+      this.logger.debug(data.data);
+      if (data.status !== 200) {
+        throw new Error(data.statusText);
+      }
+      this.logger.debug(data.data);
+      return data.data;
+    } catch (e) {
+      console.log(e);
+      return returnError(1, e.message || '');
+    }
+  }
+  @Post('/reverse-proxy')
+  async postReverseProxy(
+    @Req() request: Request,
+    @Body() body: any,
+  ): Promise<any> {
+    try {
+      this.logger.debug('get reverse-proxy');
+      this.logger.debug(body);
+      const data: any = await createInstance(request, 15000).post(
+        '/bfl/settings/v1alpha1/reverse-proxy',
+        body,
+      );
+      this.logger.debug('set reverse-proxy result');
+      //   this.logger.debug(data);
+      this.logger.debug(data.data);
+      if (data.status !== 200) {
+        throw new Error(data.statusText);
+      }
+      this.logger.debug(data.data);
+      return data.data;
+    } catch (e) {
+      this.logger.debug('set reverse-proxy result error ===>', e);
+      return returnError(1, e.message || '');
+    }
   }
 }

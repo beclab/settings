@@ -112,6 +112,11 @@ const adminMenu = computed(function () {
 					key: '/appearance',
 					img: 'imgs/root/appearance.svg'
 				},
+				{
+					label: t('home_menus.' + MENU_TYPE.Network.toLowerCase()),
+					key: '/network',
+					img: 'imgs/root/appearance.svg'
+				},
 				// {
 				// 	label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
 				// 	key: '/knowledge',

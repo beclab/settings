@@ -17,7 +17,8 @@ export enum MENU_TYPE {
 	Authority = 'Authority',
 	Upgrade = 'Upgrade',
 	Backup = 'Backup',
-	Appearance = 'Appearance'
+	Appearance = 'Appearance',
+	Network = 'Network'
 }
 
 export function getRoleName(role: string) {
@@ -339,4 +340,86 @@ export const getApplicationStatus = (status: APP_STATUS) => {
 	}
 
 	return realStatus;
+};
+
+export enum ReverseProxyMode {
+	NoNeed = 1,
+	CloudFlare = 2,
+	TerminusTunnel = 3,
+	SelfBuiltFrp = 4
+}
+
+export const reverseProxyOptions = () => {
+	return [
+		// {
+		// 	label: 'No need (IP Direct)',
+		// 	value: ReverseProxyMode.NoNeed,
+		// 	enable: true
+		// },
+		{
+			label: 'Cloudflare Tunnel',
+			value: ReverseProxyMode.CloudFlare,
+			enable: true
+		},
+		{
+			label: 'Terminus Tunnel',
+			value: ReverseProxyMode.TerminusTunnel,
+			enable: true
+		},
+		{
+			label: 'Self-built FRP',
+			value: ReverseProxyMode.SelfBuiltFrp,
+			enable: true
+		}
+	];
+};
+
+export enum TerminusTunnelMode {
+	hk = 1,
+	hk2 = 2
+}
+
+// export const terminusTunnelOptions = () => {
+// 	return [
+// 		{
+// 			label: 'Terminus tunnel Hongkong',
+// 			value: TerminusTunnelMode.hk,
+// 			server: 'frp-hk.snowinning.com',
+// 			enable: true
+// 		},
+// 		{
+// 			label: 'Terminus tunnel Hongkong 2',
+// 			value: TerminusTunnelMode.hk2,
+// 			server: 'frp-hk2.snowinning.com',
+// 			enable: true
+// 		}
+// 	];
+// };
+
+export const frpAuthMethod = () => {
+	return [
+		{
+			label: i18n.global.t('None'),
+			value: '',
+			enable: true
+		},
+		{
+			label: i18n.global.t('Token'),
+			value: 'token',
+			enable: true
+		}
+	];
+};
+
+export interface TerminusTunnelInterface {
+	frp_server: string;
+	frp_port: number;
+	frp_auth_method: string;
+	frp_auth_token: string;
+}
+
+export const terminusTunnelDefaultValue = {
+	frp_port: 0,
+	frp_auth_method: 'jws',
+	frp_auth_token: ''
 };

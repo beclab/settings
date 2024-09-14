@@ -234,6 +234,10 @@ const routes: RouteRecordRaw[] = [
 				component: () =>
 					import('pages/Notification/Template/TemplateContent.vue'),
 				meta: {}
+			},
+			{
+				path: '/network',
+				component: () => import('src/pages/Network/IndexPage.vue')
 			}
 		]
 	},
