@@ -12,7 +12,8 @@ export default {
 		authority: '权限',
 		upgrade: '升级',
 		backup: '备份',
-		appearance: '外观'
+		appearance: '外观',
+		network: '网络'
 	},
 	role: { admin: '管理员', member: '成员' },
 	server_location: { terminus_space: 'Terminus Space', aws_s3: 'AWS S3' },

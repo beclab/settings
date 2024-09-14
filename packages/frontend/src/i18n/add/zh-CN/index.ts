@@ -19,5 +19,20 @@ export default {
 		uninstalling: '正在卸载',
 		uninstall: '卸载',
 		updating: '正在更新'
-	}
+	},
+	'Network Connection': '网络连接',
+	'Switch reverse proxy': '选择反向代理',
+	'Are you sure you need to switch the reverse proxy to {proxy}?':
+		'您确定需要将反向代理切换到{proxy}?',
+	'Reverse Proxy': '反向代理',
+	'Set up a reverse proxy for external access': '设置外部访问的反向代理',
+	'Select a terminus tunnel': '选择一个Terminus tunnel',
+	'Server Address': '服务器地址',
+	Port: '端口',
+	'Auth Method': '认证方式',
+	Token: '令牌',
+	'Please input server address': '请输入服务器地址',
+	'Please input port': '请输入端口',
+	'Please input token': '请输入令牌',
+	None: '空'
 };

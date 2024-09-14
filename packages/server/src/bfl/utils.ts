@@ -19,7 +19,10 @@ export function extractToken(request: Request): string {
   return token;
 }
 
-export function createInstance(request: Request): AxiosInstance {
+export function createInstance(
+  request: Request,
+  timeout = 5000,
+): AxiosInstance {
   let token = request.headers['x-authorization'];
   //console.log('x-authorization: ' + token);
   const host = request.headers['host'];
@@ -44,7 +47,7 @@ export function createInstance(request: Request): AxiosInstance {
 
     return axios.create({
       baseURL: process.env.BFL || 'http://bfl',
-      timeout: 5000,
+      timeout: timeout,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
@@ -56,7 +59,7 @@ export function createInstance(request: Request): AxiosInstance {
   } else {
     return axios.create({
       baseURL: process.env.BFL || 'http://bfl',
-      timeout: 5000,
+      timeout: timeout,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
