@@ -289,11 +289,9 @@ const onSubmit = async () => {
 		networkStore.reverseProxy.frp_auth_method = authMethod.value;
 		networkStore.reverseProxy.frp_auth_token = token.value;
 	}
-	console.log('networkStore.reverseProxy', networkStore.reverseProxy);
-
-	// $q.loading.show();
-	// await networkStore.updateReverseProxy(networkStore.reverseProxy);
-	// $q.loading.hide();
+	$q.loading.show();
+	await networkStore.updateReverseProxy(networkStore.reverseProxy);
+	$q.loading.hide();
 };
 
 onMounted(() => {});
