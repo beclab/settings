@@ -195,7 +195,7 @@ watch(
 						: networkStore.reverseProxy.frp_port
 				}`;
 				authMethod.value = networkStore.reverseProxy.frp_auth_method;
-				token.value = networkStore.reverseProxy.frp_server;
+				token.value = networkStore.reverseProxy.frp_auth_token;
 			}
 		}
 	}
