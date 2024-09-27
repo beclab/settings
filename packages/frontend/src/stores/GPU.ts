@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { useTokenStore } from './token';
 import { VRAMMode } from 'src/utils/constants';
-import { notifyFailed } from 'src/utils/btNotify';
 
 export const useGPUStore = defineStore('gpu', {
 	state: () => ({
