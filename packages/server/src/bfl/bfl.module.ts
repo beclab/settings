@@ -9,6 +9,7 @@ import { ApplicationController } from './application.controller';
 import { MonitorController } from './monitor.controller';
 import { TokenController } from './token.controller';
 import { ScheduleModule } from '@nestjs/schedule';
+import { GPUController } from './gpu.controller';
 
 @Module({
   imports: [ScheduleModule.forRoot()],
@@ -22,6 +23,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ApplicationController,
     MonitorController,
     TokenController,
+    GPUController,
   ],
   providers: [],
   //exports: [AppStoreController, AppStoreService],

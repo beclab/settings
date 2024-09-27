@@ -1,64 +1,25 @@
-<!-- <template>
-	<page-title-component :show-back="false" :title="t('upgrade')" />
+<template>
+	<page-title-component :show-back="true" :title="t('version')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<q-list
 			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
 		>
-			<q-item class="list_section item-padding-zero">
-				<q-item-section
-					class="text-ink-1"
-					:class="
-						deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
-					"
-				>
-					{{ t('current_version') }}
-				</q-item-section>
-				<q-item-section
-					side
-					class="text-ink-2"
-					:class="
-						deviceStore.isMobile ? 'text-body3-m' : 'text-body1'
-					"
-				>
-					{{ versionInfo?.current_version }}
-				</q-item-section>
-			</q-item>
-			<bt-separator
-				:class="deviceStore.isMobile ? '' : 'q-list-sep-line'"
-			/>
-			<q-item class="list_section item-padding-zero">
-				<q-item-section
-					class="text-ink-1"
-					:class="
-						deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
-					"
-				>
-					{{ t('development_mode') }}
-				</q-item-section>
-				<q-item-section
-					side
-					class="text-ink-2"
-					:class="
-						deviceStore.isMobile ? 'text-body3-m' : 'text-body1'
-					"
-				>
-					<q-toggle v-model="dev_mode" />
-				</q-item-section>
-			</q-item>
-			<bt-separator
-				:class="deviceStore.isMobile ? '' : 'q-list-sep-line'"
-				v-if="versionInfo && versionInfo.is_new"
-			/>
-			<q-item
-				class="list_section item-padding-zero"
-				v-if="versionInfo && versionInfo.is_new"
+			<bt-form-item
+				:title="t('current_version')"
+				:margin-top="false"
+				:chevron-right="false"
+				:widthSeparator="versionInfo != undefined && versionInfo.is_new"
 			>
-				<q-item-section
-					class="text-ink-1"
-					:class="
-						deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
-					"
-				>
+				{{ versionInfo?.current_version }}
+			</bt-form-item>
+
+			<bt-form-item
+				v-if="versionInfo && versionInfo.is_new"
+				:margin-top="false"
+				:chevron-right="false"
+				:widthSeparator="false"
+			>
+				<template v-slot:title>
 					<div class="row items-center">
 						<div>{{ t('new_version') }}</div>
 						<div
@@ -72,39 +33,31 @@
 							{{ versionInfo?.new_version }}
 						</div>
 					</div>
-				</q-item-section>
-				<q-item-section
-					side
-					class="text-ink-2"
-					:class="
-						deviceStore.isMobile ? 'text-overline-m' : 'text-body3'
-					"
-				>
-					<div class="upgradeNow" v-if="upgradeState === 'running'">
-						<span class="loader"></span>
-						{{ t('upgrading') }}
-					</div>
-					<div class="upgradeNow" @click="handleUpgrade" v-else>
-						{{ t('upgrade_now') }}
-					</div>
-				</q-item-section>
-			</q-item>
+				</template>
+				<div class="upgradeNow" v-if="upgradeState === 'running'">
+					<span class="loader"></span>
+					{{ t('upgrading') }}
+				</div>
+				<div class="upgradeNow" @click="handleUpgrade" v-else>
+					{{ t('upgrade_now') }}
+				</div>
+			</bt-form-item>
 		</q-list>
 	</bt-scroll-area>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue';
-import { useUpgradeStore } from '../../stores/Upgrade';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { useUpgradeStore } from '../../../stores/Upgrade';
+import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
 import { useI18n } from 'vue-i18n';
-import { notifyFailed, notifySuccess } from '../../utils/btNotify';
-import { useDeviceStore } from '../../stores/device';
-import BtSeparator from '../../components/base/BtSeparator.vue';
+import { useDeviceStore } from '../../../stores/device';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 
+const deviceStore = useDeviceStore();
 const { t } = useI18n();
 const upgradeStore = useUpgradeStore();
-const deviceStore = useDeviceStore();
 
 const versionInfo = ref();
 const upgradeState = ref();
@@ -114,7 +67,11 @@ const dev_mode = ref(
 );
 
 const new_version = async () => {
-	versionInfo.value = await upgradeStore.new_version();
+	try {
+		versionInfo.value = await upgradeStore.new_version();
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const startUpgradeState = async () => {
@@ -241,4 +198,4 @@ onUnmounted(() => {
 		transform: rotate(360deg);
 	}
 }
-</style> -->
+</style>

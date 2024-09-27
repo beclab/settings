@@ -13,7 +13,8 @@ export default {
 		upgrade: '升级',
 		backup: '备份',
 		appearance: '外观',
-		network: '网络'
+		network: '网络',
+		system: '系统'
 	},
 	role: { admin: '管理员', member: '成员' },
 	server_location: { terminus_space: 'Terminus Space', aws_s3: 'AWS S3' },
@@ -134,7 +135,7 @@ export default {
 	terminus_cloud: 'Terminus Cloud',
 	device: '设备',
 	security: '安全',
-	forcing_vpn_access_to_private_network: '强制通过 VPN 访问私人入口',
+	forcing_vpn_access_to_private_network: '强制通过 VPN 访问私有入口',
 	view_the_active_session_of_the_vault: '查看 Vault 活跃会话',
 	view_the_headScale_connection_status: '查看 HeadScale 连接状态',
 	view_the_list_of_sso_authorization_tokens: '查看 SSO 授权令牌',
@@ -164,7 +165,7 @@ export default {
 	worldwide: '全球',
 	public: '公开',
 	protected: '受保护',
-	private: '私人',
+	private: '私有',
 	network_authority_policy: '网络权限策略',
 	select_authority: '选择权限',
 	ip_input_popup_message: '使用半角逗号（,）分隔多个 IP 地址',

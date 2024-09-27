@@ -21,10 +21,7 @@ export class MonitorController {
   async monitor(@Req() request: Request): Promise<any> {
     //request.cookies['x-authorization'];
 
-    const data: any = await axios.get(
-      'http://bfl/bfl/backend/v1/cluster',
-      {},
-    );
+    const data: any = await axios.get('http://bfl/bfl/backend/v1/cluster', {});
     if (data.status !== 200) {
       throw new Error(data.statusText);
     }

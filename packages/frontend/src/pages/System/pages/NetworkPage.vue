@@ -1,11 +1,11 @@
 <template>
-	<page-title-component :show-back="false" :title="t('home_menus.network')">
+	<page-title-component :show-back="true" :title="t('home_menus.network')">
 	</page-title-component>
 	<bt-scroll-area
 		class="nav-height-scroll-area-conf"
 		v-if="networkStore.reverseProxy"
 	>
-		<div class="text-subtitle1 text-ink-1 person-title">
+		<div class="text-subtitle1 text-ink-1 person-title q-mt-md">
 			{{ t('Reverse Proxy') }}
 		</div>
 		<q-list
@@ -19,7 +19,6 @@
 					reverseProxyMode != ReverseProxyMode.CloudFlare &&
 					reverseProxyMode != ReverseProxyMode.NoNeed
 				"
-				@click="reverseProxy"
 			>
 				<bt-select
 					v-if="reverseProxyMode != ReverseProxyMode.NoNeed"
@@ -35,7 +34,6 @@
 				:margin-top="false"
 				:chevron-right="false"
 				:widthSeparator="false"
-				@click="reverseProxy"
 			>
 				<bt-select
 					v-model="terminusTunnelMode"
@@ -129,23 +127,23 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 // import { useQuasar } from 'quasar';
-import PageTitleComponent from '../../components/PageTitleComponent.vue';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
-import { useDeviceStore } from '../../stores/device';
-import { useNetworkStore } from '../../stores/network';
-import BtFormItem from '../../components/base/BtFormItem.vue';
+import { useDeviceStore } from '../../../stores/device';
+import { useNetworkStore } from '../../../stores/network';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
 import {
 	reverseProxyOptions,
 	ReverseProxyMode,
 	frpAuthMethod,
 	terminusTunnelDefaultValue
-} from '../../utils/constants';
-import BtSelect from '../../components/base/BtSelect.vue';
+} from '../../../utils/constants';
+import BtSelect from '../../../components/base/BtSelect.vue';
 // import EditFRPInfoDialog from './dialog/EditFRPInfoDialog.vue';
 import { useQuasar } from 'quasar';
 
-import BtEditView from '../../components/base/BtEditView.vue';
-import ErrorMessageTip from '../../components/base/ErrorMessageTip.vue';
+import BtEditView from '../../../components/base/BtEditView.vue';
+import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 
 const { t } = useI18n();
 
@@ -169,84 +167,51 @@ const token = ref('');
 watch(
 	() => networkStore.reverseProxy,
 	() => {
-		if (networkStore.reverseProxy) {
-			reverseProxyMode.value = networkStore.reverseProxy
-				.enable_cloudflare_tunnel
-				? ReverseProxyMode.CloudFlare
-				: networkStore.reverseProxy.enable_frp
-				? networkStore.reverseProxy.frp_auth_method == 'jws'
-					? ReverseProxyMode.TerminusTunnel
-					: ReverseProxyMode.SelfBuiltFrp
-				: ReverseProxyMode.NoNeed;
-
-			const terminusOptions = networkStore.terminusTunnelsOptions();
-			const option = terminusOptions.find(
-				(e) => e.value == networkStore.reverseProxy?.frp_server
-			);
-			if (option) {
-				terminusTunnelMode.value = option.value;
-			}
-
-			if (reverseProxyMode.value != ReverseProxyMode.TerminusTunnel) {
-				serverAddress.value = networkStore.reverseProxy.frp_server;
-				port.value = `${
-					networkStore.reverseProxy.frp_port == 0
-						? ''
-						: networkStore.reverseProxy.frp_port
-				}`;
-				authMethod.value = networkStore.reverseProxy.frp_auth_method;
-				token.value = networkStore.reverseProxy.frp_auth_token;
-			}
-		}
+		configData();
 	}
 );
+
+const configData = () => {
+	if (networkStore.reverseProxy) {
+		reverseProxyMode.value = networkStore.reverseProxy
+			.enable_cloudflare_tunnel
+			? ReverseProxyMode.CloudFlare
+			: networkStore.reverseProxy.enable_frp
+			? networkStore.reverseProxy.frp_auth_method == 'jws'
+				? ReverseProxyMode.TerminusTunnel
+				: ReverseProxyMode.SelfBuiltFrp
+			: ReverseProxyMode.NoNeed;
+
+		const terminusOptions = networkStore.terminusTunnelsOptions();
+		terminusTunnelsOptions.value = terminusOptions;
+
+		const option = terminusOptions.find(
+			(e) => e.value == networkStore.reverseProxy?.frp_server
+		);
+
+		if (option) {
+			terminusTunnelMode.value = option.value;
+		}
+
+		if (reverseProxyMode.value != ReverseProxyMode.TerminusTunnel) {
+			serverAddress.value = networkStore.reverseProxy.frp_server;
+			port.value = `${
+				networkStore.reverseProxy.frp_port == 0
+					? ''
+					: networkStore.reverseProxy.frp_port
+			}`;
+			authMethod.value = networkStore.reverseProxy.frp_auth_method;
+			token.value = networkStore.reverseProxy.frp_auth_token;
+		}
+	}
+};
 
 const terminusTunnelsOptions = ref<any>();
 
-watch(
-	() => networkStore.terminusTunnels,
-	() => {
-		terminusTunnelsOptions.value = networkStore.terminusTunnelsOptions();
-	}
-);
-
 onMounted(async () => {
-	$q.loading.show();
-	await networkStore.getTerminusTunnels();
+	configData();
 	await networkStore.configReverseProxy();
-	$q.loading.hide();
 });
-
-// const disableSave = computed(() => {
-// 	if (!networkStore.reverseProxy) {
-// 		return false;
-// 	}
-
-// 	if (
-// 		!networkStore.reverseProxy.enable_frp &&
-// 		!networkStore.reverseProxy.enable_cloudflare_tunnel &&
-// 		reverseProxyMode.value != ReverseProxyMode.NoNeed
-// 	) {
-// 		return false;
-// 	}
-
-// 	if (
-// 		networkStore.reverseProxy.enable_cloudflare_tunnel &&
-// 		reverseProxyMode.value != ReverseProxyMode.CloudFlare
-// 	) {
-// 		return false;
-// 	}
-
-// 	if (
-// 		networkStore.reverseProxy.enable_frp &&
-// 		reverseProxyMode.value != ReverseProxyMode.TerminusTunnel &&
-// 		reverseProxyMode.value != ReverseProxyMode.SelfBuiltFrp
-// 	) {
-// 		return false;
-// 	}
-
-// 	return true;
-// });
 
 const onSubmit = async () => {
 	if (!networkStore.reverseProxy) {

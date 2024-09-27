@@ -34,5 +34,12 @@ export default {
 	'Please input server address': '请输入服务器地址',
 	'Please input port': '请输入端口',
 	'Please input token': '请输入令牌',
-	None: '空'
+	None: '空',
+	Internal: '内部',
+	'VRAM mode': '显存模式',
+	'Switch VRAM mode': '切换显存模式',
+	'Are you sure you need to switch the VRAM mode to {mode}?':
+		'切换显存模式为{mode}吗?',
+	'Standalone Mode': '独立模式',
+	'Shared Mode': '共享模式'
 };
