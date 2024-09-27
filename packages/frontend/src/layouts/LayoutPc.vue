@@ -112,11 +112,7 @@ const adminMenu = computed(function () {
 					key: '/appearance',
 					img: 'imgs/root/appearance.svg'
 				},
-				{
-					label: t('home_menus.' + MENU_TYPE.Network.toLowerCase()),
-					key: '/network',
-					img: 'imgs/root/appearance.svg'
-				},
+
 				// {
 				// 	label: t('home_menus.' + MENU_TYPE.Knowledge.toLowerCase()),
 				// 	key: '/knowledge',
@@ -133,9 +129,9 @@ const adminMenu = computed(function () {
 				// 	img: 'imgs/root/backup.svg'
 				// },
 				{
-					label: t('home_menus.' + MENU_TYPE.Upgrade.toLowerCase()),
-					key: '/upgrade',
-					img: 'imgs/root/upgrade.svg'
+					label: t('home_menus.' + MENU_TYPE.System.toLowerCase()),
+					key: '/system',
+					img: 'imgs/root/system.svg'
 				}
 			]
 		}

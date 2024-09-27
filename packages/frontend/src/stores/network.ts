@@ -24,7 +24,8 @@ export type NetworkState = {
 };
 
 export const useNetworkStore = defineStore('network', {
-	state: () => ({ reverseProxy: undefined } as NetworkState),
+	state: () =>
+		({ reverseProxy: undefined, terminusTunnels: [] } as NetworkState),
 
 	getters: {},
 
@@ -32,23 +33,14 @@ export const useNetworkStore = defineStore('network', {
 		async configReverseProxy() {
 			const tokenStore = useTokenStore();
 			try {
+				if (this.terminusTunnels.length == 0) {
+					await this.getTerminusTunnels();
+				}
 				const proxyData: any = await axios.get(
 					`${tokenStore.url}/api/reverse-proxy`
 				);
 				console.log('proxyData ====>', proxyData);
 				this.reverseProxy = proxyData;
-			} catch (error) {
-				console.log(error);
-			}
-		},
-
-		async getTerminusTunnels() {
-			try {
-				const terminusTunnels: any = await axios.get(
-					'https://terminus-frp.snowinning.com/servers'
-				);
-				console.log('terminusTunnels ====>', terminusTunnels.data);
-				this.terminusTunnels = terminusTunnels.data;
 			} catch (error) {
 				console.log(error);
 			}
@@ -67,6 +59,18 @@ export const useNetworkStore = defineStore('network', {
 			} catch (error) {
 				console.log(error);
 				notifyFailed(error.message);
+			}
+		},
+
+		async getTerminusTunnels() {
+			try {
+				const terminusTunnels: any = await axios.get(
+					'https://terminus-frp.snowinning.com/servers'
+				);
+				console.log('terminusTunnels ====>', terminusTunnels.data);
+				this.terminusTunnels = terminusTunnels.data;
+			} catch (error) {
+				console.log(error);
 			}
 		},
 		terminusTunnelsOptions() {

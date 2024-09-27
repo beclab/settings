@@ -35,5 +35,12 @@ export default {
 	'Please input server address': 'Please input server address',
 	'Please input port': 'Please input port',
 	'Please input token': 'Please input token',
-	None: 'None'
+	None: 'None',
+	Internal: 'Internal',
+	'VRAM mode': 'VRAM mode',
+	'Switch VRAM mode': 'Switch VRAM mode',
+	'Are you sure you need to switch the VRAM mode to {mode}?':
+		'Are you sure you need to switch the VRAM mode to {mode}?',
+	'Standalone Mode': 'Standalone Mode',
+	'Shared Mode': 'Shared Mode'
 };

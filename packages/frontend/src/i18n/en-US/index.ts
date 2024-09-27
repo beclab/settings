@@ -12,7 +12,8 @@ export default {
 		upgrade: 'Upgrade',
 		backup: 'Backup',
 		appearance: 'Appearance',
-		network: 'Network'
+		network: 'Network',
+		system: 'System'
 	},
 	role: { admin: 'Admin', member: 'Member' },
 	server_location: { terminus_space: 'Terminus Space', aws_s3: 'AWS S3' },

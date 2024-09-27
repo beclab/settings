@@ -406,7 +406,8 @@ const languageUpdate = (language: SupportLanguageType) => {
 	})
 		.onOk(async () => {
 			await backgroundStore.requestUpdateLanguage(language);
-			lastLanguage = language;
+			lastLanguage = backgroundStore.locale;
+			currentLanguage.value = backgroundStore.locale;
 		})
 		.onCancel(() => {
 			currentLanguage.value = lastLanguage;

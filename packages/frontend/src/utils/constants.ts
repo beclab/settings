@@ -15,10 +15,10 @@ export enum MENU_TYPE {
 	Account = 'Account',
 	Services = 'Services',
 	Authority = 'Authority',
-	Upgrade = 'Upgrade',
+	// Upgrade = 'Upgrade',
 	Backup = 'Backup',
 	Appearance = 'Appearance',
-	Network = 'Network'
+	System = 'System'
 }
 
 export function getRoleName(role: string) {
@@ -135,7 +135,8 @@ export const factorModelOptions = () => {
 
 export enum AUTH_LEVEL {
 	Private = 'private',
-	Public = 'public'
+	Public = 'public',
+	Internal = 'internal'
 }
 
 export const authLevelOptions = () => {
@@ -148,6 +149,11 @@ export const authLevelOptions = () => {
 		{
 			label: i18n.global.t('public'),
 			value: AUTH_LEVEL.Public,
+			enable: true
+		},
+		{
+			label: i18n.global.t('Internal'),
+			value: AUTH_LEVEL.Internal,
 			enable: true
 		}
 	];
@@ -422,4 +428,24 @@ export const terminusTunnelDefaultValue = {
 	frp_port: 0,
 	frp_auth_method: 'jws',
 	frp_auth_token: ''
+};
+
+export enum VRAMMode {
+	Standalone = '1',
+	Shared = '2'
+}
+
+export const VRAMModeOptions = () => {
+	return [
+		{
+			label: i18n.global.t('Standalone Mode'),
+			value: VRAMMode.Standalone,
+			enable: true
+		},
+		{
+			label: i18n.global.t('Shared Mode'),
+			value: VRAMMode.Shared,
+			enable: true
+		}
+	];
 };

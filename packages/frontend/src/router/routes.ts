@@ -110,10 +110,10 @@ const routes: RouteRecordRaw[] = [
 			// 		import('src/pages/Notification/pages/EmailDetailPage.vue')
 			// },
 
-			{
-				path: 'upgrade',
-				component: () => import('src/pages/Upgrade/IndexPage.vue')
-			},
+			// {
+			// 	path: 'upgrade',
+			// 	component: () => import('src/pages/Upgrade/IndexPage.vue')
+			// },
 			{
 				path: 'backup',
 				component: () => import('src/pages/Backup2/IndexPage.vue')
@@ -236,8 +236,22 @@ const routes: RouteRecordRaw[] = [
 				meta: {}
 			},
 			{
-				path: '/network',
-				component: () => import('src/pages/Network/IndexPage.vue')
+				path: '/system',
+				component: () => import('src/pages/System/IndexPage.vue')
+			},
+			{
+				path: '/system/version',
+				component: () =>
+					import('src/pages/System/pages/VersionPage.vue')
+			},
+			{
+				path: '/system/network',
+				component: () =>
+					import('src/pages/System/pages/NetworkPage.vue')
+			},
+			{
+				path: '/system/gpu',
+				component: () => import('src/pages/System/pages/GPUPage.vue')
 			}
 		]
 	},
