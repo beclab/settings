@@ -41,5 +41,7 @@ export default {
 	'Are you sure you need to switch the VRAM mode to {mode}?':
 		'切换显存模式为{mode}吗?',
 	'Standalone Mode': '独立模式',
-	'Shared Mode': '共享模式'
+	'Shared Mode': '共享模式',
+	'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.':
+		'切换反向代理期间，可能会有10分钟的时间无法访问Terminus'
 };

@@ -42,5 +42,7 @@ export default {
 	'Are you sure you need to switch the VRAM mode to {mode}?':
 		'Are you sure you need to switch the VRAM mode to {mode}?',
 	'Standalone Mode': 'Standalone Mode',
-	'Shared Mode': 'Shared Mode'
+	'Shared Mode': 'Shared Mode',
+	'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.':
+		'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.'
 };
