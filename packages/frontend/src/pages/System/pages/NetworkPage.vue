@@ -144,6 +144,7 @@ import { useQuasar } from 'quasar';
 
 import BtEditView from '../../../components/base/BtEditView.vue';
 import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
+import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
 
 const { t } = useI18n();
 
@@ -227,6 +228,26 @@ const onSubmit = async () => {
 		}
 	}
 
+	$q.dialog({
+		component: ReminderDialogComponent,
+		componentProps: {
+			title: t('Switch reverse proxy'),
+			message: t(
+				'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.'
+			),
+			useCancel: true,
+			confirmText: t('confirm'),
+			cancelText: t('cancel')
+		}
+	}).onOk(async () => {
+		confirmSwitch();
+	});
+};
+
+const confirmSwitch = async () => {
+	if (!networkStore.reverseProxy) {
+		return;
+	}
 	if (
 		reverseProxyMode.value == ReverseProxyMode.TerminusTunnel ||
 		reverseProxyMode.value == ReverseProxyMode.SelfBuiltFrp
