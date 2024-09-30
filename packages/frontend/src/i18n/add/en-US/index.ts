@@ -27,7 +27,7 @@ export default {
 	'Reverse Proxy': 'Reverse Proxy',
 	'Set up a reverse proxy for external access':
 		'Set up a reverse proxy for external access',
-	'Select a terminus tunnel': 'Select a terminus tunnel',
+	'Select a terminus tunnel': 'Select a Terminus Tunnel',
 	'Server Address': 'Server Address',
 	Port: 'Port',
 	'Auth Method': 'Auth Method',
