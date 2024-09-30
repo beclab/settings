@@ -11,7 +11,7 @@
 			>
 				<application-item
 					:icon="application.icon"
-					:title="application.name"
+					:title="application.title"
 					:status="application.state"
 					:hide-status="false"
 					:width-separator="
