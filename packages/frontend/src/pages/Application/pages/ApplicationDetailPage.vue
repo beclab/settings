@@ -1,8 +1,5 @@
 <template>
-	<page-title-component
-		:show-back="true"
-		:title="firstToUpper(application ? application.name : '')"
-	/>
+	<page-title-component :show-back="true" :title="application?.title" />
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<q-list

@@ -1,8 +1,5 @@
 <template>
-	<page-title-component
-		:show-back="true"
-		:title="firstToUpper(application ? application.name : '')"
-	/>
+	<page-title-component :show-back="true" :title="application?.title" />
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<q-list
@@ -88,7 +85,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { firstToUpper } from '../../../constant';
 import { useApplicationStore } from '../../../stores/Application';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
