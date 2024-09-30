@@ -100,7 +100,6 @@ const realStatus = ref(getApplicationStatus(props.status as APP_STATUS));
 		}
 
 		.application-name {
-			text-transform: capitalize;
 			color: $ink-1;
 			margin-left: 8px;
 		}
