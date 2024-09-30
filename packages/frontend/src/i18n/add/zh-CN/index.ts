@@ -26,7 +26,7 @@ export default {
 		'您确定需要将反向代理切换到{proxy}?',
 	'Reverse Proxy': '反向代理',
 	'Set up a reverse proxy for external access': '设置外部访问的反向代理',
-	'Select a terminus tunnel': '选择一个Terminus tunnel',
+	'Select a terminus tunnel': '选择一个Terminus Tunnel',
 	'Server Address': '服务器地址',
 	Port: '端口',
 	'Auth Method': '认证方式',
