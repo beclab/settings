@@ -192,8 +192,8 @@ async function updateFactorModel() {
 async function onSubmitAuthLevel() {
 	if (
 		!authorizationLevel.value ||
-		(authorizationLevel.value !== AUTH_LEVEL.Public &&
-			authorizationLevel.value !== AUTH_LEVEL.Private)
+		authLevelOptions().find((e) => e.value == authorizationLevel.value) ==
+			undefined
 	) {
 		notifyWarning(
 			t('auth_level_is_error_error', {
