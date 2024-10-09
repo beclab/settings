@@ -224,8 +224,8 @@ watch(
 	.settings_left {
 		width: 240px;
 		height: 100%;
-		border-right-width: 1px;
 		border-right: $separator;
+		border-right-width: 1px;
 		border-right-style: solid;
 
 		.person-item {
