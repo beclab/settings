@@ -11,23 +11,24 @@
 						{{ device?.description }}
 					</div>
 				</div>
-				<!-- <q-btn
-					dense
-					flat
-					class="cancle-btn q-px-md"
-					disable
-					style="height: 24px"
-					:label="t('logout')"
-				/> -->
 			</div>
 		</template>
 		<template v-slot:grid>
-			<bt-grid-item :label="t('system')" :value="device?.osVersion" />
+			<bt-grid-item
+				:label="t('system')"
+				:revert="true"
+				:value="device?.osVersion"
+			/>
 			<bt-grid-item
 				:label="t('manufacturer')"
+				:revert="true"
 				:value="device?.manufacturer"
 			/>
-			<bt-grid-item :label="t('locale')" :value="device?.locale" />
+			<bt-grid-item
+				:label="t('locale')"
+				:revert="true"
+				:value="device?.locale"
+			/>
 		</template>
 	</bt-grid>
 </template>

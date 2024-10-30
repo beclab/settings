@@ -2,7 +2,7 @@
 	<div
 		class="settings-title text-h4 text-ink-1 row justify-between items-center"
 	>
-		Setting
+		{{ t('Setting') }}
 	</div>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<q-list dense class="mobile-items-list" style="margin-top: 20px">
@@ -11,7 +11,7 @@
 				clickable
 				@click="changeItemMenu({ key: '/person' })"
 			>
-				<q-item-section avatar class="q-pr-none">
+				<q-item-section avatar class="q-pr-none item-margin-left">
 					<setting-avatar :size="56" />
 				</q-item-section>
 				<q-item-section>
@@ -30,7 +30,7 @@
 						</div>
 					</div>
 				</q-item-section>
-				<q-item-section side>
+				<q-item-section side class="item-margin-right">
 					<q-icon name="sym_r_keyboard_arrow_right" color="ink-1" />
 				</q-item-section>
 			</q-item>
@@ -52,7 +52,7 @@
 				>
 					<q-item-section
 						avatar
-						class="q-pr-none"
+						class="q-pr-none item-margin-left"
 						style="min-width: 32px"
 					>
 						<q-img :src="item.img" width="27px" noSpinner />
@@ -65,14 +65,14 @@
 						{{ item.label }}
 					</q-item-section>
 
-					<q-item-section side>
+					<q-item-section side class="item-margin-right">
 						<q-icon
 							name="sym_r_keyboard_arrow_right"
 							color="ink-1"
 						/>
 					</q-item-section>
 				</q-item>
-				<bt-separator v-if="index + 1 < list.length" />
+				<bt-separator v-if="index + 1 < list.length" :offset="20" />
 			</div>
 		</q-list>
 	</bt-scroll-area>
@@ -105,7 +105,7 @@ const adminMenu = [
 		{
 			label: t('home_menus.' + MENU_TYPE.Account.toLowerCase()),
 			key: '/account',
-			img: 'imgs/root/account.svg'
+			img: 'imgs/root/mobile/account.svg'
 		},
 		{
 			label: t('home_menus.' + MENU_TYPE.Application.toLowerCase()),

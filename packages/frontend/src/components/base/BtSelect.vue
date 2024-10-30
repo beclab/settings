@@ -1,7 +1,7 @@
 <template>
 	<div class="row justify-center items-center select-root">
 		<q-btn-dropdown
-			class="selected-arrow text-body2 text-ink-1"
+			class="selected-arrow text-ink-2 bg-background-1"
 			ref="dropdown"
 			dropdown-icon="sym_r_keyboard_arrow_down"
 			:label="selected ? selected.label : ''"
@@ -9,13 +9,17 @@
 			flat
 			dense
 			:menu-offset="[0, 5]"
+			:class="{
+				'text-body1': !deviceStore.isMobile,
+				'text-body3-m': deviceStore.isMobile
+			}"
 		>
-			<q-list style="padding: 8px">
+			<q-list style="padding: 8px" class="select-items text-background-1">
 				<q-item
 					v-for="(item, index) in options"
 					:key="index"
 					:clickable="item.enable"
-					class="select-item-root"
+					class="select-item-root item"
 					:class="
 						item.value === selected?.value ? 'bg-background-3' : ''
 					"
@@ -23,14 +27,14 @@
 					v-close-popup
 				>
 					<q-item-section
-						class="text-body2"
-						:class="
-							item.enable
-								? item.value === selected?.value
-									? 'text-blue-6'
-									: 'text-ink-2'
-								: 'text-grey-4'
-						"
+						class="text-body1"
+						:class="{
+							'text-blue-6':
+								item.enable && item.value === selected?.value,
+							'text-ink-2':
+								item.enable && item.value !== selected?.value,
+							'text-grey-4': !item.enable
+						}"
 					>
 						{{ item.label }}
 					</q-item-section>
@@ -50,6 +54,7 @@
 
 <script lang="ts" setup>
 import { inject, onMounted, PropType, ref, watch } from 'vue';
+import { useDeviceStore } from '../../stores/device';
 
 interface SelectData {
 	label: string;
@@ -72,6 +77,7 @@ const selected = ref<SelectData>();
 const dropdown = ref();
 const setFocused = inject('setFocused') as any;
 const setBlured = inject('setBlured') as any;
+const deviceStore = useDeviceStore();
 
 onMounted(() => {
 	if (setFocused) {
@@ -126,5 +132,9 @@ const onItemClick = (item: SelectData) => {
 	min-height: 40px;
 	border-radius: 4px;
 	padding: 8px, 8px, 8px, 12px;
+}
+
+.select-items .item:hover {
+	background: $background-hover;
 }
 </style>

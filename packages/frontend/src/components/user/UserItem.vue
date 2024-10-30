@@ -3,9 +3,9 @@
 		<q-item
 			clickable
 			:class="deviceStore.isMobile ? 'user-item-mobile' : 'user-item'"
-			:style="marginTop && !deviceStore.isMobile ? 'margin-top: 8px' : ''"
+			class="item"
 		>
-			<q-item-section>
+			<q-item-section class="item-margin-left">
 				<div class="row items-center">
 					<q-avatar :size="`40px`">
 						<TerminusAvatar
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</q-item-section>
-			<q-item-section side>
+			<q-item-section side class="item-margin-right">
 				<q-icon name="sym_r_chevron_right" size="20px" />
 			</q-item-section>
 		</q-item>
@@ -87,8 +87,8 @@ const deviceStore = useDeviceStore();
 	height: auto;
 
 	.user-item {
-		height: 56px;
-		min-height: 56px;
+		height: 64px;
+		min-height: 64px;
 		padding: 0;
 	}
 

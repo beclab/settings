@@ -118,7 +118,7 @@ function onInput(value: string) {
 	overflow: hidden;
 
 	.input-parent {
-		margin-top: -5px;
+		margin-top: -3px;
 		overflow: hidden;
 
 		.inner-input {

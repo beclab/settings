@@ -1,5 +1,10 @@
 <template>
-	<div class="page-title-root row items-center">
+	<div
+		class="page-title-root row items-center"
+		:style="{
+			'--root-padding': showBack || deviceStore.isMobile ? '4px' : '16px'
+		}"
+	>
 		<AdaptiveLayout>
 			<template v-slot:pc>
 				<div
@@ -12,7 +17,11 @@
 							class="back-btn row items-center justify-center"
 							@click="backToPrePage"
 						>
-							<q-icon name="sym_r_chevron_left" size="24px" />
+							<q-icon
+								name="sym_r_arrow_back_ios_new"
+								size="16px"
+								class="text-ink-2"
+							/>
 						</div>
 						<div class="text-h5 text-ink-1">
 							{{ title }}
@@ -47,6 +56,7 @@
 <script setup lang="ts">
 import AdaptiveLayout from './AdaptiveLayout.vue';
 import { useRouter } from 'vue-router';
+import { useDeviceStore } from '../stores/device';
 
 const props = defineProps({
 	title: {
@@ -68,12 +78,21 @@ const props = defineProps({
 
 const emit = defineEmits(['onBackClick']);
 const router = useRouter();
+const deviceStore = useDeviceStore();
 
 const backToPrePage = () => {
 	if (props.customBack) {
 		emit('onBackClick');
 	} else {
-		router.back();
+		// router.back();
+		// window.history.length
+		console.log('window.history.length ===>', window.history.length);
+
+		if (deviceStore.isMobile && window.history.length <= 1) {
+			router.replace('/');
+		} else {
+			router.back();
+		}
 	}
 };
 </script>
@@ -81,7 +100,7 @@ const backToPrePage = () => {
 <style scoped lang="scss">
 .page-title-root {
 	height: 56px;
-	padding-left: 16px;
+	padding-left: var(--root-padding);
 	padding-right: 16px;
 	width: 100%;
 	position: relative;

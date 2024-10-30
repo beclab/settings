@@ -2,11 +2,22 @@
 	background-color: $background-2;
 	border-radius: 12px;
 	overflow: hidden;
-	padding: 0px 20px;
 	margin-top: 12px;
 
 	.item-padding-zero {
 		padding: 0;
+	}
+
+	.item-padding-x {
+		padding: 0 20px;
+	}
+
+	.item-margin-left {
+		margin-left: 20px;
+	}
+
+	.item-margin-right {
+		margin-right: 16px;
 	}
 }
 

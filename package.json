@@ -18,7 +18,7 @@
         "prepare": "husky install"
     },
     "dependencies": {
-        "@bytetrade/core": "0.3.56",
+        "@bytetrade/core": "0.3.66",
         "axios": "^0.21.1"
     },
     "devDependencies": {

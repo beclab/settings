@@ -44,7 +44,7 @@
 				dense
 				flat
 				class="confirm-btn q-px-md"
-				style="height: 24px; margin-top: 20px"
+				style="margin-top: 20px"
 				:label="t('save')"
 				@click="setIps"
 			/>
@@ -56,8 +56,8 @@
 import { ref, onMounted, computed } from 'vue';
 import { useAuthorityStore } from 'src/stores/Authority';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import BtSelect from 'components/base/BtSelect.vue';
-import BtFormItem from 'components/base/BtFormItem.vue';
+import BtSelect from '../../components/base/BtSelect.vue';
+import BtFormItem from '../../components/base/BtFormItem.vue';
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../stores/device';
 

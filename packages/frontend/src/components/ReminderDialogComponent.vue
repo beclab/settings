@@ -5,15 +5,22 @@
 				:title="title"
 				@close-action="onDialogCancel"
 			></DialogHeader>
-			<div class="content-root">
+			<div class="dialog-content-root">
 				<div
 					class="row items-center justify-between"
 					v-if="message.length > 0"
 				>
 					<div
-						class="text-body3 text-ink-2"
-						:class="hasBorder ? 'message-content' : ''"
+						class="text-ink-2"
+						:class="{
+							'message-content': hasBorder,
+							'text-body3': !deviceStore.isMobile,
+							'text-body3-m': deviceStore.isMobile
+						}"
 						v-html="message"
+						:style="
+							deviceStore.isMobile ? 'text-align: center' : ''
+						"
 					/>
 				</div>
 
@@ -35,6 +42,7 @@ import { useDialogPluginComponent } from 'quasar';
 import DialogHeader from './DialogHeader.vue';
 import DialogFooter from './DialogFooter.vue';
 import { i18n } from '../boot/i18n';
+import { useDeviceStore } from '../stores/device';
 
 defineProps({
 	title: {
@@ -80,6 +88,8 @@ const sureAction = () => {
 };
 
 const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
+
+const deviceStore = useDeviceStore();
 </script>
 
 <style scoped lang="scss">

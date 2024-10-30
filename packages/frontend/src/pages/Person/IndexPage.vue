@@ -11,9 +11,10 @@
 			</div>
 		</div>
 
-		<div class="text-subtitle1 text-ink-1 person-title">
+		<module-title class="q-mt-md">
 			{{ t('device') }}
-		</div>
+		</module-title>
+
 		<div
 			:class="deviceStore.isMobile ? 'mobile-items-list' : ''"
 			:style="deviceStore.isMobile ? 'margin-top: 12px' : ''"
@@ -30,13 +31,17 @@
 			</template>
 		</div>
 
-		<div class="text-subtitle1 text-ink-1 person-title">
-			{{ t('security') }}
-		</div>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			:style="deviceStore.isMobile ? 'margin-top: 12px' : ''"
+		<module-title
+			class="q-mt-xl"
+			:class="{
+				'q-mt-xl': deviceStore.isMobile,
+				'q-mt-lg': !deviceStore.isMobile
+			}"
 		>
+			{{ t('security') }}
+		</module-title>
+
+		<BtList>
 			<bt-form-item
 				:title="t('change_password')"
 				@click="updatePassword"
@@ -55,11 +60,8 @@
 				:chevron-right="true"
 				:width-separator="false"
 			/>
-		</q-list>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			:style="deviceStore.isMobile ? 'margin-top: 20px' : ''"
-		>
+		</BtList>
+		<BtList>
 			<bt-form-item
 				@click="gotoPage('/active_session')"
 				:title="t('view_the_active_session_of_the_vault')"
@@ -86,7 +88,7 @@
 				:chevron-right="true"
 				@click="goLoginHistory"
 			/>
-		</q-list>
+		</BtList>
 		<!-- <div class="text-subtitle1 text-ink-1 person-title">
 			{{ t('Terminus OS') }}
 		</div>
@@ -125,6 +127,8 @@ import DeviceItem from '../../components/person/DeviceItem.vue';
 import { AccountInfo } from 'src/global';
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../stores/device';
+import BtList from '../../components/base/BtList.vue';
+import ModuleTitle from '../../components/ModuleTitle.vue';
 
 const { t } = useI18n();
 const adminStore = useAdminStore();
@@ -202,9 +206,5 @@ const toggle = async () => {
 .admin-name {
 	text-align: center;
 	margin-top: 8px;
-}
-
-.person-title {
-	margin-top: 20px;
 }
 </style>

@@ -14,6 +14,7 @@ import { useDIDStore } from './stores/did';
 import axios from 'axios';
 import { WebPlatform } from './utils/platform';
 import { supportLanguages } from './i18n/index';
+import { useSocketStore } from './stores/websocketStore';
 
 const platform = new WebPlatform();
 
@@ -74,6 +75,9 @@ export default defineComponent({
 			platform.getDeviceInfo().then((deviceInfo) => {
 				adminStore.thisDevice = deviceInfo;
 			});
+
+			const websocketStore = useSocketStore();
+			websocketStore.start();
 		});
 		return {};
 	}

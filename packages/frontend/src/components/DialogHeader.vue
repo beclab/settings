@@ -7,7 +7,7 @@
 						{{ title }}</span
 					>
 					<q-btn flat @click="close" style="">
-						<q-icon name="close" size="16px" />
+						<q-icon name="close" size="12px" class="text-ink-3" />
 					</q-btn>
 				</div>
 			</div>

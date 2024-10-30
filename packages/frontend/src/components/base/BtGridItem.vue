@@ -12,24 +12,69 @@
 					</q-popup-proxy>
 					<q-img class="bt-grid-item-image" :src="icon" v-if="icon" />
 				</div>
-				<div class="text-overline bt-grid-item-label q-mt-xs">
+				<div class="text-overline bt-grid-item-label">
 					{{ label }}
 				</div>
 			</template>
 			<template v-slot:mobile>
-				<div class="text-overline bt-grid-item-label q-mb-xs">
-					{{ label }}
-				</div>
-				<div class="row justify-start">
-					<div class="text-body2 bt-grid-item-value" v-if="value">
-						{{ value }}
+				<template v-if="revert">
+					<div class="row justify-start">
+						<div
+							class="text-body3-m bt-grid-item-value"
+							v-if="value"
+						>
+							{{ value }}
+						</div>
+						<slot name="value" />
+						<q-popup-proxy class="reminder_banner" v-if="popupInfo">
+							<div v-html="popupInfo" />
+						</q-popup-proxy>
+						<q-img
+							class="bt-grid-item-image"
+							:src="icon"
+							v-if="icon"
+						/>
 					</div>
-					<slot name="value" />
-					<q-popup-proxy class="reminder_banner" v-if="popupInfo">
-						<div v-html="popupInfo" />
-					</q-popup-proxy>
-					<q-img class="bt-grid-item-image" :src="icon" v-if="icon" />
-				</div>
+					<div
+						class="bt-grid-item-label q-mt-xs"
+						:class="
+							mobileTitleClasses.length
+								? mobileTitleClasses
+								: 'text-overline-m'
+						"
+					>
+						{{ label }}
+					</div>
+				</template>
+				<template v-else>
+					<div
+						class="bt-grid-item-label q-mb-xs"
+						:class="
+							mobileTitleClasses.length
+								? mobileTitleClasses
+								: 'text-overline-m'
+						"
+					>
+						{{ label }}
+					</div>
+					<div class="row justify-start">
+						<div
+							class="text-body3-m bt-grid-item-value"
+							v-if="value"
+						>
+							{{ value }}
+						</div>
+						<slot name="value" />
+						<q-popup-proxy class="reminder_banner" v-if="popupInfo">
+							<div v-html="popupInfo" />
+						</q-popup-proxy>
+						<q-img
+							class="bt-grid-item-image"
+							:src="icon"
+							v-if="icon"
+						/>
+					</div>
+				</template>
 			</template>
 		</adaptive-layout>
 	</div>
@@ -49,11 +94,20 @@ defineProps({
 	},
 	icon: {
 		type: String,
-		require: false
+		required: false
 	},
 	popupInfo: {
 		type: String,
-		require: false
+		required: false
+	},
+	revert: {
+		type: Boolean,
+		required: false
+	},
+	mobileTitleClasses: {
+		type: String,
+		default: '',
+		required: false
 	}
 });
 </script>

@@ -18,7 +18,8 @@ export default {
 		open: 'Open',
 		uninstalling: 'Uninstalling',
 		uninstall: 'Uninstall',
-		updating: 'Updating'
+		updating: 'Updating',
+		initializing: 'Initializing'
 	},
 	'Network Connection': 'Network Connection',
 	'Switch reverse proxy': 'Switch reverse proxy',
@@ -44,5 +45,22 @@ export default {
 	'Standalone Mode': 'Standalone Mode',
 	'Shared Mode': 'Shared Mode',
 	'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.':
-		'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.'
+		'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.',
+	Setting: 'Setting',
+	'Your Google account grants us the following permissions:':
+		'Your Google account grants us the following permissions:',
+	'See your profile info': 'See your profile info',
+	'See, edit, create, and delete all of your Google Drive files':
+		'See, edit, create, and delete all of your Google Drive files',
+	'See, edit, share, and permanently delete all the calendars you can access using Google Calendar':
+		'See, edit, share, and permanently delete all the calendars you can access using Google Calendar',
+	'Your Dropbox account grants us the following permissions:':
+		'Your Dropbox account grants us the following permissions:',
+	'See, edit, create, and delete all of your Dropbox files':
+		'See, edit, create, and delete all of your Dropbox files',
+	"After being selected, TermiPass will follow the device's system settings to switch theme modes":
+		"After being selected, TermiPass will follow the device's system settings to switch theme modes",
+	'Authorized time': 'Authorized time',
+	'Congratulations, you have successfully mounted the object storage service!':
+		'Congratulations, you have successfully mounted the object storage service!'
 };

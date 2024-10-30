@@ -1,6 +1,13 @@
 <template>
-	<div class="policies-card-root column justify-center">
-		<div class="row items-center justify-between">
+	<div
+		class="policies-card-root column justify-center"
+		:style="
+			deviceStore.isMobile ? '	min-height: 56px;' : '	min-height: 64px;'
+		"
+	>
+		<div
+			class="row items-center justify-between item-margin-left item-margin-right text-body1 text-ink-1"
+		>
 			<span>{{ t('policies') }}</span>
 			<bt-icon name="add" @click="addPolicies" />
 		</div>
@@ -60,6 +67,7 @@ import DialogPolicies from './dialog/PolicyDialog.vue';
 import { EntrancePolicy } from '../../utils/constants';
 import BtIcon from '../base/BtIcon.vue';
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../stores/device';
 
 const props = defineProps({
 	policies: {
@@ -76,6 +84,8 @@ const props = defineProps({
 const $q = useQuasar();
 
 const { t } = useI18n();
+
+const deviceStore = useDeviceStore();
 
 const emit = defineEmits(['update:policies']);
 
@@ -122,7 +132,6 @@ const deletePolicy = (policy: EntrancePolicy) => {
 <style lang="scss" scoped>
 .policies-card-root {
 	width: 100%;
-	min-height: 44px;
 
 	.policies-content {
 		background: $background-3;

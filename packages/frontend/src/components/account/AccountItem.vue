@@ -3,10 +3,12 @@
 		:class="{
 			'q-list-class': border && !deviceStore.isMobile,
 			'mobile-items-list': border && deviceStore.isMobile,
-			'q-pa-none': !border
+			'q-pa-none': !border,
+			'account-item': border && !deviceStore.isMobile
 		}"
-		:style="border && !deviceStore.isMobile ? 'height: 72px' : ''"
+		:style="border ? 'height: 72px' : 'padding: 16px 20px'"
 		:clickable="clickable"
+		class="text-background-1"
 		@click="accountClick"
 	>
 		<q-item-section>
@@ -25,11 +27,17 @@
 					style="margin-left: 8px"
 				>
 					<div class="row">
-						<div class="text-subtitle2 text-ink-1 content">
+						<div
+							class="text-ink-1 content"
+							:class="{
+								'text-subtitle2': !deviceStore.isMobile,
+								'text-subtitle3-m': deviceStore.isMobile
+							}"
+						>
 							{{ title }}
 						</div>
 						<div
-							class="status-common text-caption q-px-md q-ml-sm row items-center justify-center content"
+							class="status-common text-caption q-ml-sm row items-center justify-center"
 							:class="
 								available
 									? 'status-available'
@@ -40,7 +48,11 @@
 						</div>
 					</div>
 					<div
-						class="text-body3 account-detail q-mt-xs"
+						class="account-detail q-mt-xs"
+						:class="{
+							'text-body3': !deviceStore.isMobile,
+							'text-overline-m': deviceStore.isMobile
+						}"
 						v-if="detail && detail.length"
 					>
 						{{ detail }}
@@ -49,7 +61,7 @@
 			</div>
 		</q-item-section>
 		<q-item-section side v-if="side">
-			<q-icon name="sym_r_chevron_right" color="ink-1" size="20px" />
+			<q-icon name="sym_r_chevron_right" color="ink-1" size="24px" />
 		</q-item-section>
 	</q-item>
 </template>
@@ -109,16 +121,17 @@ const emit = defineEmits(['accountClick']);
 .status-common {
 	height: 20px;
 	border-radius: 4px;
+	padding: 4px 8px;
 }
 
 .status-available {
-	background: var(---green-soft, #e5ffee);
-	color: var(--positive, #29cc5f);
+	background: $green-soft;
+	color: $positive;
 }
 
 .status-unabled {
-	background: var(---red-soft, #fff2f2);
-	color: var(--negative, #ff4d4d);
+	background: $red-soft;
+	color: $negative;
 }
 
 .account-detail {
@@ -132,5 +145,9 @@ const emit = defineEmits(['accountClick']);
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+}
+
+.account-item:hover {
+	background-color: $background-hover;
 }
 </style>

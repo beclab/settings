@@ -5,7 +5,7 @@
 			<template v-slot:pc>
 				<div
 					v-if="userInfo?.wizard_complete === true"
-					class="q-list-class"
+					class="q-list-class q-pa-md column"
 				>
 					<q-table
 						:rows="rows"
@@ -16,24 +16,46 @@
 						@request="onRequest"
 						v-model:pagination="pagination"
 						style="margin-top: 12px"
+						tableHeaderStyle="height: 32px;"
+						table-header-class="text-body3 text-ink-2"
+						:bordered="false"
+						hide-pagination
+						hide-selected-banner
+						hide-bottom
 					>
 						<template v-slot:body-cell-status="props">
 							<q-td :props="props">
-								<q-badge
-									rounded
-									:color="
-										props.row.status ? 'primary' : 'red'
-									"
-									class="q-mr-sm"
-								/>
-								<span>{{
-									props.row.status
-										? t('successful')
-										: t('failed')
-								}}</span>
+								<div class="row items-center">
+									<div
+										class="login-token-base-status q-mr-sm"
+										:class="
+											props.row.status
+												? 'bg-info'
+												: 'bg-red'
+										"
+									></div>
+									<span>{{
+										props.row.status
+											? t('successful')
+											: t('failed')
+									}}</span>
+								</div>
 							</q-td>
 						</template>
 					</q-table>
+					<div class="row justify-center q-mt-md">
+						<q-pagination
+							v-model="pagination.page"
+							:max="pagesNumber"
+							input
+							icon-first="sym_r_keyboard_double_arrow_left"
+							icon-last="sym_r_keyboard_double_arrow_right"
+							icon-next="sym_r_keyboard_arrow_right"
+							icon-prev="sym_r_keyboard_arrow_left"
+							color="ink-3"
+							input-class="text-ink-2 text-body-3"
+						/>
+					</div>
 				</div>
 			</template>
 			<template v-slot:mobile>
@@ -43,10 +65,11 @@
 						:repeat-count="2"
 						v-for="(token, index) in rows"
 						:key="index"
+						:paddingY="12"
 					>
 						<template v-slot:title>
 							<div
-								class="text-subtitle1 row justify-between items-center clickable-view q-mb-md"
+								class="text-subtitle3-m row justify-between items-center clickable-view q-mb-md"
 							>
 								<div>{{ token.source_ip }}</div>
 								<div class="row items-center justify-end">
@@ -56,7 +79,9 @@
 											token.status ? 'bg-info' : 'bg-red'
 										"
 									></div>
-									<div class="q-ml-md text-body-3 text-ink-1">
+									<div
+										class="q-ml-xs text-body3-m text-ink-1"
+									>
 										{{
 											token.status
 												? t('successful')
@@ -69,6 +94,7 @@
 						<template v-slot:grid>
 							<bt-grid-item
 								:label="t('time')"
+								mobileTitleClasses="text-body3-m"
 								:value="
 									getLocalTime(token.time).format(
 										'YYYY-MM-DD HH:mm'
@@ -77,6 +103,7 @@
 							/>
 							<bt-grid-item
 								:label="t('reason')"
+								mobileTitleClasses="text-body3-m"
 								:value="token.reason"
 							/>
 						</template>
@@ -96,7 +123,7 @@
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { AccountInfo, UsersParam } from '../../global';
 import { getLocalTime } from '../../utils';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useUserStore } from '../../stores/User';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -110,7 +137,7 @@ const { t } = useI18n();
 const columns: any = [
 	{
 		name: 'createTime',
-		align: 'center',
+		align: 'left',
 		label: t('time'),
 		field: 'createTime',
 		format: (time: string) =>
@@ -118,19 +145,19 @@ const columns: any = [
 	},
 	{
 		name: 'status',
-		align: 'center',
+		align: 'left',
 		label: t('status'),
 		field: (row: any) => row.name
 	},
 	{
 		name: 'source_ip',
-		align: 'center',
+		align: 'left',
 		label: t('source_ip_address'),
 		field: 'source_ip'
 	},
 	{
 		name: 'reason',
-		align: 'center',
+		align: 'right',
 		label: t('reason'),
 		field: 'reason'
 	}
@@ -227,6 +254,10 @@ const onLoad = async (index: number, done: (stop?: boolean) => void) => {
 		done(pagination.value.rowsNumber == rows.value.length);
 	}
 };
+
+const pagesNumber = computed(() =>
+	Math.ceil(rows.value.length / pagination.value.rowsPerPage)
+);
 </script>
 
 <style scoped lang="scss">

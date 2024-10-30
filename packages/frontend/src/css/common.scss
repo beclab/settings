@@ -43,11 +43,22 @@
 }
 
 .q-list-class {
-	// background: #ffffff;
 	border-radius: 12px;
 	border: 1px solid $separator;
-	padding: 12px 20px;
 	margin-top: 12px;
+	overflow: hidden;
+
+	.item-margin-left {
+		margin-left: 20px;
+	}
+
+	.item-margin-right {
+		margin-right: 16px;
+	}
+}
+
+.q-list-class .item:hover {
+	background: $background-hover;
 }
 
 .q-list-sep-line {
@@ -143,6 +154,15 @@
 	text-transform: capitalize !important;
 	background-color: $blue !important;
 	color: #fff !important;
+	height: 32px;
+}
+
+.confirm-btn-mobile {
+	@extend .confirm-btn;
+	font-size: map-get($map: $subtitle2, $key: size) !important;
+	font-weight: map-get($map: $subtitle2, $key: weight) !important;
+	line-height: map-get($map: $subtitle2, $key: line-height) !important;
+	letter-spacing: map-get($map: $subtitle2, $key: letter-spacing) !important;
 }
 
 .reminder-btn {
@@ -158,7 +178,7 @@
 }
 
 .confirm-btn[disabled] {
-	background-color: #80aaff;
+	background-color: $blue-disabled;
 }
 
 .cancle-btn {
@@ -172,6 +192,15 @@
 	color: $ink-2 !important;
 	border: solid 1px $separator !important;
 	background-color: $background-1 !important;
+	height: 32px;
+}
+
+.cancle-btn-mobile {
+	@extend .cancle-btn;
+	font-size: map-get($map: $subtitle2, $key: size) !important;
+	font-weight: map-get($map: $subtitle2, $key: weight) !important;
+	line-height: map-get($map: $subtitle2, $key: line-height) !important;
+	letter-spacing: map-get($map: $subtitle2, $key: letter-spacing) !important;
 }
 
 .cancle-btn[disabled] {
@@ -186,4 +215,10 @@
 .custom-placeholder::placeholder {
 	color: $ink-3;
 	opacity: 1;
+}
+
+.custom-input-padding {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	height: calc(100% - 16px);
 }

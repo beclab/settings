@@ -6,7 +6,11 @@
 	/>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<template v-for="(device, index) in devices" :key="'device' + index">
-			<trust-device-item :device="device" class="mobile-items-list" />
+			<trust-device-item
+				:device="device"
+				class="mobile-items-list"
+				style="padding-top: 16px; padding-bottom: 16px"
+			/>
 		</template>
 	</bt-scroll-area>
 </template>

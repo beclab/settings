@@ -3,8 +3,8 @@
 		class="separator"
 		:class="bgColor"
 		:style="{
-			offset: `${offset}px`,
-			height: `${height}px`
+			'--offset': `${offset}px`,
+			'--height': `${height}px`
 		}"
 	></div>
 </template>

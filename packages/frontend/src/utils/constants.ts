@@ -300,7 +300,14 @@ export enum APP_STATUS {
 	uninstalled = 'uninstalled',
 	installable = 'installable',
 	waiting = 'waiting',
-	preflightFailed = 'preflightFailed'
+	preflightFailed = 'preflightFailed',
+	initializing = 'initializing'
+}
+
+export enum Entrance_STATUS {
+	crash = 'crash',
+	suspend = 'suspend',
+	running = 'running'
 }
 
 export const getApplicationStatus = (status: APP_STATUS) => {
@@ -339,6 +346,9 @@ export const getApplicationStatus = (status: APP_STATUS) => {
 			realStatus = i18n.global.t('app_status.uninstalling');
 			break;
 		case APP_STATUS.upgrading:
+			realStatus = i18n.global.t('app_status.updating');
+			break;
+		case APP_STATUS.initializing:
 			realStatus = i18n.global.t('app_status.updating');
 			break;
 		default:

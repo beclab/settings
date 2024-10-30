@@ -7,15 +7,13 @@
 	<bt-scroll-area class="nav-height-scroll-area-conf text-ink-1">
 		<AdaptiveLayout>
 			<template v-slot:pc>
-				<div
-					class="q-list-class"
-					style="padding-bottom: 4px; padding-top: 4px"
-				>
-					<bt-form-item
-						:title="t('language')"
-						:margin-top="false"
-						:width-separator="false"
-					>
+				<div class="q-list-class">
+					<bt-form-item :margin-top="false" :width-separator="false">
+						<template v-slot:title>
+							<div class="text-subtitle1">
+								{{ t('language') }}
+							</div>
+						</template>
 						<bt-select
 							v-model="currentLanguage"
 							:options="languages"
@@ -25,7 +23,9 @@
 				</div>
 
 				<div class="q-list-class" style="padding-bottom: 0px">
-					<div class="row justify-between select-radio-bg">
+					<div
+						class="row justify-between select-radio-bg item-margin-left item-margin-right"
+					>
 						<div class="text-subtitle1">
 							{{ t('theme') }}
 						</div>
@@ -33,6 +33,7 @@
 							<wallpaper-image
 								class="q-mr-xs"
 								:width="166"
+								:border-radius="8"
 								src="theme/light.jpg"
 								:selected="
 									backgroundStore.theme ==
@@ -41,19 +42,23 @@
 								@click="themeUpdate(ThemeDefinedMode.LIGHT)"
 							>
 								<template v-slot:legend>
-									<q-radio
-										size="xs"
-										v-model="backgroundStore.theme"
-										:val="ThemeDefinedMode.LIGHT"
+									<bt-check-box-component
+										:model-value="
+											backgroundStore.theme ==
+											ThemeDefinedMode.LIGHT
+										"
 										:label="t(themeOptionsRef[0].label)"
-										class="text-body2 radio-class"
-										@update:model-value="themeUpdate"
+										@update:modelValue="
+											backgroundStore.theme =
+												ThemeDefinedMode.LIGHT
+										"
 									/>
 								</template>
 							</wallpaper-image>
 
 							<wallpaper-image
 								:width="166"
+								:border-radius="8"
 								style=""
 								src="theme/dark.jpg"
 								:selected="
@@ -63,13 +68,16 @@
 								@click="themeUpdate(ThemeDefinedMode.DARK)"
 							>
 								<template v-slot:legend>
-									<q-radio
-										size="xs"
-										v-model="backgroundStore.theme"
-										:val="ThemeDefinedMode.DARK"
+									<bt-check-box-component
+										:model-value="
+											backgroundStore.theme ==
+											ThemeDefinedMode.DARK
+										"
 										:label="t(themeOptionsRef[1].label)"
-										class="text-body2 radio-class"
-										@update:model-value="themeUpdate"
+										@update:modelValue="
+											backgroundStore.theme =
+												ThemeDefinedMode.DARK
+										"
 									/>
 								</template>
 							</wallpaper-image>
@@ -113,13 +121,16 @@
 						@click="themeUpdate(ThemeDefinedMode.LIGHT)"
 					>
 						<template v-slot:legend>
-							<q-radio
-								size="xs"
-								v-model="backgroundStore.theme"
-								:val="ThemeDefinedMode.LIGHT"
+							<bt-check-box-component
+								:model-value="
+									backgroundStore.theme ==
+									ThemeDefinedMode.LIGHT
+								"
 								:label="t(themeOptionsRef[0].label)"
-								class="text-body2 radio-class"
-								@update:model-value="themeUpdate"
+								@update:modelValue="
+									backgroundStore.theme =
+										ThemeDefinedMode.LIGHT
+								"
 							/>
 						</template>
 					</wallpaper-image>
@@ -135,13 +146,16 @@
 						@click="themeUpdate(ThemeDefinedMode.DARK)"
 					>
 						<template v-slot:legend>
-							<q-radio
-								size="xs"
-								v-model="backgroundStore.theme"
-								:val="ThemeDefinedMode.DARK"
+							<bt-check-box-component
+								:model-value="
+									backgroundStore.theme ==
+									ThemeDefinedMode.DARK
+								"
 								:label="t(themeOptionsRef[1].label)"
-								class="text-body2 radio-class"
-								@update:model-value="themeUpdate"
+								@update:modelValue="
+									backgroundStore.theme =
+										ThemeDefinedMode.DARK
+								"
 							/>
 						</template>
 					</wallpaper-image>
@@ -151,7 +165,9 @@
 		<AdaptiveLayout>
 			<template v-slot:pc>
 				<div class="q-list-class">
-					<div class="row justify-between select-radio-bg">
+					<div
+						class="row justify-between select-radio-bg item-margin-left item-margin-right"
+					>
 						<div class="text-subtitle1">
 							{{ t('wallpaper') }}
 						</div>
@@ -160,6 +176,7 @@
 								:width="166"
 								class="q-mr-xs"
 								:src="desktopImgUrl"
+								:border-radius="8"
 								:selected="
 									selectBackgroundMode ==
 									BackgroundMode.desktop
@@ -170,12 +187,16 @@
 								"
 							>
 								<template v-slot:legend>
-									<q-radio
-										size="xs"
-										v-model="selectBackgroundMode"
-										:val="BackgroundMode.desktop"
-										:label="t('desktop_background')"
-										class="text-body2 radio-class"
+									<bt-check-box-component
+										:model-value="
+											selectBackgroundMode ==
+											BackgroundMode.desktop
+										"
+										:label="t(themeOptionsRef[1].label)"
+										@update:modelValue="
+											selectBackgroundMode =
+												BackgroundMode.desktop
+										"
 									/>
 								</template>
 							</wallpaper-image>
@@ -184,6 +205,7 @@
 								:width="166"
 								style=""
 								:src="loginImgUrl.replace('/bg/', '/login/')"
+								:border-radius="8"
 								:selected="
 									selectBackgroundMode == BackgroundMode.login
 								"
@@ -192,12 +214,16 @@
 								"
 							>
 								<template v-slot:legend>
-									<q-radio
-										size="xs"
-										v-model="selectBackgroundMode"
-										:val="BackgroundMode.login"
-										:label="t('login_background')"
-										class="text-body2 radio-class"
+									<bt-check-box-component
+										:model-value="
+											selectBackgroundMode ==
+											BackgroundMode.login
+										"
+										:label="t(themeOptionsRef[1].label)"
+										@update:modelValue="
+											selectBackgroundMode =
+												BackgroundMode.login
+										"
 									/>
 								</template>
 							</wallpaper-image>
@@ -234,7 +260,11 @@
 							>
 								<wallpaper-image
 									:width="95"
-									src="upload_default.svg"
+									:src="
+										$q.dark.isActive
+											? 'upload_default_dark.svg'
+											: 'upload_default.svg'
+									"
 									:selected="false"
 								/>
 							</BtUploader>
@@ -302,6 +332,7 @@ import BtFormItem from '../../components/base/BtFormItem.vue';
 import { supportLanguages, SupportLanguageType } from '../../i18n';
 import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
 import BtSeparator from '../../components/base/BtSeparator.vue';
+import BtCheckBoxComponent from '../../components/base/BtCheckBoxComponent.vue';
 
 const backgroundStore = useBackgroundStore();
 const selectBackgroundMode = ref(BackgroundMode.desktop);
@@ -439,7 +470,6 @@ const languageUpdate = (language: SupportLanguageType) => {
 
 .select-radio-bg {
 	height: 164px;
-	width: 100%;
 	padding-top: 8px;
 }
 </style>

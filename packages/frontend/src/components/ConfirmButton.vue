@@ -112,6 +112,7 @@ const getCurrentStatusClass = () => {
 		width: 100%;
 		height: 100%;
 		text-align: center;
+		border-radius: 8px;
 	}
 
 	.confirm-btn-desktop {
