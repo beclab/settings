@@ -2,7 +2,6 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { SecretService } from './secret.service';
 import axios from 'axios';
 import * as qs from 'qs';
-import { Interval } from '@nestjs/schedule';
 import { Cloud_URL } from './utils';
 
 export interface OSVersion {

@@ -3,22 +3,13 @@ import { NewVersion } from '../global';
 import axios from 'axios';
 import { useTokenStore } from './token';
 
-const checkDevMode = () => {
-	const dev_mode = localStorage.getItem('dev_mode');
-
-	if (dev_mode === 'true') {
-		return '?dev_mode=true';
-	}
-	return '?dev_mode=false';
-};
-
 export const useUpgradeStore = defineStore('upgrade', {
 	getters: {},
 	actions: {
 		async upgrade() {
 			const tokenStore = useTokenStore();
 			const data: any = await axios.get(
-				tokenStore.url + '/api/upgrade' + checkDevMode(),
+				tokenStore.url + '/api/upgrade',
 				{}
 			);
 			return data;
@@ -28,7 +19,7 @@ export const useUpgradeStore = defineStore('upgrade', {
 			const tokenStore = useTokenStore();
 
 			const data: NewVersion = await axios.get(
-				tokenStore.url + '/api/checkLastOsVersion' + checkDevMode()
+				tokenStore.url + '/api/checkLastOsVersion'
 			);
 			return data;
 		},
@@ -37,8 +28,7 @@ export const useUpgradeStore = defineStore('upgrade', {
 			const tokenStore = useTokenStore();
 			try {
 				const data: any = await axios.get(
-					tokenStore.url + '/api/upgrade/state' + checkDevMode(),
-					{}
+					tokenStore.url + '/api/upgrade/state'
 				);
 				return data;
 			} catch (error) {
