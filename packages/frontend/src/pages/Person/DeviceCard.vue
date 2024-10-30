@@ -5,6 +5,7 @@
 		class="overflow-hidden"
 		expandSeparator
 		headerClass="header_extension text-white"
+		expand-icon="sym_r_keyboard_arrow_down"
 	>
 		<template v-slot:header>
 			<q-item-section style="width: 100%">
@@ -32,26 +33,39 @@
 								class="column q-ml-sm"
 								style="width: calc(100% - 50px)"
 							>
-								<div class="row items-center">
+								<div
+									class="row items-center"
+									style="width: 100%"
+								>
 									<div
 										class="text-subtitle1 text-ink-1"
 										@click.stop="titleAction"
+										style="
+											max-width: calc(100% - 50px);
+											overflow: hidden;
+											text-overflow: ellipsis;
+											white-space: nowrap;
+										"
 									>
 										{{ device?.givenName }}
 									</div>
 									<q-icon
 										@click.stop="titleAction"
-										class="q-ml-sm text-ink-2"
+										class="q-ml-sm text-ink-1"
 										name="sym_r_edit_square"
-										size="20px"
+										size="16px"
 									/>
 								</div>
 								<div class="tags-bg row q-gutter-xs">
 									<div
-										class="bg-background-3 text-overline row items-center justiy-center tags-add"
+										class="bg-background-3 text-overline row items-center justify-center tags-add"
 										@click.stop="addTag"
 									>
-										<q-icon name="sym_r_add" class="icon" />
+										<q-icon
+											name="sym_r_add"
+											class="icon"
+											size="12px"
+										/>
 										<div>{{ t('add_tag') }}</div>
 									</div>
 									<div
@@ -66,6 +80,7 @@
 										<q-icon
 											name="sym_r_close"
 											class="icon"
+											size="12px"
 										/>
 									</div>
 								</div>
@@ -85,10 +100,10 @@
 		</template>
 		<q-card class="device-item-content bg-background-2">
 			<bt-separator />
-			<q-list style="padding: 0 0 16px 0">
+			<q-list :class="deviceStore.isMobile ? 'q-pb-md' : 'q-py-sm'">
 				<AdaptiveLayout>
 					<template v-slot:pc>
-						<q-item style="padding: 0">
+						<q-item dense style="padding: 0">
 							<q-item-section class="text-body2 title">
 								{{ t('device_last_seen') }}
 							</q-item-section>
@@ -120,19 +135,23 @@
 				</AdaptiveLayout>
 				<AdaptiveLayout>
 					<template v-slot:pc>
-						<q-item style="padding: 0">
+						<q-item dense style="padding: 0">
 							<q-item-section
 								class="text-body2 title"
 								:top="device.ipAddresses.length > 1"
 							>
 								{{ t('ip_addresses') }}
 							</q-item-section>
-							<q-item-section class="text-body3 detail column">
+							<q-item-section class="text-body2 detail column">
 								<div
-									v-for="address in device.ipAddresses"
+									v-for="(
+										address, index
+									) in device.ipAddresses"
 									:key="address"
-									class="row"
-									style="margin-bottom: 8px"
+									class="row items-center"
+									:style="
+										index == 0 ? 'margin-bottom: 8px' : ''
+									"
 								>
 									{{ address }}
 								</div>
@@ -174,7 +193,7 @@
 
 				<AdaptiveLayout>
 					<template v-slot:pc>
-						<q-item style="padding: 0">
+						<q-item dense style="padding: 0">
 							<q-item-section class="text-body2 title">
 								{{ t('device_name') }}
 							</q-item-section>
@@ -201,7 +220,7 @@
 
 				<AdaptiveLayout>
 					<template v-slot:pc>
-						<q-item style="padding: 0">
+						<q-item dense style="padding: 0">
 							<q-item-section
 								class="text-body2 title"
 								:top="routeList.length > 1"
@@ -477,6 +496,7 @@ const titleAction = () => {
 			border-radius: 4px;
 			padding: 0px 8px;
 			height: 20px;
+			// margin: 0;
 
 			.icon {
 				width: 12px;
@@ -492,6 +512,8 @@ const titleAction = () => {
 			padding: 0px 8px;
 			border-radius: 4px;
 			height: 20px;
+			// margin: 0;
+			// margin-top: 0px;
 
 			color: $ink-1;
 
@@ -522,7 +544,7 @@ const titleAction = () => {
 		border-radius: 4px;
 		height: 20px;
 		margin-left: 12px;
-		padding: 0 12px;
+		padding: 0 8px;
 
 		.node {
 			width: 8px;

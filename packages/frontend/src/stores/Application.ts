@@ -53,9 +53,13 @@ export const useApplicationStore = defineStore('application', {
 		async get_applications() {
 			const tokenStore = useTokenStore();
 			const data: any = await axios.get(tokenStore.url + '/api/myapps');
-			for (let i = 0; i < data.length; ++i) {
-				if (data[i].name !== 'settings') {
-					this.updateOneApplication(data[i]);
+			if (this.applications.length != data.length) {
+				this.applications = data;
+			} else {
+				for (let i = 0; i < data.length; ++i) {
+					if (data[i].name !== 'settings') {
+						this.updateOneApplication(data[i]);
+					}
 				}
 			}
 		},

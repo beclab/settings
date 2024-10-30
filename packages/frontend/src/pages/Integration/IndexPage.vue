@@ -30,7 +30,7 @@
 			:key="`${item.type}_${item.name}`"
 			:title="item.name"
 			:available="item.available"
-			:detail="`Authorized time:${formattedDate(item.create_at)}`"
+			:detail="`${t('Authorized time')}:${formattedDate(item.create_at)}`"
 			@account-click="clickCloud(item)"
 			:style="deviceStore.isMobile ? 'height: 64px' : ''"
 			:side="

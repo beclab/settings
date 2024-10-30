@@ -2,16 +2,11 @@
 	<page-title-component :show-back="true" :title="application?.title" />
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list>
 			<application-detail-item :app="application" />
-		</q-list>
+		</bt-list>
 
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			v-if="secretPermission && !deviceStore.isMobile"
-		>
+		<bt-list v-if="secretPermission && !deviceStore.isMobile">
 			<bt-form-item
 				:title="t('secrets')"
 				@click="gotoSecret"
@@ -19,16 +14,19 @@
 				:chevron-right="true"
 				:width-separator="false"
 			/>
-		</q-list>
+		</bt-list>
 
 		<div v-if="application?.entrances && application.entrances.length">
-			<div class="text-subtitle1 details-title">{{ t('entrances') }}</div>
-
-			<q-list
-				:class="
-					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
-				"
+			<module-title
+				class="q-mb-sm"
+				:class="{
+					'q-mt-lg': !deviceStore.isMobile,
+					'q-mt-xl': deviceStore.isMobile
+				}"
+				>{{ t('entrances') }}</module-title
 			>
+
+			<bt-list>
 				<template
 					v-for="(entrance, index) in application.entrances"
 					:key="index"
@@ -41,25 +39,63 @@
 								? application?.icon
 								: ''
 						"
-						:title="firstToUpper(entrance.title)"
+						:title="entrance.title"
 						:status="application.state"
 						:width-separator="
 							index !== application.entrances.length - 1
 						"
 						:margin-top="index !== 0"
 						@click="gotoEntrance(entrance)"
-					/>
+						:hide-status="
+							application.state == APP_STATUS.running &&
+							entrance.state
+						"
+					>
+						<template
+							v-slot:status
+							v-if="
+								application.state == APP_STATUS.running &&
+								entrance.state &&
+								!deviceStore.isMobile
+							"
+						>
+							<application-status
+								:running="
+									entrance.state == Entrance_STATUS.running
+								"
+								:realStatus="entrance.state"
+								class="q-ml-md"
+							/>
+						</template>
+						<template
+							v-slot:mobile-status
+							v-if="
+								application.state == APP_STATUS.running &&
+								entrance.state &&
+								deviceStore.isMobile
+							"
+						>
+							<application-mobile-status
+								:running="
+									entrance.state == Entrance_STATUS.running
+								"
+							/>
+						</template>
+					</application-item>
 				</template>
-			</q-list>
+			</bt-list>
 		</div>
 
 		<div v-if="appRegisterProviders && appRegisterProviders.length">
-			<div class="text-subtitle1 details-title">{{ t('providers') }}</div>
-			<q-list
-				:class="
-					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
-				"
-			>
+			<module-title
+				class="q-mb-sm"
+				:class="{
+					'q-mt-lg': !deviceStore.isMobile,
+					'q-mt-xl': deviceStore.isMobile
+				}"
+				>{{ t('providers') }}
+			</module-title>
+			<bt-list>
 				<template
 					v-for="(provider, index) in appRegisterProviders"
 					:key="index"
@@ -74,18 +110,19 @@
 						@click="gotoPermission(provider)"
 					/>
 				</template>
-			</q-list>
+			</bt-list>
 		</div>
 
 		<div v-if="appPermissions && appPermissions.permissions.length">
-			<div class="text-subtitle1 details-title">
-				{{ t('permissions') }}
-			</div>
-			<q-list
-				:class="
-					deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'
-				"
-			>
+			<module-title
+				class="q-mb-sm"
+				:class="{
+					'q-mt-lg': !deviceStore.isMobile,
+					'q-mt-xl': deviceStore.isMobile
+				}"
+				>{{ t('permissions') }}
+			</module-title>
+			<bt-list>
 				<template
 					v-for="(permission, index) in appPermissions.permissions"
 					:key="index"
@@ -100,7 +137,7 @@
 						:chevron-right="true"
 					/>
 				</template>
-			</q-list>
+			</bt-list>
 		</div>
 	</bt-scroll-area>
 </template>
@@ -108,7 +145,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { firstToUpper } from '../../../constant';
 import { useApplicationStore } from '../../../stores/Application';
 import { useSecretStore } from '../../../stores/Secret';
 import {
@@ -120,7 +156,13 @@ import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import ApplicationDetailItem from '../../../components/application/ApplicationDetailItem.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import ApplicationItem from '../../../components/application/ApplicationItem.vue';
+import ApplicationStatus from '../../../components/application/ApplicationStatus.vue';
+import ApplicationMobileStatus from '../../../components/application/ApplicationMobileStatus.vue';
+
 import { TerminusEntrance } from '@bytetrade/core';
+import BtList from '../../../components/base/BtList.vue';
+import { APP_STATUS, Entrance_STATUS } from '../../../utils/constants';
+import ModuleTitle from '../../../components/ModuleTitle.vue';
 
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../../stores/device';
@@ -209,11 +251,3 @@ onMounted(async () => {
 	getProviders();
 });
 </script>
-
-<style scoped lang="scss">
-.details-title {
-	margin-top: 20px;
-	margin-bottom: 11px;
-	color: $ink-1;
-}
-</style>

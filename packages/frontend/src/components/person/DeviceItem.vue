@@ -62,7 +62,7 @@
 			</bt-grid>
 		</template>
 		<template v-slot:mobile>
-			<q-item class="mobile-device-item item-padding-zero">
+			<q-item class="mobile-device-item item-padding-x">
 				<q-item-section
 					avatar
 					class="q-pr-none"
@@ -211,7 +211,7 @@ const isMe = computed(() => {
 	.local-machine {
 		border: 1px solid $separator;
 		padding: 4px 8px;
-		border-radius: 8px;
+		border-radius: 4px;
 	}
 
 	.title-left-label {

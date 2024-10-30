@@ -10,21 +10,21 @@
 			/>
 			<terminus-edit
 				v-model="accessKeySecret"
-				class="q-mt-md"
+				class="q-mt-lg"
 				:label="t('access_key_secret')"
 				:show-password-img="false"
 				style="width: 100%"
 			/>
 			<terminus-edit
 				v-model="endpoint"
-				class="q-mt-md"
+				class="q-mt-lg"
 				:label="t('endpoint')"
 				:show-password-img="false"
 				style="width: 100%"
 			/>
 			<terminus-edit
 				v-model="bucket"
-				class="q-mt-md"
+				class="q-mt-lg"
 				:label="t('bucket')"
 				:show-password-img="false"
 				:hint-text="t('optional')"
@@ -32,9 +32,18 @@
 			/>
 		</div>
 		<div v-else-if="step == AwsAddStep.display">
-			<div class="text-body3 text-ink-2 q-mt-lg">
-				Congratulations, you have successfully mounted the object
-				storage service!
+			<div
+				class="text-body3 text-ink-2 q-mt-lg"
+				:class="{
+					'text-body3': !deviceStore.isMobile,
+					'text-body3-m': deviceStore.isMobile
+				}"
+			>
+				{{
+					t(
+						'Congratulations, you have successfully mounted the object storage service!'
+					)
+				}}
 			</div>
 			<div
 				class="row item-center justify-between item-content q-px-md q-mt-md"
@@ -88,8 +97,11 @@ import { notifyFailed } from '../../../utils/btNotify';
 import ConfirmButton from '../../../components/ConfirmButton.vue';
 import { ConfirmButtonStatus } from '../../../utils/constants';
 import { getRequireImage } from '../../../utils/helper';
+import { useDeviceStore } from '../../../stores/device';
 
 const { t } = useI18n();
+
+const deviceStore = useDeviceStore();
 
 enum AwsAddStep {
 	start = 1,

@@ -22,7 +22,7 @@
 					v-model="newPassword"
 					:label="t('new_password')"
 					style="width: 100%"
-					class="q-mt-md"
+					class="q-mt-lg"
 					:show-password-img="true"
 					:is-error="
 						newPassword.length > 0 &&
@@ -35,7 +35,7 @@
 					v-model="repeatPassword"
 					:label="t('repeat_password')"
 					style="width: 100%"
-					class="q-mt-md"
+					class="q-mt-lg"
 					:show-password-img="true"
 					:is-error="
 						repeatPassword.length > 0 &&

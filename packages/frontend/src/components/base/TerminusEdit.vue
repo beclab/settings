@@ -31,18 +31,21 @@
 				:autogrow="isTextarea"
 				:placeholder="hintText"
 				borderless
-				:inputClass="inputClass"
+				:inputClass="
+					inputClass +
+					(inputTypeRef == 'password' ? ' custom-input-padding' : '')
+				"
 				:input-style="{
 					fontWeight: `${
 						inputTypeRef === 'password' && !$q.platform.is.ios
-							? '600'
+							? '900'
 							: '400'
 					}`,
 					fontSize: `${
 						inputTypeRef === 'password' && !$q.platform.is.ios
-							? '22px'
+							? '28px'
 							: inputTypeRef === 'password' && $q.platform.is.ios
-							? '7px'
+							? '9px'
 							: '12px'
 					}`,
 					maxHeight: isTextarea ? '100px' : ''
@@ -54,7 +57,7 @@
 			>
 				<template v-slot:append>
 					<q-icon
-						size="20px"
+						size="16px"
 						v-if="showPasswordImg"
 						:name="
 							inputTypeRef === 'password'
@@ -62,6 +65,7 @@
 								: 'sym_r_visibility'
 						"
 						@click="changeInputType"
+						color="text-ink-2"
 					/>
 					<div v-else>
 						<slot name="right"> </slot>
@@ -229,7 +233,7 @@ const submit = () => {
 	width: auto;
 
 	&__label {
-		color: $ink-2;
+		color: $ink-3;
 	}
 
 	&__bg {
@@ -253,9 +257,6 @@ const submit = () => {
 		width: 100%;
 		margin-top: 4px;
 		color: $red;
-	}
-	.q-field__control-container input::placeholder {
-		color: green;
 	}
 }
 </style>

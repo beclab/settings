@@ -1,7 +1,7 @@
 <template>
 	<AdaptiveLayout>
 		<template v-slot:pc>
-			<div class="row justify-end q-mt-md q-pb-lg confirm-bg">
+			<div class="row justify-end q-mt-md confirm-bg">
 				<q-btn
 					v-if="hasCancel"
 					dense
@@ -26,14 +26,12 @@
 			</div>
 		</template>
 		<template v-slot:mobile>
-			<div
-				class="row items-center justify-between confirm-bg-mobile q-mb-lg"
-			>
+			<div class="row items-center justify-between confirm-bg-mobile">
 				<q-btn
 					v-if="hasCancel"
 					dense
 					flat
-					class="cancle-btn"
+					class="cancle-btn-mobile"
 					:class="{
 						'button-full-width': !hasConfirm,
 						'button-half-width': hasConfirm
@@ -47,8 +45,8 @@
 					dense
 					flat
 					:class="{
-						'reminder-btn': isReminder,
-						'confirm-btn': !isReminder,
+						'reminder-btn-mobile': isReminder,
+						'confirm-btn-mobile': !isReminder,
 						'button-full-width': !hasCancel,
 						'button-half-width': hasCancel
 					}"
@@ -115,14 +113,11 @@ const { t } = useI18n();
 	margin-top: 16px;
 
 	.confirm-btn {
-		height: 24px;
-		border-radius: 4px;
 		width: auto;
 		margin-top: 20px;
 	}
 
 	.cancle-btn {
-		height: 24px;
 		margin-top: 20px;
 		margin-right: 8px;
 	}
@@ -140,13 +135,13 @@ const { t } = useI18n();
 	margin-top: 36px;
 	width: 100%;
 	height: 48px;
-	.cancle-btn {
+	.cancle-btn-mobile {
 		height: 100%;
 	}
-	.confirm-btn {
+	.confirm-btn-mobile {
 		height: 100%;
 	}
-	.reminder-btn {
+	.reminder-btn-mobile {
 		height: 100%;
 	}
 

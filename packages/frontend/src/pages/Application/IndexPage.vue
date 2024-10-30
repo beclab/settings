@@ -1,10 +1,7 @@
 <template>
 	<page-title-component :show-back="false" :title="t('application')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			v-if="applicationStore.applications.length > 0"
-		>
+		<bt-list v-if="applicationStore.applications.length > 0">
 			<template
 				v-for="(application, index) in applicationStore.applications"
 				:key="index"
@@ -21,7 +18,7 @@
 					@click="onItemClick(application)"
 				/>
 			</template>
-		</q-list>
+		</bt-list>
 	</bt-scroll-area>
 </template>
 
@@ -32,10 +29,9 @@ import { TerminusApp } from '@bytetrade/core';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import ApplicationItem from '../../components/application/ApplicationItem.vue';
 import { useI18n } from 'vue-i18n';
-import { useDeviceStore } from '../../stores/device';
+import BtList from '../../components/base/BtList.vue';
 const { t } = useI18n();
 const applicationStore = useApplicationStore();
-const deviceStore = useDeviceStore();
 const router = useRouter();
 
 const onItemClick = (application: TerminusApp) => {

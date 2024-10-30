@@ -1,15 +1,18 @@
 <template>
 	<page-title-component :show-back="true" :title="t('account_settings')">
+		<template v-slot:end v-if="deviceStore.isMobile">
+			<div
+				class="row justify-center items-center"
+				@click="deleteAction()"
+			>
+				<q-icon name="sym_r_delete" color="ink-1" size="20px" />
+			</div>
+		</template>
 	</page-title-component>
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<div
 			v-if="accountData"
 			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			:style="
-				deviceStore.isMobile
-					? 'padding-top: 12px; padding-bottom: 12px'
-					: ''
-			"
 		>
 			<account-item
 				:border="false"
@@ -17,7 +20,7 @@
 				:available="accountData.available"
 				:clickable="false"
 				:side="false"
-				:detail="`Authorized time: ${formattedDate(
+				:detail="`${t('Authorized time')}: ${formattedDate(
 					accountData.create_at
 				)}`"
 			>
@@ -30,15 +33,15 @@
 					/>
 				</template>
 			</account-item>
-			<bt-separator v-if="detailInfo?.scopes.length > 0" />
+			<bt-separator v-if="detailInfo?.scopes.length > 0" :offset="20" />
 			<div
-				class="text-subtitle1 text-ink-1 q-mt-md"
+				class="text-subtitle1 text-ink-1 q-mt-md q-px-md"
 				v-if="detailInfo?.title"
 			>
 				{{ detailInfo.title }}
 			</div>
 			<div
-				class="text-body2 text-ink-2 q-mt-sm"
+				class="text-body2 text-ink-2 q-mt-sm q-px-md q-pb-md"
 				v-if="detailInfo?.scopes.length > 0"
 			>
 				<div
@@ -54,7 +57,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="row justify-end q-mt-md" v-if="accountData">
+		<div
+			class="row justify-end q-mt-md"
+			v-if="accountData && !deviceStore.isMobile"
+		>
 			<q-btn
 				dense
 				flat

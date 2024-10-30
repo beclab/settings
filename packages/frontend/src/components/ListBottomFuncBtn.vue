@@ -1,7 +1,10 @@
 <template>
 	<div class="func-btn-bg row items-center justify-end clickable-view">
 		<div class="func-btn" @click="funcOnClick">
-			<div class="text-body3 title row items-center">
+			<div
+				class="text-body3 title row items-center"
+				:class="deviceStore.isMobile ? 'text-body2-m' : 'text-body3'"
+			>
 				{{ title }}
 			</div>
 		</div>
@@ -9,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import { useDeviceStore } from '../stores/device';
 defineProps({
 	title: {
 		type: String,
@@ -19,6 +23,8 @@ defineProps({
 
 const emit = defineEmits(['funcClick']);
 
+const deviceStore = useDeviceStore();
+
 const funcOnClick = () => {
 	emit('funcClick');
 };
@@ -27,7 +33,7 @@ const funcOnClick = () => {
 <style scoped lang="scss">
 .func-btn-bg {
 	.func-btn {
-		height: 32px;
+		height: 40px;
 		border-radius: 8px;
 		border: 1px solid $btn-stroke;
 		width: auto;
@@ -41,7 +47,7 @@ const funcOnClick = () => {
 	}
 
 	.func-btn:hover {
-		background-color: $btn-stroke;
+		background-color: $background-hover;
 	}
 }
 </style>

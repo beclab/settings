@@ -116,7 +116,7 @@
 				dense
 				flat
 				class="confirm-btn q-px-md"
-				style="height: 24px; margin-top: 20px"
+				style="margin-top: 20px"
 				:label="t('save')"
 				@click="onSubmit"
 			/>

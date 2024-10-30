@@ -1,27 +1,41 @@
 <template>
 	<q-item class="application-detail-item">
-		<q-item-section>
+		<q-item-section class="item-margin-left">
 			<div class="row items-center">
-				<img
-					class="application-logo"
-					:src="app.icon?.length > 0 ? app.icon : ''"
-					style="border-radius: 10px"
-				/>
-				<div class="text-body2 application-name">
-					{{ firstToUpper(app.name) }}
+				<div style="position: relative">
+					<img
+						class="application-logo"
+						:src="app.icon?.length > 0 ? app.icon : ''"
+						style="border-radius: 10px"
+					/>
+
+					<ApplicationMobileStatus
+						v-if="deviceStore.isMobile"
+						:running="isRunning"
+					/>
 				</div>
 				<div
-					class="status-circle"
-					:style="{
-						'--status-color': isRunning ? '#29CC5F' : '#FEBE01'
+					class="application-name"
+					:class="{
+						'text-body2': !deviceStore.isMobile,
+						'text-subtitle3-m': deviceStore.isMobile
 					}"
-				></div>
-				<div class="text-subtitle3 application-status">
-					{{ realStatus }}
+				>
+					{{ app.title }}
 				</div>
+				<ApplicationStatus
+					v-if="!deviceStore.isMobile"
+					:running="isRunning"
+					:realStatus="realStatus"
+					class="q-ml-md"
+				/>
 			</div>
 		</q-item-section>
-		<q-item-section side v-if="!isRunning || (isRunning && !app.isSysApp)">
+		<q-item-section
+			side
+			v-if="!isRunning || (isRunning && !app.isSysApp)"
+			class="item-margin-right"
+		>
 			<q-toggle v-model="isRunning" @click="toggle" />
 		</q-item-section>
 	</q-item>
@@ -30,10 +44,12 @@
 <script lang="ts" setup>
 import { TerminusApp } from '@bytetrade/core';
 import { PropType, ref, watch } from 'vue';
-import { firstToUpper } from '../../constant';
 import { useQuasar } from 'quasar';
 import { useApplicationStore } from '../../stores/Application';
 import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
+import ApplicationStatus from './ApplicationStatus.vue';
+import { useDeviceStore } from '../../stores/device';
+import ApplicationMobileStatus from './ApplicationMobileStatus.vue';
 
 const $q = useQuasar();
 const applicationStore = useApplicationStore();
@@ -46,6 +62,7 @@ const props = defineProps({
 });
 
 const isRunning = ref(props.app!.state == 'running');
+const deviceStore = useDeviceStore();
 
 async function toggle() {
 	$q.loading.show();
@@ -92,15 +109,6 @@ const realStatus = ref(getApplicationStatus(props.app.state as APP_STATUS));
 		color: $ink-1;
 		margin-left: 8px;
 	}
-
-	.status-circle {
-		width: 8px;
-		height: 8px;
-		margin-left: 10px;
-		border-radius: 50%;
-		background-color: var(--status-color);
-	}
-
 	.application-status {
 		text-align: right;
 		color: $ink-2;

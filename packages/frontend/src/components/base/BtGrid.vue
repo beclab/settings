@@ -2,6 +2,9 @@
 	<div
 		class="bt-grid-root"
 		:class="deviceStore.isMobile ? '' : 'bt-grid-border'"
+		:style="{
+			'--padding-y': paddingY + 'px'
+		}"
 	>
 		<slot name="title" />
 		<bt-separator />
@@ -26,6 +29,11 @@ defineProps({
 		type: Number,
 		required: false,
 		default: 3
+	},
+	paddingY: {
+		typpe: Number,
+		required: false,
+		default: 16
 	}
 });
 const deviceStore = useDeviceStore();
@@ -36,8 +44,8 @@ const deviceStore = useDeviceStore();
 	width: 100%;
 	height: auto;
 	border-radius: 12px;
-	padding: 12px 20px 20px;
 	margin-top: 12px;
+	padding: var(--padding-y) 20px;
 
 	.bt-grid-grid {
 		width: 100%;

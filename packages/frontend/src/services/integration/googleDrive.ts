@@ -27,20 +27,24 @@ export class GoogleAuthService extends OperateIntegrationAuth {
 
 	async permissions() {
 		return {
-			title: 'Your Google account grants us the following permissions:',
+			title: i18n.global.t(
+				'Your Google account grants us the following permissions:'
+			),
 			scopes: [
 				{
-					introduce: 'See your profile info',
+					introduce: i18n.global.t('See your profile info'),
 					icon: 'sym_r_account_circle'
 				},
 				{
-					introduce:
-						'See, edit, create, and delete all of your Google Drive files',
+					introduce: i18n.global.t(
+						'See, edit, create, and delete all of your Google Drive files'
+					),
 					icon: 'sym_r_cloud'
 				},
 				{
-					introduce:
-						'See, edit, share, and permanently delete all the calendars you can access using Google Calendar',
+					introduce: i18n.global.t(
+						'See, edit, share, and permanently delete all the calendars you can access using Google Calendar'
+					),
 					icon: 'sym_r_calendar_today'
 				}
 			]

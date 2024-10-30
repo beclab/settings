@@ -1,25 +1,37 @@
 <template>
 	<div class="form-item-root column justify-start">
-		<q-item :clickable="chevronRight" class="form-item">
+		<q-item
+			:clickable="chevronRight"
+			class="form-item"
+			:class="chevronRight ? 'item' : ''"
+			:style="
+				deviceStore.isMobile ? 'min-height: 56px' : 'min-height: 64px'
+			"
+		>
 			<q-item-section
-				class="form-item-title"
+				class="form-item-title item-margin-left"
 				:class="
-					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body2'
+					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
 				"
 				v-if="title"
+				:style="data ? 'width: 40%;' : ''"
 			>
 				{{ title }}
 			</q-item-section>
 			<q-item-section
 				v-else
-				class="form-item-title"
+				class="form-item-title item-margin-left"
 				:class="
-					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body2'
+					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
 				"
 			>
 				<slot name="title" />
 			</q-item-section>
-			<q-item-section side>
+			<q-item-section
+				side
+				class="item-margin-right"
+				style="max-width: 60%"
+			>
 				<div
 					class="form-item-data"
 					v-if="data"
@@ -37,7 +49,7 @@
 				<slot v-else />
 			</q-item-section>
 		</q-item>
-		<bt-separator v-if="widthSeparator" />
+		<bt-separator v-if="widthSeparator" :offset="16" />
 	</div>
 </template>
 
@@ -75,19 +87,31 @@ const deviceStore = useDeviceStore();
 .form-item-root {
 	width: 100%;
 	height: auto;
+	// padding-right: 20px;
 
 	.form-item {
-		height: 56px;
-		min-height: 56px;
+		// height: 64px;
+		min-height: 64px;
 		padding: 0;
+		// padding: 12px 0px;
 
 		.form-item-title {
 			color: $ink-1;
+			word-wrap: break-word;
+			word-break: break-all;
+			white-space: wrap;
 		}
 
 		.form-item-data {
 			text-align: right;
 			color: $ink-2;
+			// word-wrap: break-word;
+			// word-break: break-all;
+			// white-space: wrap;
+			// overflow: hidden;
+			word-wrap: break-word;
+			word-break: break-all;
+			white-space: wrap;
 		}
 	}
 }

@@ -45,8 +45,11 @@
 				</div>
 				<div v-else-if="step == 2">
 					<div class="text-body3 text-ink-2">
-						Congratulations, you have successfully mounted the
-						object storage service!
+						{{
+							t(
+								'Congratulations, you have successfully mounted the object storage service!'
+							)
+						}}
 					</div>
 					<div
 						class="row item-center justify-between item-content q-px-md q-mt-md"

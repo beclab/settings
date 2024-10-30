@@ -1,10 +1,7 @@
 <template>
 	<page-title-component :show-back="false" :title="t('system')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			:style="deviceStore.isMobile ? 'margin-top: 20px' : ''"
-		>
+		<bt-list :style="deviceStore.isMobile ? 'margin-top: 20px' : ''">
 			<bt-form-item
 				@click="gotoPage('/system/network')"
 				:title="t('home_menus.network')"
@@ -23,7 +20,7 @@
 				:chevron-right="true"
 				:width-separator="false"
 			/>
-		</q-list>
+		</bt-list>
 	</bt-scroll-area>
 </template>
 
@@ -33,6 +30,7 @@ import { useRouter } from 'vue-router';
 import BtFormItem from '../../components/base/BtFormItem.vue';
 import { useDeviceStore } from '../../stores/device';
 import { useI18n } from 'vue-i18n';
+import BtList from '../../components/base/BtList.vue';
 
 const deviceStore = useDeviceStore();
 const router = useRouter();

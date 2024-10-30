@@ -3,7 +3,7 @@
 		v-for="item in items"
 		:key="item.type"
 		clickable
-		class="item-content"
+		class="item-content text-background-1"
 		:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
 		@click="accountCreate(item)"
 	>
@@ -15,7 +15,9 @@
 					:noSpinner="true"
 					:src="getRequireImage(`integration/${item.detail.icon}`)"
 				/>
-				<div class="column justify-start justify-center q-ml-md">
+				<div
+					class="column justify-start justify-center q-ml-md text-ink-1"
+				>
 					<div class="row">
 						<div class="text-subtitle2 account-title">
 							{{ item.detail.name }}
@@ -65,5 +67,8 @@ const emit = defineEmits(['itemClick']);
 .item-content {
 	height: 64px;
 	// background-color: red;
+}
+.item-content:hover {
+	background-color: $background-hover;
 }
 </style>

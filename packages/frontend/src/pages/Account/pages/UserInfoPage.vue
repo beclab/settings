@@ -4,7 +4,9 @@
 		<div
 			v-show="usage"
 			class="text-ink-1 resource-title"
-			:class="deviceStore.isMobile ? 'text-subtitle1-m' : 'text-subtitle'"
+			:class="
+				deviceStore.isMobile ? 'text-subtitle1-m' : 'text-subtitle1'
+			"
 		>
 			{{ t('resource_usage') }}
 		</div>
@@ -52,15 +54,17 @@
 		</adaptive-layout>
 
 		<div
-			class="text-ink-1 resource-title"
-			:class="deviceStore.isMobile ? 'text-subtitle1-m' : 'text-subtitle'"
+			class="text-ink-1"
+			:class="
+				deviceStore.isMobile
+					? 'text-subtitle1-m q-mt-lg'
+					: 'text-subtitle1 q-mt-md'
+			"
 		>
 			{{ t('info') }}
 		</div>
 
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list>
 			<bt-form-item :title="t('profile_avatar')" :margin-top="false">
 				<q-avatar :size="`40px`">
 					<TerminusAvatar
@@ -117,9 +121,9 @@
 						: ''
 				"
 			/>
-		</q-list>
+		</bt-list>
 
-		<q-list
+		<bt-list
 			v-if="
 				!userInfo?.wizard_complete &&
 				adminStore.isAdmin &&
@@ -134,12 +138,9 @@
 				:width-separator="false"
 				@click="resetPassword"
 			/>
-		</q-list>
+		</bt-list>
 
-		<q-list
-			v-if="!userInfo?.wizard_complete"
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list v-if="!userInfo?.wizard_complete">
 			<AdaptiveLayout>
 				<template v-slot:pc>
 					<bt-form-item
@@ -179,12 +180,9 @@
 					</bt-form-item>
 				</template>
 			</AdaptiveLayout>
-		</q-list>
+		</bt-list>
 
-		<q-list
-			v-if="userInfo?.wizard_complete"
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list v-if="userInfo?.wizard_complete">
 			<div v-if="adminStore.isAdmin">
 				<div v-if="accountIsNotMe">
 					<bt-form-item
@@ -214,7 +212,7 @@
 					@click="updatePassword"
 				/>
 			</div>
-		</q-list>
+		</bt-list>
 
 		<div class="row justify-end" style="margin-top: 24px">
 			<ListBottomFuncBtn
@@ -257,6 +255,7 @@ import AdaptiveLayout from '../../../components/AdaptiveLayout.vue';
 import { copyToClipboard } from 'quasar';
 import { notifySuccess } from '../../../utils/btNotify';
 import { useDeviceStore } from '../../../stores/device';
+import BtList from '../../../components/base/BtList.vue';
 
 const userStore = useUserStore();
 const tokenStore = useTokenStore();

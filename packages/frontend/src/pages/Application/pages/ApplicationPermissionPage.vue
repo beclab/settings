@@ -5,9 +5,7 @@
 		class="nav-height-scroll-area-conf"
 		v-if="permissionProviderRegister"
 	>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list>
 			<bt-form-item :width-separator="false">
 				<template v-slot:title>
 					<div class="column justify-start">
@@ -22,10 +20,8 @@
 					</div>
 				</template>
 			</bt-form-item>
-		</q-list>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		</bt-list>
+		<bt-list>
 			<bt-form-item
 				:title="t('data_type')"
 				:data="permissionProviderRegister?.dataType"
@@ -51,18 +47,20 @@
 				:width-separator="false"
 				:data="permissionProviderRegister?.endpoint"
 			/>
-		</q-list>
-		<div
-			class="text-subtitle1 details-title"
+		</bt-list>
+		<module-title
 			v-if="
 				permissionProviderRegister?.opApis &&
 				permissionProviderRegister?.opApis.length > 0
 			"
-		>
-			{{ t('operations') }}
-		</div>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+			class="q-mb-sm"
+			:class="{
+				'q-mt-lg': !deviceStore.isMobile,
+				'q-mt-xl': deviceStore.isMobile
+			}"
+			>{{ t('permissions') }}
+		</module-title>
+		<bt-list
 			v-if="
 				permissionProviderRegister?.opApis &&
 				permissionProviderRegister?.opApis.length > 0
@@ -76,7 +74,7 @@
 				:width-separator="
 					index + 1 < permissionProviderRegister.opApis.length
 				"
-		/></q-list>
+		/></bt-list>
 	</bt-scroll-area>
 	<EmptyComponent
 		:info="t('This provider registry could not be found')"
@@ -94,6 +92,9 @@ import BtFormItem from '../../../components/base/BtFormItem.vue';
 import { useI18n } from 'vue-i18n';
 import { useQuasar } from 'quasar';
 import EmptyComponent from '../../../components/EmptyComponent.vue';
+import ModuleTitle from '../../../components/ModuleTitle.vue';
+import BtList from '../../../components/base/BtList.vue';
+
 const applicationStore = useApplicationStore();
 const Route = useRoute();
 const permissionProviderRegister = ref<PermissionProviderRegister | undefined>(
@@ -117,10 +118,4 @@ onMounted(async () => {
 	getPermissions();
 });
 </script>
-<style scoped lang="scss">
-.details-title {
-	margin-top: 20px;
-	margin-bottom: 11px;
-	color: $ink-1;
-}
-</style>
+<style scoped lang="scss"></style>

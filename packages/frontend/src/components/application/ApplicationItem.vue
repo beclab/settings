@@ -1,35 +1,43 @@
 <template>
 	<div class="application-item-root column justify-start">
-		<q-item clickable class="application-item">
-			<q-item-section>
+		<q-item clickable class="application-item item">
+			<q-item-section class="item-margin-left">
 				<div class="row items-center">
-					<q-img
-						class="application-logo"
-						no-spinner
-						:src="icon"
-						style="border-radius: 10px"
-					/>
-					<div class="text-body2 application-name">
+					<div style="position: relative">
+						<q-img
+							class="application-logo"
+							no-spinner
+							:src="icon"
+							style="border-radius: 10px"
+						>
+						</q-img>
+
+						<ApplicationMobileStatus
+							v-if="!hideStatus && deviceStore.isMobile"
+							:running="status == 'running'"
+						/>
+						<slot name="mobile-status" />
+					</div>
+					<div
+						class="application-name"
+						:class="{
+							'text-body2': !deviceStore.isMobile,
+							'text-subtitle3-m': deviceStore.isMobile
+						}"
+					>
 						{{ title }}
 					</div>
+
+					<slot name="status" />
 				</div>
 			</q-item-section>
-			<q-item-section side>
+			<q-item-section side class="item-margin-right">
 				<div class="row justify-end items-center">
-					<div
-						v-if="!hideStatus"
-						class="status-circle"
-						:style="{
-							'--status-color':
-								status == 'running' ? '#29CC5F' : '#FEBE01'
-						}"
-					></div>
-					<div
-						v-if="!hideStatus"
-						class="text-subtitle3 application-status"
-					>
-						{{ realStatus }}
-					</div>
+					<ApplicationStatus
+						v-if="!hideStatus && !deviceStore.isMobile"
+						:realStatus="realStatus"
+						:running="status == 'running'"
+					/>
 					<q-icon
 						name="sym_r_chevron_right"
 						color="ink-1"
@@ -38,7 +46,7 @@
 				</div>
 			</q-item-section>
 		</q-item>
-		<bt-separator v-if="widthSeparator" />
+		<bt-separator v-if="widthSeparator" :offset="20" />
 	</div>
 </template>
 
@@ -46,6 +54,9 @@
 import { watch, ref } from 'vue';
 import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
 import BtSeparator from '../base/BtSeparator.vue';
+import ApplicationStatus from './ApplicationStatus.vue';
+import ApplicationMobileStatus from './ApplicationMobileStatus.vue';
+import { useDeviceStore } from '../../stores/device';
 const props = defineProps({
 	icon: {
 		type: String,
@@ -81,6 +92,7 @@ watch(
 );
 
 const realStatus = ref(getApplicationStatus(props.status as APP_STATUS));
+const deviceStore = useDeviceStore();
 </script>
 
 <style scoped lang="scss">
@@ -97,6 +109,22 @@ const realStatus = ref(getApplicationStatus(props.status as APP_STATUS));
 			width: 32px;
 			height: 32px;
 			border-radius: 8px;
+		}
+		.status-icon {
+			position: absolute;
+			right: 0px;
+			bottom: 0px;
+			width: 8px;
+			height: 8px;
+			// padding: 2px;
+			border-radius: 4px;
+			background-color: $background-1;
+
+			.status-content {
+				width: 6px;
+				height: 6px;
+				border-radius: 3px;
+			}
 		}
 
 		.application-name {

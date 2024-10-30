@@ -25,7 +25,7 @@ import { onMounted } from 'vue';
 import { useUserStore } from 'src/stores/User';
 import { useHeadScaleStore } from 'src/stores/headscale';
 import DeviceCard from './DeviceCard.vue';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../stores/device';
 

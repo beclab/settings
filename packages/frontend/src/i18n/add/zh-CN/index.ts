@@ -18,7 +18,8 @@ export default {
 		open: '打开',
 		uninstalling: '正在卸载',
 		uninstall: '卸载',
-		updating: '正在更新'
+		updating: '正在更新',
+		initializing: '初始化'
 	},
 	'Network Connection': '网络连接',
 	'Switch reverse proxy': '选择反向代理',
@@ -43,5 +44,21 @@ export default {
 	'Standalone Mode': '独立模式',
 	'Shared Mode': '共享模式',
 	'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.':
-		'切换反向代理期间，可能会有10分钟的时间无法访问Terminus'
+		'切换反向代理期间，可能会有10分钟的时间无法访问Terminus',
+	Setting: '设置',
+	'Your Google account grants us the following permissions:':
+		'您的 Google 账户授权我们使用以下权限：',
+	'See your profile info': '查看您的个人信息',
+
+	'See, edit, create, and delete all of your Google Drive files':
+		'查看、编辑、创建以及删除您的 Google Drive 文件',
+	'See, edit, share, and permanently delete all the calendars you can access using Google Calendar':
+		'查看、编辑、分享以及永久删除您使用 Google Calendar 可以访问的日历条目。',
+	'Your Dropbox account grants us the following permissions:':
+		'您的 Dropbox 账户授权我们使用以下权限：',
+	'See, edit, create, and delete all of your Dropbox files':
+		'查看、编辑、创建以及删除您的 Dropbox 文件',
+	"After being selected, TermiPass will follow the device's system settings to switch theme modes":
+		'选中之后，TermiPass 会根据设备系统设置切换主题模式。',
+	'Authorized time': '授权时间'
 };

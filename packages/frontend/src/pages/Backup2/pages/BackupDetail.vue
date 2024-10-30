@@ -151,9 +151,12 @@
 					v-model="pagination.page"
 					:max="pagesNumber"
 					input
-					icon-first="keyboard_double_arrow_left"
-					icon-last="keyboard_double_arrow_right"
-					color="gary05"
+					icon-first="sym_r_keyboard_double_arrow_left"
+					icon-last="sym_r_keyboard_double_arrow_right"
+					icon-next="sym_r_keyboard_arrow_right"
+					icon-prev="sym_r_keyboard_arrow_left"
+					color="ink-3"
+					input-class="text-ink-2 text-body-3"
 				/>
 			</div>
 		</div>

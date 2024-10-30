@@ -30,8 +30,9 @@
 										)
 									"
 									name="sym_r_delete"
-									size="20px"
+									size="16px"
 									class="q-mr-sm"
+									color="ink-2"
 									@click.stop="revokeToken(props.row)"
 								/>
 							</q-td>
@@ -43,9 +44,13 @@
 							v-model="pagination.page"
 							:max="pagesNumber"
 							input
-							icon-first="keyboard_double_arrow_left"
-							icon-last="keyboard_double_arrow_right"
-							color="gary05"
+							round
+							icon-first="sym_r_keyboard_double_arrow_left"
+							icon-last="sym_r_keyboard_double_arrow_right"
+							icon-next="sym_r_keyboard_arrow_right"
+							icon-prev="sym_r_keyboard_arrow_left"
+							color="ink-3"
+							input-class="text-ink-2 text-body-3"
 						/>
 					</div>
 				</div>
@@ -56,14 +61,16 @@
 					:repeat-count="2"
 					v-for="(token, index) in sso"
 					:key="index"
+					:paddingY="12"
 				>
 					<template v-slot:title>
 						<div
-							class="text-subtitle1 row justify-between items-center clickable-view q-mb-md"
+							class="text-subtitle3-m row justify-between items-center clickable-view q-mb-md"
 						>
 							<div>{{ t('SSO authorization token') }}</div>
 							<q-icon
 								name="sym_r_delete"
+								color="ink-2"
 								size="20px"
 								v-if="
 									token.termiPass &&
@@ -76,6 +83,7 @@
 					<template v-slot:grid>
 						<bt-grid-item
 							:label="t('expire_time')"
+							mobileTitleClasses="text-body3-m"
 							:value="
 								date.formatDate(
 									token.sso.expireTime * 1000,
@@ -85,10 +93,12 @@
 						/>
 						<bt-grid-item
 							:label="t('auth_level')"
+							mobileTitleClasses="text-body3-m"
 							:value="token.sso.authLevel"
 						/>
 						<bt-grid-item
 							:label="t('first_factor_time')"
+							mobileTitleClasses="text-body3-m"
 							:value="
 								date.formatDate(
 									token.sso.firstFactorTimestamp * 1000,
@@ -98,6 +108,7 @@
 						/>
 						<bt-grid-item
 							:label="t('second_factor_time')"
+							mobileTitleClasses="text-body3-m"
 							:value="
 								token.sso.secondFactorTimestamp == 0
 									? '--'

@@ -348,7 +348,7 @@ export default {
 	already_bound: '已绑定',
 	not_bound: '',
 	frequency: '',
-	action_sub_policies: '',
+	action_sub_policies: '{action}子策略',
 	update_secret: '',
 	delete_secret_id: '',
 	in_order_to_apply_third_party_domain_to_this_app_you_need_to_add_a_dns_cname_record_domain_to_your_domain_target:

@@ -28,15 +28,18 @@ export class DropboxAuthService extends OperateIntegrationAuth {
 	}
 	async permissions() {
 		return {
-			title: 'Your Dropbox account grants us the following permissions:',
+			title: i18n.global.t(
+				'Your Dropbox account grants us the following permissions:'
+			),
 			scopes: [
 				{
-					introduce: 'See your profile info',
+					introduce: i18n.global.t('See your profile info'),
 					icon: 'sym_r_account_circle'
 				},
 				{
-					introduce:
-						'See, edit, create, and delete all of your Dropbox files',
+					introduce: i18n.global.t(
+						'See, edit, create, and delete all of your Dropbox files'
+					),
 					icon: 'sym_r_cloud'
 				}
 			]

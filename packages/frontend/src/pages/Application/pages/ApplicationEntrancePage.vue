@@ -2,9 +2,7 @@
 	<page-title-component :show-back="true" :title="application?.title" />
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list>
 			<bt-form-item
 				:title="t('domain_setup')"
 				:margin-top="false"
@@ -12,14 +10,19 @@
 				@click="gotoDomainSetup"
 				:width-separator="false"
 			/>
-		</q-list>
+		</bt-list>
 
-		<div class="text-subtitle1 details-title">
-			{{ t('setup_access_policies') }}
-		</div>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
+		<ModuleTitle
+			class="q-mb-sm"
+			:class="{
+				'q-mt-xl ': deviceStore.isMobile,
+				'q-mt-md': !deviceStore.isMobile
+			}"
 		>
+			{{ t('setup_access_policies') }}
+		</ModuleTitle>
+
+		<bt-list>
 			<bt-form-item :title="t('auth_level')">
 				<bt-select
 					v-model="authorizationLevel"
@@ -61,22 +64,19 @@
 					/>
 				</bt-form-item>
 			</error-message-tip>
-		</q-list>
+		</bt-list>
 
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		>
+		<bt-list>
 			<policies-card v-model:policies="sub_policies" />
-		</q-list>
+		</bt-list>
 
 		<div class="row justify-end">
 			<q-btn
 				dense
-				class="submit-btn submit-btn-margin"
+				class="confirm-btn submit-btn-margin q-px-md"
 				:disable="isLoading || resultCode === 3"
 				:label="t('submit')"
 				@click="onSubmit"
-				color="primary"
 			/>
 		</div>
 	</bt-scroll-area>
@@ -101,15 +101,18 @@ import BtTimePicker from '../../../components/base/BtTimePicker.vue';
 import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 import { notifyFailed, notifyWarning } from '../../../utils/btNotify';
 import { useI18n } from 'vue-i18n';
-import { useDeviceStore } from '../../../stores/device';
+// import { useDeviceStore } from '../../../stores/device';
+import BtList from '../../../components/base/BtList.vue';
 import _ from 'lodash';
+import { useDeviceStore } from '../../../stores/device';
+import ModuleTitle from '../../../components/ModuleTitle.vue';
 
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
 const Route = useRoute();
 const router = useRouter();
-const deviceStore = useDeviceStore();
+// const deviceStore = useDeviceStore();
 
 const application = ref(
 	applicationStore.getApplicationById(Route.params.name as string)
@@ -130,6 +133,7 @@ const oldOnTimeMode = ref(false);
 const oldValidDuration = ref(0);
 const oldSubPolicies = ref<EntrancePolicy[]>([]);
 const isLoading = ref(true);
+const deviceStore = useDeviceStore();
 
 const gotoDomainSetup = () => {
 	router.push(
@@ -266,11 +270,5 @@ async function onSubmit() {
 <style scoped lang="scss">
 .submit-btn-margin {
 	margin-top: 20px;
-}
-
-.details-title {
-	margin-top: 20px;
-	margin-bottom: 11px;
-	color: $ink-1;
 }
 </style>
