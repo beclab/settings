@@ -34,7 +34,7 @@ export const useSocketStore = defineStore('counter', {
 
 	actions: {
 		start() {
-			let ws_url = 'wss://desktop.guojianmin.myterminus.com/ws'; //process.env.WS_URL || window.location.origin + '/ws';
+			let ws_url = process.env.WS_URL || window.location.origin + '/ws';
 
 			if (ws_url.startsWith('http://')) {
 				ws_url = ws_url.substring(7);
