@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useUpgradeStore } from '../../../stores/Upgrade';
 import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
 import { useI18n } from 'vue-i18n';
@@ -62,9 +62,6 @@ const upgradeStore = useUpgradeStore();
 const versionInfo = ref();
 const upgradeState = ref();
 const timer = ref();
-const dev_mode = ref(
-	localStorage.getItem('dev_mode') === 'true' ? true : false
-);
 
 const new_version = async () => {
 	try {
@@ -109,22 +106,6 @@ const handleUpgrade = async () => {
 		upgradeState.value = null;
 	}
 };
-
-watch(
-	() => dev_mode.value,
-	(newVal) => {
-		localStorage.setItem('dev_mode', String(newVal));
-		window.parent.postMessage(
-			{
-				type: 'dev_mode',
-				message: String(newVal)
-			},
-			'*'
-		);
-
-		new_version();
-	}
-);
 
 onMounted(() => {
 	new_version();

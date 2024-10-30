@@ -6,6 +6,9 @@ import { DeviceService } from './device.service';
 import { AppService, AppInfo } from './app.service';
 import { WallpaperService } from './wallpaper.service';
 import { InitService } from './init.service';
+
+const DEV_MODE = !!process.env.DEV_MODE || false;
+
 @Controller('/api')
 export class InitController {
   private readonly logger = new Logger(InitController.name);
@@ -35,17 +38,15 @@ export class InitController {
   }
 
   @Get('/checkLastOsVersion')
-  async checkLastVersions(
-    @Query('dev_mode') dev_mode,
-  ): Promise<Result<string>> {
-    console.log('checkLastOsVersion ' + dev_mode);
+  async checkLastVersions(): Promise<Result<string>> {
+    console.log('checkLastOsVersion ' + DEV_MODE);
     // let os =
     //   dev_mode === 'true'
     //     ? this.initService.devVersion
     //     : this.initService.noDevVersion;
     // console.log('checkLastOsVersion os: ' + os);
     // if (is_force === 'true') {
-    const os = await this.initService.getOSVersion(dev_mode === 'true');
+    const os = await this.initService.getOSVersion(DEV_MODE);
     // }
 
     if (!os) {
