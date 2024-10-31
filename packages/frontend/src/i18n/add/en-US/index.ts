@@ -62,5 +62,6 @@ export default {
 		"After being selected, TermiPass will follow the device's system settings to switch theme modes",
 	'Authorized time': 'Authorized time',
 	'Congratulations, you have successfully mounted the object storage service!':
-		'Congratulations, you have successfully mounted the object storage service!'
+		'Congratulations, you have successfully mounted the object storage service!',
+	'Object Storage': 'Object Storage'
 };

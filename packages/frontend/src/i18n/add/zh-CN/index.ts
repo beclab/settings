@@ -60,5 +60,8 @@ export default {
 		'查看、编辑、创建以及删除您的 Dropbox 文件',
 	"After being selected, TermiPass will follow the device's system settings to switch theme modes":
 		'选中之后，TermiPass 会根据设备系统设置切换主题模式。',
-	'Authorized time': '授权时间'
+	'Authorized time': '授权时间',
+	'Congratulations, you have successfully mounted the object storage service!':
+		'恭喜您已成功挂载对象存储服务',
+	'Object Storage': '对象存储'
 };

@@ -65,7 +65,8 @@ module.exports = configure(function (ctx) {
 				CONTRACT_DID: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d',
 				CONTRACT_ROOT_RESOLVER:
 					'0xe2eaba0979277a90511f8873ae1e8ca26b54e740',
-				CONTRACT_REGISTRY: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d'
+				CONTRACT_REGISTRY: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d',
+				WS_URL: undefined
 			},
 
 			// Add dependencies for transpiling with Babel (Array of string/regex)

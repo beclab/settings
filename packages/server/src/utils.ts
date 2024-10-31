@@ -8,6 +8,7 @@ export enum AccountType {
   Dropbox = 'dropbox',
   OneDrive = 'onedrive',
   AWSS3 = 'awss3',
+  Tencent = 'tencent',
 }
 
 export class DomainCookieRecord {
@@ -319,6 +320,18 @@ export class AWSS3Account extends IntegrationAccount {
     return;
   }
   constructor(props?: Partial<AWSS3Account>) {
+    super(props);
+    props && Object.assign(this, props);
+  }
+}
+
+export class TencentAccount extends IntegrationAccount {
+  type = AccountType.Tencent;
+  async refresh() {
+    // throw new Error('Method not implemented.');
+    return;
+  }
+  constructor(props?: Partial<TencentAccount>) {
     super(props);
     props && Object.assign(this, props);
   }

@@ -3,7 +3,8 @@ export enum AccountType {
 	Google = 'google',
 	Dropbox = 'dropbox',
 	OneDrive = 'onedrive',
-	AWSS3 = 'awss3'
+	AWSS3 = 'awss3',
+	Tencent = 'tencent'
 }
 
 export interface IntegrationAccountData {
@@ -27,6 +28,11 @@ export interface AWSS3IntegrationAccountData extends IntegrationAccountData {
 	bucket: string;
 }
 
+export interface TencentIntegrationAccountData extends IntegrationAccountData {
+	endpoint: string;
+	bucket: string;
+}
+
 export interface IntegrationAccount {
 	name: string;
 	type: AccountType;
@@ -43,6 +49,10 @@ export interface SpaceIntegrationAccount extends IntegrationAccount {
 
 export interface AWSS3IntegrationAccount extends IntegrationAccount {
 	raw_data: AWSS3IntegrationAccountData;
+}
+
+export interface TencentIntegrationAccount extends IntegrationAccount {
+	raw_data: TencentIntegrationAccountData;
 }
 
 export interface IntegrationAuthResult {

@@ -12,6 +12,7 @@ import {
   IntegrationAccountMiniData,
   SpaceAccount,
   SpaceAccountData,
+  TencentAccount,
 } from './utils';
 
 @Injectable()
@@ -47,6 +48,12 @@ export class AccountService implements OnModuleInit {
       return new AWSS3Account({
         name,
         type: AccountType.AWSS3,
+        raw_data: value,
+      });
+    } else if (type == AccountType.Tencent) {
+      return new TencentAccount({
+        name,
+        type: AccountType.Tencent,
         raw_data: value,
       });
     } else {

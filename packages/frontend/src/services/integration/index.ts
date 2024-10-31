@@ -7,6 +7,7 @@ import { AWSS3AuthService } from './awss3';
 import { DropboxAuthService } from './dropbox';
 import { GoogleAuthService } from './googleDrive';
 import { SpaceAuthService } from './space';
+import { TencentAuthService } from './tencent';
 class IntegrationService implements IntegrationServiceInterface {
 	supportAuthList = [
 		{
@@ -36,6 +37,13 @@ class IntegrationService implements IntegrationServiceInterface {
 				name: 'AWS S3',
 				icon: 'aws.svg'
 			}
+		},
+		{
+			type: AccountType.Tencent,
+			detail: {
+				name: 'Tencent cloud',
+				icon: 'aws.svg'
+			}
 		}
 	];
 
@@ -55,6 +63,9 @@ class IntegrationService implements IntegrationServiceInterface {
 		}
 		if (request_type == AccountType.AWSS3) {
 			return new AWSS3AuthService();
+		}
+		if (request_type == AccountType.Tencent) {
+			return new TencentAuthService();
 		}
 		return undefined;
 	}
