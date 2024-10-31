@@ -12,6 +12,7 @@ import {
   IntegrationAccountMiniData,
   SpaceAccount,
   SpaceAccountData,
+  DomainCookie,
 } from './utils';
 
 @Injectable()
@@ -130,8 +131,21 @@ export class AccountService implements OnModuleInit {
         this.getInstanceByData(name, arr[1], JSON.parse(secret.value)),
       );
     }
+
+    for (const secret of secrets) {
+      if (!secret.name.startsWith('cookie:')) {
+        continue;
+      }
+      const object = JSON.parse(secret.value);
+      const rowCookieModel = new DomainCookie(object);
+      await this.secretService.updateCookie(rowCookieModel, false);
+    }
+
     console.log('this.accounts ===>');
     console.log(this.accounts);
+
+    console.log('this.cookies ===>');
+    console.log(this.secretService.cookies);
   }
 
   @Cron('0 */10 * * * *')
