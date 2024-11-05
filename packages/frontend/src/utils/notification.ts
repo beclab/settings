@@ -98,7 +98,7 @@ export const senderTemplates: TerminusNotificationSenderTemplate[] = [
 		type: 'Application',
 		name: 'Application',
 		recipientType: 'Firebase',
-		description: 'Send notification use OLares Application',
+		description: 'Send notification use Olares Application',
 		credential: new NotificationApplicationCredentialValidator()
 	},
 	{

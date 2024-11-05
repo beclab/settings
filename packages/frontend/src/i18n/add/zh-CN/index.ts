@@ -1,5 +1,5 @@
 export default {
-	'OLares OS': 'OLares OS',
+	'Olares OS': 'Olares OS',
 	'Current Version': 'Current Version',
 	'Due to some restrictions, we do not support binding this type of account in Settings. Please use TermiPass mobile app to complete the account authorization and binding.':
 		'当前还不支持在设置中绑定此类账户。您可以在 LarePass 应用手机端完成账户绑定。',
@@ -27,7 +27,7 @@ export default {
 		'您确定需要将反向代理切换到{proxy}?',
 	'Reverse Proxy': '反向代理',
 	'Set up a reverse proxy for external access': '设置外部访问的反向代理',
-	'Select a OLares tunnel': 'OLares Tunnel',
+	'Select a Olares tunnel': 'Olares Tunnel',
 	'Server Address': '服务器地址',
 	Port: '端口',
 	'Auth Method': '认证方式',
@@ -43,8 +43,8 @@ export default {
 		'切换显存模式为{mode}吗?',
 	'Standalone Mode': '独立模式',
 	'Shared Mode': '共享模式',
-	'During the reverse proxy switch, OLares may be inaccessible for 10 minutes.':
-		'切换反向代理期间，可能会有10分钟的时间无法访问OLares',
+	'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.':
+		'切换反向代理期间，可能会有10分钟的时间无法访问Olares',
 	Setting: '设置',
 	'Your Google account grants us the following permissions:':
 		'您的 Google 账户授权我们使用以下权限：',

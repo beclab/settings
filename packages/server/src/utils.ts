@@ -1,15 +1,7 @@
 import axios from 'axios';
 import * as qs from 'qs';
-export const Cloud_URL = 'https://cloud-api.api.jointerminus.cn';
-
-export enum AccountType {
-  Space = 'space',
-  Google = 'google',
-  Dropbox = 'dropbox',
-  OneDrive = 'onedrive',
-  AWSS3 = 'awss3',
-  Tencent = 'tencent',
-}
+import { AccountType } from '@bytetrade/core';
+export const Cloud_URL = 'https://cloud-api.bttcdn.com';
 
 export class DomainCookieRecord {
   domain = '';

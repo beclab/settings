@@ -1,5 +1,5 @@
 export default {
-	'OLares OS': 'OLares OS',
+	'Olares OS': 'Olares OS',
 	'Current Version': 'Current Version',
 	'Due to some restrictions, we do not support binding this type of account in Settings. Please use TermiPass mobile app to complete the account authorization and binding.':
 		'Binding this type of account is not currently supported in Settings. You can finish the account binding in the LarePass app.',
@@ -28,7 +28,7 @@ export default {
 	'Reverse Proxy': 'Reverse Proxy',
 	'Set up a reverse proxy for external access':
 		'Set up a reverse proxy for external access',
-	'Select a OLares tunnel': 'Select a OLares Tunnel',
+	'Select a Olares tunnel': 'Select a Olares Tunnel',
 	'Server Address': 'Server Address',
 	Port: 'Port',
 	'Auth Method': 'Auth Method',
@@ -44,8 +44,8 @@ export default {
 		'Are you sure you need to switch the VRAM mode to {mode}?',
 	'Standalone Mode': 'Standalone Mode',
 	'Shared Mode': 'Shared Mode',
-	'During the reverse proxy switch, OLares may be inaccessible for 10 minutes.':
-		'During the reverse proxy switch, OLares may be inaccessible for 10 minutes.',
+	'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.':
+		'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.',
 	Setting: 'Setting',
 	'Your Google account grants us the following permissions:':
 		'Your Google account grants us the following permissions:',

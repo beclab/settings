@@ -30,7 +30,7 @@
 
 			<bt-form-item
 				v-if="reverseProxyMode == ReverseProxyMode.OlaresTunnel"
-				:title="t('Select a OLares tunnel')"
+				:title="t('Select a Olares tunnel')"
 				:margin-top="false"
 				:chevron-right="false"
 				:widthSeparator="false"
@@ -233,7 +233,7 @@ const onSubmit = async () => {
 		componentProps: {
 			title: t('Switch reverse proxy'),
 			message: t(
-				'During the reverse proxy switch, OLares may be inaccessible for 10 minutes.'
+				'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.'
 			),
 			useCancel: true,
 			confirmText: t('confirm'),

@@ -1,4 +1,4 @@
-# OLares License
+# Olares License
 
 ## Acceptance
 

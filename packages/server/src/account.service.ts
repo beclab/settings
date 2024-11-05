@@ -1,10 +1,9 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Interval, Cron } from '@nestjs/schedule';
-import { Secret } from '@bytetrade/core';
+import { AccountType, Secret } from '@bytetrade/core';
 import { SecretService } from './secret.service';
 import {
   AWSS3Account,
-  AccountType,
   DropboxAccount,
   GoogleAccount,
   IntegrationAccount,
