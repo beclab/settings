@@ -2,6 +2,7 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ProviderClient } from './provider.client';
 import axios from 'axios';
 import { Secret, TerminusInfo } from '@bytetrade/core';
+import { DomainCookie } from './utils';
 
 const isTest = false;
 const TestWorkspace = process.env.TestWorkspace || 'settings-dev';
@@ -19,6 +20,8 @@ export class SecretService implements OnModuleInit {
 
   public terminusInfo: TerminusInfo | null = null;
   public userInfo = null;
+
+  cookies: DomainCookie[] = [];
 
   constructor() {
     //
@@ -114,5 +117,27 @@ export class SecretService implements OnModuleInit {
     }
 
     return response.data.data;
+  }
+
+  async updateCookie(c: DomainCookie, need_update: boolean) {
+    const found = this.cookies.find(
+      (a) => a.get_store_key() == c.get_store_key(),
+    );
+    if (found) {
+      this.cookies = this.cookies.map((a) => {
+        if (a.get_store_key() == c.get_store_key()) {
+          return c;
+        }
+        return a;
+      });
+      if (need_update) {
+        await this.UpdateSecret(c.get_store_key(), JSON.stringify(c));
+      }
+    } else {
+      this.cookies.push(c);
+      if (need_update) {
+        await this.CreateSecret(c.get_store_key(), JSON.stringify(c));
+      }
+    }
   }
 }
