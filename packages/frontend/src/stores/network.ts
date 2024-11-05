@@ -2,8 +2,6 @@ import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
 import axios from 'axios';
 import { notifyFailed } from 'src/utils/btNotify';
-import { useBackgroundStore } from './Background';
-import { OLaresFrpServer } from 'src/utils/servers';
 
 export interface ReverseProxy {
 	frp_server: string;
@@ -59,12 +57,10 @@ export const useNetworkStore = defineStore('network', {
 		},
 
 		async getOlaresTunnels() {
-			const backgroundStore = useBackgroundStore();
+			const tokenStore = useTokenStore();
 			try {
 				const olaresTunnels: any = await axios.get(
-					backgroundStore.localeIsCN
-						? OLaresFrpServer.cn
-						: OLaresFrpServer.others
+					`${tokenStore.url}/api/frp-servers`
 				);
 				this.olaresTunnels = olaresTunnels.data;
 			} catch (error) {

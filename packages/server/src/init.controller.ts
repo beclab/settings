@@ -8,6 +8,8 @@ import { WallpaperService } from './wallpaper.service';
 import { InitService } from './init.service';
 
 const DEV_MODE = !!process.env.DEV_MODE || false;
+const DID_GATE_URL =
+  process.env.DID_GATE_URL || 'https://did-gate-v3.bttcdn.com';
 
 @Controller('/api')
 export class InitController {
@@ -75,6 +77,7 @@ export class InitController {
       secrets: secrets,
       devices: devices,
       wallpaper: wallpaper,
+      didUrl: DID_GATE_URL,
     };
     //console.log(msg);
 
