@@ -17,7 +17,7 @@ export default {
 		system: '系统'
 	},
 	role: { admin: '管理员', member: '成员' },
-	server_location: { terminus_space: 'Terminus Space', aws_s3: 'AWS S3' },
+	server_location: { olares_space: 'Olares Space', aws_s3: 'AWS S3' },
 	frequencys: { every_day: '每天', every_week: '每周' },
 	week: {
 		sunday: '星期日',
@@ -46,7 +46,7 @@ export default {
 		at_least_one_uppercase_and_lowercase_letter:
 			'必须至少使用一个大写字母和一个小写字母 ',
 		repassword_do_not_match_password: '密码不匹配',
-		terminus_name_not_exists_on_blockchain: 'Terminus Name 不存在',
+		olares_id_not_exists_on_blockchain: 'Olares ID 不存在',
 		username_is_empty: '用户名为空',
 		username_already_registered: '用户名已被注册',
 		email_is_empty: '邮箱为空',
@@ -55,8 +55,8 @@ export default {
 		something_wrong_please_try_again: '系统错误。请重试。',
 		naming_is_not_compliant: '命名无效',
 		the_two_passwords_entered_are_inconsistent: '密码不一致',
-		you_are_not_logged_in_terminus_space_yet_click_here_to:
-			'您尚未登录 Terminus Space。点击此处',
+		you_are_not_logged_in_olares_space_yet_click_here_to:
+			'您尚未登录 Olares Space。点击此处',
 		please_type_something: '请输入内容',
 		please_input_password: '必须输入密码',
 		passwords_are_inconsistent: '密码不一致',
@@ -88,7 +88,7 @@ export default {
 	cpu_core: 'CPU 核心',
 	memory_gi: '内存 Gi',
 	info: '信息',
-	terminus_name: 'Terminus Name',
+	olares_ID: 'Olares ID',
 	email: '邮箱',
 	state: '状态',
 	waiting_onBoard: '等待激活',
@@ -131,8 +131,7 @@ export default {
 	successful: '成功',
 	you_need_at_least_3_devices_online_to_activate_headScale:
 		'您需要至少 3 台设备在线才能激活 HeadScale',
-	terminus_id: 'Terminus ID',
-	terminus_cloud: 'Terminus Cloud',
+	olares_cloud: 'Olares Cloud',
 	device: '设备',
 	security: '安全',
 	forcing_vpn_access_to_private_network: '强制通过 VPN 访问私有入口',
@@ -234,7 +233,7 @@ export default {
 	backup_detail_snpshot_popup_info:
 		'·最多包含 63 个字符<br>·包含小写字母（a-z）、数字（0-9）和连字符（-）<br>·以字母开头<br>·以字母（a-z）或数字（0-9）结尾 ',
 	login_teminus_space: '登录 Teminus Space',
-	you_are_not_logged_in_terminus_space_yet: '您尚未登录 Terminus Space',
+	you_are_not_logged_in_olares_space_yet: '您尚未登录 Olares Space',
 	backup_name: '备份名称',
 	please_input_the_backup_name: '输入备份名称',
 	region: '地区',
@@ -282,47 +281,46 @@ export default {
 	apply: '应用',
 	had_bound: '已绑定',
 	bound_nft_avatar: '已绑定 NFT 头像',
-	please_authorize_and_verify_on_the_termipass_mobile_phone_to_bind_your_nft_avatar:
-		'请在 TermiPass 应用上授权并验证以绑定您的 NFT 头像',
+	please_authorize_and_verify_on_the_larePass_mobile_phone_to_bind_your_nft_avatar:
+		'请在 LarePass 应用上授权并验证以绑定您的 NFT 头像',
 	nft_images: 'NFT 图像',
 	no_nft_available: '没有可用的 NFT',
 	select_the_image_to_complete_binding_nft_message:
-		'选择图片，点击“绑定”，将 NFT 头像与 Terminus Name 关联。绑定后，您可以在 Profile 应用的 NFT 头像列表中查看和设置 NFT 头像。',
+		'选择图片，点击“绑定”，将 NFT 头像与 Olares ID 关联。绑定后，您可以在 Profile 应用的 NFT 头像列表中查看和设置 NFT 头像。',
 	bound: '绑定',
 	accounts: '账户',
-	terminus_space: 'Terminus Space',
+	olares_space: 'Olares Space',
 	check_resource_usage_you_can_check_the_binding_message:
 		'查看资源使用情况、验证 FRP 绑定状态，或申请绑定/解绑',
 	third_party_account: '第三方账户',
-	bound_terminus_name: '绑定 Terminus Name',
-	Please_authorize_and_verify_on_the_termiPass_mobile_phone_to_bind_your_terminus_name:
-		'请在 TermiPass 应用上授权并验证以绑定 Terminus Name',
+	bound_olares_id: '绑定 Olares ID',
+	Please_authorize_and_verify_on_the_larePass_mobile_phone_to_bind_your_olares_id:
+		'请在 LarePass 应用上授权并验证以绑定 Olares ID',
 	are_you_sure_you_want_to_delete_item: '确定要删除“{item}”吗？',
 	import_wallet: '导入钱包',
 	import_wallet_dialog_message:
-		'"1. 从 Chrome 应用商店安装 MetaMask 插件，创建或导入您的区块链钱包。\\n 2. 点击上方按钮导入钱包。\\n 3. 按照界面提示，将钱包绑定到您的 Terminus Name。"',
+		'"1. 从 Chrome 应用商店安装 MetaMask 插件，创建或导入您的区块链钱包。\\n 2. 点击上方按钮导入钱包。\\n 3. 按照界面提示，将钱包绑定到您的 Olares ID。"',
 	need_connect_first: '需要先连接',
 	this_address_has_been_authenticated: '此地址已经过验证',
 	bind_blockchain_wallet: '绑定区块链钱包',
-	bind_blockchain_wallet_dialog_message: '在 TermiPass 应用上绑定区块链钱包',
+	bind_blockchain_wallet_dialog_message: '在 LarePass 应用上绑定区块链钱包',
 	bound_faild: '绑定失败',
 	unbind_blockchain_wallet: '解绑区块链钱包',
 	unbind_blockchain_wallet_dialog_message:
-		'在 TermiPass 应用上确认解绑区块链钱包',
+		'在 LarePass 应用上确认解绑区块链钱包',
 	unbound_faild: '解绑失败',
 	account_info: '账户信息',
 	logout: '登出',
 	binding_info: '绑定信息',
-	only_after_binding_the_terminus_name_can_you_continue_to_bind_avatar_message:
-		'必须绑定 Terminus Name，才可以绑定区块链钱包、获取 NFT 头像',
+	only_after_binding_the_olares_id_can_you_continue_to_bind_avatar_message:
+		'必须绑定 Olares ID，才可以绑定区块链钱包、获取 NFT 头像',
 	username_is_metaMask_wallet: '{username}的 MetaMask 钱包',
 	you_need_to_bind_a_blockchain_wallet_to_obtain_the_corresponding_nft_image_message:
 		'若要使用 NFT 图片作为个人主页的专属头像，您需要绑定区块链钱包',
 	import: '导入',
 	you_need_to_bind_a_blockchain_wallet_to_obtain_the_corresponding_nft_image_message_more:
-		'" 1. 从 Chrome 应用商店安装 MetaMask 插件，创建或导入您的区块链钱包。\\n 2. 点击上方按钮导入钱包。\\n 3. 按照界面提示，将钱包绑定到您的 Terminus Name。"',
-	login_and_bind_your_terminus_space_account:
-		'登录并绑定 Terminus Space 账号',
+		'" 1. 从 Chrome 应用商店安装 MetaMask 插件，创建或导入您的区块链钱包。\\n 2. 点击上方按钮导入钱包。\\n 3. 按照界面提示，将钱包绑定到您的 Olares ID。"',
+	login_and_bind_your_olares_space_account: '登录并绑定 Olares Space 账号',
 	account: '账户',
 	password: '密码',
 	enter_the_6_digit_code_sent_to: '输入发送至“{item}”的 6 位验证码',
@@ -355,18 +353,15 @@ export default {
 		'要为此应用申请第三方域名，需要 DNS CNAME 记录“{domain}”添加到您的域名“{target}”',
 	login: {
 		title: '登录',
-		welcome_to_terminus_word: '欢迎来到 Terminus 的世界',
-		decentralized_id_login_method:
-			'Terminus 使用去中心化身份标识符（DID）作为登录机制。有效保护用户的身份和数据所有权。',
 		scan_qr_code: '扫描二维码',
-		download_termipass: '下载 TermiPass',
-		novice_users_download_install_termipass:
-			'首先在您的移动设备上安装 TermiPass 应用。安装后，使用 TermiPass 应用扫描二维码以登录。在本文中',
+		download_larePass: '下载 LarePass',
+		novice_users_download_install_larePass:
+			'首先在您的移动设备上安装 LarePass 应用。安装后，使用 LarePass 应用扫描二维码以登录。在本文中',
 		read_this_article: '了解更多',
 		open_the_app: '打开应用',
 		top_right_corner_setting_tab: '设置选项卡右上角',
 		with: '使用',
-		termiPass_to_log_in: 'TermiPass 登录',
+		larePass_to_log_in: 'LarePass 登录',
 		scan_to_log_in: '扫描登录',
 		qr_code_expired_refresh: '二维码已过期。\\n请刷新。',
 		account_login_status_expired_scan_code_again:
@@ -379,8 +374,8 @@ export default {
 	original_password: '初始密码',
 	copy: '复制',
 	scan_qr_code_with: '使用以下方式扫描二维码',
-	please_log_in_to_Terminus_Space_before_using_the_backup_service:
-		'您必须登录 Terminus Space 才能使用备份服务',
+	please_log_in_to_Olares_Space_before_using_the_backup_service:
+		'您必须登录 Olares Space 才能使用备份服务',
 	must_have_at_least_4_characters: '必须至少包括 4 个字符',
 	revoke_token: '撤销令牌',
 	revoke_token_message: '确定要撤销该令牌吗？',

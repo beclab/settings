@@ -26,7 +26,7 @@
 					>
 						{{
 							t(
-								'please_log_in_to_Terminus_Space_before_using_the_backup_service'
+								'please_log_in_to_Olares_Space_before_using_the_backup_service'
 							)
 						}}
 					</div>

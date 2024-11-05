@@ -1,12 +1,9 @@
 import { QVueGlobals } from 'quasar';
-import AddAWSS3Dialog from '../../pages/Integration/dialog/AddAWSS3Dialog.vue';
-import {
-	AccountType,
-	IntegrationAccountMiniData,
-	OperateIntegrationAuth
-} from '../abstractions/integration/integrationService';
+import AddAWSS3Dialog from '../../pages/Integration/dialog/AddAccountDialog.vue';
+import { OperateIntegrationAuth } from '../abstractions/integration/integrationService';
 import { useIntegrationStore } from '../../stores/integration';
 import { useDeviceStore } from 'src/stores/device';
+import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
 
 export class AWSS3AuthService extends OperateIntegrationAuth {
 	type = AccountType.AWSS3;
@@ -23,12 +20,19 @@ export class AWSS3AuthService extends OperateIntegrationAuth {
 		const router = options.router;
 		const deviceStore = useDeviceStore();
 		if (deviceStore.isMobile) {
-			console.log('mobile');
-			router.push('/integration/aws/add');
+			router.push({
+				path: '/integration/account/add',
+				query: {
+					accountType: this.type
+				}
+			});
 		} else {
 			quasar
 				.dialog({
-					component: AddAWSS3Dialog
+					component: AddAWSS3Dialog,
+					componentProps: {
+						accountType: this.type
+					}
 				})
 				.onOk(() => {
 					const integrationStore = useIntegrationStore();

@@ -14,7 +14,7 @@
 					"
 					:error-message="
 						t(
-							'errors.you_are_not_logged_in_terminus_space_yet_click_here_to'
+							'errors.you_are_not_logged_in_olares_space_yet_click_here_to'
 						)
 					"
 					:link-message="t('login.title')"
@@ -352,7 +352,7 @@ async function onSubmit() {
 		$q.dialog({
 			title: t('login_teminus_space'),
 			message: `<div>${t(
-				'you_are_not_logged_in_terminus_space_yet'
+				'you_are_not_logged_in_olares_space_yet'
 			)}</div>`,
 			html: true,
 			cancel: true,

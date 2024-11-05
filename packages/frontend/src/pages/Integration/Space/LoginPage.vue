@@ -1,5 +1,5 @@
 <template>
-	<page-title-component :title="t('terminus_space')" :show-back="true" />
+	<page-title-component :title="t('olares_space')" :show-back="true" />
 
 	<div class="terminus-cloud-page column items-center">
 		<QRCodeLogin @success="router.back()">

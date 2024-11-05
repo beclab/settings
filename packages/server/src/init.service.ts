@@ -45,6 +45,9 @@ export class InitService implements OnModuleInit {
   //   }
 
   async getOSVersion(dev_mode: boolean): Promise<OSVersion | null> {
+    console.log('dev_mode --->', dev_mode);
+    console.log(' this.cloudUrl ---->', this.cloudUrl);
+
     const terminusInfo = await this.secretService.updateTerminusInfo();
     try {
       const response: any = await axios.post(

@@ -4,6 +4,7 @@ import { useAccountStore } from 'src/stores/Account';
 //import { useTokenStore } from '../stores/token';
 import qs from 'qs';
 import { notifyFailed } from '../utils/btNotify';
+import { OLaresFrpServer } from '../utils/servers';
 
 declare module '@vue/runtime-core' {
 	interface ComponentCustomProperties {
@@ -74,8 +75,8 @@ export default boot(({ app }) => {
 				console.log('response ===>', response);
 				if (
 					response &&
-					response.config.url ==
-						'https://terminus-frp.snowinning.com/servers'
+					(response.config.url == OLaresFrpServer.cn ||
+						response.config.url == OLaresFrpServer.others)
 				) {
 					return response;
 				}

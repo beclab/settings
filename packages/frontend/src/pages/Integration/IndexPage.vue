@@ -60,10 +60,7 @@ import { useI18n } from 'vue-i18n';
 import { onMounted } from 'vue';
 import { useIntegrationStore } from '../../stores/integration';
 import { date, useQuasar } from 'quasar';
-import {
-	IntegrationAccountMiniData,
-	AccountType
-} from '../../services/abstractions/integration/integrationService';
+import { IntegrationAccountMiniData, AccountType } from '@bytetrade/core';
 import { getRequireImage } from '../../utils/helper';
 import AddIntegrationDialog from './dialog/AddIntegrationDialog.vue';
 import integraionService from '../../services/integration/index';

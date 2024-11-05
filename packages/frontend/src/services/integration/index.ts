@@ -1,5 +1,4 @@
 import {
-	AccountType,
 	IntegrationService as IntegrationServiceInterface,
 	IntegrationWebSupportAuth
 } from '../abstractions/integration/integrationService';
@@ -8,6 +7,7 @@ import { DropboxAuthService } from './dropbox';
 import { GoogleAuthService } from './googleDrive';
 import { SpaceAuthService } from './space';
 import { TencentAuthService } from './tencent';
+import { AccountType } from '@bytetrade/core';
 class IntegrationService implements IntegrationServiceInterface {
 	supportAuthList = [
 		{
@@ -41,8 +41,8 @@ class IntegrationService implements IntegrationServiceInterface {
 		{
 			type: AccountType.Tencent,
 			detail: {
-				name: 'Tencent cloud',
-				icon: 'aws.svg'
+				name: 'Tencent COS',
+				icon: 'tencent.svg'
 			}
 		}
 	];

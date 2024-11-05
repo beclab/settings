@@ -49,6 +49,10 @@ export const useBackgroundStore = defineStore('background', {
 
 	getters: {
 		//
+		// localeIsCN:
+		localeIsCN: (state) => {
+			return state.locale == 'zh-CN';
+		}
 	},
 
 	actions: {

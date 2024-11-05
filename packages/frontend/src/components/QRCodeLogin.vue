@@ -8,7 +8,7 @@
 				width="20px"
 				height="20px"
 			></q-img>
-			<div>{{ t('login.termiPass_to_log_in') }}</div>
+			<div>{{ t('login.larePass_to_log_in') }}</div>
 		</div>
 		<div class="cloud-qr-code q-pa-md q-mt-lg">
 			<terminus-qr-code

@@ -1,10 +1,7 @@
 import { i18n } from 'src/boot/i18n';
-import {
-	AccountType,
-	OperateIntegrationAuth
-	// SpaceIntegrationAccount
-} from '../abstractions/integration/integrationService';
+import { OperateIntegrationAuth } from '../abstractions/integration/integrationService';
 import { Platform } from 'quasar';
+import { AccountType } from '@bytetrade/core';
 
 export class SpaceAuthService extends OperateIntegrationAuth {
 	type = AccountType.Space;

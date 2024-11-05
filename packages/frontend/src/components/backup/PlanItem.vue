@@ -21,7 +21,7 @@
 									class="plan-item-type-img"
 								/>
 								<div>
-									{{ t('terminus_space') }}
+									{{ t('olares_space') }}
 								</div>
 							</div>
 						</template>
@@ -81,7 +81,7 @@
 									class="plan-item-type-img"
 								/>
 								<div>
-									{{ t('terminus_space') }}
+									{{ t('olares_space') }}
 								</div>
 							</div>
 						</template>

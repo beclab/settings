@@ -1,10 +1,6 @@
 import { i18n } from 'src/boot/i18n';
-import {
-	AccountType,
-	IntegrationAccountMiniData,
-	// GoogleIntegrationAccount,
-	OperateIntegrationAuth
-} from '../abstractions/integration/integrationService';
+import { OperateIntegrationAuth } from '../abstractions/integration/integrationService';
+import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
 
 export class GoogleAuthService extends OperateIntegrationAuth {
 	type = AccountType.Google;

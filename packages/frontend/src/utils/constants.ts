@@ -39,7 +39,7 @@ export interface EntrancePolicy {
 
 export const locationOptions = [
 	{
-		label: i18n.global.t('server_location.terminus_space'),
+		label: i18n.global.t('server_location.olares_space'),
 		value: BackupLocation.TerminusCloud,
 		enable: true
 	},
@@ -361,7 +361,7 @@ export const getApplicationStatus = (status: APP_STATUS) => {
 export enum ReverseProxyMode {
 	NoNeed = 1,
 	CloudFlare = 2,
-	TerminusTunnel = 3,
+	OlaresTunnel = 3,
 	SelfBuiltFrp = 4
 }
 
@@ -378,8 +378,8 @@ export const reverseProxyOptions = () => {
 			enable: true
 		},
 		{
-			label: 'Terminus Tunnel',
-			value: ReverseProxyMode.TerminusTunnel,
+			label: 'Olares Tunnel',
+			value: ReverseProxyMode.OlaresTunnel,
 			enable: true
 		},
 		{
@@ -389,28 +389,6 @@ export const reverseProxyOptions = () => {
 		}
 	];
 };
-
-export enum TerminusTunnelMode {
-	hk = 1,
-	hk2 = 2
-}
-
-// export const terminusTunnelOptions = () => {
-// 	return [
-// 		{
-// 			label: 'Terminus tunnel Hongkong',
-// 			value: TerminusTunnelMode.hk,
-// 			server: 'frp-hk.snowinning.com',
-// 			enable: true
-// 		},
-// 		{
-// 			label: 'Terminus tunnel Hongkong 2',
-// 			value: TerminusTunnelMode.hk2,
-// 			server: 'frp-hk2.snowinning.com',
-// 			enable: true
-// 		}
-// 	];
-// };
 
 export const frpAuthMethod = () => {
 	return [
@@ -427,14 +405,14 @@ export const frpAuthMethod = () => {
 	];
 };
 
-export interface TerminusTunnelInterface {
+export interface OlaresTunnelInterface {
 	frp_server: string;
 	frp_port: number;
 	frp_auth_method: string;
 	frp_auth_token: string;
 }
 
-export const terminusTunnelDefaultValue = {
+export const olaresTunnelDefaultValue = {
 	frp_port: 0,
 	frp_auth_method: 'jws',
 	frp_auth_token: ''

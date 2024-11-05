@@ -2,7 +2,7 @@
 	<PageTitleComponent :title="titleMap[step]" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<div v-if="step == AwsAddStep.start" class="q-mt-lg">
-			<terminus-edit
+			<!-- <terminus-edit
 				v-model="accessKeyID"
 				:label="t('access_key_id')"
 				:show-password-img="false"
@@ -29,6 +29,11 @@
 				:show-password-img="false"
 				:hint-text="t('optional')"
 				style="width: 100%"
+			/> -->
+			<IntegrationAddInputs
+				ref="integrationAddInputs"
+				:account-type="accountType"
+				v-model:button-status="enableCreate"
 			/>
 		</div>
 		<div v-else-if="step == AwsAddStep.display">
@@ -52,16 +57,18 @@
 					class="text-subtitle2 text-ink-2 row items-center"
 					style="height: 100%"
 				>
-					Object Storage
+					{{ t('Object Storage') }}
 				</div>
 				<div class="row items-center justify-end">
 					<q-img
-						:src="getRequireImage(`integration/${awss3Info.icon}`)"
+						:src="
+							getRequireImage(`integration/${accountInfo.icon}`)
+						"
 						width="32px"
 						height="32px"
 					/>
 					<div class="text-subtitle2 text-ink-1 q-ml-sm">
-						{{ awss3Info.name }}
+						{{ accountInfo.name }}
 					</div>
 				</div>
 			</div>
@@ -84,29 +91,28 @@ import { computed, ref } from 'vue';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 
 import { useI18n } from 'vue-i18n';
-import TerminusEdit from '../../../components/base/TerminusEdit.vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import integrationService from '../../../services/integration/index';
-import {
-	AWSS3IntegrationAccount,
-	AccountType
-} from '../../../services/abstractions/integration/integrationService';
 import { useIntegrationStore } from '../../../stores/integration';
 import { notifyFailed } from '../../../utils/btNotify';
 import ConfirmButton from '../../../components/ConfirmButton.vue';
 import { ConfirmButtonStatus } from '../../../utils/constants';
 import { getRequireImage } from '../../../utils/helper';
 import { useDeviceStore } from '../../../stores/device';
-
-const { t } = useI18n();
-
-const deviceStore = useDeviceStore();
+import { AccountType } from '@bytetrade/core';
+import IntegrationAddInputs from '../components/IntegrationAddInputs.vue';
 
 enum AwsAddStep {
 	start = 1,
 	display
 }
+
+const { t } = useI18n();
+
+const deviceStore = useDeviceStore();
+
+const route = useRoute();
 
 const stepMap: Record<AwsAddStep, string> = {
 	[AwsAddStep.start]: t('next'),
@@ -118,79 +124,39 @@ const titleMap: Record<AwsAddStep, string> = {
 	[AwsAddStep.display]: t('add_account')
 };
 
-const awss3Info = ref(
-	integrationService.supportAuthList.find((e) => e.type == AccountType.AWSS3)!
+const accountType = ref(route.query.accountType as AccountType);
+console.log('accountType ====>', accountType);
+
+const accountInfo = ref(
+	integrationService.supportAuthList.find((e) => e.type == accountType.value)!
 		.detail
 );
 
-const accessKeyID = ref('');
-
-const accessKeySecret = ref('');
-
-const endpoint = ref('');
-
 const $q = useQuasar();
 
-const bucket = ref('');
+const enableCreate = ref(false);
+
 const integrationStore = useIntegrationStore();
 const router = useRouter();
 
-const accessKeyIDRule = (val: string) => {
-	if (val.length === 0) {
-		return t('errors.item_is_empty', {
-			item: t('access_key_id')
-		});
-	}
-	return '';
-};
-
-const accessKeySecretRule = (val: string) => {
-	if (val.length === 0) {
-		return t('errors.item_is_empty', {
-			item: t('access_key_secret')
-		});
-	}
-	return '';
-};
-
-const endpointRule = (val: string) => {
-	if (val.length === 0) {
-		return t('errors.item_is_empty', {
-			item: t('endpoint')
-		});
-	}
-	return '';
-};
-
 const btnStatusRef = computed(() => {
 	return step.value == AwsAddStep.start
-		? accessKeyIDRule(accessKeyID.value).length == 0 &&
-		  accessKeySecretRule(accessKeySecret.value).length == 0 &&
-		  endpointRule(endpoint.value).length == 0
+		? enableCreate.value
 			? ConfirmButtonStatus.normal
 			: ConfirmButtonStatus.disable
 		: ConfirmButtonStatus.normal;
 });
 
+const integrationAddInputs = ref();
+
 const onConfirm = async () => {
 	if (step.value == AwsAddStep.start) {
 		$q.loading.show();
+		const inputs = integrationAddInputs.value.allAccountValues();
 		try {
-			const awss3Object: AWSS3IntegrationAccount = {
-				name: accessKeyID.value,
-				type: AccountType.AWSS3,
-				raw_data: {
-					endpoint: endpoint.value,
-					bucket: bucket.value,
-					refresh_token: accessKeySecret.value,
-					access_token: accessKeySecret.value,
-					expires_in: 0,
-					expires_at: 0
-				}
-			};
-			await integrationStore.createAccount(awss3Object);
-			$q.loading.hide();
+			await integrationStore.createAccount(inputs);
 			step.value = AwsAddStep.display;
+			$q.loading.hide();
 		} catch (error) {
 			$q.loading.hide();
 			notifyFailed(error.message);

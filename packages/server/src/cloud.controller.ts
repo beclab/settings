@@ -338,7 +338,7 @@ export class CloudController {
       signData.domain !=
       this.secretService.terminusInfo.terminusName.replace('@', '.')
     ) {
-      return returnError(500, 'Terminus Name is not match');
+      return returnError(500, 'Olares ID is not match');
     }
 
     try {
@@ -542,7 +542,7 @@ export class CloudController {
       signData.domain !=
       this.secretService.terminusInfo.terminusName.replace('@', '.')
     ) {
-      return returnError(500, 'Terminus Name is not match');
+      return returnError(500, 'Olares ID is not match');
     }
     try {
       const id = '' + new Date().getTime();

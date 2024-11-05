@@ -1,12 +1,9 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import {
-	AccountType,
-	IntegrationAccount,
-	IntegrationAccountMiniData
-} from 'src/services/abstractions/integration/integrationService';
+import { IntegrationAccount } from 'src/services/abstractions/integration/integrationService';
 import { useTokenStore } from './token';
 import integrationService from '../services/integration/index';
+import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
 
 export type IntegrationState = {
 	accounts: IntegrationAccountMiniData[];
