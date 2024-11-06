@@ -29,15 +29,15 @@
 			</bt-form-item>
 
 			<bt-form-item
-				v-if="reverseProxyMode == ReverseProxyMode.TerminusTunnel"
-				:title="t('Select a terminus tunnel')"
+				v-if="reverseProxyMode == ReverseProxyMode.OlaresTunnel"
+				:title="t('Select a Olares tunnel')"
 				:margin-top="false"
 				:chevron-right="false"
 				:widthSeparator="false"
 			>
 				<bt-select
-					v-model="terminusTunnelMode"
-					:options="terminusTunnelsOptions"
+					v-model="olaresTunnelMode"
+					:options="olaresTunnelsOptions"
 				/>
 			</bt-form-item>
 
@@ -136,7 +136,7 @@ import {
 	reverseProxyOptions,
 	ReverseProxyMode,
 	frpAuthMethod,
-	terminusTunnelDefaultValue
+	olaresTunnelDefaultValue
 } from '../../../utils/constants';
 import BtSelect from '../../../components/base/BtSelect.vue';
 // import EditFRPInfoDialog from './dialog/EditFRPInfoDialog.vue';
@@ -155,7 +155,7 @@ const networkStore = useNetworkStore();
 
 const reverseProxyMode = ref(ReverseProxyMode.NoNeed);
 
-const terminusTunnelMode = ref('');
+const olaresTunnelMode = ref('');
 
 const serverAddress = ref('');
 
@@ -179,22 +179,22 @@ const configData = () => {
 			? ReverseProxyMode.CloudFlare
 			: networkStore.reverseProxy.enable_frp
 			? networkStore.reverseProxy.frp_auth_method == 'jws'
-				? ReverseProxyMode.TerminusTunnel
+				? ReverseProxyMode.OlaresTunnel
 				: ReverseProxyMode.SelfBuiltFrp
 			: ReverseProxyMode.NoNeed;
 
-		const terminusOptions = networkStore.terminusTunnelsOptions();
-		terminusTunnelsOptions.value = terminusOptions;
+		const olaresOptions = networkStore.olaresTunnelsOptions();
+		olaresTunnelsOptions.value = olaresOptions;
 
-		const option = terminusOptions.find(
+		const option = olaresOptions.find(
 			(e) => e.value == networkStore.reverseProxy?.frp_server
 		);
 
 		if (option) {
-			terminusTunnelMode.value = option.value;
+			olaresTunnelMode.value = option.value;
 		}
 
-		if (reverseProxyMode.value != ReverseProxyMode.TerminusTunnel) {
+		if (reverseProxyMode.value != ReverseProxyMode.OlaresTunnel) {
 			serverAddress.value = networkStore.reverseProxy.frp_server;
 			port.value = `${
 				networkStore.reverseProxy.frp_port == 0
@@ -207,7 +207,7 @@ const configData = () => {
 	}
 };
 
-const terminusTunnelsOptions = ref<any>();
+const olaresTunnelsOptions = ref<any>();
 
 onMounted(async () => {
 	configData();
@@ -233,7 +233,7 @@ const onSubmit = async () => {
 		componentProps: {
 			title: t('Switch reverse proxy'),
 			message: t(
-				'During the reverse proxy switch, Terminus may be inaccessible for 10 minutes.'
+				'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.'
 			),
 			useCancel: true,
 			confirmText: t('confirm'),
@@ -249,7 +249,7 @@ const confirmSwitch = async () => {
 		return;
 	}
 	if (
-		reverseProxyMode.value == ReverseProxyMode.TerminusTunnel ||
+		reverseProxyMode.value == ReverseProxyMode.OlaresTunnel ||
 		reverseProxyMode.value == ReverseProxyMode.SelfBuiltFrp
 	) {
 		networkStore.reverseProxy.enable_frp = true;
@@ -259,9 +259,9 @@ const confirmSwitch = async () => {
 		networkStore.reverseProxy.enable_cloudflare_tunnel = true;
 	}
 
-	if (reverseProxyMode.value == ReverseProxyMode.TerminusTunnel) {
-		Object.assign(networkStore.reverseProxy, terminusTunnelDefaultValue);
-		networkStore.reverseProxy.frp_server = terminusTunnelMode.value;
+	if (reverseProxyMode.value == ReverseProxyMode.OlaresTunnel) {
+		Object.assign(networkStore.reverseProxy, olaresTunnelDefaultValue);
+		networkStore.reverseProxy.frp_server = olaresTunnelMode.value;
 	} else if (reverseProxyMode.value == ReverseProxyMode.SelfBuiltFrp) {
 		let server = serverAddress.value;
 		if (

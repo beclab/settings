@@ -162,7 +162,7 @@ const routes: RouteRecordRaw[] = [
 					import('src/pages/Integration/pages/IntegrationAddPage.vue')
 			},
 			{
-				path: '/integration/aws/add',
+				path: '/integration/account/add',
 				component: () =>
 					import(
 						'src/pages/Integration/pages/AwsAddIntegrationPage.vue'

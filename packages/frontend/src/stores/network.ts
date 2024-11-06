@@ -13,19 +13,19 @@ export interface ReverseProxy {
 	enable_frp: boolean;
 }
 
-export interface TerminusTunnelInterface {
+export interface OlaresTunnelInterface {
 	name: string;
 	host: string;
 }
 
 export type NetworkState = {
 	reverseProxy?: ReverseProxy;
-	terminusTunnels: TerminusTunnelInterface[];
+	olaresTunnels: OlaresTunnelInterface[];
 };
 
 export const useNetworkStore = defineStore('network', {
 	state: () =>
-		({ reverseProxy: undefined, terminusTunnels: [] } as NetworkState),
+		({ reverseProxy: undefined, olaresTunnels: [] } as NetworkState),
 
 	getters: {},
 
@@ -33,13 +33,12 @@ export const useNetworkStore = defineStore('network', {
 		async configReverseProxy() {
 			const tokenStore = useTokenStore();
 			try {
-				if (this.terminusTunnels.length == 0) {
-					await this.getTerminusTunnels();
+				if (this.olaresTunnels.length == 0) {
+					await this.getOlaresTunnels();
 				}
 				const proxyData: any = await axios.get(
 					`${tokenStore.url}/api/reverse-proxy`
 				);
-				console.log('proxyData ====>', proxyData);
 				this.reverseProxy = proxyData;
 			} catch (error) {
 				console.log(error);
@@ -49,12 +48,7 @@ export const useNetworkStore = defineStore('network', {
 		async updateReverseProxy(proxy: ReverseProxy) {
 			const tokenStore = useTokenStore();
 			try {
-				const proxyData: any = await axios.post(
-					`${tokenStore.url}/api/reverse-proxy`,
-					proxy
-				);
-				console.log('proxyData ====>', proxyData);
-				// this.reverseProxy = proxyData;
+				await axios.post(`${tokenStore.url}/api/reverse-proxy`, proxy);
 				await this.configReverseProxy();
 			} catch (error) {
 				console.log(error);
@@ -62,27 +56,23 @@ export const useNetworkStore = defineStore('network', {
 			}
 		},
 
-		async getTerminusTunnels() {
+		async getOlaresTunnels() {
+			const tokenStore = useTokenStore();
 			try {
-				const terminusTunnels: any = await axios.get(
-					'https://terminus-frp.snowinning.com/servers'
+				const olaresTunnels: any = await axios.get(
+					`${tokenStore.url}/api/frp-servers`
 				);
-				console.log('terminusTunnels ====>', terminusTunnels.data);
-				this.terminusTunnels = terminusTunnels.data;
+				this.olaresTunnels = olaresTunnels;
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		terminusTunnelsOptions() {
-			console.log('this.terminusTunnels===>', this.terminusTunnels);
-
-			return this.terminusTunnels.map(
-				(item: TerminusTunnelInterface) => ({
-					label: item.name,
-					value: item.host,
-					enable: true
-				})
-			);
+		olaresTunnelsOptions() {
+			return this.olaresTunnels.map((item: OlaresTunnelInterface) => ({
+				label: item.name,
+				value: item.host,
+				enable: true
+			}));
 		}
 	}
 });

@@ -72,13 +72,6 @@ export default boot(({ app }) => {
 				return data;
 			} else {
 				console.log('response ===>', response);
-				if (
-					response &&
-					response.config.url ==
-						'https://terminus-frp.snowinning.com/servers'
-				) {
-					return response;
-				}
 
 				if (
 					!response ||

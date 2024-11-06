@@ -7,7 +7,7 @@
 			></DialogHeader>
 			<div class="dialog-content-root">
 				<div v-if="step == 1">
-					<terminus-edit
+					<!-- <terminus-edit
 						v-model="accessKeyID"
 						:label="t('access_key_id')"
 						:show-password-img="false"
@@ -34,13 +34,19 @@
 						:show-password-img="false"
 						:hint-text="t('optional')"
 						style="width: 100%"
+					/> -->
+					<IntegrationAddInputs
+						ref="integrationAddInputs"
+						:account-type="accountType"
+						v-model:button-status="enableCreate"
 					/>
+
 					<dialog-footer
 						:confirm-text="t('next')"
 						:cancelText="t('previous')"
 						:confirm-disable="!enableCreate"
 						@cancel-action="previousAction"
-						@confirm-action="createAWSS3"
+						@confirm-action="createAccount"
 					/>
 				</div>
 				<div v-else-if="step == 2">
@@ -58,20 +64,20 @@
 							class="text-subtitle2 text-ink-2 row items-center"
 							style="height: 100%"
 						>
-							Object Storage
+							{{ t('Object Storage') }}
 						</div>
 						<div class="row items-center justify-end">
 							<q-img
 								:src="
 									getRequireImage(
-										`integration/${awss3Info.icon}`
+										`integration/${accountInfo.icon}`
 									)
 								"
 								width="32px"
 								height="32px"
 							/>
 							<div class="text-subtitle2 text-ink-1 q-ml-sm">
-								{{ awss3Info.name }}
+								{{ accountInfo.name }}
 							</div>
 						</div>
 					</div>
@@ -89,19 +95,24 @@
 
 <script setup lang="ts">
 import { useDialogPluginComponent, useQuasar } from 'quasar';
-import { computed, ref } from 'vue';
+import { PropType, ref } from 'vue';
 import DialogHeader from '../../../components/DialogHeader.vue';
 import DialogFooter from '../../../components/DialogFooter.vue';
 import { useI18n } from 'vue-i18n';
-import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import AddIntegrationDialog from './AddIntegrationDialog.vue';
 import integrationService from '../../../services/integration/index';
-import {
-	AWSS3IntegrationAccount,
-	AccountType
-} from '../../../services/abstractions/integration/integrationService';
 import { getRequireImage } from '../../../utils/helper';
 import { useIntegrationStore } from '../../../stores/integration';
+import { AccountType } from '@bytetrade/core';
+
+import IntegrationAddInputs from '../components/IntegrationAddInputs.vue';
+import { notifyFailed } from '../../../utils/btNotify';
+
+const props = defineProps({
+	accountType: {
+		type: Object as PropType<AccountType>
+	}
+});
 
 const { t } = useI18n();
 
@@ -109,49 +120,16 @@ const $q = useQuasar();
 
 const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
 
-const accessKeyID = ref('');
-
-const accessKeySecret = ref('');
-
-const endpoint = ref('');
-
-const bucket = ref('');
-
 const step = ref(1);
 
 const integrationStore = useIntegrationStore();
 
-const awss3Info = ref(
-	integrationService.supportAuthList.find((e) => e.type == AccountType.AWSS3)!
+const integrationAddInputs = ref();
+
+const accountInfo = ref(
+	integrationService.supportAuthList.find((e) => e.type == props.accountType)!
 		.detail
 );
-
-const accessKeyIDRule = (val: string) => {
-	if (val.length === 0) {
-		return t('errors.item_is_empty', {
-			item: t('access_key_id')
-		});
-	}
-	return '';
-};
-
-const accessKeySecretRule = (val: string) => {
-	if (val.length === 0) {
-		return t('errors.item_is_empty', {
-			item: t('access_key_secret')
-		});
-	}
-	return '';
-};
-
-const endpointRule = (val: string) => {
-	if (val.length === 0) {
-		return t('errors.item_is_empty', {
-			item: t('endpoint')
-		});
-	}
-	return '';
-};
 
 const previousAction = () => {
 	onDialogCancel();
@@ -160,32 +138,15 @@ const previousAction = () => {
 	}).onOk(() => {});
 };
 
-const enableCreate = computed(() => {
-	return (
-		accessKeyIDRule(accessKeyID.value).length == 0 &&
-		accessKeySecretRule(accessKeySecret.value).length == 0 &&
-		endpointRule(endpoint.value).length == 0
-	);
-});
-
-const createAWSS3 = async () => {
+const enableCreate = ref(false);
+const createAccount = async () => {
+	const inputs = integrationAddInputs.value.allAccountValues();
 	try {
-		const awss3Object: AWSS3IntegrationAccount = {
-			name: accessKeyID.value,
-			type: AccountType.AWSS3,
-			raw_data: {
-				endpoint: endpoint.value,
-				bucket: bucket.value,
-				refresh_token: accessKeySecret.value,
-				access_token: accessKeySecret.value,
-				expires_in: 0,
-				expires_at: 0
-			}
-		};
-		await integrationStore.createAccount(awss3Object);
+		await integrationStore.createAccount(inputs);
 		step.value = 2;
 	} catch (error) {
 		console.log(error);
+		notifyFailed(error.message);
 	}
 };
 </script>

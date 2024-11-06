@@ -8,7 +8,7 @@
 			<div class="dialog-content-root">
 				<terminus-edit
 					v-model="userName"
-					:label="t('terminus_name')"
+					:label="t('olares_ID')"
 					:show-password-img="false"
 					style="width: 100%"
 					class=""
@@ -131,7 +131,7 @@ const createUserName = async () => {
 	Loading.show();
 	const data = await didStore.resolve_name(adminStore.terminus.terminusName);
 	if (!data) {
-		notifyFailed(t('terminus_name_not_exists_on_blockchain'));
+		notifyFailed(t('olares_id_not_exists_on_blockchain'));
 		Loading.hide();
 		return;
 	}

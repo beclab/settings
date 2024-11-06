@@ -1,5 +1,5 @@
 <template>
-	<page-title-component :show-back="true" :title="t('terminus_space')">
+	<page-title-component :show-back="true" :title="t('olares_space')">
 	</page-title-component>
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
@@ -63,7 +63,7 @@
 			>
 				{{
 					t(
-						'only_after_binding_the_terminus_name_can_you_continue_to_bind_avatar_message'
+						'only_after_binding_the_olares_id_can_you_continue_to_bind_avatar_message'
 					)
 				}}
 			</q-item>
@@ -218,13 +218,9 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 const $q = useQuasar();
-// const accountStore = useAccountStore();
 const blockChainStore = useBlockchainStore();
 const adminStore = useAdminStore();
 const router = useRouter();
-
-// const secert = ref();
-// const name = ref();
 const spaceStore = useSpaceStore();
 const bindTerminusName = ref<BindTerminusName | undefined>(undefined);
 
@@ -274,9 +270,9 @@ async function bindName() {
 		$q.dialog({
 			component: AccountRequestSignDialog,
 			componentProps: {
-				title: t('bound_terminus_name'),
+				title: t('bound_olares_id'),
 				info: t(
-					'Please_authorize_and_verify_on_the_termiPass_mobile_phone_to_bind_your_terminus_name'
+					'Please_authorize_and_verify_on_the_larePass_mobile_phone_to_bind_your_olares_id'
 				),
 				imagePath: 'account/bind-terminus-space.png'
 			}

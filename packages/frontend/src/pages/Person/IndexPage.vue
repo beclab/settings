@@ -1,5 +1,5 @@
 <template>
-	<page-title-component :show-back="false" :title="t('terminus_name')" />
+	<page-title-component :show-back="false" :title="t('olares_ID')" />
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<div class="avatar-layout column items-center justify-center">
 			<setting-avatar :size="72" />
@@ -89,24 +89,6 @@
 				@click="goLoginHistory"
 			/>
 		</BtList>
-		<!-- <div class="text-subtitle1 text-ink-1 person-title">
-			{{ t('Terminus OS') }}
-		</div>
-		<q-list
-			:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-			:style="
-				deviceStore.isMobile
-					? 'margin-top: 12px'
-					: 'padding-top: 0px; padding-bottom: 0px;'
-			"
-		>
-			<bt-form-item
-				:title="t('Current Version')"
-				:chevron-right="false"
-				:width-separator="false"
-				:data="adminStore.terminus.osVersion"
-			/>
-		</q-list> -->
 	</bt-scroll-area>
 </template>
 
@@ -118,7 +100,6 @@ import UpdateUserPassworDialog from '../Account/dialog/UpdateUserPassworDialog.v
 import { useQuasar } from 'quasar';
 import { useUserStore } from 'src/stores/User';
 import { useHeadScaleStore } from 'src/stores/headscale';
-// import { useAccountStore } from 'src/stores/Account';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import BtFormItem from '../../components/base/BtFormItem.vue';
 import SettingAvatar from 'components/base/SettingAvatar.vue';
@@ -134,7 +115,6 @@ const { t } = useI18n();
 const adminStore = useAdminStore();
 const quasar = useQuasar();
 const userStore = useUserStore();
-// const accountStore = useAccountStore();
 const headScaleStore = useHeadScaleStore();
 const router = useRouter();
 const deviceStore = useDeviceStore();

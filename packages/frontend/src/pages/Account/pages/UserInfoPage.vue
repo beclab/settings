@@ -77,7 +77,7 @@
 				</q-avatar>
 			</bt-form-item>
 			<bt-form-item
-				:title="t('terminus_name')"
+				:title="t('olares_ID')"
 				:data="userInfo ? userInfo.terminusName : ''"
 			/>
 			<bt-form-item

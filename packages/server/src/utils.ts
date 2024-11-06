@@ -1,14 +1,7 @@
 import axios from 'axios';
 import * as qs from 'qs';
+import { AccountType } from '@bytetrade/core';
 export const Cloud_URL = 'https://cloud-api.bttcdn.com';
-
-export enum AccountType {
-  Space = 'space',
-  Google = 'google',
-  Dropbox = 'dropbox',
-  OneDrive = 'onedrive',
-  AWSS3 = 'awss3',
-}
 
 export class DomainCookieRecord {
   domain = '';
@@ -319,6 +312,18 @@ export class AWSS3Account extends IntegrationAccount {
     return;
   }
   constructor(props?: Partial<AWSS3Account>) {
+    super(props);
+    props && Object.assign(this, props);
+  }
+}
+
+export class TencentAccount extends IntegrationAccount {
+  type = AccountType.Tencent;
+  async refresh() {
+    // throw new Error('Method not implemented.');
+    return;
+  }
+  constructor(props?: Partial<TencentAccount>) {
     super(props);
     props && Object.assign(this, props);
   }

@@ -25,12 +25,12 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from 'src/stores/User';
+import { useUserStore } from '../../stores/User';
 import ListBottomFuncBtn from '../../components/ListBottomFuncBtn.vue';
 import { useQuasar } from 'quasar';
 import CreateUserDialog from './dialog/CreateUserDialog.vue';
 import { useRouter } from 'vue-router';
-import { AccountInfo } from 'src/global';
+import { AccountInfo } from '../../global';
 import { onMounted } from 'vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import UserItem from '../../components/user/UserItem.vue';

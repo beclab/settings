@@ -3,11 +3,9 @@ import { defineStore } from 'pinia';
 import { useTokenStore } from './token';
 import { SpaceSaveData, Secret } from '@bytetrade/core';
 
-import {
-	AccountType,
-	IntegrationAccount,
-	IntegrationAccountMiniData
-} from 'src/services/abstractions/integration/integrationService';
+import { IntegrationAccount } from 'src/services/abstractions/integration/integrationService';
+
+import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
 
 const SPACE_URL = process.env.SPACE_URL || 'https://cloud-api.bttcdn.com';
 
@@ -37,9 +35,9 @@ export const useAccountStore = defineStore('account', {
 			accounts: [
 				{
 					id: 'space',
-					name: 'Terminus Space',
+					name: 'Olares Space',
 					icon: '',
-					desc: 'Terminus Space',
+					desc: 'Olares Space',
 					router: '/account/space',
 					url: SPACE_URL
 				}

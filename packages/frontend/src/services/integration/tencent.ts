@@ -1,12 +1,12 @@
 import { QVueGlobals } from 'quasar';
-import AddAWSS3Dialog from '../../pages/Integration/dialog/AddAccountDialog.vue';
 import { OperateIntegrationAuth } from '../abstractions/integration/integrationService';
-import { useIntegrationStore } from '../../stores/integration';
-import { useDeviceStore } from 'src/stores/device';
 import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
+import { useDeviceStore } from 'src/stores/device';
+import AddTencentDialog from '../../pages/Integration/dialog/AddAccountDialog.vue';
+import { useIntegrationStore } from '../../stores/integration';
 
-export class AWSS3AuthService extends OperateIntegrationAuth {
-	type = AccountType.AWSS3;
+export class TencentAuthService extends OperateIntegrationAuth {
+	type = AccountType.Tencent;
 
 	async webSupport() {
 		return {
@@ -29,7 +29,7 @@ export class AWSS3AuthService extends OperateIntegrationAuth {
 		} else {
 			quasar
 				.dialog({
-					component: AddAWSS3Dialog,
+					component: AddTencentDialog,
 					componentProps: {
 						accountType: this.type
 					}

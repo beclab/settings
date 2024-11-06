@@ -1,11 +1,7 @@
 // import { DropboxAuth } from 'src/plugins/dropbox';
 import { i18n } from 'src/boot/i18n';
-import {
-	AccountType,
-	IntegrationAccountMiniData,
-	// IntegrationAccount,
-	OperateIntegrationAuth
-} from '../abstractions/integration/integrationService';
+import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
+import { OperateIntegrationAuth } from '../abstractions/integration/integrationService';
 
 export class DropboxAuthService extends OperateIntegrationAuth {
 	type = AccountType.Dropbox;

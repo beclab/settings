@@ -184,7 +184,7 @@ async function bindNFT() {
 			componentProps: {
 				title: t('bound_nft_avatar'),
 				info: t(
-					'please_authorize_and_verify_on_the_termipass_mobile_phone_to_bind_your_nft_avatar'
+					'please_authorize_and_verify_on_the_larePass_mobile_phone_to_bind_your_nft_avatar'
 				),
 				imagePath: 'account/bind-nft-avatar.png'
 			}

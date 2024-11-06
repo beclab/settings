@@ -1,10 +1,9 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Interval, Cron } from '@nestjs/schedule';
-import { Secret } from '@bytetrade/core';
+import { AccountType, Secret } from '@bytetrade/core';
 import { SecretService } from './secret.service';
 import {
   AWSS3Account,
-  AccountType,
   DropboxAccount,
   GoogleAccount,
   IntegrationAccount,
@@ -12,6 +11,7 @@ import {
   IntegrationAccountMiniData,
   SpaceAccount,
   SpaceAccountData,
+  TencentAccount,
   DomainCookie,
 } from './utils';
 
@@ -48,6 +48,12 @@ export class AccountService implements OnModuleInit {
       return new AWSS3Account({
         name,
         type: AccountType.AWSS3,
+        raw_data: value,
+      });
+    } else if (type == AccountType.Tencent) {
+      return new TencentAccount({
+        name,
+        type: AccountType.Tencent,
         raw_data: value,
       });
     } else {

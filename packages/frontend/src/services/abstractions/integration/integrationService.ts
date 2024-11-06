@@ -1,36 +1,17 @@
-export enum AccountType {
-	Space = 'space',
-	Google = 'google',
-	Dropbox = 'dropbox',
-	OneDrive = 'onedrive',
-	AWSS3 = 'awss3'
-}
-
-export interface IntegrationAccountData {
-	refresh_token: string;
-	access_token: string;
-	expires_in: number;
-	expires_at: number;
-}
-
-export interface GoogleIntegrationAccountData extends IntegrationAccountData {
-	scope: string;
-	id_token: string;
-}
-
-export interface SpaceIntegrationAccountData extends IntegrationAccountData {
-	userid: string;
-}
-
-export interface AWSS3IntegrationAccountData extends IntegrationAccountData {
-	endpoint: string;
-	bucket: string;
-}
+import {
+	AccountType,
+	GoogleIntegrationAccountData,
+	IntegrationAccountBaseData,
+	SpaceIntegrationAccountData,
+	AWSS3IntegrationAccountData,
+	TencentIntegrationAccountData,
+	IntegrationAccountMiniData
+} from '@bytetrade/core';
 
 export interface IntegrationAccount {
 	name: string;
 	type: AccountType;
-	raw_data: IntegrationAccountData;
+	raw_data: IntegrationAccountBaseData;
 }
 
 export interface GoogleIntegrationAccount extends IntegrationAccount {
@@ -43,6 +24,10 @@ export interface SpaceIntegrationAccount extends IntegrationAccount {
 
 export interface AWSS3IntegrationAccount extends IntegrationAccount {
 	raw_data: AWSS3IntegrationAccountData;
+}
+
+export interface TencentIntegrationAccount extends IntegrationAccount {
+	raw_data: TencentIntegrationAccountData;
 }
 
 export interface IntegrationAuthResult {
@@ -82,14 +67,6 @@ export abstract class OperateIntegrationAuth {
 	abstract signIn(options: any): void;
 	abstract detailPath(account: IntegrationAccountMiniData): string;
 	abstract permissions(): Promise<IntegrationPermissions>;
-}
-
-export interface IntegrationAccountMiniData {
-	name: string;
-	type: AccountType;
-	expires_at: number;
-	available: boolean;
-	create_at: number;
 }
 
 export interface IntegrationService {

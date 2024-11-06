@@ -1,6 +1,10 @@
 import { Controller, Logger, Get, Post, Req, Body } from '@nestjs/common';
 import { createInstance } from './utils';
-import { returnError } from '@bytetrade/core';
+import { returnError, returnSucceed } from '@bytetrade/core';
+import axios from 'axios';
+
+const FRP_LIST_URL =
+  process.env.FRP_LIST_URL || 'https://terminus-frp.snowinning.com';
 
 @Controller('/api')
 export class NetworkPolicyController {
@@ -134,6 +138,19 @@ export class NetworkPolicyController {
       return data.data;
     } catch (e) {
       this.logger.debug('set reverse-proxy result error ===>', e);
+      return returnError(1, e.message || '');
+    }
+  }
+  @Get('/frp-servers')
+  async getFrpServers() {
+    try {
+      this.logger.debug('get frp-servers');
+      this.logger.debug('FRP_LIST_URL ====>', FRP_LIST_URL);
+      const olaresTunnels: any = await axios.get(FRP_LIST_URL + '/servers');
+      this.logger.debug('get frp-servers result ===>', olaresTunnels.data);
+      return returnSucceed(olaresTunnels.data);
+    } catch (e) {
+      this.logger.debug('frp-servers error ===>', e);
       return returnError(1, e.message || '');
     }
   }

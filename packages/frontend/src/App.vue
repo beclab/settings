@@ -30,6 +30,8 @@ export default defineComponent({
 		const adminStore = useAdminStore();
 		const accountStore = useAccountStore();
 		const backgroundStore = useBackgroundStore();
+		const didStore = useDIDStore();
+
 		backgroundStore.init();
 
 		let terminusLanguage = '';
@@ -56,6 +58,7 @@ export default defineComponent({
 				accountStore.secrets = data.secrets;
 				adminStore.devices = data.devices;
 				backgroundStore.wallpaper = data.wallpaper;
+				didStore.setDIDUrl(data.didUrl);
 				resolve({});
 			});
 		});
@@ -64,9 +67,7 @@ export default defineComponent({
 		const adminStore = useAdminStore();
 		const tokenStore = useTokenStore();
 		const headScaleStore = useHeadScaleStore();
-		const didStore = useDIDStore();
 
-		didStore.setDIDUrl('https://did-gate-v3.bttcdn.com/');
 		const host = window.location.origin;
 		tokenStore.setUrl(host);
 		headScaleStore.setUrl(host + '/headscale');
