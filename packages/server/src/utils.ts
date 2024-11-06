@@ -200,7 +200,7 @@ export class GoogleAccount extends IntegrationAccount {
 
 export class DropboxAccount extends IntegrationAccount {
   type = AccountType.Dropbox;
-  client_id = 'oi7kyle19hkh6q6';
+  client_id = '1wsiv9u728vqzat';
 
   async refresh() {
     const data: DropboxAccountData = this.raw_data as DropboxAccountData;
