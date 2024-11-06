@@ -62,7 +62,7 @@ export const useNetworkStore = defineStore('network', {
 				const olaresTunnels: any = await axios.get(
 					`${tokenStore.url}/api/frp-servers`
 				);
-				this.olaresTunnels = olaresTunnels.data;
+				this.olaresTunnels = olaresTunnels;
 			} catch (error) {
 				console.log(error);
 			}

@@ -145,9 +145,10 @@ export class NetworkPolicyController {
   async getFrpServers() {
     try {
       this.logger.debug('get frp-servers');
-      const olaresTunnels: any = await axios.get(FRP_LIST_URL);
-      this.logger.debug('get frp-servers result ===>', olaresTunnels);
-      return returnSucceed(olaresTunnels);
+      this.logger.debug('FRP_LIST_URL ====>', FRP_LIST_URL);
+      const olaresTunnels: any = await axios.get(FRP_LIST_URL + '/servers');
+      this.logger.debug('get frp-servers result ===>', olaresTunnels.data);
+      return returnSucceed(olaresTunnels.data);
     } catch (e) {
       this.logger.debug('frp-servers error ===>', e);
       return returnError(1, e.message || '');
