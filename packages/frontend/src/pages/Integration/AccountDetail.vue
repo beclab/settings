@@ -5,8 +5,8 @@
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<div class="mode-title-class q-mt-lg">{{ t('binding_info') }}</div>
 
-		<q-list class="q-list-class" v-if="load">
-			<q-item style="padding: 0">
+		<bt-list v-if="load">
+			<q-item style="padding: 0" class="item-margin-left q-my-sm">
 				<div class="terminus-info row items-center justify-between">
 					<div class="row items-center">
 						<setting-avatar :size="40" style="margin-left: 8px" />
@@ -32,7 +32,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="row items-center" v-if="!bindTerminusName">
+					<div
+						class="row items-center item-margin-right"
+						v-if="!bindTerminusName"
+					>
 						<q-btn
 							dense
 							class="confirm-btn bound-btn"
@@ -43,7 +46,7 @@
 					</div>
 					<div
 						v-else
-						class="row items-center justify-end"
+						class="row items-center justify-end item-margin-right"
 						@click="unbindName(bindTerminusName.id)"
 					>
 						<div class="unbound-bg row items-center justify-center">
@@ -56,9 +59,9 @@
 					</div>
 				</div>
 			</q-item>
-			<bt-separator class="q-mt-sm" />
+			<bt-separator />
 			<q-item
-				class="text-body3 reminder-info row items-center"
+				class="text-body3 reminder-info row items-center item-margin-left item-margin-right"
 				v-if="!bindTerminusName"
 			>
 				{{
@@ -67,7 +70,10 @@
 					)
 				}}
 			</q-item>
-			<q-item v-else class="metamask-info q-mt-md">
+			<q-item
+				v-else
+				class="metamask-info q-my-md item-margin-left item-margin-right"
+			>
 				<div
 					class="metamask-info__content row items-center justify-between"
 				>
@@ -77,7 +83,7 @@
 							blockChainStore.account &&
 							blockChainStoreAddressAuthed
 								? 120
-								: 60
+								: 120
 						}px);`"
 					>
 						<q-img
@@ -173,20 +179,22 @@
 				"
 			/>
 			<q-item
-				class="text-body3 reminder-info row items-center q-mt-md"
+				class="text-body3 reminder-info q-my-md row items-center item-margin-left item-margin-right"
 				v-if="
 					bindTerminusName &&
 					blockChainStore.account &&
 					!blockChainStoreAddressAuthed
 				"
 			>
-				{{
-					t(
-						'you_need_to_bind_a_blockchain_wallet_to_obtain_the_corresponding_nft_image_message_more'
-					)
-				}}
+				<div
+					v-html="
+						t(
+							'you_need_to_bind_a_blockchain_wallet_to_obtain_the_corresponding_nft_image_message_more'
+						)
+					"
+				></div>
 			</q-item>
-		</q-list>
+		</bt-list>
 		<div
 			v-else
 			class="row items-center justify-center"
@@ -213,6 +221,7 @@ import AccountConnectStatus from '../../components/account/AccountConnectStatus.
 import AccountRequestSignDialog from '../../components/account/AccountRequestSignDialog.vue';
 import { notifyFailed, notifyWarning } from '../../utils/btNotify';
 import BtSeparator from '../../components/base/BtSeparator.vue';
+import BtList from '../../components/base/BtList.vue';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -504,7 +513,7 @@ const onRemoveSign = async () => {
 
 .metamask-info {
 	padding: 0;
-	width: 100%;
+	width: calc(100% - 40px);
 
 	&__content {
 		width: 100%;

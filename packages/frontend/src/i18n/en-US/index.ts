@@ -326,7 +326,7 @@ export default {
 		'To use an NFT image as your exclusive avatar in your Profile, you need to bind a blockchain wallet',
 	import: 'Import',
 	you_need_to_bind_a_blockchain_wallet_to_obtain_the_corresponding_nft_image_message_more:
-		'"To use an NFT image as your exclusive avatar in your Profile, you need to bind a blockchain wallet. To get the NFT image:\\n1. Install the MetaMask plugin from Chrome App Store to create or import your blockchain wallet. \\n2. Click the button above to import the wallet.\\n3. Bind the wallet to your Olares ID as instructed."',
+		'To use an NFT image as your exclusive avatar in your Profile, you need to bind a blockchain wallet. To get the NFT image:<br>1. Install the MetaMask plugin from Chrome App Store to create or import your blockchain wallet. <br>2. Click the button above to import the wallet.\\n3. Bind the wallet to your Olares ID as instructed.',
 	login_and_bind_your_olares_space_account:
 		'Log in and bind your Olares Space account',
 	account: 'Account',

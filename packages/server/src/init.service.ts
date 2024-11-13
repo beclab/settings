@@ -17,7 +17,7 @@ export class InitService implements OnModuleInit {
   //   devVersion: OSVersion | null = null;
   //   noDevVersion: OSVersion | null = null;
 
-  private cloudUrl = process.env.APP_SERVICE_CLOUD_URL || Cloud_URL;
+  private cloudUrl = process.env.SPACE_URL || Cloud_URL;
 
   constructor(private secretService: SecretService) {
     //

@@ -232,7 +232,7 @@ export class DropboxAccount extends IntegrationAccount {
 export class SpaceAccount extends IntegrationAccount {
   type = AccountType.Space;
 
-  private cloudUrl = process.env.APP_SERVICE_CLOUD_URL || Cloud_URL;
+  private cloudUrl = process.env.SPACE_URL || Cloud_URL;
 
   async refresh() {
     const data = this.raw_data as SpaceAccountData;
