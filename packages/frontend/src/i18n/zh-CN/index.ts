@@ -319,7 +319,7 @@ export default {
 		'若要使用 NFT 图片作为个人主页的专属头像，您需要绑定区块链钱包',
 	import: '导入',
 	you_need_to_bind_a_blockchain_wallet_to_obtain_the_corresponding_nft_image_message_more:
-		'" 1. 从 Chrome 应用商店安装 MetaMask 插件，创建或导入您的区块链钱包。\\n 2. 点击上方按钮导入钱包。\\n 3. 按照界面提示，将钱包绑定到您的 Olares ID。"',
+		'1. 从 Chrome 应用商店安装 MetaMask 插件，创建或导入您的区块链钱包。\\n 2. 点击上方按钮导入钱包。\\n 3. 按照界面提示，将钱包绑定到您的 Olares ID。',
 	login_and_bind_your_olares_space_account: '登录并绑定 Olares Space 账号',
 	account: '账户',
 	password: '密码',

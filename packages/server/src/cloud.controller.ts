@@ -33,7 +33,7 @@ export class CloudController {
   private verifyingContract =
     process.env.APP_SERVICE_VERIFYING_CONTRACT ||
     '0xe2eaba0979277a90511f8873ae1e8ca26b54e740';
-  private cloudUrl = process.env.APP_SERVICE_CLOUD_URL || Cloud_URL;
+  private cloudUrl = process.env.SPACE_URL || Cloud_URL;
 
   constructor(
     private secretService: SecretService,
