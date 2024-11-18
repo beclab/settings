@@ -164,19 +164,19 @@ module.exports = configure(function (ctx) {
 			open: true, // opens browser window automatically,
 			proxy: {
 				'/api': {
-					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
+					target: `https://settings.${process.env.ACCOUNT_DOMAIN}`,
 					changeOrigin: true
 				},
 				'/admin': {
-					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
+					target: `https://settings.${process.env.ACCOUNT_DOMAIN}`,
 					changeOrigin: true
 				},
 				'/kapis': {
-					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
+					target: `https://settings.${process.env.ACCOUNT_DOMAIN}`,
 					changeOrigin: true
 				},
 				'/headscale': {
-					target: `https://settings.${process.env.ACCOUNT}.myterminus.com`,
+					target: `https://settings.${process.env.ACCOUNT_DOMAIN}`,
 					changeOrigin: true
 				}
 			}

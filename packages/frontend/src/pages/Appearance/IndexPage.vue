@@ -192,7 +192,7 @@
 											selectBackgroundMode ==
 											BackgroundMode.desktop
 										"
-										:label="t(themeOptionsRef[1].label)"
+										:label="t('desktop_background')"
 										@update:modelValue="
 											selectBackgroundMode =
 												BackgroundMode.desktop
@@ -219,7 +219,7 @@
 											selectBackgroundMode ==
 											BackgroundMode.login
 										"
-										:label="t(themeOptionsRef[1].label)"
+										:label="t('login_background')"
 										@update:modelValue="
 											selectBackgroundMode =
 												BackgroundMode.login
