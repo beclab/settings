@@ -173,7 +173,8 @@ async function checkAccountCreate(username: string) {
 			}
 
 			const message =
-				'TerminusName:' +
+				t('olares_ID') +
+				':' +
 				userName.value +
 				'<br>' +
 				t('original_password') +
