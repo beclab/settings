@@ -18,6 +18,12 @@
 				:title="t('version')"
 				@click="gotoPage('/system/version')"
 				:chevron-right="true"
+			/>
+
+			<bt-form-item
+				:title="t('logs')"
+				@click="gotoPage('/system/log')"
+				:chevron-right="true"
 				:width-separator="false"
 			/>
 		</bt-list>
@@ -26,11 +32,11 @@
 
 <script setup lang="ts">
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
-import { useRouter } from 'vue-router';
 import BtFormItem from '../../components/base/BtFormItem.vue';
 import { useDeviceStore } from '../../stores/device';
-import { useI18n } from 'vue-i18n';
 import BtList from '../../components/base/BtList.vue';
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 const deviceStore = useDeviceStore();
 const router = useRouter();

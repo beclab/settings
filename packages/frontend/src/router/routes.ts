@@ -252,6 +252,10 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: '/system/gpu',
 				component: () => import('src/pages/System/pages/GPUPage.vue')
+			},
+			{
+				path: '/system/log',
+				component: () => import('src/pages/System/pages/LogPage.vue')
 			}
 		]
 	},

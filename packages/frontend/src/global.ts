@@ -185,3 +185,10 @@ export interface PermissionProviderRegister {
 	opApis: ProviderRegisterApi[];
 	version: string;
 }
+
+export enum ProcessingState {
+	Init = '',
+	Completed = 'completed',
+	Failed = 'failed',
+	InProgress = 'in-progress'
+}
