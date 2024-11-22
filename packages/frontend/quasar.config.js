@@ -12,6 +12,7 @@
 
 const { configure } = require('quasar/wrappers');
 const dotenv = require('dotenv');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 dotenv.config();
 // console.log(process.env);
@@ -82,6 +83,18 @@ module.exports = configure(function (ctx) {
 
 			// Options below are automatically set depending on the env, set them if you want to override
 			extractCSS: true,
+
+			extendWebpack(cfg) {
+				!ctx.dev &&
+					cfg.plugins.push(
+						new PreloadWebpackPlugin({
+							rel: 'preload',
+							include: 'allAssets',
+							fileWhitelist: [/.+MaterialSymbolsRounded.+/],
+							as: 'font'
+						})
+					);
+			},
 
 			// https://v2.quasar.dev/quasar-cli-webpack/handling-webpack
 			// "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain

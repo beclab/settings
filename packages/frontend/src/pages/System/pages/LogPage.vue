@@ -80,6 +80,7 @@ import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import { notifyFailed } from '../../../utils/btNotify';
 import { useTerminusDStore } from '../../../stores/terminusd';
 import { ProcessingState } from '../../../global';
+import * as process from 'process';
 
 const deviceStore = useDeviceStore();
 const terminusDStore = useTerminusDStore();
@@ -109,12 +110,10 @@ const handleCollect = async () => {
 };
 
 const openLogFile = () => {
-	let hostname: any;
-	if (window.location.origin.includes('test')) {
-		hostname = window.location.hostname.replace('test', 'files');
-	} else {
-		hostname = window.location.hostname.replace('wise', 'files');
-	}
+	const hostname = window.location.hostname.replace(
+		process.env.DEV ? 'test' : 'settings',
+		'files'
+	);
 	let path =
 		window.location.protocol + '//' + hostname + '/Files/Home/pod_logs/';
 	window.open(path);
