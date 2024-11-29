@@ -65,7 +65,13 @@ export class InitController {
     } catch (e) {
       console.log(e);
     }
-    const secrets = await this.secretService.ListSecret();
+
+    let secrets = [];
+    try {
+      secrets = await this.secretService.ListSecret();
+    } catch (e) {
+      console.log(e);
+    }
     const devices = await this.deviceService.getMergedDevice();
     const terminusInfo = await this.secretService.updateTerminusInfo();
     const wallpaper = this.wallpaperService.wallpaper;
