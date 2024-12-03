@@ -1,4 +1,12 @@
-import { Controller, Get, HttpCode, Logger, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Logger,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { returnError, returnSucceed } from '@bytetrade/core';
 import axios from 'axios';
 
@@ -16,7 +24,7 @@ export class TerminusdController {
   async systemStatus(@Req() request: Request) {
     try {
       const signature: string = request.headers['x-signature'] as string;
-      console.log('signature:' + signature);
+      console.log('signature:', signature);
       const response: any = await axios.get(`${this.baseUrl}/system/status`, {
         headers: { 'X-Signature': signature },
       });
@@ -24,7 +32,7 @@ export class TerminusdController {
       if (response.status !== 200) {
         throw new Error(response.statusText);
       }
-      if (response.data.code != 200) {
+      if (response.data.code !== 200) {
         throw new Error(response.data);
       }
       this.logger.log(response.data);
@@ -40,7 +48,7 @@ export class TerminusdController {
   async collectLogs(@Req() request: Request) {
     try {
       const signature: string = request.headers['x-signature'] as string;
-      console.log('signature:' + signature);
+      console.log('signature:', signature);
       const response: any = await axios.post(
         `${this.baseUrl}/command/collect-logs`,
         null,
@@ -49,7 +57,59 @@ export class TerminusdController {
       if (response.status !== 200) {
         throw new Error(response.statusText);
       }
-      if (response.data.code != 200) {
+      if (response.data.code !== 200) {
+        throw new Error(response.data);
+      }
+      this.logger.log(response.data);
+      return returnSucceed(response.data.message);
+    } catch (e) {
+      console.log('message:' + e.message);
+      return returnError(500, e.message);
+    }
+  }
+
+  @Get('/system/hosts-file')
+  async getHostsFile(@Req() request: Request) {
+    try {
+      const signature: string = request.headers['x-signature'] as string;
+      console.log('signature:', signature);
+      const response: any = await axios.get(
+        `${this.baseUrl}/system/hosts-file`,
+        {
+          headers: { 'X-Signature': signature },
+        },
+      );
+      // console.log('response:', response);
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      if (response.data.code !== 200) {
+        throw new Error(response.data);
+      }
+      this.logger.log(response.data);
+      return returnSucceed(response.data.data);
+    } catch (e) {
+      console.log('message:' + e.message);
+      return returnError(500, e.message);
+    }
+  }
+
+  @Post('/system/hosts-file')
+  @HttpCode(200)
+  async updateHostsFile(@Req() request: Request, @Body() body: any) {
+    try {
+      const signature: string = request.headers['x-signature'] as string;
+      console.log('signature:', signature);
+      console.log('body:', body);
+      const response: any = await axios.post(
+        `${this.baseUrl}/system/hosts-file`,
+        body,
+        { headers: { 'X-Signature': signature } },
+      );
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      if (response.data.code !== 200) {
         throw new Error(response.data);
       }
       this.logger.log(response.data);

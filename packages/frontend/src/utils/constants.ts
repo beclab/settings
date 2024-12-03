@@ -437,3 +437,8 @@ export const VRAMModeOptions = () => {
 		}
 	];
 };
+
+export interface HostItem {
+	ip: string;
+	host: string;
+}
