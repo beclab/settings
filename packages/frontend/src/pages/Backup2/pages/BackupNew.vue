@@ -287,7 +287,7 @@ import {
 	BackupFrequency,
 	BackupCreateReq
 } from '@bytetrade/core';
-import { useAccountStore } from '../../../stores/Account';
+import { useAccountStore } from '../../../stores/account';
 import {
 	frequencyOptions,
 	locationOptions,
