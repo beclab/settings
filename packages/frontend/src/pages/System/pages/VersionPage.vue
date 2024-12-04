@@ -8,13 +8,18 @@
 				:title="t('current_version')"
 				:margin-top="false"
 				:chevron-right="false"
-				:widthSeparator="versionInfo != undefined && versionInfo.is_new"
+				:widthSeparator="
+					upgradeStore.versionInfo != undefined &&
+					upgradeStore.versionInfo.is_new
+				"
 			>
-				{{ versionInfo?.current_version }}
+				{{ upgradeStore.versionInfo?.current_version }}
 			</bt-form-item>
 
 			<bt-form-item
-				v-if="versionInfo && versionInfo.is_new"
+				v-if="
+					upgradeStore.versionInfo && upgradeStore.versionInfo.is_new
+				"
 				:margin-top="false"
 				:chevron-right="false"
 				:widthSeparator="false"
@@ -30,12 +35,21 @@
 									: 'text-ink-3'
 							"
 						>
-							{{ versionInfo?.new_version }}
+							{{ upgradeStore.versionInfo?.new_version }}
 						</div>
 					</div>
 				</template>
-				<div class="upgradeNow" v-if="upgradeState === 'running'">
-					<span class="loader"></span>
+				<div class="upgradeNow" v-if="loading">
+					<span class="loader" />
+					{{ t('checking_new_version_info') }}
+				</div>
+				<div
+					class="upgradeNow"
+					v-else-if="
+						upgradeStore.upgradeState === UpgradeStatus.Running
+					"
+				>
+					<span class="loader" />
 					{{ t('upgrading') }}
 				</div>
 				<div class="upgradeNow" @click="handleUpgrade" v-else>
@@ -47,68 +61,58 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
-import { useUpgradeStore } from '../../../stores/Upgrade';
-import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
-import { useI18n } from 'vue-i18n';
-import { useDeviceStore } from '../../../stores/device';
-import BtFormItem from '../../../components/base/BtFormItem.vue';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
+import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
+import { UpgradeStatus } from '../../../utils/constants';
+import { useUpgradeStore } from '../../../stores/Upgrade';
+import { useDeviceStore } from '../../../stores/device';
+import { onMounted, onUnmounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const deviceStore = useDeviceStore();
-const { t } = useI18n();
 const upgradeStore = useUpgradeStore();
-
-const versionInfo = ref();
-const upgradeState = ref();
+const { t } = useI18n();
 const timer = ref();
+const loading = ref(true);
 
-const new_version = async () => {
-	try {
-		versionInfo.value = await upgradeStore.new_version();
-	} catch (error) {
-		console.log(error);
+const updateUpgradeState = async () => {
+	await upgradeStore.queryUpgradeState();
+
+	switch (upgradeStore.upgradeState) {
+		case UpgradeStatus.Running:
+			break;
+
+		case UpgradeStatus.Completed:
+			window.clearInterval(timer.value);
+			notifySuccess(t('completed'));
+			break;
+
+		default:
+			window.clearInterval(timer.value);
+			notifyFailed(t('failed'));
+			break;
 	}
-};
-
-const startUpgradeState = async () => {
-	const res = await upgradeStore.upgradeState();
-	if (res) {
-		upgradeState.value = res.state;
-		switch (res.state) {
-			case 'running':
-				break;
-
-			case 'complete':
-				window.clearInterval(timer.value);
-				notifySuccess(t('completed'));
-				break;
-
-			default:
-				window.clearInterval(timer.value);
-				notifyFailed(t('failed'));
-				break;
-		}
-		new_version();
-	}
+	await upgradeStore.checkLastOsVersion();
 };
 
 const handleUpgrade = async () => {
-	upgradeState.value = 'running';
-	try {
-		const res = await upgradeStore.upgrade();
-		if (res) {
+	upgradeStore
+		.upgrade()
+		.then(() => {
 			timer.value = setInterval(() => {
-				startUpgradeState();
+				updateUpgradeState();
 			}, 4000);
-		}
-	} catch (error) {
-		upgradeState.value = null;
-	}
+		})
+		.catch(() => {
+			upgradeStore.upgradeState = '';
+			notifyFailed(t('failed'));
+		});
 };
 
-onMounted(() => {
-	new_version();
+onMounted(async () => {
+	await upgradeStore.checkLastOsVersion();
+	loading.value = false;
 });
 
 onUnmounted(() => {

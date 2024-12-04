@@ -1,7 +1,6 @@
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useAccountStore } from 'src/stores/Account';
-//import { useTokenStore } from '../stores/token';
+import { useAccountStore } from 'src/stores/account';
 import qs from 'qs';
 import { notifyFailed } from '../utils/btNotify';
 

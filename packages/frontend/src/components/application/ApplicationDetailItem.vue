@@ -2,7 +2,7 @@
 	<q-item class="application-detail-item">
 		<q-item-section class="item-margin-left">
 			<div class="row items-center">
-				<div style="position: relative">
+				<div style="position: relative; height: 32px">
 					<img
 						class="application-logo"
 						:src="app.icon?.length > 0 ? app.icon : ''"

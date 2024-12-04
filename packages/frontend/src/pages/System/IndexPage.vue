@@ -15,6 +15,12 @@
 			/>
 
 			<bt-form-item
+				:title="t('hosts')"
+				@click="gotoPage('/system/host')"
+				:chevron-right="true"
+			/>
+
+			<bt-form-item
 				:title="t('version')"
 				@click="gotoPage('/system/version')"
 				:chevron-right="true"

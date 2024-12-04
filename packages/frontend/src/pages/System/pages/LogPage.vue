@@ -11,7 +11,7 @@
 				:widthSeparator="collected"
 			>
 				<div class="upgradeNow" v-if="!firstLoad">
-					{{ t('querying_system_status') }}
+					{{ t('checking_system_status') }}
 				</div>
 				<div
 					class="upgradeNow"

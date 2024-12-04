@@ -4,7 +4,7 @@
 			<DialogHeader
 				:title="t('create_account')"
 				@close-action="onDialogCancel"
-			></DialogHeader>
+			/>
 			<div class="dialog-content-root">
 				<terminus-edit
 					v-model="userName"

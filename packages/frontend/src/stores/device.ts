@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useBackgroundStore } from './Background';
+import { useBackgroundStore } from './background';
 
 export const useDeviceStore = defineStore('deviceStore', {
 	state: () => ({
