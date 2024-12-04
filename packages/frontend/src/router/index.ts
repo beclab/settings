@@ -1,5 +1,5 @@
 import { route } from 'quasar/wrappers';
-import { useAdminStore } from 'src/stores/Admin';
+import { useAdminStore } from 'src/stores/admin';
 import {
 	createMemoryHistory,
 	createRouter,

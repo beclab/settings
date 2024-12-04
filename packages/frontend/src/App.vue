@@ -15,6 +15,7 @@ import axios from 'axios';
 import { WebPlatform } from './utils/platform';
 import { supportLanguages } from './i18n/index';
 import { useSocketStore } from './stores/websocketStore';
+import { useUpgradeStore } from './stores/Upgrade';
 
 const platform = new WebPlatform();
 
@@ -67,10 +68,12 @@ export default defineComponent({
 		const adminStore = useAdminStore();
 		const tokenStore = useTokenStore();
 		const headScaleStore = useHeadScaleStore();
+		const upgradeStore = useUpgradeStore();
 
 		const host = window.location.origin;
 		tokenStore.setUrl(host);
 		headScaleStore.setUrl(host + '/headscale');
+		upgradeStore.checkLastOsVersion();
 
 		onMounted(() => {
 			platform.getDeviceInfo().then((deviceInfo) => {

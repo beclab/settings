@@ -9,7 +9,7 @@ import {
 	UpdateAccountQuotaRequest,
 	UsersParam
 } from '../global';
-import { useAdminStore } from './Admin';
+import { useAdminStore } from './admin';
 
 export type AccountState = {
 	accounts: AccountInfo[];

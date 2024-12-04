@@ -7,8 +7,7 @@ import {
 	MessageTopic
 } from '@bytetrade/core';
 import { bus } from '../utils/bus';
-import { useApplicationStore } from './Application';
-// import { useTokenStore } from './token';
+import { useApplicationStore } from './application';
 export interface WebSocketState {
 	websocket: WebSocketBean | null;
 }

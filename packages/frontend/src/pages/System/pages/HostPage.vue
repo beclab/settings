@@ -13,7 +13,11 @@
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<AdaptiveLayout>
 			<template v-slot:pc>
-				<div class="q-list-class q-pa-md column">
+				<empty-component
+					v-if="rows.length === 0"
+					:info="t('no_hosts_added_yet')"
+				/>
+				<div v-else class="q-list-class q-pa-md column">
 					<q-table
 						:rows="currentPageData"
 						flat
@@ -113,6 +117,7 @@
 <script lang="ts" setup>
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import AdaptiveLayout from '../../../components/AdaptiveLayout.vue';
+import EmptyComponent from '../../../components/EmptyComponent.vue';
 import { useTerminusDStore } from '../../../stores/terminusd';
 import EditHostDialog from './dialog/EditHostDialog.vue';
 import { useDeviceStore } from '../../../stores/device';
@@ -195,10 +200,12 @@ const fetchHistory = async () => {
 	loading2.value = true;
 	const res = await terminusDStore.getHostsList();
 	loading2.value = false;
-	rows.value = res.map((item: any) => ({
-		ip: item.ip,
-		host: item.host
-	}));
+	if (res.length > 0) {
+		rows.value = res.map((item: any) => ({
+			ip: item.ip,
+			host: item.host
+		}));
+	}
 
 	pagination.value.rowsNumber = res.length;
 };

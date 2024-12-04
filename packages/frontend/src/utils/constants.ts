@@ -442,3 +442,14 @@ export interface HostItem {
 	ip: string;
 	host: string;
 }
+
+export interface VersionInfo {
+	current_version: string;
+	new_version: string;
+	is_new: boolean;
+}
+
+export enum UpgradeStatus {
+	Running = 'running',
+	Completed = 'complete'
+}

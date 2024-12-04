@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { useAdminStore } from './Admin';
+import { useAdminStore } from './admin';
 import { useTokenStore } from './token';
 import { HostItem } from '../utils/constants';
 
