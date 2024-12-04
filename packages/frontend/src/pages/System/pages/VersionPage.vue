@@ -77,32 +77,37 @@ const timer = ref();
 const loading = ref(true);
 
 const updateUpgradeState = async () => {
-	await upgradeStore.queryUpgradeState().then(async () => {
-		switch (upgradeStore.upgradeState) {
-			case UpgradeStatus.Running:
-				break;
+	await upgradeStore.queryUpgradeState();
 
-			case UpgradeStatus.Completed:
-				window.clearInterval(timer.value);
-				notifySuccess(t('completed'));
-				break;
+	switch (upgradeStore.upgradeState) {
+		case UpgradeStatus.Running:
+			break;
 
-			default:
-				window.clearInterval(timer.value);
-				notifyFailed(t('failed'));
-				break;
-		}
-		await upgradeStore.checkLastOsVersion();
-	});
+		case UpgradeStatus.Completed:
+			window.clearInterval(timer.value);
+			notifySuccess(t('completed'));
+			break;
+
+		default:
+			window.clearInterval(timer.value);
+			notifyFailed(t('failed'));
+			break;
+	}
+	await upgradeStore.checkLastOsVersion();
 };
 
 const handleUpgrade = async () => {
-	const res = await upgradeStore.upgrade();
-	if (res) {
-		timer.value = setInterval(() => {
-			updateUpgradeState();
-		}, 4000);
-	}
+	upgradeStore
+		.upgrade()
+		.then(() => {
+			timer.value = setInterval(() => {
+				updateUpgradeState();
+			}, 4000);
+		})
+		.catch(() => {
+			upgradeStore.upgradeState = '';
+			notifyFailed(t('failed'));
+		});
 };
 
 onMounted(async () => {

@@ -17,13 +17,9 @@ export const useUpgradeStore = defineStore('upgrade', {
 	},
 	actions: {
 		async upgrade() {
-			try {
-				this.upgradeState = UpgradeStatus.Running;
-				const tokenStore = useTokenStore();
-				return await axios.get(tokenStore.url + '/api/upgrade', {});
-			} catch (error) {
-				console.log(error);
-			}
+			this.upgradeState = UpgradeStatus.Running;
+			const tokenStore = useTokenStore();
+			return await axios.get(tokenStore.url + '/api/upgrade', {});
 		},
 
 		async checkLastOsVersion() {
