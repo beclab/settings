@@ -95,10 +95,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAdminStore } from '../../stores/Admin';
+import { useAdminStore } from '../../stores/admin';
 import UpdateUserPassworDialog from '../Account/dialog/UpdateUserPassworDialog.vue';
 import { useQuasar } from 'quasar';
-import { useUserStore } from 'src/stores/User';
+import { useUserStore } from 'src/stores/user';
 import { useHeadScaleStore } from 'src/stores/headscale';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import BtFormItem from '../../components/base/BtFormItem.vue';

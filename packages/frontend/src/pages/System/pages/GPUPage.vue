@@ -28,7 +28,7 @@ import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import { VRAMMode, VRAMModeOptions } from '../../../utils/constants';
 import BtSelect from '../../../components/base/BtSelect.vue';
 import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
-import { useGPUStore } from '../../../stores/GPU';
+import { useGPUStore } from '../../../stores/gpu';
 
 import { onMounted, ref, watch } from 'vue';
 import { useQuasar } from 'quasar';

@@ -83,7 +83,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { useQuasar } from 'quasar';
 import { useRoute } from 'vue-router';
 import CreateRecipients from './CreateRecipient';

@@ -25,8 +25,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import TerminusQrCode from '../components/TerminusQrCode.vue';
-import { useAdminStore } from '../stores/Admin';
-import { useAccountStore } from '../stores/Account';
+import { useAdminStore } from '../stores/admin';
+import { useAccountStore } from '../stores/account';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import axios from 'axios';
 import { Encoder, MessageTopic } from '@bytetrade/core';

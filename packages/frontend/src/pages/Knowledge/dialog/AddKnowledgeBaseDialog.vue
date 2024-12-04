@@ -59,7 +59,7 @@ import DialogHeader from '../../../components/DialogHeader.vue';
 import DialogFooter from '../../../components/DialogFooter.vue';
 import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import { useI18n } from 'vue-i18n';
-import { useFilesStore, DatasetFolder } from '../../../stores/Files';
+import { useFilesStore, DatasetFolder } from '../../../stores/files';
 
 const props = defineProps({
 	datasetID: {

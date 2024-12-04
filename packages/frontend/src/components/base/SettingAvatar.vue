@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAdminStore } from '../../stores/Admin';
+import { useAdminStore } from '../../stores/admin';
 
 defineProps({
 	size: {

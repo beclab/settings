@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useAuthorityStore } from 'src/stores/Authority';
+import { useAuthorityStore } from 'src/stores/authority';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import BtSelect from '../../components/base/BtSelect.vue';
 import BtFormItem from '../../components/base/BtFormItem.vue';

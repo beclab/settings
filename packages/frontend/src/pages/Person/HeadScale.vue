@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import { useUserStore } from 'src/stores/User';
+import { useUserStore } from 'src/stores/user';
 import { useHeadScaleStore } from 'src/stores/headscale';
 import DeviceCard from './DeviceCard.vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';

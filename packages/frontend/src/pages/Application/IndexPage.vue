@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationStore } from '../../stores/Application';
+import { useApplicationStore } from '../../stores/application';
 import { useRouter } from 'vue-router';
 import { TerminusApp } from '@bytetrade/core';
 import PageTitleComponent from 'components/PageTitleComponent.vue';

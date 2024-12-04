@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
-import { useNotificationStore } from '../../stores/Notification';
+import { useNotificationStore } from '../../stores/notification';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();

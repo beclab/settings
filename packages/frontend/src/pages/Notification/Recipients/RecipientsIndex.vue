@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { useQuasar } from 'quasar';
 import AddRecipientsCollection from './AddRecipientsCollection';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';

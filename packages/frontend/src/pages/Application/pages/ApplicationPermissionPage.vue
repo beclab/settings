@@ -84,7 +84,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useApplicationStore } from '../../../stores/Application';
+import { useApplicationStore } from '../../../stores/application';
 import { PermissionProviderRegister } from '../../../global';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import { useDeviceStore } from '../../../stores/device';

@@ -145,8 +145,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useApplicationStore } from '../../../stores/Application';
-import { useSecretStore } from '../../../stores/Secret';
+import { useApplicationStore } from '../../../stores/application';
+import { useSecretStore } from '../../../stores/secret';
 import {
 	AppPermission,
 	Permission,

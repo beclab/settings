@@ -128,7 +128,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
-import { useAdminStore, SSOResult } from '../../stores/Admin';
+import { useAdminStore, SSOResult } from '../../stores/admin';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { date, useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';

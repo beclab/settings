@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { useDialogPluginComponent, Loading } from 'quasar';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';

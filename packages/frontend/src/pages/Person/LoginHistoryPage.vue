@@ -124,7 +124,7 @@ import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { AccountInfo, UsersParam } from '../../global';
 import { getLocalTime } from '../../utils';
 import { computed, onMounted, ref } from 'vue';
-import { useUserStore } from '../../stores/User';
+import { useUserStore } from '../../stores/user';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from '../../components/AdaptiveLayout.vue';

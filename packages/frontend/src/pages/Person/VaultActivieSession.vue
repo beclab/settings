@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useAdminStore } from 'src/stores/Admin';
+import { useAdminStore } from 'src/stores/admin';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import TrustDeviceItem from '../../components/person/TrustDeviceItem.vue';
 import { useI18n } from 'vue-i18n';

@@ -4,18 +4,18 @@
 
 <script>
 import { defineComponent, onMounted } from 'vue';
-import { useApplicationStore } from './stores/Application';
-import { useAdminStore } from './stores/Admin';
+import { useApplicationStore } from './stores/application';
+import { useAdminStore } from './stores/admin';
 import { useTokenStore } from './stores/token';
 import { useHeadScaleStore } from './stores/headscale';
-import { useAccountStore } from './stores/Account';
-import { useBackgroundStore } from './stores/Background';
+import { useAccountStore } from './stores/account';
+import { useBackgroundStore } from './stores/background';
 import { useDIDStore } from './stores/did';
 import axios from 'axios';
 import { WebPlatform } from './utils/platform';
 import { supportLanguages } from './i18n/index';
 import { useSocketStore } from './stores/websocketStore';
-import { useUpgradeStore } from './stores/Upgrade';
+import { useUpgradeStore } from './stores/upgrade';
 
 const platform = new WebPlatform();
 
