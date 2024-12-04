@@ -91,7 +91,7 @@ import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import PlanItem from '../../components/backup/PlanItem.vue';
 import { useI18n } from 'vue-i18n';
 import QRCodeLogin from '../../components/QRCodeLogin.vue';
-import { useAccountStore } from '../../stores/Account';
+import { useAccountStore } from '../../stores/account';
 import EmptyComponent from '../../components/EmptyComponent.vue';
 import { useDeviceStore } from '../../stores/device';
 
