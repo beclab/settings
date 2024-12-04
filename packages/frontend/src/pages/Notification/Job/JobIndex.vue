@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { ref } from 'vue';
 import { useQuasar } from 'quasar';
 import CreateJob from './CreateJob.vue';

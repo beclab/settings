@@ -45,7 +45,7 @@
 import { TerminusApp } from '@bytetrade/core';
 import { PropType, ref, watch } from 'vue';
 import { useQuasar } from 'quasar';
-import { useApplicationStore } from '../../stores/Application';
+import { useApplicationStore } from '../../stores/application';
 import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
 import ApplicationStatus from './ApplicationStatus.vue';
 import { useDeviceStore } from '../../stores/device';

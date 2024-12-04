@@ -209,9 +209,9 @@
 import { useQuasar } from 'quasar';
 import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAdminStore } from '../../stores/Admin';
+import { useAdminStore } from '../../stores/admin';
 import { useSpaceStore, BindTerminusName } from '../../stores/space';
-import { useBlockchainStore } from '../../stores/Blockchain';
+import { useBlockchainStore } from '../../stores/blockchain';
 import { toUtf8Bytes, keccak256, ethers } from 'ethers';
 import ResolverABI from '../../core/RootResolverABI';
 import baseinfo from '../../core/baseinfo';

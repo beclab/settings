@@ -78,7 +78,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { i18n } from '../../../boot/i18n';

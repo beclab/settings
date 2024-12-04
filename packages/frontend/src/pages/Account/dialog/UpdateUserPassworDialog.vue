@@ -60,7 +60,7 @@ import { useDialogPluginComponent, useQuasar } from 'quasar';
 import { computed, ref } from 'vue';
 import DialogHeader from '../../../components/DialogHeader.vue';
 import DialogFooter from '../../../components/DialogFooter.vue';
-import { useUserStore } from '../../../stores/User';
+import { useUserStore } from '../../../stores/user';
 import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import { useI18n } from 'vue-i18n';
 

@@ -30,7 +30,7 @@ import ListBottomFuncBtn from '../../components/ListBottomFuncBtn.vue';
 import CreateUserDialog from './dialog/CreateUserDialog.vue';
 import UserItem from '../../components/user/UserItem.vue';
 import BtList from '../../components/base/BtList.vue';
-import { useUserStore } from '../../stores/User';
+import { useUserStore } from '../../stores/user';
 import { AccountInfo } from '../../global';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';

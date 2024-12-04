@@ -65,7 +65,7 @@ import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import { UpgradeStatus } from '../../../utils/constants';
-import { useUpgradeStore } from '../../../stores/Upgrade';
+import { useUpgradeStore } from '../../../stores/upgrade';
 import { useDeviceStore } from '../../../stores/device';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

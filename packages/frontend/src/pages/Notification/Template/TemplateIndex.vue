@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { ref } from 'vue';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import { useQuasar } from 'quasar';

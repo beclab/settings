@@ -92,7 +92,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
-import { useApplicationStore } from 'src/stores/Application';
+import { useApplicationStore } from 'src/stores/application';
 import { SetupDomain } from 'src/global';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import BtFormItem from 'components/base/BtFormItem.vue';

@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import SettingAvatar from '../components/base/SettingAvatar.vue';
-import { useAdminStore } from '../stores/Admin';
+import { useAdminStore } from '../stores/admin';
 import { MENU_TYPE } from '../utils/constants';
 import { useI18n } from 'vue-i18n';
 import { onMounted, ref } from 'vue';

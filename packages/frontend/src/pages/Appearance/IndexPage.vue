@@ -320,7 +320,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { BackgroundMode } from '../../constant';
-import { useBackgroundStore, themeOptions } from '../../stores/Background';
+import { useBackgroundStore, themeOptions } from '../../stores/background';
 import WallpaperImage from '../../components/WallpaperImage.vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { debounce, useQuasar } from 'quasar';

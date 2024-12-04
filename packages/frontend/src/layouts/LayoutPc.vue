@@ -66,11 +66,11 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useAdminStore } from '../stores/Admin';
+import { useAdminStore } from '../stores/admin';
 import { MENU_TYPE } from '../utils/constants';
 import SettingAvatar from '../components/base/SettingAvatar.vue';
 import { useI18n } from 'vue-i18n';
-import { useBackgroundStore } from '../stores/Background';
+import { useBackgroundStore } from '../stores/background';
 
 const router = useRouter();
 const route = useRoute();

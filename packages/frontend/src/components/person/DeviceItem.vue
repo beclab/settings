@@ -116,7 +116,7 @@ import { TermiPassDeviceInfo } from '@bytetrade/core';
 import BtGrid from '../base/BtGrid.vue';
 import BtGridItem from '../base/BtGridItem.vue';
 import { date } from 'quasar';
-import { useAdminStore } from '../../stores/Admin';
+import { useAdminStore } from '../../stores/admin';
 import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from '../AdaptiveLayout.vue';
 import BtSeparator from '../base/BtSeparator.vue';

@@ -233,7 +233,7 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore, UserUsage } from 'src/stores/User';
+import { useUserStore, UserUsage } from 'src/stores/user';
 import { useTokenStore } from 'src/stores/token';
 import { onUnmounted, ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -248,7 +248,7 @@ import PageTitleComponent from 'components/PageTitleComponent.vue';
 import ResourceLimit from '../../../components/user/ResourceLimit.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import { getRoleName } from 'src/utils/constants';
-import { useAdminStore } from 'src/stores/Admin';
+import { useAdminStore } from 'src/stores/admin';
 import { generatePasword } from '../utils';
 import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from '../../../components/AdaptiveLayout.vue';

@@ -104,7 +104,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useQuasar } from 'quasar';
-import { useFilesStore, DatasetFolder } from '../../stores/Files';
+import { useFilesStore, DatasetFolder } from '../../stores/files';
 import AddKnowledgeBaseDialog from './dialog/AddKnowledgeBaseDialog.vue';
 import PageTitleComponent from '../../components/PageTitleComponent.vue';
 import { useI18n } from 'vue-i18n';

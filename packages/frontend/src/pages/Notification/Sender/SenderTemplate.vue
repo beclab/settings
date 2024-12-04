@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { useNotificationStore } from '../../../stores/Notification';
+import { useNotificationStore } from '../../../stores/notification';
 import { ref } from 'vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';

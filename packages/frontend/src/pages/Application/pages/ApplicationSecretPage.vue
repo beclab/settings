@@ -40,8 +40,8 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
-import { useApplicationStore } from 'src/stores/Application';
-import { useSecretStore } from 'src/stores/Secret';
+import { useApplicationStore } from 'src/stores/application';
+import { useSecretStore } from 'src/stores/secret';
 import NewSecret from 'src/components/application/dialog/secret/NewSecret.vue';
 import UpdateSecret from 'src/components/application/dialog/secret/UpdateSecret.vue';
 import DeleteSecret from 'src/components/application/dialog/secret/DeleteSecret.vue';

@@ -85,7 +85,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useApplicationStore } from '../../../stores/Application';
+import { useApplicationStore } from '../../../stores/application';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import BtSelect from '../../../components/base/BtSelect.vue';
