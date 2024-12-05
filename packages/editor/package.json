@@ -6,8 +6,7 @@
   "author": "icebergtsn <zhangyuhang@bytetrade.io>",
   "private": true,
 	"scripts": {
-		"dev:editor": "DEV_PORT=9100 quasar dev",
-		"dev:preview": "DEV_PORT=9001 quasar dev"
+		"dev": "quasar dev"
 	},
 	"dependencies": {
     "@bytetrade/ui": "^0.1.32",

@@ -163,7 +163,7 @@ module.exports = configure(function (ctx) {
 		devServer: {
 			https: true,
 			host: process.env.DEV_DOMAIN || 'localhost',
-			port: 9100,
+			port: process.env.DEV_PORT,
 			proxy: {
 				// proxy all requests starting with /api to the backend server
 				'/api': {

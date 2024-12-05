@@ -8,8 +8,8 @@
     "scripts": {
         "postinstall": "echo 'Postinstall script executed'",
         "bootstrap": "npm install",
-        "editor:dev": "ACTION=EDITOR lerna run --scope @settings/editor --parallel dev:editor",
-        "preview:dev": "ACTION=PREVIEW lerna run --scope @settings/editor --parallel dev:preview",
+        "editor:dev": "ACTION=EDITOR DEV_PORT=9100 lerna run dev --scope @settings/editor",
+        "preview:dev": "ACTION=PREVIEW DEV_PORT=9001 lerna run dev --scope @settings/editor",
         "editor:build": "ACTION=EDITOR lerna run build --scope @settings/editor",
         "preview:build": "ACTION=PREVIEW lerna run build --scope @settings/editor",
         "app:build": "lerna run build --scope @settings/frontend",
