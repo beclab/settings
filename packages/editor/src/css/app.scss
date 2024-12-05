@@ -21,7 +21,9 @@
 .q-tab {
 	padding: 0 16px;
 	min-height: 56px !important;
-	transition: color .3s,background-color .3s;
+	transition:
+		color 0.3s,
+		background-color 0.3s;
 	white-space: nowrap;
 	text-decoration: none;
 	text-transform: capitalize;
@@ -49,7 +51,8 @@
 	color: #ffffff;
 }
 
-.q-field__after, .q-field__append {
+.q-field__after,
+.q-field__append {
 	padding-top: 4px;
 	padding-left: 4px;
 }

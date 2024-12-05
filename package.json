@@ -20,6 +20,9 @@
         "prepare": "husky install",
         "clean": "lerna clean"
     },
+    "workspaces": [
+        "packages/*"
+    ],
     "dependencies": {
         "@bytetrade/core": "0.3.67",
         "axios": "^0.21.1"

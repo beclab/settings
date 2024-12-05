@@ -1,24 +1,45 @@
 <template>
 	<div class="index-root row justify-center bg-background-1">
 		<div v-if="!userStore.user" class="index-loading">
-			<BtLoading :show="true" textColor="#ffffff" color="#ffffff" text="Loading" backgroundColor="rgba(0, 0, 0, 0.4)" />
+			<BtLoading
+				:show="true"
+				textColor="#ffffff"
+				color="#ffffff"
+				text="Loading"
+				backgroundColor="rgba(0, 0, 0, 0.4)"
+			/>
 		</div>
 		<div v-else class="index-layout row justify-center">
 			<div class="left-editor column items-center">
 				<div class="editor-top column">
-					<div v-if="userStore.isMobile" class="mobile-brand row justify-center items-center">
+					<div
+						v-if="userStore.isMobile"
+						class="mobile-brand row justify-center items-center"
+					>
 						<q-img class="brand-image" src="icons/profile-128*128.png" />
 						<div class="brand-title text-ink-1 q-ml-md">
 							{{ t('base.profile') }}
 						</div>
 					</div>
 					<div class="editor-title row justify-center">
-						<q-tabs v-if="tab && tabs" :model-value="tab" @update:modelValue="onTabUpdate" dense inline-label
-							narrow-indicator active-color="light-green-default" indicator-color="light-green-default"
-							active-class="tab-item-title-selected">
+						<q-tabs
+							v-if="tab && tabs"
+							:model-value="tab"
+							@update:modelValue="onTabUpdate"
+							dense
+							inline-label
+							narrow-indicator
+							active-color="light-green-default"
+							indicator-color="light-green-default"
+							active-class="tab-item-title-selected"
+						>
 							<template v-for="item in tabs" :key="item.value">
 								<!--							:class="userStore.isMobile ? 'text-subtitle2' : 'text-body2'"-->
-								<q-tab :name="item.value" :label="item.label" :icon="userStore.isMobile ? undefined : item.icon" />
+								<q-tab
+									:name="item.value"
+									:label="item.label"
+									:icon="userStore.isMobile ? undefined : item.icon"
+								/>
 							</template>
 						</q-tabs>
 					</div>
@@ -53,8 +74,11 @@
 				</div>
 			</div>
 
-			<div v-if="userStore.isMobile" class="preview-btn row justify-center items-center bg-tooltip-bg text-white"
-				@click="goPreview">
+			<div
+				v-if="userStore.isMobile"
+				class="preview-btn row justify-center items-center bg-tooltip-bg text-white"
+				@click="goPreview"
+			>
 				<q-icon size="24px" name="sym_r_visibility" />
 				<div class="text-h6 q-ml-sm">{{ t('base.preview') }}</div>
 			</div>

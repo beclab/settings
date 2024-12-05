@@ -5,6 +5,17 @@
   "productName": "profile App",
   "author": "icebergtsn <zhangyuhang@bytetrade.io>",
   "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.ts,.vue ./",
+    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "ACTION=EDITOR DEV_PORT=9100 quasar dev",
+    "dev:editor": "ACTION=EDITOR DEV_PORT=9100 quasar dev",
+    "dev:preview": "ACTION=PREVIEW DEV_PORT=9001 quasar dev",
+    "build": "quasar build",
+    "build:editor": "ACTION=EDITOR quasar build",
+    "build:preview": "ACTION=PREVIEW quasar build"
+  },
   "dependencies": {
     "@bytetrade/ui": "^0.1.32",
     "@quasar/extras": "^1.16.9",
