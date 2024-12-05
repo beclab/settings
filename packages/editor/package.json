@@ -5,7 +5,11 @@
   "productName": "profile App",
   "author": "icebergtsn <zhangyuhang@bytetrade.io>",
   "private": true,
-  "dependencies": {
+	"scripts": {
+		"dev:editor": "DEV_PORT=9100 quasar dev",
+		"dev:preview": "DEV_PORT=9001 quasar dev"
+	},
+	"dependencies": {
     "@bytetrade/ui": "^0.1.32",
     "@quasar/extras": "^1.16.9",
     "axios": "^1.3.5",
