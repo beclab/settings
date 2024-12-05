@@ -64,7 +64,7 @@ export class ProviderClient {
     }
 
     const data = response.data;
-    console.log(data.data);
+
     if (IS_DEBUG) {
       console.log(data.data);
     }
@@ -117,13 +117,8 @@ export class ProviderClient {
       this.group +
       '/v1' +
       path;
-    console.log('request data ===>');
-    console.log(data);
 
     const response = await instance.post(url, data);
-
-    console.log('response ===>');
-    console.log(response);
 
     if (!response) {
       throw Error('Network error, error 10003');
@@ -131,9 +126,6 @@ export class ProviderClient {
     if (IS_DEBUG) {
       console.log(response.data);
     }
-
-    console.log('response.data ===>');
-    console.log(response.data);
 
     // if (!response.data || response.data.code != 0) {
     //   throw Error('response error, code ' + response.data.code);

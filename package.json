@@ -8,6 +8,8 @@
     "scripts": {
         "postinstall": "lerna bootstrap",
         "bootstrap": "lerna bootstrap",
+        "editor:build": "ACTION=EDITOR lerna run build --scope @settings/editor",
+        "preview:build": "ACTION=PREVIEW lerna run build --scope @settings/editor",
         "app:build": "lerna run build --scope @settings/frontend",
         "server:build": "lerna run build --scope @settings/server",
         "dev": "lerna run --scope '@settings/{server,frontend}' --parallel dev",
@@ -15,7 +17,8 @@
         "format": "prettier --loglevel warn --write \"**/*.{gitignore,js,ts,vue,css,md}\"",
         "test": "echo \"No test specified\" && exit 0",
         "posttest": "npm run format",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "clean": "lerna clean"
     },
     "dependencies": {
         "@bytetrade/core": "0.3.67",
