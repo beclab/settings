@@ -7,7 +7,7 @@ on:
   push:
     branches:
        - "main"
-       - "feat/add-profile "
+       - "feat/add-profile"
     tags:
       - "v*"
 
