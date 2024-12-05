@@ -1,13 +1,15 @@
-name: Frontend
-
+name: Release Settings Frontend
 on:
-    workflow_dispatch:
-
-    push:
-        branches:
-            - "main"
-        tags:
-          - 'v*'
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tags'
+  push:
+    branches:
+       - "main"
+       - "feat/add-profile "
+    tags:
+      - "v*"
 
           
 jobs:
@@ -70,7 +72,7 @@ jobs:
               uses: docker/build-push-action@v3
               with:
                 context: .
-                file: Dockerfile
+                file: ./docker/settings/Dockerfile
                 push: true
                 tags: beclab/settings:${{ steps.get-latest-tag.outputs.tag }}
                 platforms: linux/amd64,linux/arm64

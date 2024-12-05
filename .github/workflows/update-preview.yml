@@ -1,11 +1,16 @@
-name: preview
+name: Release Profile Preview
 on:
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tags'
   push:
     branches:
-      - "v2"
+       - "main"
+       - "feat/add-profile "
     tags:
       - "v*"
+
 jobs:
   update_dockerhub:
     runs-on: ubuntu-latest
@@ -38,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile-preview
+          file: ./docker/profile/Dockerfile-profile-preview
           push: true
           tags: beclab/profile-preview:${{ steps.get-latest-tag.outputs.tag }}
           platforms: linux/amd64,linux/arm64

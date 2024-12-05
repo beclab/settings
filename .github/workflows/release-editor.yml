@@ -1,11 +1,16 @@
-name: editor
+name: Release Profile Editor
 on:
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tags'
   push:
     branches:
-      - "v2"
+       - "main"
+       - "feat/add-profile "
     tags:
       - "v*"
+
 jobs:
   update_dockerhub:
     runs-on: ubuntu-latest
@@ -52,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile.frontend
+          file: ./docker/profile/Dockerfile-profile-frontend
           push: true
           tags: beclab/profile-editor:${{ steps.get-latest-tag.outputs.tag }}
           platforms: linux/amd64,linux/arm64

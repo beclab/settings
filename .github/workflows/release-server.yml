@@ -4,6 +4,12 @@ on:
     inputs:
       tags:
         description: 'Release Tags'
+  push:
+    branches:
+       - "main"
+       - "feat/add-profile "
+    tags:
+      - "v*"
 
 jobs:
     update_server:
@@ -26,7 +32,7 @@ jobs:
               uses: docker/build-push-action@v3
               with:
                 context: .
-                file: ./docker/Dockerfile-server
+                file: ../docker/Dockerfile-server
                 push: true
                 tags: beclab/settings-server:${{ github.event.inputs.tags }}
                 platforms: linux/amd64,linux/arm64
