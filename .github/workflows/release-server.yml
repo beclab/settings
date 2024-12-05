@@ -26,7 +26,7 @@ jobs:
               uses: docker/build-push-action@v3
               with:
                 context: .
-                file: Dockerfile-server
+                file: ./docker/Dockerfile-server
                 push: true
                 tags: beclab/settings-server:${{ github.event.inputs.tags }}
                 platforms: linux/amd64,linux/arm64
