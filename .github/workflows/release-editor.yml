@@ -52,7 +52,7 @@ jobs:
           cd ./fonttools
           ./subset_font.sh nyTnjDwKNJ_190FjzaqkNCeE.woff2 unicodes.txt MaterialSymbolsRounded.woff2 ../packages/editor/src/assets/fonts
       - name: Build
-        run: npm run build:editor
+        run: npm run editor:build
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
