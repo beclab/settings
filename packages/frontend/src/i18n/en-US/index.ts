@@ -74,8 +74,8 @@ export default {
 			'Knowldege base name\\talready exists',
 		paths_must_start_with_data_home: 'The path must start with /data/Home/',
 		item_is_empty: '{item} missing',
-		host_is_empty: 'Host is empty',
-		ip_is_empty: 'Ip is empty',
+		host_is_empty: 'The hostname cannot be empty',
+		ip_is_empty: 'The IP address cannot be empty',
 		host_is_error: 'Enter a valid hostname',
 		host_is_error_duplicate: 'The hostname is already in use',
 		ip_is_error: 'Enter a valid IP address'
@@ -445,8 +445,6 @@ export default {
 	hosts_edit: 'Hosts edit',
 	add_hosts: 'Add hosts',
 	save_change: 'Save change',
-	change_host_to_save:
-		'Changes to the host file are now ready to be saved. Do you want to continue?',
 	ip: 'IP',
 	get_logs: 'Collect logs',
 	log_file_storage: 'Log file storage address',

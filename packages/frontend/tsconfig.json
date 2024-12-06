@@ -19,7 +19,7 @@
         //"strictPropertyInitialization": true,
         "removeComments": false,
         "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
+        //"suppressImplicitAnyIndexErrors": true,
         "sourceMap": false,
 
         "pretty": true,
