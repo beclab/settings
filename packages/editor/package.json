@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "quasar dev",
-    "editor:build": "ACTION=EDITOR quasar build",
-    "preview:build": "ACTION=PREVIEW quasar build"
+    "build": "ACTION=EDITOR quasar build",
+    "build-preview": "ACTION=PREVIEW quasar build"
   },
   "dependencies": {
     "@bytetrade/ui": "^0.1.37",
