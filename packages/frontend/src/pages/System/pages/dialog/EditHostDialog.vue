@@ -8,7 +8,7 @@
 			<div class="dialog-content-root">
 				<terminus-edit
 					v-model="hostName"
-					:label="t('olares_ID')"
+					:label="t('host_name')"
 					:show-password-img="false"
 					style="width: 100%"
 					class=""
@@ -18,7 +18,7 @@
 
 				<terminus-edit
 					v-model="ipAddress"
-					label="CPU"
+					:label="t('ip')"
 					:show-password-img="false"
 					class="q-mt-md"
 					:is-error="

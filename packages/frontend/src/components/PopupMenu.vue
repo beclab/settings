@@ -23,14 +23,16 @@
 	</q-menu>
 </template>
 <script lang="ts" setup>
+import { PropType } from 'vue';
+
 defineProps({
 	item: {
 		type: Object,
 		required: false
 	},
 	offset: {
-		type: Array<number>,
-		default: [100, 5]
+		type: Array as PropType<number[]>,
+		default: () => [100, 5]
 	}
 });
 
