@@ -67,7 +67,7 @@ jobs:
                   ./subset_font.sh nyTnjDwKNJ_190FjzaqkNCeE.woff2 unicodes.txt MaterialSymbolsRounded.woff2 ../packages/frontend/src/assets/fonts
 
             - name: Build
-              run: npm run app:build
+              run: npm run frontend:build
             - name: Build and push
               uses: docker/build-push-action@v3
               with:
