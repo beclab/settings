@@ -28,8 +28,7 @@ jobs:
       - name: get latest tag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         id: get-latest-tag
-        with:
-          fallback: latest
+        
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -41,7 +40,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         env:
-          TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags}} 
+          TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags || 'latest'}} 
         with:
           context: .
           file: ./docker/profile/Dockerfile-profile-preview
