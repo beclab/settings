@@ -11,7 +11,7 @@ on:
       - "v*"
 
 jobs:
-    update_server:
+    release_server:
         runs-on: ubuntu-latest
         steps:
             - name: Check out the repo
@@ -34,9 +34,11 @@ jobs:
                 fallback: latest
             - name: Build and push
               uses: docker/build-push-action@v3
+              env:
+                TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags}} 
               with:
                 context: .
                 file: ./docker/Dockerfile-server
                 push: true
-                tags: beclab/settings-server:${{ steps.get-latest-tag.outputs.tag }}
+                tags: beclab/settings-server:${{env.TAG}}
                 platforms: linux/amd64,linux/arm64

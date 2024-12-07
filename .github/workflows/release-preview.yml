@@ -11,7 +11,7 @@ on:
       - "v*"
 
 jobs:
-  update_dockerhub:
+  release_preview:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -40,9 +40,11 @@ jobs:
         run: npm install;npm run editor:build-preview
       - name: Build and push
         uses: docker/build-push-action@v3
+        env:
+          TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags}} 
         with:
           context: .
           file: ./docker/profile/Dockerfile-profile-preview
           push: true
-          tags: beclab/profile-preview:${{ steps.get-latest-tag.outputs.tag }}
+          tags: beclab/profile-preview:${{env.TAG}}
           platforms: linux/amd64,linux/arm64
