@@ -6,17 +6,25 @@
     "author": "Peng Peng <billpengpeng@gmail.com>",
     "private": true,
     "scripts": {
-        "postinstall": "lerna bootstrap",
-        "bootstrap": "lerna bootstrap",
-        "app:build": "lerna run build --scope @settings/frontend",
+        "postinstall": "echo 'Postinstall script executed'",
+        "bootstrap": "npm install",
+        "editor:dev": "ACTION=EDITOR DEV_PORT=9100 lerna run dev --scope @settings/editor",
+        "preview:dev": "ACTION=PREVIEW DEV_PORT=9001 lerna run dev --scope @settings/editor",
+        "editor:build": "ACTION=EDITOR lerna run build --scope @settings/editor",
+        "editor:build-preview": "ACTION=PREVIEW lerna run build --scope @settings/editor",
+        "frontend:build": "lerna run build --scope @settings/frontend",
         "server:build": "lerna run build --scope @settings/server",
         "dev": "lerna run --scope '@settings/{server,frontend}' --parallel dev",
         "lint": "eslint --ext .js,.ts,.vue ./",
         "format": "prettier --loglevel warn --write \"**/*.{gitignore,js,ts,vue,css,md}\"",
         "test": "echo \"No test specified\" && exit 0",
         "posttest": "npm run format",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "clean": "lerna clean"
     },
+    "workspaces": [
+        "packages/*"
+    ],
     "dependencies": {
         "@bytetrade/core": "0.3.67",
         "axios": "^0.21.1"
@@ -30,7 +38,7 @@
         "eslint-plugin-prettier": "4.2.1",
         "eslint-plugin-vue": "^9.0.0",
         "husky": "8.0.3",
-        "lerna": "5.1.8",
+        "lerna": "8.1.9",
         "lint-staged": "13.1.2",
         "prettier": "^2.5.1",
         "ts-node": "10.0.0",

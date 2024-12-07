@@ -1,0 +1,64 @@
+name: Release Profile Editor
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tags'
+  push:
+    branches:
+       - "main"
+    tags:
+      - "v*"
+
+jobs:
+  release_editor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
+      - name: get latest tag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        id: get-latest-tag
+        with:
+          fallback: latest
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.15"
+      - name: Install
+        run: npm i -g @quasar/cli;npm install;
+      - name: Install fonttools
+        run: pip3 install fonttools brotli
+      - name: Download fonttools Files
+        run: |
+          pwd
+          curl -L -o fonttools.zip https://cdn.bttcdn.com/common/fonttools.zip
+          unzip fonttools.zip
+      - name: Python Icon
+        run: pwd; cd ./fonttools; sudo node python-icon.js
+      - name: subset Icon
+        run: |
+          sudo chmod 755 fonttools
+          cd ./fonttools
+          ./subset_font.sh nyTnjDwKNJ_190FjzaqkNCeE.woff2 unicodes.txt MaterialSymbolsRounded.woff2 ../packages/editor/src/assets/fonts
+      - name: Build
+        run: npm run editor:build
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        env:
+          TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags}} 
+        with:
+          context: .
+          file: ./docker/profile/Dockerfile-profile-frontend
+          push: true
+          tags: beclab/profile-editor:${{env.TAG}}
+          platforms: linux/amd64,linux/arm64

@@ -1,0 +1,417 @@
+0 silly argv { _: [ 'bootstrap' ], lernaVersion: '6.1.0', '$0': 'lerna' }
+1 notice cli v6.1.0
+2 verbose rootPath /Users/pengpeng/settings
+3 warn EWORKSPACES Workspaces exist in the root package.json, but Lerna is not configured to use them.
+3 warn EWORKSPACES To fix this and have Lerna use workspaces to resolve packages, set `useWorkspaces: true` in lerna.json.
+4 silly npmConfig {
+4 silly npmConfig   registry: undefined,
+4 silly npmConfig   npmClient: 'npm',
+4 silly npmConfig   npmClientArgs: [],
+4 silly npmConfig   mutex: undefined
+4 silly npmConfig }
+5 info Bootstrapping 3 packages
+6 verbose lifecycle preinstall
+7 silly lifecycle No script for "preinstall" in "@settings/editor", continuing
+8 silly lifecycle No script for "preinstall" in "@settings/frontend", continuing
+9 silly lifecycle No script for "preinstall" in "@settings/server", continuing
+10 silly hasDependencyInstalled @settings/editor @types/node
+11 silly hasDependencyInstalled @settings/frontend @types/node
+12 silly hasDependencyInstalled @settings/server @types/node
+13 silly hasDependencyInstalled @settings/editor @typescript-eslint/eslint-plugin
+14 silly hasDependencyInstalled @settings/frontend @typescript-eslint/eslint-plugin
+15 silly hasDependencyInstalled @settings/server @typescript-eslint/eslint-plugin
+16 silly hasDependencyInstalled @settings/editor @typescript-eslint/parser
+17 silly hasDependencyInstalled @settings/frontend @typescript-eslint/parser
+18 silly hasDependencyInstalled @settings/server @typescript-eslint/parser
+19 silly hasDependencyInstalled @settings/editor eslint
+20 silly hasDependencyInstalled @settings/frontend eslint
+21 silly hasDependencyInstalled @settings/server eslint
+22 silly hasDependencyInstalled @settings/editor eslint-config-prettier
+23 silly hasDependencyInstalled @settings/frontend eslint-config-prettier
+24 silly hasDependencyInstalled @settings/server eslint-config-prettier
+25 silly hasDependencyInstalled @settings/editor eslint-plugin-prettier
+26 silly hasDependencyInstalled @settings/server eslint-plugin-prettier
+27 silly hasDependencyInstalled @settings/editor eslint-plugin-vue
+28 silly hasDependencyInstalled @settings/frontend eslint-plugin-vue
+29 silly hasDependencyInstalled @settings/editor prettier
+30 silly hasDependencyInstalled @settings/frontend prettier
+31 silly hasDependencyInstalled @settings/server prettier
+32 silly hasDependencyInstalled @settings/server ts-node
+33 silly hasDependencyInstalled @settings/editor typescript
+34 silly hasDependencyInstalled @settings/server typescript
+35 silly hasDependencyInstalled @settings/frontend axios
+36 silly hasDependencyInstalled @settings/editor axios
+37 silly hasDependencyInstalled @settings/editor @quasar/app-webpack
+38 silly hasDependencyInstalled @settings/frontend @quasar/app-webpack
+39 silly hasDependencyInstalled @settings/editor autoprefixer
+40 silly hasDependencyInstalled @settings/editor css-minimizer-webpack-plugin
+41 silly hasDependencyInstalled @settings/editor preload-webpack-plugin
+42 silly hasDependencyInstalled @settings/frontend preload-webpack-plugin
+43 silly hasDependencyInstalled @settings/editor terser-webpack-plugin
+44 silly hasDependencyInstalled @settings/editor @bytetrade/ui
+45 silly hasDependencyInstalled @settings/frontend @bytetrade/ui
+46 silly hasDependencyInstalled @settings/editor @quasar/extras
+47 silly hasDependencyInstalled @settings/frontend @quasar/extras
+48 silly hasDependencyInstalled @settings/editor dotenv
+49 silly hasDependencyInstalled @settings/frontend dotenv
+50 silly hasDependencyInstalled @settings/editor html2canvas
+51 silly hasDependencyInstalled @settings/editor lodash
+52 silly hasDependencyInstalled @settings/editor pinia
+53 silly hasDependencyInstalled @settings/frontend pinia
+54 silly hasDependencyInstalled @settings/editor qrcode.vue
+55 silly hasDependencyInstalled @settings/frontend qrcode.vue
+56 silly hasDependencyInstalled @settings/editor quasar
+57 silly hasDependencyInstalled @settings/frontend quasar
+58 silly hasDependencyInstalled @settings/editor vue
+59 silly hasDependencyInstalled @settings/frontend vue
+60 silly hasDependencyInstalled @settings/editor vue-cropper
+61 silly hasDependencyInstalled @settings/editor vue-draggable-next
+62 silly hasDependencyInstalled @settings/editor vue-i18n
+63 silly hasDependencyInstalled @settings/frontend vue-i18n
+64 silly hasDependencyInstalled @settings/editor vue-router
+65 silly hasDependencyInstalled @settings/frontend vue-router
+66 silly hasDependencyInstalled @settings/frontend @types/js-md5
+67 silly hasDependencyInstalled @settings/frontend @types/ua-parser-js
+68 silly hasDependencyInstalled @settings/frontend core-js
+69 silly hasDependencyInstalled @settings/frontend crypto-js
+70 silly hasDependencyInstalled @settings/frontend element-plus
+71 silly hasDependencyInstalled @settings/frontend ethers
+72 silly hasDependencyInstalled @settings/frontend js-md5
+73 silly hasDependencyInstalled @settings/frontend jsencrypt
+74 silly hasDependencyInstalled @settings/frontend moment-mini
+75 silly hasDependencyInstalled @settings/frontend process
+76 silly hasDependencyInstalled @settings/frontend qs
+77 silly hasDependencyInstalled @settings/frontend ua-parser-js
+78 silly hasDependencyInstalled @settings/frontend validator
+79 silly hasDependencyInstalled @settings/server @nestjs/cli
+80 silly hasDependencyInstalled @settings/server @nestjs/schematics
+81 silly hasDependencyInstalled @settings/server @nestjs/testing
+82 silly hasDependencyInstalled @settings/server @types/cookie-parser
+83 silly hasDependencyInstalled @settings/server @types/express
+84 silly hasDependencyInstalled @settings/server @types/jest
+85 silly hasDependencyInstalled @settings/server @types/supertest
+86 silly hasDependencyInstalled @settings/server add-asset-webpack-plugin
+87 silly hasDependencyInstalled @settings/server fork-ts-checker-webpack-plugin
+88 silly hasDependencyInstalled @settings/server jest
+89 silly hasDependencyInstalled @settings/server source-map-support
+90 silly hasDependencyInstalled @settings/server supertest
+91 silly hasDependencyInstalled @settings/server ts-jest
+92 silly hasDependencyInstalled @settings/server ts-loader
+93 silly hasDependencyInstalled @settings/server tsconfig-paths
+94 silly hasDependencyInstalled @settings/server webpack
+95 silly hasDependencyInstalled @settings/server webpack-cli
+96 silly hasDependencyInstalled @settings/server webpack-node-externals
+97 silly hasDependencyInstalled @settings/server @nestjs/common
+98 silly hasDependencyInstalled @settings/server @nestjs/core
+99 silly hasDependencyInstalled @settings/server @nestjs/mapped-types
+100 silly hasDependencyInstalled @settings/server @nestjs/platform-express
+101 silly hasDependencyInstalled @settings/server @nestjs/platform-socket.io
+102 silly hasDependencyInstalled @settings/server @nestjs/schedule
+103 silly hasDependencyInstalled @settings/server @nestjs/typeorm
+104 silly hasDependencyInstalled @settings/server @nestjs/websockets
+105 silly hasDependencyInstalled @settings/server bcrypt
+106 silly hasDependencyInstalled @settings/server config
+107 silly hasDependencyInstalled @settings/server cookie-parser
+108 silly hasDependencyInstalled @settings/server install
+109 silly hasDependencyInstalled @settings/server level
+110 silly hasDependencyInstalled @settings/server multiformats
+111 silly hasDependencyInstalled @settings/server npm
+112 silly hasDependencyInstalled @settings/server reflect-metadata
+113 silly hasDependencyInstalled @settings/server rxjs
+114 silly hasDependencyInstalled @settings/server typeorm
+115 silly hasDependencyInstalled @settings/server varint
+116 silly root dependencies {}
+117 silly leaf dependencies {}
+118 info Installing external dependencies
+119 verbose actions 3 actions, concurrency 10
+120 silly npmInstallDependencies @settings/editor [
+120 silly npmInstallDependencies   '@types/node@^12.20.21',
+120 silly npmInstallDependencies   '@typescript-eslint/eslint-plugin@^5.10.0',
+120 silly npmInstallDependencies   '@typescript-eslint/parser@^5.10.0',
+120 silly npmInstallDependencies   'eslint@^8.10.0',
+120 silly npmInstallDependencies   'eslint-config-prettier@^8.10.0',
+120 silly npmInstallDependencies   'eslint-plugin-prettier@^5.0.0',
+120 silly npmInstallDependencies   'eslint-plugin-vue@^9.0.0',
+120 silly npmInstallDependencies   'prettier@^3.2.5',
+120 silly npmInstallDependencies   'typescript@^4.5.4',
+120 silly npmInstallDependencies   'axios@^1.3.5',
+120 silly npmInstallDependencies   '@quasar/app-webpack@^3.0.0',
+120 silly npmInstallDependencies   'autoprefixer@^10.4.2',
+120 silly npmInstallDependencies   'css-minimizer-webpack-plugin@^7.0.0',
+120 silly npmInstallDependencies   'preload-webpack-plugin@^3.0.0-beta.4',
+120 silly npmInstallDependencies   'terser-webpack-plugin@^5.3.10',
+120 silly npmInstallDependencies   '@bytetrade/ui@^0.1.32',
+120 silly npmInstallDependencies   '@quasar/extras@^1.16.9',
+120 silly npmInstallDependencies   'dotenv@^16.4.5',
+120 silly npmInstallDependencies   'html2canvas@^1.4.1',
+120 silly npmInstallDependencies   'lodash@^4.17.21',
+120 silly npmInstallDependencies   'pinia@^2.0.11',
+120 silly npmInstallDependencies   'qrcode.vue@^3.4.1',
+120 silly npmInstallDependencies   'quasar@^2.6.0',
+120 silly npmInstallDependencies   'vue@^3.0.0',
+120 silly npmInstallDependencies   'vue-cropper@^1.0.8',
+120 silly npmInstallDependencies   'vue-draggable-next@^2.1.1',
+120 silly npmInstallDependencies   'vue-i18n@^9.2.2',
+120 silly npmInstallDependencies   'vue-router@^4.0.0'
+120 silly npmInstallDependencies ]
+121 silly npmInstallDependencies backup /Users/pengpeng/settings/packages/editor/package.json
+122 silly npmInstallDependencies @settings/frontend [
+122 silly npmInstallDependencies   '@types/node@^12.20.21',
+122 silly npmInstallDependencies   '@typescript-eslint/eslint-plugin@^5.10.0',
+122 silly npmInstallDependencies   '@typescript-eslint/parser@^5.10.0',
+122 silly npmInstallDependencies   'eslint@^8.10.0',
+122 silly npmInstallDependencies   'eslint-config-prettier@^8.1.0',
+122 silly npmInstallDependencies   'eslint-plugin-vue@^9.0.0',
+122 silly npmInstallDependencies   'prettier@^2.5.1',
+122 silly npmInstallDependencies   'axios@^0.21.1',
+122 silly npmInstallDependencies   '@quasar/app-webpack@^3.0.0',
+122 silly npmInstallDependencies   'preload-webpack-plugin@^3.0.0-beta.4',
+122 silly npmInstallDependencies   '@bytetrade/ui@0.1.32',
+122 silly npmInstallDependencies   '@quasar/extras@^1.16.9',
+122 silly npmInstallDependencies   'dotenv@^16.4.5',
+122 silly npmInstallDependencies   'pinia@^2.0.11',
+122 silly npmInstallDependencies   'qrcode.vue@^3.3.3',
+122 silly npmInstallDependencies   'quasar@^2.6.0',
+122 silly npmInstallDependencies   'vue@^3.0.0',
+122 silly npmInstallDependencies   'vue-i18n@^9.9.0',
+122 silly npmInstallDependencies   'vue-router@^4.0.0',
+122 silly npmInstallDependencies   '@types/js-md5@^0.7.2',
+122 silly npmInstallDependencies   '@types/ua-parser-js@0.7.36',
+122 silly npmInstallDependencies   'core-js@^3.6.5',
+122 silly npmInstallDependencies   'crypto-js@^4.1.1',
+122 silly npmInstallDependencies   'element-plus@^2.2.28',
+122 silly npmInstallDependencies   'ethers@^6.8.0',
+122 silly npmInstallDependencies   'js-md5@^0.7.3',
+122 silly npmInstallDependencies   'jsencrypt@^3.3.2',
+122 silly npmInstallDependencies   'moment-mini@^2.29.4',
+122 silly npmInstallDependencies   'process@^0.11.10',
+122 silly npmInstallDependencies   'qs@6.11.2',
+122 silly npmInstallDependencies   'ua-parser-js@0.7.28',
+122 silly npmInstallDependencies   'validator@^13.12.0'
+122 silly npmInstallDependencies ]
+123 silly npmInstallDependencies backup /Users/pengpeng/settings/packages/frontend/package.json
+124 silly npmInstallDependencies @settings/server [
+124 silly npmInstallDependencies   '@types/node@18.11.18',
+124 silly npmInstallDependencies   '@typescript-eslint/eslint-plugin@^5.0.0',
+124 silly npmInstallDependencies   '@typescript-eslint/parser@^5.0.0',
+124 silly npmInstallDependencies   'eslint@^8.0.1',
+124 silly npmInstallDependencies   'eslint-config-prettier@^8.3.0',
+124 silly npmInstallDependencies   'eslint-plugin-prettier@^4.0.0',
+124 silly npmInstallDependencies   'prettier@^2.3.2',
+124 silly npmInstallDependencies   'ts-node@^10.0.0',
+124 silly npmInstallDependencies   'typescript@^4.7.4',
+124 silly npmInstallDependencies   '@nestjs/cli@^9.0.0',
+124 silly npmInstallDependencies   '@nestjs/schematics@^9.0.0',
+124 silly npmInstallDependencies   '@nestjs/testing@^9.0.0',
+124 silly npmInstallDependencies   '@types/cookie-parser@^1.4.3',
+124 silly npmInstallDependencies   '@types/express@^4.17.13',
+124 silly npmInstallDependencies   '@types/jest@29.2.4',
+124 silly npmInstallDependencies   '@types/supertest@^2.0.11',
+124 silly npmInstallDependencies   'add-asset-webpack-plugin@2.0.1',
+124 silly npmInstallDependencies   'fork-ts-checker-webpack-plugin@^8.0.0',
+124 silly npmInstallDependencies   'jest@29.3.1',
+124 silly npmInstallDependencies   'source-map-support@^0.5.20',
+124 silly npmInstallDependencies   'supertest@^6.1.3',
+124 silly npmInstallDependencies   'ts-jest@29.0.3',
+124 silly npmInstallDependencies   'ts-loader@^9.4.2',
+124 silly npmInstallDependencies   'tsconfig-paths@4.1.1',
+124 silly npmInstallDependencies   'webpack@^5.76.1',
+124 silly npmInstallDependencies   'webpack-cli@^5.0.1',
+124 silly npmInstallDependencies   'webpack-node-externals@^3.0.0',
+124 silly npmInstallDependencies   '@nestjs/common@^9.0.0',
+124 silly npmInstallDependencies   '@nestjs/core@^9.0.0',
+124 silly npmInstallDependencies   '@nestjs/mapped-types@*',
+124 silly npmInstallDependencies   '@nestjs/platform-express@^9.0.0',
+124 silly npmInstallDependencies   '@nestjs/platform-socket.io@^9.0.0',
+124 silly npmInstallDependencies   '@nestjs/schedule@^3.0.3',
+124 silly npmInstallDependencies   '@nestjs/typeorm@^9.0.1',
+124 silly npmInstallDependencies   '@nestjs/websockets@^9.0.0',
+124 silly npmInstallDependencies   'bcrypt@5.1.0',
+124 silly npmInstallDependencies   'config@^3.3.9',
+124 silly npmInstallDependencies   'cookie-parser@^1.4.6',
+124 silly npmInstallDependencies   'install@^0.13.0',
+124 silly npmInstallDependencies   'level@7.0.0',
+124 silly npmInstallDependencies   'multiformats@9.6.4',
+124 silly npmInstallDependencies   'npm@^9.6.3',
+124 silly npmInstallDependencies   'reflect-metadata@^0.1.13',
+124 silly npmInstallDependencies   'rxjs@^7.2.0',
+124 silly npmInstallDependencies   'typeorm@^0.3.12',
+124 silly npmInstallDependencies   'varint@6.0.0'
+124 silly npmInstallDependencies ]
+125 silly npmInstallDependencies backup /Users/pengpeng/settings/packages/server/package.json
+126 silly npmInstallDependencies writing tempJson {
+126 silly npmInstallDependencies   name: '@settings/editor',
+126 silly npmInstallDependencies   version: '0.0.1',
+126 silly npmInstallDependencies   description: 'A Quasar Project',
+126 silly npmInstallDependencies   productName: 'profile App',
+126 silly npmInstallDependencies   author: 'icebergtsn <zhangyuhang@bytetrade.io>',
+126 silly npmInstallDependencies   private: true,
+126 silly npmInstallDependencies   dependencies: {
+126 silly npmInstallDependencies     '@bytetrade/ui': '^0.1.32',
+126 silly npmInstallDependencies     '@quasar/extras': '^1.16.9',
+126 silly npmInstallDependencies     axios: '^1.3.5',
+126 silly npmInstallDependencies     dotenv: '^16.4.5',
+126 silly npmInstallDependencies     html2canvas: '^1.4.1',
+126 silly npmInstallDependencies     lodash: '^4.17.21',
+126 silly npmInstallDependencies     pinia: '^2.0.11',
+126 silly npmInstallDependencies     'qrcode.vue': '^3.4.1',
+126 silly npmInstallDependencies     quasar: '^2.6.0',
+126 silly npmInstallDependencies     vue: '^3.0.0',
+126 silly npmInstallDependencies     'vue-cropper': '^1.0.8',
+126 silly npmInstallDependencies     'vue-draggable-next': '^2.1.1',
+126 silly npmInstallDependencies     'vue-i18n': '^9.2.2',
+126 silly npmInstallDependencies     'vue-router': '^4.0.0'
+126 silly npmInstallDependencies   },
+126 silly npmInstallDependencies   devDependencies: {
+126 silly npmInstallDependencies     '@quasar/app-webpack': '^3.0.0',
+126 silly npmInstallDependencies     '@types/node': '^12.20.21',
+126 silly npmInstallDependencies     '@typescript-eslint/eslint-plugin': '^5.10.0',
+126 silly npmInstallDependencies     '@typescript-eslint/parser': '^5.10.0',
+126 silly npmInstallDependencies     autoprefixer: '^10.4.2',
+126 silly npmInstallDependencies     'css-minimizer-webpack-plugin': '^7.0.0',
+126 silly npmInstallDependencies     eslint: '^8.10.0',
+126 silly npmInstallDependencies     'eslint-config-prettier': '^8.10.0',
+126 silly npmInstallDependencies     'eslint-plugin-prettier': '^5.0.0',
+126 silly npmInstallDependencies     'eslint-plugin-vue': '^9.0.0',
+126 silly npmInstallDependencies     'preload-webpack-plugin': '^3.0.0-beta.4',
+126 silly npmInstallDependencies     prettier: '^3.2.5',
+126 silly npmInstallDependencies     'terser-webpack-plugin': '^5.3.10',
+126 silly npmInstallDependencies     typescript: '^4.5.4'
+126 silly npmInstallDependencies   },
+126 silly npmInstallDependencies   engines: { npm: '>= 6.13.4', yarn: '>= 1.21.1' }
+126 silly npmInstallDependencies }
+127 silly npmInstallDependencies writing tempJson {
+127 silly npmInstallDependencies   name: '@settings/server',
+127 silly npmInstallDependencies   version: '0.0.1',
+127 silly npmInstallDependencies   description: '',
+127 silly npmInstallDependencies   author: '',
+127 silly npmInstallDependencies   private: true,
+127 silly npmInstallDependencies   license: 'UNLICENSED',
+127 silly npmInstallDependencies   dependencies: {
+127 silly npmInstallDependencies     '@nestjs/common': '^9.0.0',
+127 silly npmInstallDependencies     '@nestjs/core': '^9.0.0',
+127 silly npmInstallDependencies     '@nestjs/mapped-types': '*',
+127 silly npmInstallDependencies     '@nestjs/platform-express': '^9.0.0',
+127 silly npmInstallDependencies     '@nestjs/platform-socket.io': '^9.0.0',
+127 silly npmInstallDependencies     '@nestjs/schedule': '^3.0.3',
+127 silly npmInstallDependencies     '@nestjs/typeorm': '^9.0.1',
+127 silly npmInstallDependencies     '@nestjs/websockets': '^9.0.0',
+127 silly npmInstallDependencies     bcrypt: '5.1.0',
+127 silly npmInstallDependencies     config: '^3.3.9',
+127 silly npmInstallDependencies     'cookie-parser': '^1.4.6',
+127 silly npmInstallDependencies     install: '^0.13.0',
+127 silly npmInstallDependencies     level: '7.0.0',
+127 silly npmInstallDependencies     multiformats: '9.6.4',
+127 silly npmInstallDependencies     npm: '^9.6.3',
+127 silly npmInstallDependencies     'reflect-metadata': '^0.1.13',
+127 silly npmInstallDependencies     rxjs: '^7.2.0',
+127 silly npmInstallDependencies     typeorm: '^0.3.12',
+127 silly npmInstallDependencies     varint: '6.0.0'
+127 silly npmInstallDependencies   },
+127 silly npmInstallDependencies   devDependencies: {
+127 silly npmInstallDependencies     '@nestjs/cli': '^9.0.0',
+127 silly npmInstallDependencies     '@nestjs/schematics': '^9.0.0',
+127 silly npmInstallDependencies     '@nestjs/testing': '^9.0.0',
+127 silly npmInstallDependencies     '@types/cookie-parser': '^1.4.3',
+127 silly npmInstallDependencies     '@types/express': '^4.17.13',
+127 silly npmInstallDependencies     '@types/jest': '29.2.4',
+127 silly npmInstallDependencies     '@types/node': '18.11.18',
+127 silly npmInstallDependencies     '@types/supertest': '^2.0.11',
+127 silly npmInstallDependencies     '@typescript-eslint/eslint-plugin': '^5.0.0',
+127 silly npmInstallDependencies     '@typescript-eslint/parser': '^5.0.0',
+127 silly npmInstallDependencies     'add-asset-webpack-plugin': '2.0.1',
+127 silly npmInstallDependencies     eslint: '^8.0.1',
+127 silly npmInstallDependencies     'eslint-config-prettier': '^8.3.0',
+127 silly npmInstallDependencies     'eslint-plugin-prettier': '^4.0.0',
+127 silly npmInstallDependencies     'fork-ts-checker-webpack-plugin': '^8.0.0',
+127 silly npmInstallDependencies     jest: '29.3.1',
+127 silly npmInstallDependencies     prettier: '^2.3.2',
+127 silly npmInstallDependencies     'source-map-support': '^0.5.20',
+127 silly npmInstallDependencies     supertest: '^6.1.3',
+127 silly npmInstallDependencies     'ts-jest': '29.0.3',
+127 silly npmInstallDependencies     'ts-loader': '^9.4.2',
+127 silly npmInstallDependencies     'ts-node': '^10.0.0',
+127 silly npmInstallDependencies     'tsconfig-paths': '4.1.1',
+127 silly npmInstallDependencies     typescript: '^4.7.4',
+127 silly npmInstallDependencies     webpack: '^5.76.1',
+127 silly npmInstallDependencies     'webpack-cli': '^5.0.1',
+127 silly npmInstallDependencies     'webpack-node-externals': '^3.0.0'
+127 silly npmInstallDependencies   },
+127 silly npmInstallDependencies   jest: {
+127 silly npmInstallDependencies     moduleFileExtensions: [ 'js', 'json', 'ts' ],
+127 silly npmInstallDependencies     rootDir: 'src',
+127 silly npmInstallDependencies     testRegex: '.*\\.spec\\.ts$',
+127 silly npmInstallDependencies     transform: { '^.+\\.(t|j)s$': 'ts-jest' },
+127 silly npmInstallDependencies     collectCoverageFrom: [ '**/*.(t|j)s' ],
+127 silly npmInstallDependencies     coverageDirectory: '../coverage',
+127 silly npmInstallDependencies     testEnvironment: 'node'
+127 silly npmInstallDependencies   }
+127 silly npmInstallDependencies }
+128 silly npmInstallDependencies writing tempJson {
+128 silly npmInstallDependencies   name: '@settings/frontend',
+128 silly npmInstallDependencies   version: '0.0.1',
+128 silly npmInstallDependencies   description: 'A Quasar Project',
+128 silly npmInstallDependencies   productName: 'Settings',
+128 silly npmInstallDependencies   author: '',
+128 silly npmInstallDependencies   private: true,
+128 silly npmInstallDependencies   dependencies: {
+128 silly npmInstallDependencies     '@bytetrade/ui': '0.1.32',
+128 silly npmInstallDependencies     '@quasar/extras': '^1.16.9',
+128 silly npmInstallDependencies     axios: '^0.21.1',
+128 silly npmInstallDependencies     'core-js': '^3.6.5',
+128 silly npmInstallDependencies     'crypto-js': '^4.1.1',
+128 silly npmInstallDependencies     'element-plus': '^2.2.28',
+128 silly npmInstallDependencies     ethers: '^6.8.0',
+128 silly npmInstallDependencies     'js-md5': '^0.7.3',
+128 silly npmInstallDependencies     jsencrypt: '^3.3.2',
+128 silly npmInstallDependencies     'moment-mini': '^2.29.4',
+128 silly npmInstallDependencies     pinia: '^2.0.11',
+128 silly npmInstallDependencies     process: '^0.11.10',
+128 silly npmInstallDependencies     'qrcode.vue': '^3.3.3',
+128 silly npmInstallDependencies     qs: '6.11.2',
+128 silly npmInstallDependencies     quasar: '^2.6.0',
+128 silly npmInstallDependencies     'ua-parser-js': '0.7.28',
+128 silly npmInstallDependencies     validator: '^13.12.0',
+128 silly npmInstallDependencies     vue: '^3.0.0',
+128 silly npmInstallDependencies     'vue-i18n': '^9.9.0',
+128 silly npmInstallDependencies     'vue-router': '^4.0.0'
+128 silly npmInstallDependencies   },
+128 silly npmInstallDependencies   devDependencies: {
+128 silly npmInstallDependencies     '@quasar/app-webpack': '^3.0.0',
+128 silly npmInstallDependencies     '@types/js-md5': '^0.7.2',
+128 silly npmInstallDependencies     '@types/node': '^12.20.21',
+128 silly npmInstallDependencies     '@types/ua-parser-js': '0.7.36',
+128 silly npmInstallDependencies     '@typescript-eslint/eslint-plugin': '^5.10.0',
+128 silly npmInstallDependencies     '@typescript-eslint/parser': '^5.10.0',
+128 silly npmInstallDependencies     dotenv: '^16.4.5',
+128 silly npmInstallDependencies     eslint: '^8.10.0',
+128 silly npmInstallDependencies     'eslint-config-prettier': '^8.1.0',
+128 silly npmInstallDependencies     'eslint-plugin-vue': '^9.0.0',
+128 silly npmInstallDependencies     'preload-webpack-plugin': '^3.0.0-beta.4',
+128 silly npmInstallDependencies     prettier: '^2.5.1'
+128 silly npmInstallDependencies   },
+128 silly npmInstallDependencies   browserslist: [
+128 silly npmInstallDependencies     'last 10 Chrome versions',
+128 silly npmInstallDependencies     'last 10 Firefox versions',
+128 silly npmInstallDependencies     'last 4 Edge versions',
+128 silly npmInstallDependencies     'last 7 Safari versions',
+128 silly npmInstallDependencies     'last 8 Android versions',
+128 silly npmInstallDependencies     'last 8 ChromeAndroid versions',
+128 silly npmInstallDependencies     'last 8 FirefoxAndroid versions',
+128 silly npmInstallDependencies     'last 10 iOS versions',
+128 silly npmInstallDependencies     'last 5 Opera versions'
+128 silly npmInstallDependencies   ],
+128 silly npmInstallDependencies   engines: { node: '>= 12.22.1', npm: '>= 6.13.4', yarn: '>= 1.21.1' }
+128 silly npmInstallDependencies }
+129 silly getNpmExecOpts /Users/pengpeng/settings/packages/editor undefined
+130 silly npmInstall [ 'npm', [ 'install' ] ]
+131 silly getNpmExecOpts /Users/pengpeng/settings/packages/frontend undefined
+132 silly npmInstall [ 'npm', [ 'install' ] ]
+133 silly getNpmExecOpts /Users/pengpeng/settings/packages/server undefined
+134 silly npmInstall [ 'npm', [ 'install' ] ]
+135 silly npmInstallDependencies cleanup /Users/pengpeng/settings/packages/frontend/package.json
+136 error Error: ENOENT: no such file or directory, rename '/Users/pengpeng/settings/packages/frontend/package.json.lerna_backup' -> '/Users/pengpeng/settings/packages/frontend/package.json'
+136 error     at Object.renameSync (node:fs:1020:11)
+136 error     at cleanup (/usr/local/lib/node_modules/lerna/node_modules/@lerna/npm-install/npm-install.js:70:10)
+136 error     at done (/usr/local/lib/node_modules/lerna/node_modules/@lerna/npm-install/npm-install.js:78:7)
+136 error     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
