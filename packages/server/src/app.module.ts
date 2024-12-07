@@ -22,6 +22,8 @@ import { CookieController } from './cookie.controller';
 import { AppController } from './app.controller';
 import { EventController } from './event.controller';
 import { TerminusdController } from './terminusd.controller';
+import { ProfileController } from './profile.controller';
+import { TerminusInfoController } from './terminus.controller';
 
 @Module({
   imports: [BFLModule, HeadScaleModule, ScheduleModule.forRoot()],
@@ -39,6 +41,8 @@ import { TerminusdController } from './terminusd.controller';
     EventController,
     CookieController,
     TerminusdController,
+    ProfileController,
+    TerminusInfoController,
   ],
   providers: [
     SecretService,

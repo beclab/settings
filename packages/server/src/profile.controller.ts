@@ -177,8 +177,8 @@ function stringToIntHash(str: string, lowerbound: number, upperbound: number) {
 }
 
 @Controller('/api/profile')
-export class UserController {
-  private readonly logger = new Logger(UserController.name);
+export class ProfileController {
+  private readonly logger = new Logger(ProfileController.name);
 
   private key = 'profile_user_info_v2';
 
