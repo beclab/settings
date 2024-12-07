@@ -13,7 +13,7 @@ on:
 
           
 jobs:
-    update_dockerhub:
+    release-settings:
         runs-on: ubuntu-latest
         steps:
             - name: Check out the repo
@@ -30,11 +30,13 @@ jobs:
               with:
                 username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_PASS }}
+
             - name: get latest tag
               uses: "WyriHaximus/github-action-get-previous-tag@v1"
               id: get-latest-tag
               with:
                 fallback: latest
+
             - name: Setup Node
               uses: actions/setup-node@v1
               with:
@@ -47,9 +49,9 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('**/packagge-lock.json')}}
                   restore-keys: |
                       ${{ runner.os }}-node-
+
             - run: npm i -g @quasar/cli
             - run: npm install
-
             - name: Install fonttools
               run: pip3 install fonttools brotli
             - name: Download fonttools Files
@@ -65,14 +67,16 @@ jobs:
                   sudo chmod 755 fonttools
                   cd ./fonttools
                   ./subset_font.sh nyTnjDwKNJ_190FjzaqkNCeE.woff2 unicodes.txt MaterialSymbolsRounded.woff2 ../packages/frontend/src/assets/fonts
-
             - name: Build
               run: npm run frontend:build
+
             - name: Build and push
+              env:
+                TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags}} 
               uses: docker/build-push-action@v3
               with:
                 context: .
                 file: ./docker/settings/Dockerfile-settings-frontend
                 push: true
-                tags: beclab/settings:${{ steps.get-latest-tag.outputs.tag }}
+                tags: beclab/settings:$TAG
                 platforms: linux/amd64,linux/arm64
