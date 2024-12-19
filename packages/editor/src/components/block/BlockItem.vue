@@ -14,8 +14,9 @@
 			</div>
 		</div>
 		<div class="row justify-end items-center">
-			<q-toggle
+			<bt-switch
 				size="xs"
+				truthy-track-color="light-green-default"
 				:model-value="block.enabled"
 				@update:model-value="updateEnabled"
 				color="light-green-default"
