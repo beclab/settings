@@ -303,11 +303,8 @@ async function changeQuota() {
 					memory_limit: data.memoryLimit + 'G',
 					cpu_limit: '' + data.cpuLimit
 				});
-				userStore
-					.get_account_info(Route.params.name as string)
-					.then((data) => {
-						userInfo.value = data;
-					});
+				userInfo.value.cpu_limit = data.cpuLimit;
+				userInfo.value.memory_limit = data.memoryLimit + 'G';
 			} catch (e: any) {
 				/* empty */
 			}

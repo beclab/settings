@@ -11,7 +11,9 @@
 			<q-item-section
 				class="form-item-title item-margin-left"
 				:class="
-					deviceStore.isMobile ? 'text-subtitle3-m' : 'text-body1'
+					deviceStore.isMobile
+						? 'text-subtitle3-m title-margin'
+						: 'text-body1 title-margin-mobile'
 				"
 				v-if="title"
 				:style="data ? 'width: 40%;' : ''"
@@ -100,6 +102,16 @@ const deviceStore = useDeviceStore();
 			word-wrap: break-word;
 			word-break: break-all;
 			white-space: wrap;
+		}
+
+		.title-margin {
+			margin-top: 18px;
+			margin-bottom: 18px;
+		}
+
+		.title-margin-mobile {
+			margin-top: 20px;
+			margin-bottom: 20px;
 		}
 
 		.form-item-data {

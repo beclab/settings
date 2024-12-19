@@ -105,7 +105,7 @@
 					<q-icon name="sym_r_devices" size="24px" color="ink-3" />
 				</q-item-section>
 			</q-item>
-			<bt-separator v-if="!isLatest" />
+			<bt-separator v-if="!isLatest" :offset="20" />
 		</template>
 	</AdaptiveLayout>
 </template>

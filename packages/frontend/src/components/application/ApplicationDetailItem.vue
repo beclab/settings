@@ -36,7 +36,11 @@
 			v-if="!isRunning || (isRunning && !app.isSysApp)"
 			class="item-margin-right"
 		>
-			<q-toggle v-model="isRunning" @click="toggle" />
+			<bt-switch
+				truthy-track-color="blue-default"
+				v-model="isRunning"
+				@click="toggle"
+			/>
 		</q-item-section>
 	</q-item>
 </template>
