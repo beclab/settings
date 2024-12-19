@@ -11,7 +11,11 @@
 					'--paddingLeft': slotIcon ? '0' : '12px'
 				}"
 				input-class="text-body1 text-ink-1"
-				input-style="resize: none;padding: 8px !important;"
+				:input-style="{
+					height: height,
+					resize: 'none',
+					padding: '8px !important'
+				}"
 				borderless
 				dense
 				name="search"

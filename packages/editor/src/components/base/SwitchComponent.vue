@@ -4,8 +4,8 @@
 		style="margin-bottom: -8px"
 	>
 		<div class="text-subtitle1 text-ink-1">{{ label }}</div>
-		<q-toggle
-			size="xs"
+		<bt-switch
+			truthy-track-color="light-green-default"
 			:model-value="modelValue"
 			@update:model-value="updateModelValue"
 			color="light-green-default"
