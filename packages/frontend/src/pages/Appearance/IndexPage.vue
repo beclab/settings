@@ -238,7 +238,7 @@
 							>
 								<q-icon
 									name="sym_r_imagesmode"
-									color="ink-1"
+									color="ink-1 q-ml-lg"
 									size="20px"
 								/>
 								<div class="text-subtitle2 select-avatar-title">
@@ -259,7 +259,8 @@
 								@fail="fail"
 							>
 								<wallpaper-image
-									:width="95"
+									:width="99.5"
+									:padding="2"
 									:src="
 										$q.dark.isActive
 											? 'upload_default_dark.svg'
@@ -276,6 +277,7 @@
 								<wallpaper-image
 									v-if="!!item"
 									:width="99.5"
+									:padding="2"
 									:src="
 										item.replace(
 											'/resources/Home/Pictures',

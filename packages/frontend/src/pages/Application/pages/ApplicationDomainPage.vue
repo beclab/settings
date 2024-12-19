@@ -57,7 +57,7 @@
 			>
 				<q-btn
 					dense
-					class="confirm-btn q-px-md submit-btn-margin"
+					class="active-btn q-px-md submit-btn-margin"
 					:label="t('activation')"
 					@click="setCName"
 					color="primary"
@@ -304,5 +304,18 @@ async function onSubmit() {
 	background-color: $green;
 	border-radius: 50%;
 	margin-right: 6px;
+}
+
+.active-btn {
+	font-size: map-get($map: $body3, $key: size) !important;
+	font-weight: map-get($map: $body3, $key: weight) !important;
+	line-height: map-get($map: $body3, $key: line-height) !important;
+	letter-spacing: map-get($map: $body3, $key: letter-spacing) !important;
+	text-align: center !important;
+	border-radius: 8px !important;
+	text-transform: capitalize !important;
+	background-color: $blue-default !important;
+	color: #fff !important;
+	height: 32px;
 }
 </style>

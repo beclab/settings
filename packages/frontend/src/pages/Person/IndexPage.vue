@@ -49,7 +49,8 @@
 				:chevron-right="true"
 			/>
 			<bt-form-item :title="t('forcing_vpn_access_to_private_network')">
-				<q-toggle
+				<bt-switch
+					truthy-track-color="blue-default"
 					:model-value="headScaleStore.headScaleStatus"
 					@update:model-value="toggle"
 				/>

@@ -43,8 +43,7 @@
 			<q-btn
 				dense
 				flat
-				class="confirm-btn q-px-md"
-				style="margin-top: 20px"
+				class="confirm-btn q-px-md q-mt-lg"
 				:label="t('save')"
 				@click="setIps"
 			/>

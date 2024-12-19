@@ -144,17 +144,36 @@
 	color: $ink-1;
 }
 
-.confirm-btn {
-	font-size: map-get($map: $body3, $key: size) !important;
-	font-weight: map-get($map: $body3, $key: weight) !important;
-	line-height: map-get($map: $body3, $key: line-height) !important;
-	letter-spacing: map-get($map: $body3, $key: letter-spacing) !important;
-	text-align: center !important;
-	border-radius: 8px !important;
-	text-transform: capitalize !important;
-	background-color: $blue !important;
-	color: #fff !important;
-	height: 32px;
+@media (min-width: 768px) {
+	.confirm-btn {
+		font-size: map-get($map: $body3, $key: size) !important;
+		font-weight: map-get($map: $body3, $key: weight) !important;
+		line-height: map-get($map: $body3, $key: line-height) !important;
+		letter-spacing: map-get($map: $body3, $key: letter-spacing) !important;
+		text-align: center !important;
+		border-radius: 8px !important;
+		text-transform: capitalize !important;
+		background-color: $blue-default !important;
+		color: #fff !important;
+		height: 32px;
+	}
+}
+
+@media (max-width: 768px) {
+	.confirm-btn {
+		font-size: map-get($map: $body1, $key: size) !important;
+		font-weight: map-get($map: $body1, $key: weight) !important;
+		line-height: map-get($map: $body1, $key: line-height) !important;
+		letter-spacing: map-get($map: $body1, $key: letter-spacing) !important;
+		text-align: center !important;
+		border-radius: 8px !important;
+		text-transform: capitalize !important;
+		background-color: $blue-default !important;
+		padding-left: 20px;
+		padding-right: 20px;
+		color: #fff !important;
+		height: 40px;
+	}
 }
 
 .confirm-btn-mobile {

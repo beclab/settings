@@ -44,7 +44,10 @@
 				v-if="factorMode === FACTOR_MODEL.Two"
 				:title="t('one_time')"
 			>
-				<q-toggle v-model="oneTimeMode" />
+				<bt-switch
+					truthy-track-color="blue-default"
+					v-model="oneTimeMode"
+				/>
 			</bt-form-item>
 
 			<error-message-tip
