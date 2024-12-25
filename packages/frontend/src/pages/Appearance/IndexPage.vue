@@ -22,10 +22,11 @@
 					</bt-form-item>
 				</div>
 
-				<div class="q-list-class" style="padding-bottom: 0px">
-					<div
-						class="row justify-between select-radio-bg item-margin-left item-margin-right"
-					>
+				<div
+					class="q-list-class"
+					style="padding-bottom: 0; margin-top: 20px"
+				>
+					<div class="row justify-between select-radio-bg">
 						<div class="text-subtitle1">
 							{{ t('theme') }}
 						</div>
@@ -164,10 +165,8 @@
 		</AdaptiveLayout>
 		<AdaptiveLayout>
 			<template v-slot:pc>
-				<div class="q-list-class">
-					<div
-						class="row justify-between select-radio-bg item-margin-left item-margin-right"
-					>
+				<div class="q-list-class" style="margin-top: 20px">
+					<div class="row justify-between select-radio-bg">
 						<div class="text-subtitle1">
 							{{ t('wallpaper') }}
 						</div>
@@ -229,28 +228,32 @@
 							</wallpaper-image>
 						</div>
 					</div>
-					<bt-separator />
+					<bt-separator
+						style="
+							margin-left: 20px;
+							margin-right: 20px;
+							width: calc(100% - 40px);
+						"
+					/>
 
 					<div class="select-avatar-list-bg">
-						<div class="row items-center justify-between">
-							<div
-								class="select-avatar-title-bg row items-center justify-start"
-							>
-								<q-icon
-									name="sym_r_imagesmode"
-									color="ink-1 q-ml-lg"
-									size="20px"
-								/>
-								<div class="text-subtitle2 select-avatar-title">
-									{{ t('pictures') }}
-								</div>
+						<div
+							class="select-avatar-title-bg row items-center justify-start"
+						>
+							<q-icon
+								name="sym_r_imagesmode"
+								color="ink-1 q-ml-lg"
+								size="20px"
+							/>
+							<div class="text-subtitle2 select-avatar-title">
+								{{ t('pictures') }}
 							</div>
 						</div>
 						<div class="images-list-bg row justify-start">
 							<BtUploader
 								:size="5"
-								width="105px"
-								height="51px"
+								width="98px"
+								height="58px"
 								fileName="image"
 								accept=".jpg, image/*"
 								action="/images/upload/v1"
@@ -259,7 +262,7 @@
 								@fail="fail"
 							>
 								<wallpaper-image
-									:width="99.5"
+									:width="92"
 									:padding="2"
 									:src="
 										$q.dark.isActive
@@ -276,7 +279,7 @@
 							>
 								<wallpaper-image
 									v-if="!!item"
-									:width="99.5"
+									:width="92"
 									:padding="2"
 									:src="
 										item.replace(
@@ -294,7 +297,7 @@
 								:key="`paper` + index"
 							>
 								<wallpaper-image
-									:width="99.5"
+									:width="92"
 									:src="
 										selectBackgroundMode ==
 										BackgroundMode.desktop
@@ -460,9 +463,9 @@ const languageUpdate = (language: SupportLanguageType) => {
 
 	.images-list-bg {
 		width: 100%;
-		grid-column-gap: 4px;
-		grid-row-gap: 4px;
-		margin-top: 12px;
+		grid-column-gap: 8px;
+		grid-row-gap: 8px;
+		padding: 20px;
 	}
 }
 
@@ -471,7 +474,6 @@ const languageUpdate = (language: SupportLanguageType) => {
 }
 
 .select-radio-bg {
-	height: 164px;
-	padding-top: 8px;
+	padding: 20px;
 }
 </style>

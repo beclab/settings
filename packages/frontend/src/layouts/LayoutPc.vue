@@ -211,9 +211,9 @@ watch(
 
 <style lang="scss" scoped>
 .settings_box {
-	width: 858px;
-	max-width: 858px;
-	min-width: 858px;
+	width: 848px;
+	max-width: 848px;
+	min-width: 848px;
 	height: 100vh;
 	display: flex;
 	align-content: center;

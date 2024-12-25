@@ -2,7 +2,7 @@
 	<div
 		class="page-title-root row items-center"
 		:style="{
-			'--root-padding': showBack || deviceStore.isMobile ? '4px' : '16px'
+			'--root-padding': showBack || deviceStore.isMobile ? '12px' : '20px'
 		}"
 	>
 		<AdaptiveLayout>
@@ -109,7 +109,7 @@ const backToPrePage = () => {
 		width: 32px;
 		height: 32px;
 		border-radius: 8px;
-		margin-right: 2px;
+		margin-right: 4px;
 
 		&:hover {
 			background-color: $background-3;
