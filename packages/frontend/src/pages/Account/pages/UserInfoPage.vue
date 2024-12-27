@@ -203,7 +203,7 @@
 					/>
 				</div>
 			</div>
-			<div v-else>
+			<div v-else-if="!isDemo">
 				<bt-form-item
 					:title="t('change_password')"
 					:margin-top="false"
@@ -317,6 +317,10 @@ const accountIsNotMe = computed(() => {
 	}
 
 	return false;
+});
+
+const isDemo = computed(() => {
+	return !!process.env.DEMO;
 });
 
 let checkAccountDeleteProgress: any = null;

@@ -1,0 +1,79 @@
+name: Release Settings Frontend
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tags'
+  push:
+    branches:
+       - "main"
+    tags:
+      - "v*"
+
+          
+jobs:
+    release-settings:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out the repo
+              uses: actions/checkout@v3
+
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v3
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v2
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_PASS }}
+
+            - name: get latest tag
+              uses: "WyriHaximus/github-action-get-previous-tag@v1"
+              id: get-latest-tag
+
+            - name: Setup Node
+              uses: actions/setup-node@v1
+              with:
+                node-version: '16.18'
+            
+            - name: Cache
+              uses: actions/cache@v1
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/packagge-lock.json')}}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - run: npm i -g @quasar/cli
+            - run: npm install
+            - name: Install fonttools
+              run: pip3 install fonttools brotli
+            - name: Download fonttools Files
+              run: |
+                  pwd
+                  curl -L -o fonttools.zip https://cdn.bttcdn.com/common/fonttools.zip
+                  unzip fonttools.zip
+            - name: Python Icon
+              run:  pwd; cd ./fonttools; sudo node python-icon.js
+            
+            - name: subset Icon
+              run: |
+                  sudo chmod 755 fonttools
+                  cd ./fonttools
+                  ./subset_font.sh nyTnjDwKNJ_190FjzaqkNCeE.woff2 unicodes.txt MaterialSymbolsRounded.woff2 ../packages/frontend/src/assets/fonts
+            - name: Build
+              run: DEMO=true npm run frontend:build
+
+            - name: Build and push
+              uses: docker/build-push-action@v3
+              env:
+                TAG: ${{ steps.get-latest-tag.outputs.tag || github.event.inputs.tags || 'latest'}} 
+              with:
+                context: .
+                file: ./docker/settings/Dockerfile-settings-frontend
+                push: true
+                tags: beclab/settings-demo:${{env.TAG}}
+                platforms: linux/amd64,linux/arm64
