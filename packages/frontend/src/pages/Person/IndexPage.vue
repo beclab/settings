@@ -43,6 +43,7 @@
 
 		<BtList>
 			<bt-form-item
+				v-if="adminStore.isAdmin || !isDemo"
 				:title="t('change_password')"
 				@click="updatePassword"
 				:margin-top="false"
@@ -94,7 +95,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAdminStore } from '../../stores/admin';
 import UpdateUserPassworDialog from '../Account/dialog/UpdateUserPassworDialog.vue';
@@ -121,6 +122,9 @@ const router = useRouter();
 const deviceStore = useDeviceStore();
 
 const userInfo = ref<AccountInfo | undefined>();
+const isDemo = computed(() => {
+	return !!process.env.DEMO;
+});
 
 onMounted(async () => {
 	await userStore.get_accounts();
