@@ -22,7 +22,7 @@
 			{{ t('setup_access_policies') }}
 		</ModuleTitle>
 
-		<bt-list>
+		<bt-list v-if="adminStore.isAdmin || !isDemo">
 			<bt-form-item :title="t('auth_level')">
 				<bt-select
 					v-model="authorizationLevel"
@@ -109,6 +109,13 @@ import BtList from '../../../components/base/BtList.vue';
 import _ from 'lodash';
 import { useDeviceStore } from '../../../stores/device';
 import ModuleTitle from '../../../components/ModuleTitle.vue';
+
+import { useAdminStore } from '../../../stores/admin';
+
+const adminStore = useAdminStore();
+const isDemo = computed(() => {
+	return !!process.env.DEMO;
+});
 
 const { t } = useI18n();
 
