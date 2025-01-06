@@ -32,10 +32,7 @@
 				</div>
 			</q-item-section>
 			<q-item-section side class="item-margin-right">
-				<div
-					class="row justify-end items-center"
-					v-if="adminStore.isAdmin || !isDemo"
-				>
+				<div class="row justify-end items-center">
 					<ApplicationStatus
 						v-if="!hideStatus && !deviceStore.isMobile"
 						:realStatus="realStatus"
@@ -54,18 +51,12 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, computed } from 'vue';
+import { watch, ref } from 'vue';
 import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
 import BtSeparator from '../base/BtSeparator.vue';
 import ApplicationStatus from './ApplicationStatus.vue';
 import ApplicationMobileStatus from './ApplicationMobileStatus.vue';
 import { useDeviceStore } from '../../stores/device';
-import { useAdminStore } from '../../stores/admin';
-
-const adminStore = useAdminStore();
-const isDemo = computed(() => {
-	return !!process.env.DEMO;
-});
 
 const props = defineProps({
 	icon: {
