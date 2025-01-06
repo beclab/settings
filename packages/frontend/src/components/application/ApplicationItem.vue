@@ -57,6 +57,7 @@ import BtSeparator from '../base/BtSeparator.vue';
 import ApplicationStatus from './ApplicationStatus.vue';
 import ApplicationMobileStatus from './ApplicationMobileStatus.vue';
 import { useDeviceStore } from '../../stores/device';
+
 const props = defineProps({
 	icon: {
 		type: String,

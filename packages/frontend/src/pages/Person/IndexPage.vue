@@ -16,6 +16,7 @@
 		</module-title>
 
 		<div
+			v-if="adminStore.isAdmin || !isDemo"
 			:class="deviceStore.isMobile ? 'mobile-items-list' : ''"
 			:style="deviceStore.isMobile ? 'margin-top: 12px' : ''"
 		>
@@ -41,9 +42,8 @@
 			{{ t('security') }}
 		</module-title>
 
-		<BtList>
+		<BtList v-if="adminStore.isAdmin || !isDemo">
 			<bt-form-item
-				v-if="adminStore.isAdmin || !isDemo"
 				:title="t('change_password')"
 				@click="updatePassword"
 				:margin-top="false"

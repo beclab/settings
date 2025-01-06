@@ -37,6 +37,7 @@
 			class="item-margin-right"
 		>
 			<bt-switch
+				v-if="adminStore.isAdmin || !isDemo"
 				truthy-track-color="blue-default"
 				v-model="isRunning"
 				@click="toggle"
@@ -47,16 +48,21 @@
 
 <script lang="ts" setup>
 import { TerminusApp } from '@bytetrade/core';
-import { PropType, ref, watch } from 'vue';
+import { computed, PropType, ref, watch } from 'vue';
 import { useQuasar } from 'quasar';
 import { useApplicationStore } from '../../stores/application';
 import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
 import ApplicationStatus from './ApplicationStatus.vue';
 import { useDeviceStore } from '../../stores/device';
 import ApplicationMobileStatus from './ApplicationMobileStatus.vue';
+import { useAdminStore } from '../../stores/admin';
 
 const $q = useQuasar();
 const applicationStore = useApplicationStore();
+const adminStore = useAdminStore();
+const isDemo = computed(() => {
+	return !!process.env.DEMO;
+});
 
 const props = defineProps({
 	app: {
