@@ -11,7 +11,7 @@
 			</div>
 		</div>
 
-		<module-title class="q-mt-md">
+		<module-title v-if="adminStore.isAdmin || !isDemo" class="q-mt-md">
 			{{ t('device') }}
 		</module-title>
 
@@ -33,6 +33,7 @@
 		</div>
 
 		<module-title
+			v-if="adminStore.isAdmin || !isDemo"
 			class="q-mt-xl"
 			:class="{
 				'q-mt-xl': deviceStore.isMobile,
