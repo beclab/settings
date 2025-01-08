@@ -7,7 +7,8 @@ import { IntegrationAccount } from 'src/services/abstractions/integration/integr
 
 import { AccountType, IntegrationAccountMiniData } from '@bytetrade/core';
 
-const SPACE_URL = process.env.SPACE_URL || 'https://cloud-api.bttcdn.com';
+const OLARES_SPACE_URL =
+	process.env.OLARES_SPACE_URL || 'https://cloud-api.bttcdn.com';
 
 export interface AccountData {
 	token?: string;
@@ -39,7 +40,7 @@ export const useAccountStore = defineStore('account', {
 					icon: '',
 					desc: 'Olares Space',
 					router: '/account/space',
-					url: SPACE_URL
+					url: OLARES_SPACE_URL
 				}
 			],
 			secrets: []

@@ -61,7 +61,7 @@ module.exports = configure(function (ctx) {
 			// publicPath: '/',
 			env: {
 				URL: process.env.URL,
-				SPACE_URL: process.env.SPACE_URL,
+				OLARES_SPACE_URL: process.env.OLARES_SPACE_URL,
 				ACTION: process.env.ACTION,
 				NODE_RPC: 'https://mainnet.optimism.io',
 				CONTRACT_DID: '0x5da4fa8e567d86e52ef8da860de1be8f54cae97d',
