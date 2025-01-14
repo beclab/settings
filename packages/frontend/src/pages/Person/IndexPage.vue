@@ -54,7 +54,15 @@
 				<bt-switch
 					truthy-track-color="blue-default"
 					:model-value="headScaleStore.headScaleStatus"
-					@update:model-value="toggle"
+					@update:model-value="setHeadScaleToggle"
+				/>
+			</bt-form-item>
+			<bt-form-item :title="t('allow_ssh_via_vpn')">
+				<bt-switch
+					truthy-track-color="blue-default"
+					:model-value="aclStore.allow_ssh"
+					:disable="aclStore.state === ActionType.APPLYING"
+					@update:model-value="setAclToggle"
 				/>
 			</bt-form-item>
 			<bt-form-item
@@ -113,15 +121,16 @@ import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../stores/device';
 import BtList from '../../components/base/BtList.vue';
 import ModuleTitle from '../../components/ModuleTitle.vue';
+import { ActionType, useAclStore } from '../../stores/acl';
 
 const { t } = useI18n();
 const adminStore = useAdminStore();
 const quasar = useQuasar();
 const userStore = useUserStore();
 const headScaleStore = useHeadScaleStore();
+const aclStore = useAclStore();
 const router = useRouter();
 const deviceStore = useDeviceStore();
-
 const userInfo = ref<AccountInfo | undefined>();
 const isDemo = computed(() => {
 	return !!process.env.DEMO;
@@ -130,11 +139,11 @@ const isDemo = computed(() => {
 onMounted(async () => {
 	await userStore.get_accounts();
 
-	const data = await userStore.get_account_info(adminStore.user.name);
-	userInfo.value = data;
+	userInfo.value = await userStore.get_account_info(adminStore.user.name);
 
 	await headScaleStore.getDevices();
 	await headScaleStore.getHeadScaleStatus();
+	await aclStore.getAclStatus();
 });
 
 function gotoPage(path: string) {
@@ -159,7 +168,7 @@ const goLoginHistory = () => {
 	});
 };
 
-const toggle = async () => {
+const setHeadScaleToggle = async () => {
 	if (!headScaleStore.headScaleStatus) {
 		let total = 0;
 		for (const device of headScaleStore.devices) {
@@ -181,6 +190,11 @@ const toggle = async () => {
 	}
 	await headScaleStore.toggleHeadScaleStatus();
 	await headScaleStore.getHeadScaleStatus();
+};
+
+const setAclToggle = async () => {
+	await aclStore.toggleAclStatus(!aclStore.allow_ssh);
+	await aclStore.getAclStatus();
 };
 </script>
 

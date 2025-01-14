@@ -469,10 +469,10 @@ export default {
 	acls: 'ACLs',
 	dst: 'Dst',
 	protocol: 'Protocol',
-	export_port: 'Export Port',
-	export_ports: 'Export Ports',
 	port: 'Port',
 	host: 'Host',
+	export_port: 'Exported Port',
+	export_ports: 'Export Ports',
 
 	...en_US_add
 };

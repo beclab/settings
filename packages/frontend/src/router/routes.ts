@@ -84,6 +84,13 @@ const routes: RouteRecordRaw[] = [
 			},
 
 			{
+				path: 'application/acl/:name',
+				name: 'appAcl',
+				component: () =>
+					import('src/pages/Application/pages/ApplicationAclPage.vue')
+			},
+
+			{
 				path: 'application/entrance/:name/:entrance',
 				component: () =>
 					import(

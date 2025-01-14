@@ -457,10 +457,10 @@ export default {
 	acls: 'ACL 配置',
 	dst: '目标地址',
 	protocol: '协议',
-	export_port: '导出端口',
-	export_ports: '导出端口',
 	port: '端口',
 	host: '主机',
+	export_port: '导出端口',
+	export_ports: '导出端口',
 
 	...zh_CN_add
 };
