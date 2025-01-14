@@ -304,7 +304,7 @@ export enum APP_STATUS {
 	initializing = 'initializing'
 }
 
-export enum Entrance_STATUS {
+export enum ENTRANCE_STATUS {
 	crash = 'crash',
 	suspend = 'suspend',
 	running = 'running'
@@ -336,8 +336,10 @@ export const getApplicationStatus = (status: APP_STATUS) => {
 			realStatus = i18n.global.t('app_status.suspend');
 			break;
 		case APP_STATUS.waiting:
+			realStatus = i18n.global.t('app_status.waiting');
+			break;
 		case APP_STATUS.resuming:
-			realStatus = i18n.global.t('app_status.resume');
+			realStatus = i18n.global.t('app_status.resuming');
 			break;
 		case APP_STATUS.running:
 			realStatus = i18n.global.t('app_status.running');
@@ -350,6 +352,25 @@ export const getApplicationStatus = (status: APP_STATUS) => {
 			break;
 		case APP_STATUS.initializing:
 			realStatus = i18n.global.t('app_status.updating');
+			break;
+		default:
+			break;
+	}
+
+	return realStatus;
+};
+
+export const getEntranceStatus = (status: ENTRANCE_STATUS) => {
+	let realStatus = '';
+	switch (status) {
+		case ENTRANCE_STATUS.suspend:
+			realStatus = i18n.global.t('app_status.suspend');
+			break;
+		case ENTRANCE_STATUS.crash:
+			realStatus = i18n.global.t('app_status.crash');
+			break;
+		case ENTRANCE_STATUS.running:
+			realStatus = i18n.global.t('app_status.running');
 			break;
 		default:
 			break;
