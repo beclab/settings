@@ -10,6 +10,7 @@ import { MonitorController } from './monitor.controller';
 import { TokenController } from './token.controller';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GPUController } from './gpu.controller';
+import { AclController } from './acl.controller';
 
 @Module({
   imports: [ScheduleModule.forRoot()],
@@ -20,6 +21,7 @@ import { GPUController } from './gpu.controller';
     RolesController,
     UsersController,
     NetworkPolicyController,
+    AclController,
     ApplicationController,
     MonitorController,
     TokenController,
