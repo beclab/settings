@@ -23,8 +23,8 @@
 					'q-mt-lg': !deviceStore.isMobile,
 					'q-mt-xl': deviceStore.isMobile
 				}"
-				>{{ t('entrances') }}</module-title
-			>
+				>{{ t('entrances') }}
+			</module-title>
 
 			<bt-list>
 				<template
@@ -118,8 +118,10 @@
 				(appPermissions &&
 					appPermissions.permissions &&
 					appPermissions.permissions.length > 0) ||
-				(application && application.ports && application.ports.length > 0) ||
-        aclStore.appAclList.length > 0
+				(application &&
+					application.ports &&
+					application.ports.length > 0) ||
+				aclStore.appAclList.length > 0
 			"
 		>
 			<module-title
@@ -131,28 +133,30 @@
 				>{{ t('permissions') }}
 			</module-title>
 			<bt-list>
-       <div v-if="appPermissions && appPermissions.permissions">
-				<template
-					v-for="(permission, index) in appPermissions.permissions"
-					:key="index"
-				>
-					<bt-form-item
-						:title="`${permission.dataType}/${permission.group}/${permission.version}`"
-						@click="gotoPermission(permission)"
-						:margin-top="false"
-						:width-separator="
-							index + 1 < appPermissions.permissions.length ||
-							!!(
-								application &&
-								application.ports &&
-								application.ports.length > 0
-							) ||
-							aclStore.appAclList.length > 0
-						"
-						:chevron-right="true"
-					/>
-				</template>
-        </div>
+				<div v-if="appPermissions && appPermissions.permissions">
+					<template
+						v-for="(
+							permission, index
+						) in appPermissions.permissions"
+						:key="index"
+					>
+						<bt-form-item
+							:title="`${permission.dataType}/${permission.group}/${permission.version}`"
+							@click="gotoPermission(permission)"
+							:margin-top="false"
+							:width-separator="
+								index + 1 < appPermissions.permissions.length ||
+								!!(
+									application &&
+									application.ports &&
+									application.ports.length > 0
+								) ||
+								aclStore.appAclList.length > 0
+							"
+							:chevron-right="true"
+						/>
+					</template>
+				</div>
 				<bt-form-item
 					v-if="aclStore.appAclList.length > 0"
 					:title="t('acls')"
@@ -165,10 +169,10 @@
 							application.ports.length > 0
 						)
 					"
-          :chevron-right="true"
+					:chevron-right="true"
 				/>
-          
-          <bt-form-item
+
+				<bt-form-item
 					v-if="application && application.ports.length > 0"
 					:title="t('export_ports')"
 					@click="gotoPorts"
