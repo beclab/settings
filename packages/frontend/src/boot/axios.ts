@@ -98,6 +98,9 @@ export default boot(({ app }) => {
 					) >= 0
 				) {
 					return data;
+				} else if (response.config.url!.indexOf('status?name=') >= 0) {
+					//return app acl not found
+					return data;
 				} else {
 					if (data.code != 0 && data.code != 200 && !data.items) {
 						//kapis return used in login history

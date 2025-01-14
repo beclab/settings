@@ -453,6 +453,12 @@ export default {
 	'Switch language': '切换语言',
 	'Are you sure you need to switch the system language to {language}?':
 		'切换系统语言为 {language} 吗?',
+	allow_ssh_via_vpn: '允许通过 VPN 进行 SSH 连接',
+	acls: 'ACL 配置',
+	dst: '目标地址',
+	protocol: '协议',
+	expose_port: '暴露端口',
+	expose_ports: '暴露端口',
 
 	...zh_CN_add
 };
