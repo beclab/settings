@@ -465,6 +465,14 @@ export default {
 	'Switch language': 'Switch language',
 	'Are you sure you need to switch the system language to {language}?':
 		'Are you sure you need to switch the system language to {language}?',
+	allow_ssh_via_vpn: 'Allow SSH via VPN',
+	acls: 'ACLs',
+	dst: 'Dst',
+	protocol: 'Protocol',
+	export_port: 'Export Port',
+	export_ports: 'Export Ports',
+	port: 'Port',
+	host: 'Host',
 
 	...en_US_add
 };

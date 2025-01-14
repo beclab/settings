@@ -113,7 +113,14 @@
 			</bt-list>
 		</div>
 
-		<div v-if="appPermissions && appPermissions.permissions.length">
+		<div
+			v-if="
+				(appPermissions &&
+					appPermissions.permissions &&
+					appPermissions.permissions.length > 0) ||
+				(application && application.ports.length > 0)
+			"
+		>
 			<module-title
 				class="q-mb-sm"
 				:class="{
@@ -123,20 +130,33 @@
 				>{{ t('permissions') }}
 			</module-title>
 			<bt-list>
-				<template
-					v-for="(permission, index) in appPermissions.permissions"
-					:key="index"
-				>
-					<bt-form-item
-						:title="`${permission.dataType}/${permission.group}/${permission.version}`"
-						@click="gotoPermission(permission)"
-						:margin-top="false"
-						:width-separator="
-							index + 1 < appPermissions.permissions.length
-						"
-						:chevron-right="true"
-					/>
-				</template>
+				<div v-if="appPermissions && appPermissions.permissions">
+					<template
+						v-for="(
+							permission, index
+						) in appPermissions.permissions"
+						:key="index"
+					>
+						<bt-form-item
+							:title="`${permission.dataType}/${permission.group}/${permission.version}`"
+							@click="gotoPermission(permission)"
+							:margin-top="false"
+							:width-separator="
+								index + 1 < appPermissions.permissions.length
+							"
+							:chevron-right="true"
+						/>
+					</template>
+				</div>
+
+				<bt-form-item
+					v-if="application && application.ports.length > 0"
+					:title="t('export_ports')"
+					@click="gotoPorts"
+					:margin-top="false"
+					:width-separator="false"
+					:chevron-right="true"
+				/>
 			</bt-list>
 		</div>
 	</bt-scroll-area>
@@ -190,6 +210,10 @@ const gotoEntrance = (entrance: TerminusEntrance) => {
 	router.push(
 		'/application/entrance/' + application.value?.name + '/' + entrance.name
 	);
+};
+
+const gotoPorts = () => {
+	router.push('/application/ports/' + application.value?.name);
 };
 
 const gotoPermission = (
