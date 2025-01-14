@@ -469,6 +469,8 @@ export default {
 	acls: 'ACLs',
 	dst: 'Dst',
 	protocol: 'Protocol',
+	port: 'Port',
+	host: 'Host',
 	export_port: 'Exported Port',
 	export_ports: 'Export Ports',
 

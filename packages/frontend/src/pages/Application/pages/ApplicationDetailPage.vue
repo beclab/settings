@@ -115,8 +115,11 @@
 
 		<div
 			v-if="
-				(appPermissions && appPermissions.permissions.length) ||
-				(application && application.ports && application.ports.length)
+				(appPermissions &&
+					appPermissions.permissions &&
+					appPermissions.permissions.length > 0) ||
+				(application && application.ports && application.ports.length > 0) ||
+        aclStore.appAclList.length > 0
 			"
 		>
 			<module-title
@@ -128,6 +131,7 @@
 				>{{ t('permissions') }}
 			</module-title>
 			<bt-list>
+       <div v-if="appPermissions && appPermissions.permissions">
 				<template
 					v-for="(permission, index) in appPermissions.permissions"
 					:key="index"
@@ -148,6 +152,7 @@
 						:chevron-right="true"
 					/>
 				</template>
+        </div>
 				<bt-form-item
 					v-if="aclStore.appAclList.length > 0"
 					:title="t('acls')"
@@ -160,6 +165,15 @@
 							application.ports.length > 0
 						)
 					"
+          :chevron-right="true"
+				/>
+          
+          <bt-form-item
+					v-if="application && application.ports.length > 0"
+					:title="t('export_ports')"
+					@click="gotoPorts"
+					:margin-top="false"
+					:width-separator="false"
 					:chevron-right="true"
 				/>
 			</bt-list>
@@ -211,6 +225,10 @@ const gotoEntrance = (entrance: TerminusEntrance) => {
 	router.push(
 		'/application/entrance/' + application.value?.name + '/' + entrance.name
 	);
+};
+
+const gotoPorts = () => {
+	router.push('/application/ports/' + application.value?.name);
 };
 
 const gotoPermission = (
