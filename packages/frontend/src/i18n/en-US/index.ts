@@ -465,6 +465,8 @@ export default {
 	'Switch language': 'Switch language',
 	'Are you sure you need to switch the system language to {language}?':
 		'Are you sure you need to switch the system language to {language}?',
+	app_operation_not_allowed:
+		'The current app status does not allow this operation.',
 
 	...en_US_add
 };

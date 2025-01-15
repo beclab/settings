@@ -453,6 +453,6 @@ export default {
 	'Switch language': '切换语言',
 	'Are you sure you need to switch the system language to {language}?':
 		'切换系统语言为 {language} 吗?',
-
+	app_operation_not_allowed: '当前应用状态不允许执行此操作',
 	...zh_CN_add
 };

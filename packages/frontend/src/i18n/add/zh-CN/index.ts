@@ -11,7 +11,7 @@ export default {
 		cancel: '取消',
 		load: '加载',
 		unload: '卸载',
-		resume: '恢复',
+		resuming: '恢复中',
 		installing: '正在安装',
 		update: '更新',
 		running: '运行中',
@@ -19,7 +19,9 @@ export default {
 		uninstalling: '正在卸载',
 		uninstall: '卸载',
 		updating: '正在更新',
-		initializing: '初始化'
+		initializing: '初始化',
+		waiting: '等待中',
+		crash: '崩溃'
 	},
 	'Network Connection': '网络连接',
 	'Switch reverse proxy': '选择反向代理',

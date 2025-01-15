@@ -32,6 +32,7 @@ export default defineComponent({
 		const accountStore = useAccountStore();
 		const backgroundStore = useBackgroundStore();
 		const didStore = useDIDStore();
+		const upgradeStore = useUpgradeStore();
 
 		backgroundStore.init();
 
@@ -51,8 +52,9 @@ export default defineComponent({
 			}
 		}
 
-		return new Promise((resolve) => {
-			axios.get(tokenStore.url + '/api/init').then((data) => {
+		return axios
+			.get(tokenStore.url + '/api/init')
+			.then((data) => {
 				adminStore.terminus = data.terminusInfo;
 				adminStore.user = data.userInfo;
 				applicationStore.applications = data.applicationData;
@@ -60,20 +62,19 @@ export default defineComponent({
 				adminStore.devices = data.devices;
 				backgroundStore.wallpaper = data.wallpaper;
 				didStore.setDIDUrl(data.didUrl);
-				resolve({});
+			})
+			.then(() => {
+				upgradeStore.checkLastOsVersion();
 			});
-		});
 	},
 	setup() {
 		const adminStore = useAdminStore();
 		const tokenStore = useTokenStore();
 		const headScaleStore = useHeadScaleStore();
-		const upgradeStore = useUpgradeStore();
 
 		const host = window.location.origin;
 		tokenStore.setUrl(host);
 		headScaleStore.setUrl(host + '/headscale');
-		upgradeStore.checkLastOsVersion();
 
 		onMounted(() => {
 			platform.getDeviceInfo().then((deviceInfo) => {
