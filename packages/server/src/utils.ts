@@ -232,7 +232,7 @@ export class DropboxAccount extends IntegrationAccount {
 export class SpaceAccount extends IntegrationAccount {
   type = AccountType.Space;
 
-  private cloudUrl = process.env.OLARES_SPACE_URL || Cloud_URL;
+  private cloudUrl = olaresSpaceUrl;
 
   async refresh() {
     const data = this.raw_data as SpaceAccountData;
@@ -333,3 +333,16 @@ export class TencentAccount extends IntegrationAccount {
     props && Object.assign(this, props);
   }
 }
+
+// const formatOlaresDefaultUrl =
+
+export const formatDefaultHost = (host: string) => {
+  if (!host.endsWith('/')) {
+    return host;
+  }
+  return host.substring(0, host.length - 1);
+};
+
+export const olaresSpaceUrl = formatDefaultHost(
+  process.env.OLARES_SPACE_URL || 'https://cloud-api.bttcdn.com',
+);
