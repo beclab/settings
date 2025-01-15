@@ -22,10 +22,6 @@ export class CookieController {
     //
   }
 
-  // async onModuleInit(): Promise<void> {
-  //   const secrets: Secret[] = await this.secretService.ListSecret();
-  // }
-
   @Post('/')
   async CreateOrUpdateCookie(
     @Body() raw_cookie: DomainCookie,
