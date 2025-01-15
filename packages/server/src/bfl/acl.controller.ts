@@ -5,7 +5,7 @@ import {
   Post,
   Req,
   Body,
-  Param,
+  Query,
 } from '@nestjs/common';
 import { createInstance } from './utils';
 
@@ -59,11 +59,15 @@ export class AclController {
   @Get('/app/status')
   async getAppAclStatus(
     @Req() request: Request,
-    @Param('app_name') appName,
+    @Query('name') appName,
   ): Promise<any> {
     this.logger.debug('get app acl status');
 
-    this.logger.debug(`appName: ${appName}`);
+    this.logger.debug(`app name: ${appName}`);
+
+    if (!appName) {
+      throw new Error('app name required');
+    }
 
     const data: any = await createInstance(request).get(
       `/bfl/settings/v1alpha1/headscale/${appName}/acl`,
@@ -83,8 +87,12 @@ export class AclController {
     this.logger.debug('set app acl status');
     this.logger.debug(body);
 
-    const appName = body.app_name;
-    this.logger.debug(`appName: ${appName}`);
+    const appName = body.name;
+    this.logger.debug(`app name: ${appName}`);
+
+    if (!appName) {
+      throw new Error('app name required');
+    }
 
     const data: any = await createInstance(request).post(
       `/bfl/settings/v1alpha1/headscale/${appName}/acl`,
