@@ -14,7 +14,7 @@ import {
   MessageData,
 } from '@bytetrade/core';
 import axios, { AxiosInstance } from 'axios';
-import { Cloud_URL } from './utils';
+import { olaresSpaceUrl } from './utils';
 import * as qs from 'qs';
 import { createSystemMessage, postSystemNotification } from '@bytetrade/core';
 import { SecretService } from './secret.service';
@@ -33,7 +33,7 @@ export class CloudController {
   private verifyingContract =
     process.env.APP_SERVICE_VERIFYING_CONTRACT ||
     '0xe2eaba0979277a90511f8873ae1e8ca26b54e740';
-  private cloudUrl = process.env.OLARES_SPACE_URL || Cloud_URL;
+  private cloudUrl = olaresSpaceUrl;
 
   constructor(
     private secretService: SecretService,
