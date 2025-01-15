@@ -37,6 +37,36 @@ export async function getWSConnectionList(): Promise<
   }
 }
 
+export async function broadcastWebsocketMessage(
+  payload: any,
+): Promise<WebSocketSendResult | undefined> {
+  try {
+    const users = await getWSConnectionList();
+    console.log('ws user.lenght', users.length);
+    if (users.length == 0) {
+      return undefined;
+    }
+
+    const usernames = users.map((u) => u.name);
+    const data = {
+      payload,
+    };
+
+    data['users'] = usernames;
+
+    const response = await axios.post(
+      WebSocketURL + '/tapr/ws/conn/send',
+      data,
+    );
+    console.log('broadcastWebsocketMessage', response.data);
+
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
+}
+
 export async function sendWebsocketMessage(
   payload: any,
   connection_id: string,

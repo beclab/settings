@@ -88,9 +88,10 @@ export const useSocketStore = defineStore('counter', {
 							} else if (
 								message.event == 'entrance_state_event'
 							) {
-								// bus.emit('entrance_state_event', message);
 								const applicationStore = useApplicationStore();
-								applicationStore.get_applications();
+								applicationStore.get_applications().then(() => {
+									bus.emit('entrance_state_event', message);
+								});
 							}
 						}
 					} catch (e) {

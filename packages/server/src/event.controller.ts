@@ -1,13 +1,7 @@
-import { Controller, Logger, Post, Body, HttpCode } from '@nestjs/common';
-
-import {
-  returnSucceed,
-  Result,
-  ProviderRequest,
-  returnError,
-  Secret,
-} from '@bytetrade/core';
+import { Controller, Logger, Post, Body } from '@nestjs/common';
+import { returnSucceed, Result, ProviderRequest } from '@bytetrade/core';
 import { InitService } from './init.service';
+import { broadcastWebsocketMessage } from './websocketClient';
 
 export interface Event<T> {
   type: string;
@@ -32,11 +26,29 @@ export class EventController {
 
     const payload = event.data.data.payload;
 
-    // broadcastWebsocketMessage({
-    //   event: 'app_installation_event',
-    //   // data: event.data.data,
-    //   data: payload,
-    // });
+    broadcastWebsocketMessage({
+      event: 'app_installation_event',
+      // data: event.data.data,
+      data: payload,
+    });
+
+    return returnSucceed(null);
+  }
+
+  @Post('/entrance_state_event')
+  async entrance_state_event(
+    @Body() event: ProviderRequest<Event<any>>,
+  ): Promise<Result<null>> {
+    this.logger.debug('entrance_state_event');
+    this.logger.debug(JSON.stringify(event, null, 2));
+
+    const payload = event.data.data.payload;
+
+    broadcastWebsocketMessage({
+      event: 'entrance_state_event',
+      // data: event.data.data,
+      data: payload,
+    });
 
     return returnSucceed(null);
   }

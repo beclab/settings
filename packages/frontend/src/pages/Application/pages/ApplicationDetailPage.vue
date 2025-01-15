@@ -109,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useApplicationStore } from '../../../stores/application';
 import { useSecretStore } from '../../../stores/secret';
@@ -127,6 +127,7 @@ import BtFormItem from '../../../components/base/BtFormItem.vue';
 import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import ApplicationItem from '../../../components/application/ApplicationItem.vue';
 import ApplicationOperateItem from '../../../components/application/ApplicationOperateItem.vue';
+import { bus } from '../../../utils/bus';
 
 const applicationStore = useApplicationStore();
 const secretStore = useSecretStore();
@@ -204,9 +205,20 @@ const getProviders = async () => {
 	}
 };
 
+const updateApplication = () => {
+	application.value = applicationStore.getApplicationById(
+		Route.params.name as string
+	);
+};
+
 onMounted(async () => {
+	bus.on('entrance_state_event', updateApplication);
 	checkSecretPermission();
 	getPermissions();
 	getProviders();
+});
+
+onBeforeUnmount(() => {
+	bus.off('entrance_state_event', updateApplication);
 });
 </script>
