@@ -3,7 +3,7 @@
 
 	<bt-scroll-area class="nav-height-scroll-area-conf">
 		<bt-list>
-			<application-detail-item :app="application" />
+			<application-operate-item :app="application" />
 		</bt-list>
 
 		<bt-list v-if="secretPermission && !deviceStore.isMobile">
@@ -40,48 +40,14 @@
 								: ''
 						"
 						:title="entrance.title"
-						:status="application.state"
+						:status="entrance.state"
 						:width-separator="
 							index !== application.entrances.length - 1
 						"
 						:margin-top="index !== 0"
 						@click="gotoEntrance(entrance)"
-						:hide-status="
-							application.state == APP_STATUS.running &&
-							entrance.state
-						"
-					>
-						<template
-							v-slot:status
-							v-if="
-								application.state == APP_STATUS.running &&
-								entrance.state &&
-								!deviceStore.isMobile
-							"
-						>
-							<application-status
-								:running="
-									entrance.state == Entrance_STATUS.running
-								"
-								:realStatus="entrance.state"
-								class="q-ml-md"
-							/>
-						</template>
-						<template
-							v-slot:mobile-status
-							v-if="
-								application.state == APP_STATUS.running &&
-								entrance.state &&
-								deviceStore.isMobile
-							"
-						>
-							<application-mobile-status
-								:running="
-									entrance.state == Entrance_STATUS.running
-								"
-							/>
-						</template>
-					</application-item>
+						:hide-status="false"
+					/>
 				</template>
 			</bt-list>
 		</div>
@@ -186,7 +152,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useApplicationStore } from '../../../stores/application';
 import { useSecretStore } from '../../../stores/secret';
@@ -195,24 +161,22 @@ import {
 	Permission,
 	PermissionProviderRegister
 } from '../../../global';
-import PageTitleComponent from '../../../components/PageTitleComponent.vue';
-import ApplicationDetailItem from '../../../components/application/ApplicationDetailItem.vue';
-import BtFormItem from '../../../components/base/BtFormItem.vue';
-import ApplicationItem from '../../../components/application/ApplicationItem.vue';
-import ApplicationStatus from '../../../components/application/ApplicationStatus.vue';
-import ApplicationMobileStatus from '../../../components/application/ApplicationMobileStatus.vue';
+import { useI18n } from 'vue-i18n';
 import { TerminusEntrance } from '@bytetrade/core';
 import BtList from '../../../components/base/BtList.vue';
-import { APP_STATUS, Entrance_STATUS } from '../../../utils/constants';
 import ModuleTitle from '../../../components/ModuleTitle.vue';
-import { useI18n } from 'vue-i18n';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
+import ApplicationItem from '../../../components/application/ApplicationItem.vue';
+import ApplicationOperateItem from '../../../components/application/ApplicationOperateItem.vue';
+import { bus } from '../../../utils/bus';
 import { useDeviceStore } from '../../../stores/device';
 import { useAclStore } from '../../../stores/acl';
 
-const { t } = useI18n();
 const applicationStore = useApplicationStore();
 const secretStore = useSecretStore();
 const deviceStore = useDeviceStore();
+const { t } = useI18n();
 const aclStore = useAclStore();
 const Route = useRoute();
 const router = useRouter();
@@ -299,12 +263,23 @@ const getProviders = async () => {
 	}
 };
 
+const updateApplication = () => {
+	application.value = applicationStore.getApplicationById(
+		Route.params.name as string
+	);
+};
+
 onMounted(async () => {
+	bus.on('entrance_state_event', updateApplication);
 	checkSecretPermission();
 	getPermissions();
 	getProviders();
 	if (application.value) {
 		aclStore.getAppAclStatus(application.value.name);
 	}
+});
+
+onBeforeUnmount(() => {
+	bus.off('entrance_state_event', updateApplication);
 });
 </script>

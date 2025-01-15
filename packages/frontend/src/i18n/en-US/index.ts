@@ -465,6 +465,8 @@ export default {
 	'Switch language': 'Switch language',
 	'Are you sure you need to switch the system language to {language}?':
 		'Are you sure you need to switch the system language to {language}?',
+	app_operation_not_allowed:
+		'The current app status does not allow this operation.',
 	allow_ssh_via_vpn: 'Allow SSH via VPN',
 	acls: 'ACLs',
 	dst: 'Dst',

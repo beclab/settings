@@ -24,6 +24,7 @@ import { EventController } from './event.controller';
 import { TerminusdController } from './terminusd.controller';
 import { ProfileController } from './profile.controller';
 import { TerminusInfoController } from './terminus.controller';
+import { WebSocketController } from './websocket.controller';
 
 @Module({
   imports: [BFLModule, HeadScaleModule, ScheduleModule.forRoot()],
@@ -43,6 +44,7 @@ import { TerminusInfoController } from './terminus.controller';
     TerminusdController,
     ProfileController,
     TerminusInfoController,
+    WebSocketController,
   ],
   providers: [
     SecretService,

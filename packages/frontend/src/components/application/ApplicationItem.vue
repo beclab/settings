@@ -9,14 +9,12 @@
 							no-spinner
 							:src="icon"
 							style="border-radius: 10px"
-						>
-						</q-img>
-
-						<ApplicationMobileStatus
-							v-if="!hideStatus && deviceStore.isMobile"
-							:running="status == 'running'"
 						/>
-						<slot name="mobile-status" />
+
+						<application-status
+							v-if="!hideStatus && deviceStore.isMobile"
+							:status="status"
+						/>
 					</div>
 					<div
 						class="application-name"
@@ -28,17 +26,18 @@
 						{{ title }}
 					</div>
 
-					<slot name="status" />
+					<application-status
+						v-if="!hideStatus && !deviceStore.isMobile"
+						class="q-ml-md"
+						:status="status"
+					/>
 				</div>
 			</q-item-section>
 			<q-item-section side class="item-margin-right">
 				<div class="row justify-end items-center">
-					<ApplicationStatus
-						v-if="!hideStatus && !deviceStore.isMobile"
-						:realStatus="realStatus"
-						:running="status == 'running'"
-					/>
+					<slot />
 					<q-icon
+						v-if="endIcon"
 						name="sym_r_chevron_right"
 						color="ink-1"
 						size="20px"
@@ -51,14 +50,11 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from 'vue';
-import { APP_STATUS, getApplicationStatus } from '../../utils/constants';
 import BtSeparator from '../base/BtSeparator.vue';
 import ApplicationStatus from './ApplicationStatus.vue';
-import ApplicationMobileStatus from './ApplicationMobileStatus.vue';
 import { useDeviceStore } from '../../stores/device';
 
-const props = defineProps({
+defineProps({
 	icon: {
 		type: String,
 		require: true
@@ -75,6 +71,10 @@ const props = defineProps({
 		type: String,
 		default: ''
 	},
+	endIcon: {
+		type: Boolean,
+		default: true
+	},
 	widthSeparator: {
 		type: Boolean,
 		default: true
@@ -85,14 +85,6 @@ const props = defineProps({
 	}
 });
 
-watch(
-	() => props.status,
-	() => {
-		realStatus.value = getApplicationStatus(props.status as APP_STATUS);
-	}
-);
-
-const realStatus = ref(getApplicationStatus(props.status as APP_STATUS));
 const deviceStore = useDeviceStore();
 </script>
 
@@ -111,41 +103,9 @@ const deviceStore = useDeviceStore();
 			height: 32px;
 			border-radius: 8px;
 		}
-		.status-icon {
-			position: absolute;
-			right: 0px;
-			bottom: 0px;
-			width: 8px;
-			height: 8px;
-			// padding: 2px;
-			border-radius: 4px;
-			background-color: $background-1;
-
-			.status-content {
-				width: 6px;
-				height: 6px;
-				border-radius: 3px;
-			}
-		}
-
 		.application-name {
 			color: $ink-1;
 			margin-left: 8px;
-		}
-
-		.status-circle {
-			width: 12px;
-			height: 12px;
-			margin-right: 12px;
-			border-radius: 50%;
-			background-color: var(--status-color);
-		}
-
-		.application-status {
-			text-align: right;
-			color: $ink-2;
-			text-transform: capitalize;
-			margin-right: 4px;
 		}
 	}
 }

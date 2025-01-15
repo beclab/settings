@@ -11,7 +11,7 @@ export default {
 		cancel: 'Cancel',
 		load: 'Load',
 		unload: 'Unload',
-		resume: 'Resume',
+		resuming: 'Resuming',
 		installing: 'Installing',
 		update: 'Update',
 		running: 'Running',
@@ -19,7 +19,10 @@ export default {
 		uninstalling: 'Uninstalling',
 		uninstall: 'Uninstall',
 		updating: 'Updating',
-		initializing: 'Initializing'
+		initializing: 'Initializing',
+		waiting: 'waiting',
+		//entrance
+		crash: 'crash'
 	},
 	'Network Connection': 'Network Connection',
 	'Switch reverse proxy': 'Switch reverse proxy',
