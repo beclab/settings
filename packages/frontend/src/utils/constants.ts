@@ -474,3 +474,14 @@ export enum UpgradeStatus {
 	Running = 'running',
 	Completed = 'complete'
 }
+
+export const formatDefaultHost = (host: string) => {
+	if (!host.endsWith('/')) {
+		return host;
+	}
+	return host.substring(0, host.length - 1);
+};
+
+export const olaresSpaceUrl = formatDefaultHost(
+	process.env.OLARES_SPACE_URL || 'https://cloud-api.bttcdn.com'
+);

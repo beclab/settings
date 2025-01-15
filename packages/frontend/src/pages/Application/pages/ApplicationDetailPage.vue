@@ -79,7 +79,17 @@
 			</bt-list>
 		</div>
 
-		<div v-if="appPermissions && appPermissions.permissions.length">
+		<div
+			v-if="
+				(appPermissions &&
+					appPermissions.permissions &&
+					appPermissions.permissions.length > 0) ||
+				(application &&
+					application.ports &&
+					application.ports.length > 0) ||
+				aclStore.appAclList.length > 0
+			"
+		>
 			<module-title
 				class="q-mb-sm"
 				:class="{
@@ -89,20 +99,53 @@
 				>{{ t('permissions') }}
 			</module-title>
 			<bt-list>
-				<template
-					v-for="(permission, index) in appPermissions.permissions"
-					:key="index"
-				>
-					<bt-form-item
-						:title="`${permission.dataType}/${permission.group}/${permission.version}`"
-						@click="gotoPermission(permission)"
-						:margin-top="false"
-						:width-separator="
-							index + 1 < appPermissions.permissions.length
-						"
-						:chevron-right="true"
-					/>
-				</template>
+				<div v-if="appPermissions && appPermissions.permissions">
+					<template
+						v-for="(
+							permission, index
+						) in appPermissions.permissions"
+						:key="index"
+					>
+						<bt-form-item
+							:title="`${permission.dataType}/${permission.group}/${permission.version}`"
+							@click="gotoPermission(permission)"
+							:margin-top="false"
+							:width-separator="
+								index + 1 < appPermissions.permissions.length ||
+								!!(
+									application &&
+									application.ports &&
+									application.ports.length > 0
+								) ||
+								aclStore.appAclList.length > 0
+							"
+							:chevron-right="true"
+						/>
+					</template>
+				</div>
+				<bt-form-item
+					v-if="aclStore.appAclList.length > 0"
+					:title="t('acls')"
+					@click="gotoAclPage"
+					:margin-top="false"
+					:width-separator="
+						!!(
+							application &&
+							application.ports &&
+							application.ports.length > 0
+						)
+					"
+					:chevron-right="true"
+				/>
+
+				<bt-form-item
+					v-if="application && application.ports.length > 0"
+					:title="t('export_ports')"
+					@click="gotoPorts"
+					:margin-top="false"
+					:width-separator="false"
+					:chevron-right="true"
+				/>
 			</bt-list>
 		</div>
 	</bt-scroll-area>
@@ -120,7 +163,6 @@ import {
 } from '../../../global';
 import { useI18n } from 'vue-i18n';
 import { TerminusEntrance } from '@bytetrade/core';
-import { useDeviceStore } from '../../../stores/device';
 import BtList from '../../../components/base/BtList.vue';
 import ModuleTitle from '../../../components/ModuleTitle.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
@@ -128,18 +170,19 @@ import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import ApplicationItem from '../../../components/application/ApplicationItem.vue';
 import ApplicationOperateItem from '../../../components/application/ApplicationOperateItem.vue';
 import { bus } from '../../../utils/bus';
+import { useDeviceStore } from '../../../stores/device';
+import { useAclStore } from '../../../stores/acl';
 
 const applicationStore = useApplicationStore();
 const secretStore = useSecretStore();
 const deviceStore = useDeviceStore();
 const { t } = useI18n();
+const aclStore = useAclStore();
 const Route = useRoute();
 const router = useRouter();
-
 const application = ref(
 	applicationStore.getApplicationById(Route.params.name as string)
 );
-
 const secretPermission = ref(false);
 
 const gotoSecret = () => {
@@ -152,6 +195,10 @@ const gotoEntrance = (entrance: TerminusEntrance) => {
 	);
 };
 
+const gotoPorts = () => {
+	router.push('/application/ports/' + application.value?.name);
+};
+
 const gotoPermission = (
 	permission: Permission | PermissionProviderRegister
 ) => {
@@ -161,6 +208,17 @@ const gotoPermission = (
 		version: permission.version,
 		title: `${permission.dataType}/${permission.group}/${permission.version}`
 	});
+};
+
+const gotoAclPage = () => {
+	if (application.value) {
+		router.push({
+			name: 'appAcl',
+			params: {
+				name: application.value.name
+			}
+		});
+	}
 };
 
 const gotoPermissionDetail = (query: any) => {
@@ -216,6 +274,9 @@ onMounted(async () => {
 	checkSecretPermission();
 	getPermissions();
 	getProviders();
+	if (application.value) {
+		aclStore.getAppAclStatus(application.value.name);
+	}
 });
 
 onBeforeUnmount(() => {

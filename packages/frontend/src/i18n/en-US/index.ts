@@ -467,6 +467,14 @@ export default {
 		'Are you sure you need to switch the system language to {language}?',
 	app_operation_not_allowed:
 		'The current app status does not allow this operation.',
+	allow_ssh_via_vpn: 'Allow SSH via VPN',
+	acls: 'ACLs',
+	dst: 'Dst',
+	protocol: 'Protocol',
+	port: 'Port',
+	host: 'Host',
+	export_port: 'Exported Port',
+	export_ports: 'Export Ports',
 
 	...en_US_add
 };

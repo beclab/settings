@@ -69,11 +69,25 @@ const routes: RouteRecordRaw[] = [
 			},
 
 			{
+				path: 'application/ports/:name?',
+				component: () =>
+					import(
+						'src/pages/Application/pages/ApplicationPortsPage.vue'
+					)
+			},
+			{
 				path: 'application/secret/:name?',
 				component: () =>
 					import(
 						'src/pages/Application/pages/ApplicationSecretPage.vue'
 					)
+			},
+
+			{
+				path: 'application/acl/:name',
+				name: 'appAcl',
+				component: () =>
+					import('src/pages/Application/pages/ApplicationAclPage.vue')
 			},
 
 			{
