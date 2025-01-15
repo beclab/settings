@@ -2,7 +2,7 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { SecretService } from './secret.service';
 import axios from 'axios';
 import * as qs from 'qs';
-import { Cloud_URL } from './utils';
+import { olaresSpaceUrl } from './utils';
 
 export interface OSVersion {
   current_version: string;
@@ -17,7 +17,7 @@ export class InitService implements OnModuleInit {
   //   devVersion: OSVersion | null = null;
   //   noDevVersion: OSVersion | null = null;
 
-  private cloudUrl = process.env.SPACE_URL || Cloud_URL;
+  private cloudUrl = olaresSpaceUrl;
 
   constructor(private secretService: SecretService) {
     //

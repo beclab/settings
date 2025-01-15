@@ -232,7 +232,7 @@ export class DropboxAccount extends IntegrationAccount {
 export class SpaceAccount extends IntegrationAccount {
   type = AccountType.Space;
 
-  private cloudUrl = process.env.SPACE_URL || Cloud_URL;
+  private cloudUrl = olaresSpaceUrl;
 
   async refresh() {
     const data = this.raw_data as SpaceAccountData;
@@ -243,7 +243,6 @@ export class SpaceAccount extends IntegrationAccount {
         timeout: 1000 * 10,
         headers: {},
       });
-
       const response = await instance.post(
         '/v2/user/refresh',
         qs.stringify({
@@ -251,12 +250,18 @@ export class SpaceAccount extends IntegrationAccount {
           token: data.refresh_token,
         }),
       );
-      const res = response.data as SpaceRefreshResponse;
+
+      if (!response || !response.data || response.data.code != 200) {
+        return;
+      }
+
+      const res = response.data.data as SpaceRefreshResponse;
 
       data.access_token = res.token;
       data.refresh_token = res.token;
       data.expires_in = (res.expired - new Date().getTime()) / 1000;
       data.expires_at = res.expired;
+      this.raw_data = data;
     } catch (e) {
       console.log(e);
     }
@@ -328,3 +333,14 @@ export class TencentAccount extends IntegrationAccount {
     props && Object.assign(this, props);
   }
 }
+
+export const formatDefaultHost = (host: string) => {
+  if (!host.endsWith('/')) {
+    return host;
+  }
+  return host.substring(0, host.length - 1);
+};
+
+export const olaresSpaceUrl = formatDefaultHost(
+  process.env.OLARES_SPACE_URL || 'https://cloud-api.bttcdn.com',
+);
