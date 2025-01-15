@@ -98,7 +98,9 @@ export default boot(({ app }) => {
 					) >= 0
 				) {
 					return data;
-				} else if (response.config.url!.indexOf('status?name=') >= 0) {
+				} else if (
+					response.config.url!.indexOf('acl/app/status?name=') >= 0
+				) {
 					//return app acl not found
 					return data;
 				} else {

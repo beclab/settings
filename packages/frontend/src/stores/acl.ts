@@ -54,6 +54,7 @@ export const useAclStore = defineStore('acl', {
 			await axios.post(tokenStore.url + requestUrl, {});
 			notifySuccess(i18n.global.t('success'));
 		},
+		//jump boot axios
 		async getAppAclStatus(name: string) {
 			this.appAclList = [];
 			const tokenStore = useTokenStore();
