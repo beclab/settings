@@ -57,7 +57,10 @@
 					@update:model-value="setHeadScaleToggle"
 				/>
 			</bt-form-item>
-			<bt-form-item :title="t('allow_ssh_via_vpn')">
+			<bt-form-item
+				v-if="adminStore.isAdmin"
+				:title="t('allow_ssh_via_vpn')"
+			>
 				<bt-switch
 					truthy-track-color="blue-default"
 					:model-value="aclStore.allow_ssh"
