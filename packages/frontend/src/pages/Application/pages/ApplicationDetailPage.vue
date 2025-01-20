@@ -87,7 +87,7 @@
 				(application &&
 					application.ports &&
 					application.ports.length > 0) ||
-				aclStore.appAclList.length > 0
+				(aclStore.appAclList && aclStore.appAclList.length > 0)
 			"
 		>
 			<module-title
@@ -117,14 +117,15 @@
 									application.ports &&
 									application.ports.length > 0
 								) ||
-								aclStore.appAclList.length > 0
+								(aclStore.appAclList &&
+									aclStore.appAclList.length > 0)
 							"
 							:chevron-right="true"
 						/>
 					</template>
 				</div>
 				<bt-form-item
-					v-if="aclStore.appAclList.length > 0"
+					v-if="aclStore.appAclList && aclStore.appAclList.length > 0"
 					:title="t('acls')"
 					@click="gotoAclPage"
 					:margin-top="false"
