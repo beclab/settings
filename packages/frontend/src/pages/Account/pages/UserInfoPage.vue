@@ -80,10 +80,10 @@
 				:title="t('olares_ID')"
 				:data="userInfo ? userInfo.terminusName : ''"
 			/>
-			<bt-form-item
-				:title="t('email')"
-				:data="userInfo ? userInfo.email : ''"
-			/>
+			<!--			<bt-form-item-->
+			<!--				:title="t('email')"-->
+			<!--				:data="userInfo ? userInfo.email : ''"-->
+			<!--			/>-->
 			<bt-form-item
 				:title="t('state')"
 				:data="
