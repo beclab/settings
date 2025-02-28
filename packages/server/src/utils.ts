@@ -157,8 +157,6 @@ export class GoogleAccount extends IntegrationAccount {
 
   async refresh() {
     const data: GoogleAccountData = this.raw_data as GoogleAccountData;
-    console.log('google refresh');
-
     let response: any;
     if (
       data.client_id ==
@@ -171,12 +169,18 @@ export class GoogleAccount extends IntegrationAccount {
           client_id: data.client_id,
           refresh_token: data.refresh_token,
         }),
+        {
+          timeout: 1000 * 10,
+        },
       );
     } else {
       response = await axios.post(
-        'https://cloud-api.jointerminus.com/v1/common/google/token/refresh',
+        olaresSpaceUrl + '/v1/common/google/token/refresh',
         {
           refreshToken: data.refresh_token,
+        },
+        {
+          timeout: 1000 * 10,
         },
       );
       response = response.data;
@@ -211,6 +215,9 @@ export class DropboxAccount extends IntegrationAccount {
         client_id: this.client_id,
         refresh_token: data.refresh_token,
       }),
+      {
+        timeout: 10 * 1000,
+      },
     );
     console.log(response);
 
