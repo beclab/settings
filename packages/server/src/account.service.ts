@@ -124,34 +124,38 @@ export class AccountService implements OnModuleInit {
   }
 
   async onModuleInit(): Promise<void> {
-    const secrets: Secret[] = await this.secretService.ListSecret();
-    for (const secret of secrets) {
-      if (!secret.name.startsWith('integration-account:')) {
-        continue;
+    try {
+      const secrets: Secret[] = await this.secretService.ListSecret();
+      for (const secret of secrets) {
+        if (!secret.name.startsWith('integration-account:')) {
+          continue;
+        }
+
+        const arr = secret.name.split(':');
+        const name = arr.length == 3 ? arr[2] : '';
+
+        this.accounts.push(
+          this.getInstanceByData(name, arr[1], JSON.parse(secret.value)),
+        );
       }
 
-      const arr = secret.name.split(':');
-      const name = arr.length == 3 ? arr[2] : '';
-
-      this.accounts.push(
-        this.getInstanceByData(name, arr[1], JSON.parse(secret.value)),
-      );
-    }
-
-    for (const secret of secrets) {
-      if (!secret.name.startsWith('cookie:')) {
-        continue;
+      for (const secret of secrets) {
+        if (!secret.name.startsWith('cookie:')) {
+          continue;
+        }
+        const object = JSON.parse(secret.value);
+        const rowCookieModel = new DomainCookie(object);
+        await this.secretService.updateCookie(rowCookieModel, false);
       }
-      const object = JSON.parse(secret.value);
-      const rowCookieModel = new DomainCookie(object);
-      await this.secretService.updateCookie(rowCookieModel, false);
+
+      console.log('this.accounts ===>');
+      console.log(this.accounts);
+
+      console.log('this.cookies ===>');
+      console.log(this.secretService.cookies);
+    } catch (e) {
+      console.log(e);
     }
-
-    console.log('this.accounts ===>');
-    console.log(this.accounts);
-
-    console.log('this.cookies ===>');
-    console.log(this.secretService.cookies);
   }
 
   @Cron('0 */10 * * * *')
