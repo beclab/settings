@@ -7,10 +7,36 @@
 	>
 		<bt-list>
 			<bt-form-item
+				:title="t('endpoint')"
+				:width-separator="true"
+				:dataWidthP="70"
+			>
+				<div
+					class="row items-center justify-end full-width"
+					@click="setCopyInfo(entranceUrl)"
+				>
+					<div
+						style="
+							max-width: calc(100% - 40px);
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							margin-right: 10px;
+						"
+						class="text-body-3 text-ink-3"
+					>
+						{{ entranceUrl }}
+					</div>
+					<q-icon name="sym_r_content_copy" size="24px" />
+				</div>
+			</bt-form-item>
+
+			<bt-form-item
 				:title="t('default_route_id')"
 				:margin-top="false"
-				:data="application.id"
+				:data="entranceRef?.id"
 			/>
+
 			<bt-form-item :title="t('setup_custom_route_id')">
 				<div class="row justify-between items-center">
 					<bt-edit-view
@@ -92,24 +118,27 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
-import { useApplicationStore } from 'src/stores/application';
+import { useApplicationStore } from '../../../stores/application';
 import { SetupDomain } from 'src/global';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
-import BtFormItem from 'components/base/BtFormItem.vue';
+import BtFormItem from '../../../components/base/BtFormItem.vue';
 import AddDomain from 'components/application/dialog/domain/AddDomain.vue';
 import BtIcon from 'components/base/BtIcon.vue';
 import BtEditView from '../../../components/base/BtEditView.vue';
 import ActivationDomain from '../../../components/application/dialog/domain/ActivationDomain.vue';
 import BtList from '../../../components/base/BtList.vue';
+import { copyToClipboard } from 'quasar';
 
 import { useI18n } from 'vue-i18n';
-import { notifyWarning } from '../../../utils/btNotify';
+import { notifySuccess, notifyWarning } from '../../../utils/btNotify';
+import { useAdminStore } from '../../../stores/admin';
 // import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
 const Route = useRoute();
 const $q = useQuasar();
+const adminStore = useAdminStore();
 // const deviceStore = useDeviceStore();
 
 const application = ref(
@@ -287,6 +316,27 @@ async function onSubmit() {
 	await updateDomain();
 	await applicationStore.getEntrances(application_name.value);
 }
+
+const entranceRef = ref(
+	application.value?.entrances.find((e) => e.name == entrance_name)
+);
+
+const entranceUrl = computed(() => {
+	if (!entranceRef.value) {
+		return '';
+	}
+	return (
+		entranceRef.value.id +
+		'.' +
+		adminStore.terminus.terminusName.replace('@', '.')
+	);
+});
+
+const setCopyInfo = (info: string) => {
+	copyToClipboard(info).then(() => {
+		notifySuccess(t('copy_successfully'));
+	});
+};
 </script>
 
 <style scoped lang="scss">

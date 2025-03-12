@@ -32,7 +32,13 @@
 			<q-item-section
 				side
 				class="item-margin-right"
-				style="max-width: 60%"
+				:style="
+					dataWidthP > 0
+						? `width: ${dataWidthP}%;`
+						: dataMaxWidthP > 0
+						? `max-width:${dataMaxWidthP}%`
+						: ''
+				"
 			>
 				<div
 					class="form-item-data"
@@ -80,6 +86,14 @@ defineProps({
 	marginTop: {
 		type: Boolean,
 		default: true
+	},
+	dataMaxWidthP: {
+		type: Number,
+		default: 60
+	},
+	dataWidthP: {
+		type: Number,
+		default: 0
 	}
 });
 const deviceStore = useDeviceStore();
