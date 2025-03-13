@@ -26,7 +26,7 @@
         "packages/*"
     ],
     "dependencies": {
-        "@bytetrade/core": "0.3.72",
+        "@bytetrade/core": "0.3.77",
         "axios": "^0.21.1"
     },
     "devDependencies": {
