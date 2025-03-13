@@ -193,6 +193,10 @@ module.exports = configure(function (ctx) {
 				'/headscale': {
 					target: `https://settings.${process.env.ACCOUNT_DOMAIN}`,
 					changeOrigin: true
+				},
+				'/images': {
+					target: `https://settings.${process.env.ACCOUNT_DOMAIN}`,
+					changeOrigin: true
 				}
 			}
 		},
