@@ -115,6 +115,7 @@ const { t } = useI18n();
 	.confirm-btn {
 		width: auto;
 		margin-top: 20px;
+		min-width: 50px;
 	}
 
 	.cancle-btn {
@@ -143,6 +144,7 @@ const { t } = useI18n();
 	}
 	.reminder-btn-mobile {
 		height: 100%;
+		min-width: 50px;
 	}
 
 	.button-full-width {

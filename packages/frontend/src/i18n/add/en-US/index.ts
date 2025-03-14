@@ -66,5 +66,7 @@ export default {
 	'Authorized time': 'Authorized time',
 	'Congratulations, you have successfully mounted the object storage service!':
 		'Congratulations, you have successfully mounted the object storage service!',
-	'Object Storage': 'Object Storage'
+	'Object Storage': 'Object Storage',
+	'Are you sure you want to change the password of the current account?':
+		'Are you sure you want to change the password of the current account?'
 };
