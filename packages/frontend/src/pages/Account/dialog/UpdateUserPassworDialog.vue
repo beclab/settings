@@ -62,7 +62,9 @@ import DialogHeader from '../../../components/DialogHeader.vue';
 import DialogFooter from '../../../components/DialogFooter.vue';
 import { useUserStore } from '../../../stores/user';
 import TerminusEdit from '../../../components/base/TerminusEdit.vue';
+import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
 import { useI18n } from 'vue-i18n';
+import { notifySuccess } from '../../../utils/btNotify';
 
 const oldPassword = ref('');
 const newPassword = ref('');
@@ -124,13 +126,34 @@ const updatePassword = async () => {
 	if (newPassword.value !== repeatPassword.value) {
 		return;
 	}
+	onDialogCancel();
+
+	quasar
+		.dialog({
+			component: ReminderDialogComponent,
+			componentProps: {
+				title: t('change_password'),
+				message: t(
+					'Are you sure you want to change the password of the current account?'
+				),
+				useCancel: true,
+				confirmText: t('confirm'),
+				cancelText: t('cancel')
+			}
+		})
+		.onOk(async () => {
+			updatePasswordConfirm();
+		});
+};
+
+const updatePasswordConfirm = async () => {
 	try {
 		await accountStore.reset_account_password({
 			password: newPassword.value,
 			current_password: oldPassword.value,
 			username: props.name
 		});
-		quasar.notify(t('password_update_success'));
+		notifySuccess(t('password_update_success'));
 		dialogRef.value?.hide();
 	} catch (error: any) {
 		/* empty */

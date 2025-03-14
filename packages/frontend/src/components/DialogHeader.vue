@@ -2,13 +2,19 @@
 	<AdaptiveLayout>
 		<template v-slot:pc>
 			<div class="dialog-common">
-				<div class="row justify-between items-center q-pl-md">
+				<div class="row justify-between items-center q-pl-md q-pr-sm">
 					<span class="text-ink-1 text-subtitle3 title">
 						{{ title }}</span
 					>
-					<q-btn flat @click="close" style="">
-						<q-icon name="close" size="12px" class="text-ink-3" />
-					</q-btn>
+					<q-btn
+						flat
+						@click="close"
+						style=""
+						class="q-ml-sm btn-size-sm btn-no-text btn-no-border text-ink-3"
+						icon="sym_r_close"
+					>
+						<bt-tooltip :label="t('close')"
+					/></q-btn>
 				</div>
 			</div>
 		</template>
@@ -23,7 +29,9 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from './AdaptiveLayout.vue';
+import BtTooltip from './base/BtTooltip.vue';
 defineProps({
 	title: {
 		type: String,
@@ -36,6 +44,7 @@ const close = () => {
 };
 
 const emit = defineEmits(['closeAction']);
+const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">

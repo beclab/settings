@@ -65,5 +65,7 @@ export default {
 	'Authorized time': '授权时间',
 	'Congratulations, you have successfully mounted the object storage service!':
 		'恭喜您已成功挂载对象存储服务',
-	'Object Storage': '对象存储'
+	'Object Storage': '对象存储',
+	'Are you sure you want to change the password of the current account?':
+		'确定修改当前账号的密码？'
 };
