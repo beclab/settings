@@ -1,32 +1,31 @@
 <template>
-	<q-dialog ref="dialogRef">
-		<div class="common-dialog policy-dialog" style="border-radius: 16px">
-			<DialogHeader :title="title" @close-action="onDialogCancel" />
-			<div class="policy-content column justify-start">
-				<div class="text-body3 policy-content__info">
-					{{ info }}
-				</div>
-				<q-img
-					class="policy-content__image"
-					:src="imagePath"
-					v-if="imagePath && imagePath.length"
-				/>
-				<dialog-footer
-					:confirm-text="t('confirm')"
-					:hasCancel="false"
-					@cancel-action="onDialogCancel"
-					@confirm-action="onOKClick"
-				/>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="title"
+		:skip="false"
+		:ok="t('confirm')"
+		:cancel="false"
+		size="medium"
+		:platform="deviceStore.platform"
+		@onSubmit="onOKClick"
+	>
+		<div class="policy-content">
+			<div class="text-body3 policy-content__info">
+				{{ info }}
 			</div>
+			<q-img
+				class="policy-content__image"
+				:src="imagePath"
+				v-if="imagePath && imagePath.length"
+			/>
 		</div>
-	</q-dialog>
+	</bt-custom-dialog>
 </template>
 
 <script lang="ts" setup>
-import { useDialogPluginComponent } from 'quasar';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import DialogHeader from '../DialogHeader.vue';
-import DialogFooter from '../DialogFooter.vue';
+import { useDeviceStore } from '../../stores/device';
 
 defineProps({
 	title: {
@@ -46,51 +45,28 @@ defineProps({
 	}
 });
 
-const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
 const { t } = useI18n();
-
+const CustomRef = ref();
+const deviceStore = useDeviceStore();
 async function onOKClick() {
-	onDialogOK();
+	CustomRef.value.onDialogOK();
 }
 </script>
 <style lang="scss" scoped>
-.policy-dialog {
-	height: auto;
-	padding: 0;
-	position: relative;
+.policy-content {
+	padding: 0px;
 
-	.policy-dialog-header {
-		width: 100%;
+	&__info {
+		color: $ink-2;
+	}
+
+	&__image {
+		margin-top: 20px;
+	}
+
+	.confirm-r-btn {
 		height: 32px;
-		padding-left: 12px;
-		padding-right: 12px;
+		width: 83px;
 	}
-
-	.policy-content {
-		width: 100%;
-		height: calc(100% - 32px);
-		padding: 20px;
-
-		&__info {
-			color: $ink-2;
-		}
-
-		&__image {
-			margin-top: 20px;
-		}
-
-		.confirm-r-btn {
-			height: 32px;
-			width: 83px;
-		}
-	}
-}
-
-.q-dialog__inner--minimized > div {
-	max-width: 400px;
-}
-
-.q-dialog__inner > div {
-	border-radius: 12px;
 }
 </style>

@@ -6,7 +6,11 @@ export const useDeviceStore = defineStore('deviceStore', {
 		isMobile: window.innerWidth < 768
 	}),
 
-	getters: {},
+	getters: {
+		platform: (state) => {
+			return state.isMobile ? 'mobile' : 'web';
+		}
+	},
 
 	actions: {
 		updateIsMobile(isMoble: boolean) {

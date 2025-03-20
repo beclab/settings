@@ -1,23 +1,25 @@
 <template>
-	<q-dialog ref="dialogRef">
-		<bt-dialog
-			:title="t('update_secret')"
-			@onCancel="onDialogCancel"
-			@onConfirm="onDialogOK({})"
-		>
-			<q-label class="q-pt-sm">{{
-				t('delete_secret_id', {
-					id: id
-				})
-			}}</q-label>
-		</bt-dialog>
-	</q-dialog>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('update_secret')"
+		:skip="false"
+		:ok="t('confirm')"
+		:cancel="t('cancel')"
+		:platform="deviceStore.platform"
+		@onSubmit="onOKClick"
+	>
+		<q-label class="q-pt-sm">{{
+			t('delete_secret_id', {
+				id: id
+			})
+		}}</q-label>
+	</bt-custom-dialog>
 </template>
 
 <script lang="ts" setup>
-import { useDialogPluginComponent } from 'quasar';
-import BtDialog from '../../../base/BtDialog.vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../../../stores/device';
 
 defineProps({
 	id: {
@@ -26,7 +28,11 @@ defineProps({
 	}
 });
 
-const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
-
 const { t } = useI18n();
+
+const CustomRef = ref();
+const deviceStore = useDeviceStore();
+async function onOKClick() {
+	CustomRef.value.onDialogOK({});
+}
 </script>

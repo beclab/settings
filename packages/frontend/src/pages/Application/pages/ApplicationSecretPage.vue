@@ -12,7 +12,7 @@
 			/>
 		</div>
 
-		<q-list v-if="secretList.length > 0" class="q-list-class">
+		<q-list v-if="secretList.length > 0" class="q-list-class q-pa-lg">
 			<path-location>
 				<template v-slot:start>
 					<div>{{ t('key') }}</div>
@@ -24,7 +24,7 @@
 					<div>{{ t('action') }}</div>
 				</template>
 			</path-location>
-			<bt-separator />
+			<bt-separator class="q-mt-md" />
 			<template v-for="item in secretList" :key="item.Key">
 				<secret-item
 					:secret="item"

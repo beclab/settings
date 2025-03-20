@@ -1,65 +1,50 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogCancel">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="t('modify_limits')"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="dialog-content-root">
-				<terminus-edit
-					v-model="cpuLimit"
-					:label="t('cpu')"
-					:show-password-img="false"
-					:is-error="
-						cpuLimit.length > 0 && cpuLimitRule(cpuLimit).length > 0
-					"
-					:error-message="cpuLimitRule(cpuLimit)"
-				>
-					<template v-slot:right>
-						<edit-number-right-slot
-							v-model="cpuLimit"
-							label="core"
-						/>
-					</template>
-				</terminus-edit>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('modify_limits')"
+		:skip="false"
+		:ok="t('ok')"
+		size="medium"
+		:cancel="t('cancel')"
+		:platform="deviceStore.platform"
+		:okDisabled="!enableCreate"
+		@onSubmit="onOKClick"
+	>
+		<terminus-edit
+			v-model="cpuLimit"
+			:label="t('cpu')"
+			:show-password-img="false"
+			:is-error="cpuLimit.length > 0 && cpuLimitRule(cpuLimit).length > 0"
+			:error-message="cpuLimitRule(cpuLimit)"
+		>
+			<template v-slot:right>
+				<edit-number-right-slot v-model="cpuLimit" label="core" />
+			</template>
+		</terminus-edit>
 
-				<terminus-edit
-					v-model="memoryLimit"
-					:label="t('memory')"
-					:show-password-img="false"
-					class="q-mt-md"
-					:is-error="
-						memoryLimit.length > 0 &&
-						memoryLimitRule(memoryLimit).length > 0
-					"
-					:error-message="memoryLimitRule(memoryLimit)"
-				>
-					<template v-slot:right>
-						<edit-number-right-slot
-							v-model="memoryLimit"
-							label="GB"
-						/>
-					</template>
-				</terminus-edit>
-
-				<dialog-footer
-					:confirm-text="t('ok')"
-					:confirm-disable="!enableCreate"
-					@cancel-action="onDialogCancel"
-					@confirm-action="onOKClick"
-				/>
-			</div>
-		</div>
-	</q-dialog>
+		<terminus-edit
+			v-model="memoryLimit"
+			:label="t('memory')"
+			:show-password-img="false"
+			class="q-mt-md"
+			:is-error="
+				memoryLimit.length > 0 &&
+				memoryLimitRule(memoryLimit).length > 0
+			"
+			:error-message="memoryLimitRule(memoryLimit)"
+		>
+			<template v-slot:right>
+				<edit-number-right-slot v-model="memoryLimit" label="GB" />
+			</template>
+		</terminus-edit>
+	</bt-custom-dialog>
 </template>
 <script setup lang="ts">
-import { useDialogPluginComponent } from 'quasar';
 import { computed, onMounted, ref } from 'vue';
-import DialogHeader from '../../../../components/DialogHeader.vue';
-import DialogFooter from '../../../../components/DialogFooter.vue';
 import TerminusEdit from '../../../../components/base/TerminusEdit.vue';
 import EditNumberRightSlot from '../../../../components/EditNumberRightSlot.vue';
 import { useI18n } from 'vue-i18n';
+import { useDeviceStore } from '../../../../stores/device';
 
 const props = defineProps({
 	cpu: {
@@ -72,8 +57,6 @@ const props = defineProps({
 	}
 });
 
-defineEmits([...useDialogPluginComponent.emits]);
-
 const cpuLimit = ref('1');
 const memoryLimit = ref('4');
 const { t } = useI18n();
@@ -83,10 +66,11 @@ onMounted(() => {
 	memoryLimit.value = `${props.memory}`;
 });
 
-const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
-
 function onOKClick() {
-	onDialogOK({ cpuLimit: cpuLimit.value, memoryLimit: memoryLimit.value });
+	CustomRef.value.onDialogOK({
+		cpuLimit: cpuLimit.value,
+		memoryLimit: memoryLimit.value
+	});
 }
 
 const cpuLimitRule = (val: string) => {
@@ -117,6 +101,9 @@ const enableCreate = computed(() => {
 		memoryLimitRule(memoryLimit.value).length == 0
 	);
 });
+
+const CustomRef = ref();
+const deviceStore = useDeviceStore();
 </script>
 <style lang="scss" scoped>
 .cpu-core {

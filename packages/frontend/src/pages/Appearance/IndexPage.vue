@@ -44,6 +44,7 @@
 							>
 								<template v-slot:legend>
 									<bt-check-box-component
+										class="q-mt-md"
 										:model-value="
 											backgroundStore.theme ==
 											ThemeDefinedMode.LIGHT
@@ -70,6 +71,7 @@
 							>
 								<template v-slot:legend>
 									<bt-check-box-component
+										class="q-mt-md"
 										:model-value="
 											backgroundStore.theme ==
 											ThemeDefinedMode.DARK
@@ -123,6 +125,7 @@
 					>
 						<template v-slot:legend>
 							<bt-check-box-component
+								class="q-mt-md"
 								:model-value="
 									backgroundStore.theme ==
 									ThemeDefinedMode.LIGHT
@@ -148,6 +151,7 @@
 					>
 						<template v-slot:legend>
 							<bt-check-box-component
+								class="q-mt-md"
 								:model-value="
 									backgroundStore.theme ==
 									ThemeDefinedMode.DARK
@@ -187,6 +191,7 @@
 							>
 								<template v-slot:legend>
 									<bt-check-box-component
+										class="q-mt-md"
 										:model-value="
 											selectBackgroundMode ==
 											BackgroundMode.desktop
@@ -214,6 +219,7 @@
 							>
 								<template v-slot:legend>
 									<bt-check-box-component
+										class="q-mt-md"
 										:model-value="
 											selectBackgroundMode ==
 											BackgroundMode.login

@@ -1,9 +1,10 @@
 <template>
 	<div
-		class="policies-card-root column justify-center"
+		class="policies-card-root column justify-center q-py-lg"
 		:style="
 			deviceStore.isMobile ? '	min-height: 56px;' : '	min-height: 64px;'
 		"
+		:class="deviceStore.isMobile ? '' : ''"
 	>
 		<div
 			class="row items-center justify-between item-margin-left item-margin-right text-body1 text-ink-1"
@@ -13,11 +14,11 @@
 		</div>
 		<template v-for="(policy, index) in policies" :key="index">
 			<div
-				class="policies-content row items-center justify-between"
+				class="policies-content row items-center justify-between bg-background-3"
 				v-if="policies.length > 0"
 			>
 				<div class="row items-center justify-start">
-					<div class="policy-icon q-mr-md">
+					<div class="policy-icon q-mr-md text-ink-2">
 						<q-icon
 							class="cursor-pointer"
 							name="sym_r_article"
@@ -118,7 +119,7 @@ const editPolicy = (policy: EntrancePolicy, index: number) => {
 			editMode: true
 		}
 	}).onOk((data: EntrancePolicy) => {
-		tempArray.splice(index, 1, policy, data);
+		tempArray.splice(index, 1, data);
 		emit('update:policies', tempArray);
 	});
 };
@@ -134,10 +135,10 @@ const deletePolicy = (policy: EntrancePolicy) => {
 	width: 100%;
 
 	.policies-content {
-		background: $background-3;
 		border-radius: 12px;
 		margin-top: 12px;
 		padding: 12px;
+		margin: 12px 12px 0;
 
 		.policy-icon {
 			width: 32px;

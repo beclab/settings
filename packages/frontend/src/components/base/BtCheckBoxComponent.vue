@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="bt-checkbox row justify-start items-center cursor-pointer q-mt-md"
+		class="bt-checkbox row justify-start items-center cursor-pointer"
 		@click="emit('update:modelValue', !modelValue)"
 	>
 		<q-img

@@ -348,11 +348,11 @@ export default {
 	location: '位置',
 	delete_device: '删除设备',
 	already_bound: '已绑定',
-	not_bound: '',
+	not_bound: '未绑定',
 	frequency: '',
 	action_sub_policies: '{action}子策略',
-	update_secret: '',
-	delete_secret_id: '',
+	update_secret: '更新密钥',
+	delete_secret_id: '删除密钥{id}',
 	in_order_to_apply_third_party_domain_to_this_app_you_need_to_add_a_dns_cname_record_domain_to_your_domain_target:
 		'要为此应用申请第三方域名，需要 DNS CNAME 记录“{domain}”添加到您的域名“{target}”',
 	login: {

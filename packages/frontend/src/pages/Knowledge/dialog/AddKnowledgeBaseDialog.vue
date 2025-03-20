@@ -1,65 +1,50 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogCancel">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="title"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="dialog-content-root">
-				<terminus-edit
-					v-model="name"
-					:label="t('name')"
-					:show-password-img="false"
-					style="width: 100%"
-					:isReadOnly="datasetID.length > 0"
-					:is-error="nameIsError"
-					:error-message="
-						t('errors.knowledge_base_name_already_taken')
-					"
-				/>
-				<div
-					class="text-overline text-ink-2 q-mt-xs"
-					v-if="!nameIsError"
-				>
-					{{ t('knowldege_base_name') }}
-				</div>
-
-				<terminus-edit
-					v-model="paths"
-					:label="t('paths')"
-					:show-password-img="false"
-					:is-textarea="true"
-					style="width: 100%"
-					class="q-mt-lg"
-					:is-error="pathsIsError"
-					:error-message="t('errors.paths_must_start_with_data_home')"
-				/>
-				<div
-					v-if="!pathsIsError"
-					class="text-overline text-ink-2 q-mt-xs"
-				>
-					{{ t('separate_different_paths_with_a_comma') }}
-				</div>
-
-				<dialog-footer
-					:confirm-disable="!enableCreate"
-					:confirm-text="t('confirm')"
-					@cancel-action="onDialogCancel"
-					@confirm-action="createUserName"
-				/>
-			</div>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="title"
+		:skip="false"
+		:ok="t('confirm')"
+		size="medium"
+		:cancel="t('cancel')"
+		:platform="deviceStore.platform"
+		:okDisabled="!enableCreate"
+		@onSubmit="createUserName"
+	>
+		<terminus-edit
+			v-model="name"
+			:label="t('name')"
+			:show-password-img="false"
+			style="width: 100%"
+			:isReadOnly="datasetID.length > 0"
+			:is-error="nameIsError"
+			:error-message="t('errors.knowledge_base_name_already_taken')"
+		/>
+		<div class="text-overline text-ink-2 q-mt-xs" v-if="!nameIsError">
+			{{ t('knowldege_base_name') }}
 		</div>
-	</q-dialog>
+
+		<terminus-edit
+			v-model="paths"
+			:label="t('paths')"
+			:show-password-img="false"
+			:is-textarea="true"
+			style="width: 100%"
+			class="q-mt-lg"
+			:is-error="pathsIsError"
+			:error-message="t('errors.paths_must_start_with_data_home')"
+		/>
+		<div v-if="!pathsIsError" class="text-overline text-ink-2 q-mt-xs">
+			{{ t('separate_different_paths_with_a_comma') }}
+		</div>
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useDialogPluginComponent } from 'quasar';
-import DialogHeader from '../../../components/DialogHeader.vue';
-import DialogFooter from '../../../components/DialogFooter.vue';
 import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import { useI18n } from 'vue-i18n';
 import { useFilesStore, DatasetFolder } from '../../../stores/files';
+import { useDeviceStore } from '../../../stores/device';
 
 const props = defineProps({
 	datasetID: {
@@ -69,7 +54,6 @@ const props = defineProps({
 	}
 });
 
-const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
 const { t } = useI18n();
 
 const title = ref(t('add_new_knowledge_base'));
@@ -121,12 +105,15 @@ const pathsIsError = computed(() => {
 	// return false;
 });
 
+const CustomRef = ref();
+
+const deviceStore = useDeviceStore();
+
 const createUserName = () => {
-	onDialogOK({
+	CustomRef.value.onDialogOK({
 		name: name.value,
 		paths: paths.value.split(',')
 	});
-	dialogRef.value?.hide();
 };
 </script>
 

@@ -337,11 +337,11 @@ import { getLocalTime } from '../../utils';
 import { HeadScaleDevice } from '@bytetrade/core';
 import { useQuasar } from 'quasar';
 import EditHeadscaleInfoDialog from '../../components/person/EditHeadscaleInfoDialog.vue';
-import DeleteHeaderscaleDeviceDialog from '../../components/person/DeleteHeaderscaleDeviceDialog.vue';
 import { useI18n } from 'vue-i18n';
 import AdaptiveLayout from '../../components/AdaptiveLayout.vue';
 import { useDeviceStore } from '../../stores/device';
 import BtSeparator from '../../components/base/BtSeparator.vue';
+import ReminderDialogComponent from '../../components/ReminderDialogComponent.vue';
 
 const props = defineProps({
 	device: {
@@ -425,12 +425,15 @@ const deleteDevice = () => {
 	if (!props.device) {
 		return;
 	}
+
 	$q.dialog({
-		component: DeleteHeaderscaleDeviceDialog,
+		component: ReminderDialogComponent,
 		componentProps: {
-			deviceName: props.device.givenName
+			title: t('delete_device'),
+			message: t('delete_device') + props.device.givenName
 		}
 	}).onOk(async () => {
+		await headScaleStore.removeDevice(props.device.id);
 		headScaleStore.getDevices();
 	});
 };

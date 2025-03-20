@@ -1,81 +1,65 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogCancel">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="t('create_account')"
-				@close-action="onDialogCancel"
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('create_account')"
+		:skip="false"
+		:ok="t('save')"
+		:cancel="t('cancel')"
+		size="medium"
+		:platform="deviceStore.platform"
+		:ok-disabled="!enableCreate"
+		@onSubmit="createUserName"
+	>
+		<div>
+			<terminus-edit
+				v-model="userName"
+				:label="t('olares_ID')"
+				:show-password-img="false"
+				style="width: 100%"
+				class=""
+				:is-error="
+					userName.length > 0 && usernameRule(userName).length > 0
+				"
+				:error-message="usernameRule(userName)"
 			/>
-			<div class="dialog-content-root">
-				<terminus-edit
-					v-model="userName"
-					:label="t('olares_ID')"
-					:show-password-img="false"
-					style="width: 100%"
-					class=""
-					:is-error="
-						userName.length > 0 && usernameRule(userName).length > 0
-					"
-					:error-message="usernameRule(userName)"
-				/>
 
-				<terminus-edit
-					v-model="cpuLimit"
-					label="CPU"
-					:show-password-img="false"
-					class="q-mt-md"
-					:is-error="
-						cpuLimit.length > 0 && cpuLimitRule(cpuLimit).length > 0
-					"
-					:error-message="cpuLimitRule(cpuLimit)"
-				>
-					<template v-slot:right>
-						<edit-number-right-slot
-							v-model="cpuLimit"
-							label="core"
-						/>
-					</template>
-				</terminus-edit>
+			<terminus-edit
+				v-model="cpuLimit"
+				label="CPU"
+				:show-password-img="false"
+				class="q-mt-md"
+				:is-error="
+					cpuLimit.length > 0 && cpuLimitRule(cpuLimit).length > 0
+				"
+				:error-message="cpuLimitRule(cpuLimit)"
+			>
+				<template v-slot:right>
+					<edit-number-right-slot v-model="cpuLimit" label="core" />
+				</template>
+			</terminus-edit>
 
-				<terminus-edit
-					v-model="memoryLimit"
-					label="Memory"
-					:show-password-img="false"
-					class="q-mt-md"
-					:is-error="
-						memoryLimit.length > 0 &&
-						memoryLimitRule(memoryLimit).length > 0
-					"
-					:error-message="memoryLimitRule(memoryLimit)"
-				>
-					<template v-slot:right>
-						<edit-number-right-slot
-							v-model="memoryLimit"
-							label="GB"
-						/>
-					</template>
-				</terminus-edit>
-
-				<dialog-footer
-					:confirm-text="t('save')"
-					:confirm-disable="!enableCreate"
-					@cancel-action="onDialogCancel"
-					@confirm-action="createUserName"
-				/>
-			</div>
+			<terminus-edit
+				v-model="memoryLimit"
+				label="Memory"
+				:show-password-img="false"
+				class="q-mt-md"
+				:is-error="
+					memoryLimit.length > 0 &&
+					memoryLimitRule(memoryLimit).length > 0
+				"
+				:error-message="memoryLimitRule(memoryLimit)"
+			>
+				<template v-slot:right>
+					<edit-number-right-slot v-model="memoryLimit" label="GB" />
+				</template>
+			</terminus-edit>
 		</div>
-	</q-dialog>
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
-import {
-	useDialogPluginComponent,
-	useQuasar,
-	Loading,
-	copyToClipboard
-} from 'quasar';
+import { useQuasar, Loading, copyToClipboard } from 'quasar';
 import { ref, onUnmounted, computed } from 'vue';
-import DialogHeader from '../../../components/DialogHeader.vue';
-import DialogFooter from '../../../components/DialogFooter.vue';
 import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
 import { useUserStore } from '../../../stores/user';
 import { AccountModifyStatus, AccountStatus } from '../../../global';
@@ -86,6 +70,7 @@ import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import EditNumberRightSlot from '../../../components/EditNumberRightSlot.vue';
 import { useI18n } from 'vue-i18n';
 import { notifyFailed, notifySuccess } from '../../../utils/btNotify';
+import { useDeviceStore } from '../../../stores/device';
 
 const { t } = useI18n();
 
@@ -111,8 +96,11 @@ const didStore = useDIDStore();
 const adminStore = useAdminStore();
 
 const quasar = useQuasar();
+const deviceStore = useDeviceStore();
 
 let password = '';
+
+const CustomRef = ref();
 
 const role = 'workspaces-manager';
 
@@ -206,7 +194,7 @@ async function checkAccountCreate(username: string) {
 							notifySuccess(t('copy_successfully'));
 						}
 					);
-					dialogRef.value?.hide();
+					onDialogOK();
 				});
 		}
 	} catch (e: any) {
@@ -217,8 +205,6 @@ async function checkAccountCreate(username: string) {
 		}
 	}
 }
-
-const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 const usernameRule = (val: string) => {
 	if (val.length === 0) {
@@ -280,6 +266,10 @@ onUnmounted(() => {
 		checkAccountCreateProgress = null;
 	}
 });
+
+const onDialogOK = () => {
+	CustomRef.value.onDialogOK();
+};
 </script>
 
 <style scoped lang="scss">

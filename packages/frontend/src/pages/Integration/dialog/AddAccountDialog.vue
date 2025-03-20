@@ -1,103 +1,61 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogCancel">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="t('mount_network_drive')"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="dialog-content-root">
-				<div v-if="step == 1">
-					<!-- <terminus-edit
-						v-model="accessKeyID"
-						:label="t('access_key_id')"
-						:show-password-img="false"
-						style="width: 100%"
-					/>
-					<terminus-edit
-						v-model="accessKeySecret"
-						class="q-mt-md"
-						:label="t('access_key_secret')"
-						:show-password-img="false"
-						style="width: 100%"
-					/>
-					<terminus-edit
-						v-model="endpoint"
-						class="q-mt-md"
-						:label="t('endpoint')"
-						:show-password-img="false"
-						style="width: 100%"
-					/>
-					<terminus-edit
-						v-model="bucket"
-						class="q-mt-md"
-						:label="t('bucket')"
-						:show-password-img="false"
-						:hint-text="t('optional')"
-						style="width: 100%"
-					/> -->
-					<IntegrationAddInputs
-						ref="integrationAddInputs"
-						:account-type="accountType"
-						v-model:button-status="enableCreate"
-					/>
-
-					<dialog-footer
-						:confirm-text="t('next')"
-						:cancelText="t('previous')"
-						:confirm-disable="!enableCreate"
-						@cancel-action="previousAction"
-						@confirm-action="createAccount"
-					/>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('mount_network_drive')"
+		:skip="false"
+		:ok="step == 1 ? t('next') : t('confirm')"
+		size="medium"
+		:cancel="step == 1 ? t('previous') : false"
+		:okDisabled="!enableCreate"
+		:platform="deviceStore.platform"
+		@onSubmit="step == 1 ? createAccount() : onDialogOK()"
+		@onCancel="previousAction"
+	>
+		<div v-if="step == 1">
+			<IntegrationAddInputs
+				ref="integrationAddInputs"
+				:account-type="accountType"
+				v-model:button-status="enableCreate"
+			/>
+		</div>
+		<div v-else-if="step == 2">
+			<div class="text-body3 text-ink-2">
+				{{
+					t(
+						'Congratulations, you have successfully mounted the object storage service!'
+					)
+				}}
+			</div>
+			<div
+				class="row item-center justify-between item-content q-px-md q-mt-md"
+			>
+				<div
+					class="text-subtitle2 text-ink-2 row items-center"
+					style="height: 100%"
+				>
+					{{ t('Object Storage') }}
 				</div>
-				<div v-else-if="step == 2">
-					<div class="text-body3 text-ink-2">
-						{{
-							t(
-								'Congratulations, you have successfully mounted the object storage service!'
-							)
-						}}
-					</div>
-					<div
-						class="row item-center justify-between item-content q-px-md q-mt-md"
-					>
-						<div
-							class="text-subtitle2 text-ink-2 row items-center"
-							style="height: 100%"
-						>
-							{{ t('Object Storage') }}
-						</div>
-						<div class="row items-center justify-end">
-							<q-img
-								:src="
-									getRequireImage(
-										`integration/${accountInfo.icon}`
-									)
-								"
-								width="32px"
-								height="32px"
-							/>
-							<div class="text-subtitle2 text-ink-1 q-ml-sm">
-								{{ accountInfo.name }}
-							</div>
-						</div>
-					</div>
-					<dialog-footer
-						:confirm-text="t('confirm')"
-						:hasCancel="false"
-						@cancel-action="previousAction"
-						@confirm-action="onDialogOK"
+				<div class="row items-center justify-end">
+					<q-img
+						:src="
+							getRequireImage(`integration/${accountInfo.icon}`)
+						"
+						width="32px"
+						height="32px"
 					/>
+					<div class="text-subtitle2 text-ink-1 q-ml-sm">
+						{{ accountInfo.name }}
+					</div>
 				</div>
 			</div>
 		</div>
-	</q-dialog>
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
-import { useDialogPluginComponent, useQuasar } from 'quasar';
+import { useQuasar } from 'quasar';
 import { PropType, ref } from 'vue';
-import DialogHeader from '../../../components/DialogHeader.vue';
-import DialogFooter from '../../../components/DialogFooter.vue';
+
 import { useI18n } from 'vue-i18n';
 import AddIntegrationDialog from './AddIntegrationDialog.vue';
 import integrationService from '../../../services/integration/index';
@@ -107,6 +65,7 @@ import { AccountType } from '@bytetrade/core';
 
 import IntegrationAddInputs from '../components/IntegrationAddInputs.vue';
 import { notifyFailed } from '../../../utils/btNotify';
+import { useDeviceStore } from '../../../stores/device';
 
 const props = defineProps({
 	accountType: {
@@ -118,13 +77,15 @@ const { t } = useI18n();
 
 const $q = useQuasar();
 
-const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
-
 const step = ref(1);
 
 const integrationStore = useIntegrationStore();
 
 const integrationAddInputs = ref();
+
+const CustomRef = ref();
+
+const deviceStore = useDeviceStore();
 
 const accountInfo = ref(
 	integrationService.supportAuthList.find((e) => e.type == props.accountType)!
@@ -132,7 +93,6 @@ const accountInfo = ref(
 );
 
 const previousAction = () => {
-	onDialogCancel();
 	$q.dialog({
 		component: AddIntegrationDialog
 	}).onOk(() => {});
@@ -149,6 +109,10 @@ const createAccount = async () => {
 		notifyFailed(error.message);
 	}
 };
+
+const onDialogOK = () => {
+	CustomRef.value.onDialogOK();
+};
 </script>
 
 <style scoped lang="scss">
@@ -156,12 +120,10 @@ const createAccount = async () => {
 	text-align: right;
 }
 
-.dialog-content-root {
-	.item-content {
-		height: 56px;
-		width: 100%;
-		border: 1px solid $separator;
-		border-radius: 12px;
-	}
+.item-content {
+	height: 56px;
+	width: 100%;
+	border: 1px solid $separator;
+	border-radius: 12px;
 }
 </style>

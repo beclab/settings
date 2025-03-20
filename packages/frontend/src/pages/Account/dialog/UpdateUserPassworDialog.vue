@@ -1,70 +1,63 @@
 <template>
-	<q-dialog ref="dialogRef">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="t('change_password')"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="dialog-content-root">
-				<terminus-edit
-					v-model="oldPassword"
-					:label="t('old_password')"
-					style="width: 100%"
-					:show-password-img="true"
-					:is-error="
-						oldPassword.length > 0 &&
-						oldPasswordRule(oldPassword).length > 0
-					"
-					:error-message="oldPasswordRule(oldPassword)"
-				/>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('change_password')"
+		:skip="false"
+		:ok="t('ok')"
+		size="medium"
+		:platform="deviceStore.platform"
+		:cancel="t('cancel')"
+		:okDisabled="!enableSave"
+		@onSubmit="updatePassword"
+	>
+		<terminus-edit
+			v-model="oldPassword"
+			:label="t('old_password')"
+			style="width: 100%"
+			:show-password-img="true"
+			:is-error="
+				oldPassword.length > 0 &&
+				oldPasswordRule(oldPassword).length > 0
+			"
+			:error-message="oldPasswordRule(oldPassword)"
+		/>
 
-				<terminus-edit
-					v-model="newPassword"
-					:label="t('new_password')"
-					style="width: 100%"
-					class="q-mt-lg"
-					:show-password-img="true"
-					:is-error="
-						newPassword.length > 0 &&
-						passwordRule(newPassword).length > 0
-					"
-					:error-message="passwordRule(newPassword)"
-				/>
+		<terminus-edit
+			v-model="newPassword"
+			:label="t('new_password')"
+			style="width: 100%"
+			class="q-mt-lg"
+			:show-password-img="true"
+			:is-error="
+				newPassword.length > 0 && passwordRule(newPassword).length > 0
+			"
+			:error-message="passwordRule(newPassword)"
+		/>
 
-				<terminus-edit
-					v-model="repeatPassword"
-					:label="t('repeat_password')"
-					style="width: 100%"
-					class="q-mt-lg"
-					:show-password-img="true"
-					:is-error="
-						repeatPassword.length > 0 &&
-						repasswordRule(repeatPassword).length > 0
-					"
-					:error-message="repasswordRule(repeatPassword)"
-				/>
-
-				<dialog-footer
-					:confirm-text="t('ok')"
-					:confirm-disable="!enableSave"
-					@cancel-action="onDialogCancel"
-					@confirm-action="updatePassword"
-				/>
-			</div>
-		</div>
-	</q-dialog>
+		<terminus-edit
+			v-model="repeatPassword"
+			:label="t('repeat_password')"
+			style="width: 100%"
+			class="q-mt-lg"
+			:show-password-img="true"
+			:is-error="
+				repeatPassword.length > 0 &&
+				repasswordRule(repeatPassword).length > 0
+			"
+			:error-message="repasswordRule(repeatPassword)"
+		/>
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
-import { useDialogPluginComponent, useQuasar } from 'quasar';
+import { useQuasar } from 'quasar';
 import { computed, ref } from 'vue';
-import DialogHeader from '../../../components/DialogHeader.vue';
-import DialogFooter from '../../../components/DialogFooter.vue';
 import { useUserStore } from '../../../stores/user';
 import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
 import { useI18n } from 'vue-i18n';
 import { notifySuccess } from '../../../utils/btNotify';
+import { useDeviceStore } from '../../../stores/device';
 
 const oldPassword = ref('');
 const newPassword = ref('');
@@ -126,7 +119,7 @@ const updatePassword = async () => {
 	if (newPassword.value !== repeatPassword.value) {
 		return;
 	}
-	onDialogCancel();
+	CustomRef.value.onDialogCancel();
 
 	quasar
 		.dialog({
@@ -154,11 +147,14 @@ const updatePasswordConfirm = async () => {
 			username: props.name
 		});
 		notifySuccess(t('password_update_success'));
-		dialogRef.value?.hide();
+		onOKClick();
 	} catch (error: any) {
 		/* empty */
 	}
 };
-
-const { dialogRef, onDialogCancel } = useDialogPluginComponent();
+const deviceStore = useDeviceStore();
+const CustomRef = ref();
+function onOKClick() {
+	CustomRef.value.onDialogOK();
+}
 </script>

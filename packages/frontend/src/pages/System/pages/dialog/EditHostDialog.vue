@@ -1,56 +1,52 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogCancel">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="index > -1 ? t('hosts_edit') : t('add_hosts')"
-				@close-action="onDialogCancel"
-			/>
-			<div class="dialog-content-root">
-				<terminus-edit
-					v-model="hostName"
-					:label="t('host_name')"
-					:show-password-img="false"
-					style="width: 100%"
-					class=""
-					:is-error="isHostError"
-					:error-message="hostErrorMessage(hostName)"
-				/>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="index > -1 ? t('hosts_edit') : t('add_hosts')"
+		:skip="false"
+		:ok="t('confirm')"
+		size="medium"
+		:cancel="t('cancel')"
+		:platform="deviceStore.platform"
+		:okDisabled="!isUpdateAble"
+		@onSubmit="updateHost"
+	>
+		<terminus-edit
+			v-model="hostName"
+			:label="t('host_name')"
+			:show-password-img="false"
+			style="width: 100%"
+			class=""
+			:is-error="isHostError"
+			:error-message="hostErrorMessage(hostName)"
+		/>
 
-				<terminus-edit
-					v-model="ipAddress"
-					:label="t('ip')"
-					:show-password-img="false"
-					class="q-mt-md"
-					:is-error="
-						ipAddress.length > 0 && !validator.isIP(ipAddress)
-					"
-					:error-message="ipErrorMessage(ipAddress)"
-				/>
-
-				<dialog-footer
-					:confirm-text="t('confirm')"
-					:confirm-disable="!isUpdateAble"
-					@cancel-action="onDialogCancel"
-					@confirm-action="updateHost"
-				/>
-			</div>
-		</div>
-	</q-dialog>
+		<terminus-edit
+			v-model="ipAddress"
+			:label="t('ip')"
+			:show-password-img="false"
+			class="q-mt-md"
+			:is-error="ipAddress.length > 0 && !validator.isIP(ipAddress)"
+			:error-message="ipErrorMessage(ipAddress)"
+		/>
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
 import TerminusEdit from '../../../../components/base/TerminusEdit.vue';
-import DialogHeader from '../../../../components/DialogHeader.vue';
-import DialogFooter from '../../../../components/DialogFooter.vue';
+
 import { useTerminusDStore } from '../../../../stores/terminusd';
-import { Loading, useDialogPluginComponent } from 'quasar';
+import { Loading } from 'quasar';
 import { HostItem } from '../../../../utils/constants';
 import { ref, PropType, onMounted, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import validator from 'validator';
+import { useDeviceStore } from '../../../../stores/device';
 
 const { t } = useI18n();
-const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
+
+const CustomRef = ref();
+
+const deviceStore = useDeviceStore();
 
 const props = defineProps({
 	itemList: {
@@ -190,7 +186,7 @@ const updateHost = async () => {
 
 	try {
 		await terminusDStore.updateHostsList(updateList);
-		onDialogOK(updateList);
+		CustomRef.value.onDialogOK(updateList);
 	} catch (error: any) {
 		console.log(error);
 	} finally {
