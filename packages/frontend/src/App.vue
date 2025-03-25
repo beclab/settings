@@ -55,7 +55,7 @@ export default defineComponent({
 				supportLanguages.find((e) => e.value == terminusLanguage)
 			) {
 				backgroundStore.updateLanguageLocale(
-					languagesShort[terminusLanguage]
+					supportLanguages[terminusLanguage]
 				);
 			}
 		}

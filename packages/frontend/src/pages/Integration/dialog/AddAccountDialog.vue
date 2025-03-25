@@ -10,6 +10,7 @@
 		:platform="deviceStore.platform"
 		@onSubmit="step == 1 ? createAccount() : onDialogOK()"
 		@onCancel="previousAction"
+		@onHide="onHide"
 	>
 		<div v-if="step == 1">
 			<IntegrationAddInputs
@@ -112,6 +113,12 @@ const createAccount = async () => {
 
 const onDialogOK = () => {
 	CustomRef.value.onDialogOK();
+};
+
+const onHide = () => {
+	if (step.value == 1) {
+		previousAction();
+	}
 };
 </script>
 
