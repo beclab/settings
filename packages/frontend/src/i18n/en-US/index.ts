@@ -357,11 +357,11 @@ export default {
 	location: 'Location',
 	delete_device: 'Delete device',
 	already_bound: 'Already bound',
-	not_bound: '',
+	not_bound: 'Not bound',
 	frequency: '',
 	action_sub_policies: '{action} sub policies',
-	update_secret: '',
-	delete_secret_id: '',
+	update_secret: 'Update secret',
+	delete_secret_id: 'Delete secret {id}',
 	in_order_to_apply_third_party_domain_to_this_app_you_need_to_add_a_dns_cname_record_domain_to_your_domain_target:
 		"To apply for a third-party domain for this app, you'll need to add a DNS CNAME record '{domain}' to your domain '{target}'",
 	login: {

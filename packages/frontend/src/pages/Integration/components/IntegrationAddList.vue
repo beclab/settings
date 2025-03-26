@@ -5,7 +5,7 @@
 		clickable
 		class="item-content text-background-1"
 		:class="deviceStore.isMobile ? 'mobile-items-list' : 'q-list-class'"
-		@click="accountCreate(item)"
+		@click="selectItem(item)"
 	>
 		<q-item-section>
 			<div class="row items-center">
@@ -26,6 +26,9 @@
 				</div>
 			</div>
 		</q-item-section>
+		<q-item-section side v-if="selectEnable">
+			<bt-check-box-component :model-value="select.type === item.type" />
+		</q-item-section>
 	</q-item>
 </template>
 
@@ -39,11 +42,26 @@ import ReminderDialogComponent from '../../../components/ReminderDialogComponent
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../../stores/device';
 
+import BtCheckBoxComponent from '../../../components/base/BtCheckBoxComponent.vue';
+
+const props = defineProps({
+	selectEnable: {
+		type: Boolean,
+		default: true,
+		required: false
+	}
+});
+
 const items = ref(integraionService.supportAuthList);
 const $q = useQuasar();
 const { t } = useI18n();
 const deviceStore = useDeviceStore();
-const accountCreate = async (item: IntegrationAccountInfo) => {
+const selectItem = async (item: IntegrationAccountInfo) => {
+	if (props.selectEnable) {
+		select.value = item;
+		emit('itemClick', select.value);
+		return;
+	}
 	const webSupport = await integraionService.webSupport(item.type);
 	if (!webSupport.status) {
 		$q.dialog({
@@ -59,6 +77,8 @@ const accountCreate = async (item: IntegrationAccountInfo) => {
 	}
 	emit('itemClick', item);
 };
+
+const select = ref(items.value[0]);
 
 const emit = defineEmits(['itemClick']);
 </script>

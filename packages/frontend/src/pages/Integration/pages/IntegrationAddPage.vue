@@ -2,7 +2,10 @@
 	<div class="integration-add-root">
 		<page-title-component :title="t('add_account')" />
 		<bt-scroll-area class="nav-height-scroll-area-conf">
-			<IntegrationAddList @itemClick="accountCreate" />
+			<IntegrationAddList
+				@itemClick="accountCreate"
+				:select-enable="false"
+			/>
 		</bt-scroll-area>
 	</div>
 </template>

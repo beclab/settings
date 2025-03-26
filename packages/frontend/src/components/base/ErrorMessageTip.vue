@@ -111,6 +111,8 @@ watch(
 );
 
 const getErrorStatus = () => {
+	console.log('getErrorStatus ===> 11');
+
 	return props.isError;
 };
 

@@ -68,5 +68,17 @@ export default {
 		'Congratulations, you have successfully mounted the object storage service!',
 	'Object Storage': 'Object Storage',
 	'Are you sure you want to change the password of the current account?':
-		'Are you sure you want to change the password of the current account?'
+		'Are you sure you want to change the password of the current account?',
+	'Subnet Routes': 'Subnet Routes',
+	'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.':
+		'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.',
+	'ACL destination port': 'ACL destination port',
+	no_acl_dst_port_added: 'No ACL destination port added',
+	'Add ACL': 'Add ACL',
+	'Port number added': 'Port number added',
+	'Enable subnet routes': 'Enable subnet routes',
+	'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.':
+		'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.',
+	Application: 'Application',
+	User: 'User'
 };

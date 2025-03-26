@@ -1,37 +1,35 @@
 <template>
-	<q-dialog ref="dialogRef">
-		<bt-dialog
-			:title="t('update_secret')"
-			:confirm-click-able="value !== ''"
-			@onCancel="onDialogCancel"
-			@onConfirm="onOKClick"
-		>
-			<terminus-edit
-				:is-error="value === ''"
-				label="Secret"
-				:error-message="t('errors.secret_is_required')"
-				v-model="value"
-			/>
-		</bt-dialog>
-	</q-dialog>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('update_secret')"
+		:skip="false"
+		size="medium"
+		:ok="t('confirm')"
+		:cancel="t('cancel')"
+		:okDisabled="value.length == 0"
+		:platform="deviceStore.platform"
+		@onSubmit="onOKClick"
+	>
+		<terminus-edit label="Secret" v-model="value" />
+	</bt-custom-dialog>
 </template>
 
 <script lang="ts" setup>
-import { useDialogPluginComponent } from 'quasar';
 import { ref } from 'vue';
 import TerminusEdit from '../../../base/TerminusEdit.vue';
-import BtDialog from '../../../base/BtDialog.vue';
 import { useI18n } from 'vue-i18n';
-const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
+import { useDeviceStore } from '../../../../stores/device';
 
 const value = ref('');
+const deviceStore = useDeviceStore();
 
 function onOKClick() {
-	onDialogOK({
+	CustomRef.value.onDialogOK({
 		value: value.value
 	});
 }
 
 const { t } = useI18n();
+const CustomRef = ref();
 </script>
 <style lang="scss"></style>

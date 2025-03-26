@@ -13,6 +13,11 @@ export const supportLanguages = [
 	{ value: 'zh-CN', label: '简体中文', enable: true }
 ];
 
+export const languagesShort = {
+	en: 'en-US',
+	zh: 'zh-CN'
+};
+
 export type SupportLanguageType = 'en-US' | 'zh-CN' | undefined;
 
 export const languagesJson: Record<string, SupportLanguageType> = {

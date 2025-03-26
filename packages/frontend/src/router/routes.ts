@@ -274,6 +274,10 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: '/system/log',
 				component: () => import('src/pages/System/pages/LogPage.vue')
+			},
+			{
+				path: '/system/vpn',
+				component: () => import('src/pages/System/pages/VPNPage.vue')
 			}
 		]
 	},

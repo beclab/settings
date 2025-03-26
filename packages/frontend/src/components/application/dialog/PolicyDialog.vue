@@ -1,102 +1,98 @@
 <template>
-	<q-dialog ref="dialogRef">
-		<q-card class="policy-dialog">
-			<DialogHeader
-				:title="
-					t('action_sub_policies', {
-						action: editMode ? t('edit') : t('add')
-					})
-				"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="policy-content column justify-start">
-				<bt-form v-model:can-submit="canSubmit">
-					<q-list class="q-list-class">
-						<error-message-tip
-							style="width: 100%; max-width: 100%"
-							:is-error="!uriRef"
-							:error-message="t('errors.please_input_url')"
-						>
-							<bt-form-item
-								:title="t('effected_urls')"
-								:margin-top="false"
-								:width-separator="false"
-							>
-								<bt-edit-view :right="true" v-model="uriRef" />
-							</bt-form-item>
-						</error-message-tip>
-						<bt-form-item
-							:title="t('second_factor_model')"
-							:width-separator="factorMode === FACTOR_MODEL.Two"
-						>
-							<bt-select
-								v-model="factorMode"
-								:options="factorModelOptions()"
-							/>
-						</bt-form-item>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="
+			t('action_sub_policies', {
+				action: editMode ? t('edit') : t('add')
+			})
+		"
+		:skip="false"
+		:ok="t('submit')"
+		:cancel="t('cancel')"
+		size="medium"
+		:platform="deviceStore.platform"
+		@onSubmit="onOKClick"
+		:okDisabled="!canSubmit"
+	>
+		<div class="policy-content column justify-start">
+			<bt-form v-model:can-submit="canSubmit">
+				<error-message-tip
+					style="width: 100%; max-width: 100%"
+					:is-error="!uriRef"
+					:width-separator="false"
+				>
+					<terminus-edit
+						v-model="uriRef"
+						:label="t('effected_urls')"
+						:show-password-img="false"
+						style="width: 100%"
+						:is-error="!uriRef"
+					/>
+				</error-message-tip>
 
-						<bt-form-item
-							v-if="factorMode === FACTOR_MODEL.Two"
-							:title="t('one_time')"
-						>
-							<bt-switch
-								truthy-track-color="blue-default"
-								v-model="oneTimeMode"
-							/>
-						</bt-form-item>
-
-						<error-message-tip
-							style="width: 100%; max-width: 100%"
-							:is-error="validDuration < 0 || validDuration > 100"
-							:width-separator="false"
-							:error-message="
-								t('errors.please_enter_a_valid_number')
-							"
-						>
-							<bt-form-item
-								v-if="factorMode === FACTOR_MODEL.Two"
-								:title="t('valid_duration')"
-								:width-separator="false"
-							>
-								<bt-time-picker
-									v-model="validDuration"
-									unit=" s"
-									:input-disabled="true"
-								/>
-							</bt-form-item>
-						</error-message-tip>
-					</q-list>
-				</bt-form>
-
-				<dialog-footer
-					:confirm-text="t('submit')"
-					:has-cancel="true"
-					@cancel-action="onDialogCancel"
-					@confirm-action="onOKClick"
-					:confirmDisable="!canSubmit"
+				<bt-form-border-select
+					class="q-mt-md"
+					v-model="factorMode"
+					:title="t('second_factor_model')"
+					:options="factorModelOptions()"
+					:border="true"
 				/>
-			</div>
-		</q-card>
-	</q-dialog>
+
+				<bt-form-border-item
+					v-if="factorMode === FACTOR_MODEL.Two"
+					class="q-mt-md"
+					:title="t('one_time')"
+					:item-title="t('one_time')"
+					sideClasses="bt-switch-margin-right"
+				>
+					<bt-switch
+						truthy-track-color="blue-default"
+						v-model="oneTimeMode"
+					/>
+				</bt-form-border-item>
+
+				<error-message-tip
+					style="width: 100%; max-width: 100%"
+					:is-error="validDuration < 0 || validDuration > 100"
+					:width-separator="false"
+					:error-message="t('errors.please_enter_a_valid_number')"
+				>
+					<bt-form-border-item
+						v-if="factorMode === FACTOR_MODEL.Two"
+						class="q-mt-md"
+						:title="t('valid_duration')"
+						:item-title="validDuration + ' s'"
+					>
+						<bt-time-picker
+							v-model="validDuration"
+							unit=" s"
+							:input-disabled="true"
+							:number-show="false"
+						/>
+					</bt-form-border-item>
+				</error-message-tip>
+				<!-- </q-list> -->
+			</bt-form>
+		</div>
+	</bt-custom-dialog>
 </template>
 
 <script lang="ts" setup>
-import { useDialogPluginComponent } from 'quasar';
 import { ref, onMounted, PropType } from 'vue';
 import {
 	EntrancePolicy,
 	FACTOR_MODEL,
 	factorModelOptions
 } from '../../../utils/constants';
-import BtFormItem from '../../base/BtFormItem.vue';
-import BtSelect from '../../base/BtSelect.vue';
+
 import BtTimePicker from '../../base/BtTimePicker.vue';
 import ErrorMessageTip from '../../base/ErrorMessageTip.vue';
-import BtEditView from '../../base/BtEditView.vue';
+import TerminusEdit from '../../../components/base/TerminusEdit.vue';
 import BtForm from '../../base/BtForm.vue';
 import { useI18n } from 'vue-i18n';
-import DialogHeader from '../../DialogHeader.vue';
-import DialogFooter from '../../DialogFooter.vue';
+import { useDeviceStore } from '../../../stores/device';
+import BtFormBorderItem from '../../base/BTFormBorderItem.vue';
+import BtFormBorderSelect from '../../base/BTFormBorderSelect.vue';
 
 const props = defineProps({
 	editMode: {
@@ -109,8 +105,6 @@ const props = defineProps({
 	}
 });
 
-const { dialogRef, onDialogCancel, onDialogOK } = useDialogPluginComponent();
-
 const { t } = useI18n();
 
 const uriRef = ref();
@@ -118,7 +112,7 @@ const factorMode = ref();
 const oneTimeMode = ref();
 const validDuration = ref();
 
-const canSubmit = ref();
+const canSubmit = ref(props.editMode);
 
 onMounted(() => {
 	if (props.policy) {
@@ -128,6 +122,8 @@ onMounted(() => {
 		validDuration.value = props.policy.valid_duration;
 	}
 });
+const CustomRef = ref();
+const deviceStore = useDeviceStore();
 
 async function onOKClick() {
 	if (props.policy) {
@@ -137,7 +133,7 @@ async function onOKClick() {
 			one_time: oneTimeMode.value,
 			valid_duration: validDuration.value
 		};
-		onDialogOK(data);
+		CustomRef.value.onDialogOK(data);
 	}
 }
 </script>
@@ -159,16 +155,8 @@ async function onOKClick() {
 
 	.policy-content {
 		width: 100%;
-		height: calc(100% - 32px);
+		// height: calc(100% - 32px);
 		padding: 20px;
 	}
-}
-
-.q-dialog__inner--minimized > div {
-	max-width: 400px;
-}
-
-.q-dialog__inner > div {
-	border-radius: 12px;
 }
 </style>

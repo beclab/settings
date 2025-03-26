@@ -13,7 +13,7 @@ import { useBackgroundStore } from './stores/background';
 import { useDIDStore } from './stores/did';
 import axios from 'axios';
 import { WebPlatform } from './utils/platform';
-import { supportLanguages } from './i18n/index';
+import { supportLanguages, languagesShort } from './i18n/index';
 import { useSocketStore } from './stores/websocketStore';
 import { useUpgradeStore } from './stores/upgrade';
 
@@ -47,8 +47,16 @@ export default defineComponent({
 		}
 
 		if (terminusLanguage) {
-			if (supportLanguages.find((e) => e.value == terminusLanguage)) {
-				backgroundStore.updateLanguageLocale(terminusLanguage);
+			if (languagesShort[terminusLanguage]) {
+				backgroundStore.updateLanguageLocale(
+					languagesShort[terminusLanguage]
+				);
+			} else if (
+				supportLanguages.find((e) => e.value == terminusLanguage)
+			) {
+				backgroundStore.updateLanguageLocale(
+					supportLanguages[terminusLanguage]
+				);
 			}
 		}
 

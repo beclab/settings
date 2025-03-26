@@ -1,41 +1,63 @@
 <template>
-	<q-dialog ref="dialogRef" @hide="onDialogCancel">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="t('add_account')"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="dialog-content-root">
-				<IntegrationAddList @itemClick="accountCreate" />
-				<dialog-footer
-					confirm-text="Save"
-					:has-confirm="false"
-					@cancel-action="onDialogCancel"
-				/>
-			</div>
-		</div>
-	</q-dialog>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="t('add_account')"
+		:skip="false"
+		:ok="t('confirm')"
+		size="medium"
+		:platform="deviceStore.platform"
+		:cancel="t('cancel')"
+		@onSubmit="accountCreate"
+	>
+		<IntegrationAddList @itemClick="setItem" />
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
-import { useDialogPluginComponent, useQuasar } from 'quasar';
-import DialogHeader from '../../../components/DialogHeader.vue';
-import DialogFooter from '../../../components/DialogFooter.vue';
+import { useQuasar } from 'quasar';
+
 import { useI18n } from 'vue-i18n';
 import integraionService from '../../../services/integration/index';
 import { IntegrationAccountInfo } from '../../../services/abstractions/integration/integrationService';
 import IntegrationAddList from '../components/IntegrationAddList.vue';
+import { ref } from 'vue';
+import { useDeviceStore } from '../../../stores/device';
+import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
+
 const { t } = useI18n();
 
 const $q = useQuasar();
 
-const { dialogRef, onDialogCancel } = useDialogPluginComponent();
+const CustomRef = ref();
+const deviceStore = useDeviceStore();
+const cItem = ref<IntegrationAccountInfo | undefined>(undefined);
+const accountCreate = async () => {
+	if (!cItem.value) {
+		return;
+	}
 
-const accountCreate = async (item: IntegrationAccountInfo) => {
-	onDialogCancel();
-	integraionService.getInstanceByType(item.type)?.signIn({
+	const webSupport = await integraionService.webSupport(cItem.value.type);
+	if (!webSupport.status) {
+		$q.dialog({
+			component: ReminderDialogComponent,
+			componentProps: {
+				title: t('add_account'),
+				message: webSupport.message,
+				useCancel: false,
+				confirmText: t('confirm')
+			}
+		});
+		return;
+	}
+
+	CustomRef.value.onDialogCancel();
+	integraionService.getInstanceByType(cItem.value.type)?.signIn({
 		quasar: $q
 	});
+};
+
+const setItem = (item: IntegrationAccountInfo) => {
+	cItem.value = item;
 };
 </script>
 

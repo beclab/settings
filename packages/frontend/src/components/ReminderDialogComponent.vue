@@ -1,46 +1,30 @@
 <template>
-	<q-dialog ref="dialogRef">
-		<div class="common-dialog" style="border-radius: 16px">
-			<DialogHeader
-				:title="title"
-				@close-action="onDialogCancel"
-			></DialogHeader>
-			<div class="dialog-content-root">
-				<div
-					class="row items-center justify-between"
-					v-if="message.length > 0"
-				>
-					<div
-						class="text-ink-2"
-						:class="{
-							'message-content': hasBorder,
-							'text-body3': !deviceStore.isMobile,
-							'text-body3-m': deviceStore.isMobile
-						}"
-						v-html="message"
-						:style="
-							deviceStore.isMobile ? 'text-align: center' : ''
-						"
-					/>
-				</div>
-
-				<dialog-footer
-					:confirm-text="confirmText"
-					:cancel-Text="cancelText"
-					:has-cancel="useCancel"
-					:is-reminder="isReminder"
-					@cancel-action="onDialogCancel"
-					@confirm-action="sureAction"
-				/>
-			</div>
+	<bt-custom-dialog
+		ref="CustomRef"
+		:title="title"
+		:skip="false"
+		:ok="confirmText"
+		:platform="deviceStore.platform"
+		:cancel="useCancel ? cancelText : false"
+		@onSubmit="sureAction"
+	>
+		<div class="row items-center justify-between" v-if="message.length > 0">
+			<div
+				class="text-ink-2"
+				:class="{
+					'message-content': hasBorder,
+					'text-body3': !deviceStore.isMobile,
+					'text-body3-m': deviceStore.isMobile
+				}"
+				v-html="message"
+				:style="deviceStore.isMobile ? 'text-align: center' : ''"
+			/>
 		</div>
-	</q-dialog>
+	</bt-custom-dialog>
 </template>
 
 <script setup lang="ts">
-import { useDialogPluginComponent } from 'quasar';
-import DialogHeader from './DialogHeader.vue';
-import DialogFooter from './DialogFooter.vue';
+import { ref } from 'vue';
 import { i18n } from '../boot/i18n';
 import { useDeviceStore } from '../stores/device';
 
@@ -82,12 +66,11 @@ defineProps({
 	}
 });
 
-const sureAction = () => {
-	onDialogOK();
-	dialogRef.value?.hide();
-};
+const CustomRef = ref();
 
-const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
+const sureAction = () => {
+	CustomRef.value.onDialogOK();
+};
 
 const deviceStore = useDeviceStore();
 </script>

@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers';
-import BytetradeUi, { BtNotify, BtDialog } from '@bytetrade/ui';
+import BytetradeUi, { BtNotify, BtDialog, BtCustomDialog } from '@bytetrade/ui';
 import { Notify, Dialog } from 'quasar';
 
 // "async" is optional;
@@ -9,4 +9,7 @@ export default boot(async ({ app }) => {
 	BtNotify.init(Notify);
 	BtDialog.init(Dialog);
 	app.use(BytetradeUi);
+	app.use(BtCustomDialog, {
+		defaultOkClass: 'settings-global-ok-button'
+	});
 });

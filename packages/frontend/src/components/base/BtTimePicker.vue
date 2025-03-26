@@ -1,5 +1,5 @@
 <template>
-	<div class="time-picker-root row justify-between items-center">
+	<div class="time-picker-root row justify-end items-center">
 		<q-input
 			:disable="inputDisabled"
 			class="time-input"
@@ -7,6 +7,7 @@
 			@focus="focusChange(true)"
 			@blur="focusChange(false)"
 			v-model="valueWithUnit"
+			v-show="numberShow"
 			@update:model-value="onInputChange"
 		/>
 		<div class="time-resize column justify-between items-center">
@@ -49,6 +50,10 @@ const props = defineProps({
 		default: 0
 	},
 	inputDisabled: {
+		type: Boolean,
+		default: true
+	},
+	numberShow: {
 		type: Boolean,
 		default: true
 	}
@@ -126,12 +131,13 @@ onMounted(() => {
 	.time-resize {
 		height: 20px;
 		width: 20px;
-		margin-top: -8px;
+		// margin-top: -8px;
 		border-radius: 4px;
 		background: $background-3;
 		cursor: pointer;
 		overflow: hidden;
 		text-decoration: none;
+		// background-color: red;
 
 		.icon-parent {
 			width: 20px;

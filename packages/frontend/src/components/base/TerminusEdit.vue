@@ -6,7 +6,7 @@
 		<div
 			class="terminus-edit__bg row wrap justify-between items-center"
 			:class="
-				isError
+				errorMessage.length > 0 && isError
 					? 'terminus_background_edt_error'
 					: isReadOnly
 					? 'terminus_background_edt_read_only'
@@ -54,6 +54,8 @@
 				@update:model-value="onTextChange"
 				dense
 				@keyup.enter="submit"
+				@focus="onFocus"
+				@blur="onBlur"
 			>
 				<template v-slot:append>
 					<q-icon
@@ -85,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 
 const props = defineProps({
 	label: {
@@ -188,6 +190,10 @@ if (props.isNumber) {
 const emit = defineEmits(['onTextChange', 'update:modelValue', 'submit']);
 
 function onTextChange(value: any) {
+	if (setBlured) {
+		setBlured(false);
+		blured = false;
+	}
 	if (props.emitKey?.length > 0) {
 		emit('onTextChange', props.emitKey, value);
 		return;
@@ -205,6 +211,31 @@ function changeInputType() {
 const submit = () => {
 	emit('submit');
 };
+
+const setFocused = inject('setFocused') as any;
+const setBlured = inject('setBlured') as any;
+let focused = false;
+let blured = false;
+
+const onFocus = () => {
+	if (!focused && setFocused) {
+		setFocused(true);
+		focused = true;
+	}
+};
+const onBlur = () => {
+	if (!blured && setBlured) {
+		setBlured(true);
+		blured = true;
+	}
+};
+const getErrorStatus = () => {
+	console.log('getErrorStatus ===> 11');
+
+	return props.isError;
+};
+
+defineExpose({ getErrorStatus });
 </script>
 
 <style lang="scss" scoped>
