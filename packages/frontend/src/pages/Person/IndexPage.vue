@@ -57,7 +57,7 @@
 					@update:model-value="setHeadScaleToggle"
 				/>
 			</bt-form-item>
-			<bt-form-item
+			<!-- <bt-form-item
 				v-if="adminStore.isAdmin"
 				:title="t('allow_ssh_via_vpn')"
 			>
@@ -67,7 +67,7 @@
 					:disable="aclStore.state === ActionType.APPLYING"
 					@update:model-value="setAclToggle"
 				/>
-			</bt-form-item>
+			</bt-form-item> -->
 			<bt-form-item
 				:title="t('check_network_authority_policy')"
 				@click="gotoPage('/authority')"

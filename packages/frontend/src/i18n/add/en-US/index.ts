@@ -70,12 +70,15 @@ export default {
 	'Are you sure you want to change the password of the current account?':
 		'Are you sure you want to change the password of the current account?',
 	'Subnet Routes': 'Subnet Routes',
-	'Enable this setting to allow remote SSH access to other devices on the same LAN network as your Olares.':
-		'Enable this setting to allow remote SSH access to other devices on the same LAN network as your Olares.',
 	'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.':
 		'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.',
-	'ACL DST Port': 'ACL DST Port',
-	no_acl_dst_port_added: 'None ACL DST Port added',
+	'ACL destination port': 'ACL destination port',
+	no_acl_dst_port_added: 'No ACL destination port added',
 	'Add ACL': 'Add ACL',
-	'Port number added': 'Port number added'
+	'Port number added': 'Port number added',
+	'Enable subnet routes': 'Enable subnet routes',
+	'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.':
+		'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.',
+	Application: 'Application',
+	User: 'User'
 };
