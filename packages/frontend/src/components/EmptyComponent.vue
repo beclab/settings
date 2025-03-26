@@ -1,6 +1,10 @@
 <template>
 	<div class="empty-parent column items-center">
-		<q-img src="default_empty.svg" class="empty-image" />
+		<q-img
+			src="default_empty.svg"
+			class="empty-image"
+			:style="`margin-top: ${emptyImageTop}px`"
+		/>
 		<div
 			class="empty-text"
 			:class="
@@ -35,6 +39,11 @@ defineProps({
 		type: String,
 		required: false,
 		default: ''
+	},
+	emptyImageTop: {
+		type: Number,
+		default: 144,
+		required: false
 	}
 });
 const { t } = useI18n();
@@ -47,7 +56,6 @@ const deviceStore = useDeviceStore();
 	height: calc(100% - 56px);
 
 	.empty-image {
-		margin-top: 144px;
 		width: 240px;
 		height: 240px;
 	}

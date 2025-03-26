@@ -67,5 +67,8 @@ export default {
 		'恭喜您已成功挂载对象存储服务',
 	'Object Storage': '对象存储',
 	'Are you sure you want to change the password of the current account?':
-		'确定修改当前账号的密码？'
+		'确定修改当前账号的密码？',
+	no_acl_dst_port_added: '尚未添加 acl',
+	'Add ACL': '添加ACL',
+	'Port number added': '端口号已添加'
 };

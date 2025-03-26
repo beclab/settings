@@ -21,6 +21,12 @@
 			/>
 
 			<bt-form-item
+				title="VPN"
+				@click="gotoPage('/system/vpn')"
+				:chevron-right="true"
+			/>
+
+			<bt-form-item
 				:title="t('version')"
 				@click="gotoPage('/system/version')"
 				:chevron-right="true"

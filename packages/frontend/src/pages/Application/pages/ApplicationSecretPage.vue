@@ -12,7 +12,10 @@
 			/>
 		</div>
 
-		<q-list v-if="secretList.length > 0" class="q-list-class q-pa-lg">
+		<q-list
+			v-if="secretList && secretList.length > 0"
+			class="q-list-class q-pa-lg"
+		>
 			<path-location>
 				<template v-slot:start>
 					<div>{{ t('key') }}</div>

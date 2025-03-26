@@ -82,7 +82,7 @@ export class AclController {
   @Post('/app/status')
   async setAppAclStatus(
     @Req() request: Request,
-    @Body() body: any,
+    @Body() body: { name: string; acls: { proto: string; dst: string[] }[] },
   ): Promise<any> {
     this.logger.debug('set app acl status');
     this.logger.debug(body);
@@ -96,7 +96,69 @@ export class AclController {
 
     const data: any = await createInstance(request).post(
       `/bfl/settings/v1alpha1/headscale/${appName}/acl`,
+      body.acls,
+    );
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
+
+  @Get('/subroutes/status')
+  async getSubroutesStatus(@Req() request: Request): Promise<any> {
+    this.logger.debug('Subroutes Status');
+    const data: any = await createInstance(request).get(
+      '/bfl/settings/v1alpha1/tailscale/subroutes',
+    );
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
+
+  @Post('/subroutes/enable')
+  async subroutesEnable(
+    @Req() request: Request,
+    @Body() body: any,
+  ): Promise<any> {
+    this.logger.debug('Subroutes Enable');
+    this.logger.debug(body);
+    const data: any = await createInstance(request).post(
+      '/bfl/settings/v1alpha1/tailscale/enable/subroutes',
       body,
+    );
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
+
+  @Post('/subroutes/disable')
+  async subroutesDisable(
+    @Req() request: Request,
+    @Body() body: any,
+  ): Promise<any> {
+    this.logger.debug('Subroutes Disable');
+    this.logger.debug(body);
+    const data: any = await createInstance(request).post(
+      '/bfl/settings/v1alpha1/tailscale/disable/subroutes',
+      body,
+    );
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
+
+  @Get('/all')
+  async getAclsAll(@Req() request: Request): Promise<any> {
+    this.logger.debug('acls all');
+    const data: any = await createInstance(request).get(
+      '/bfl/settings/v1alpha1/headscale/acls',
     );
     if (data.status !== 200) {
       throw new Error(data.statusText);
