@@ -100,7 +100,7 @@
 				<div class="row items-center">
 					<div
 						:class="
-							domainInfo.value?.cname_status === 'active'
+							domainInfo?.cname_status === 'active'
 								? 'status-activated'
 								: 'status-pending'
 						"
@@ -115,14 +115,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useApplicationStore } from '../../../stores/application';
-import { SetupDomain } from 'src/global';
+import { SetupDomain } from '../../../global';
 import PageTitleComponent from 'components/PageTitleComponent.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
-import AddDomain from 'components/application/dialog/domain/AddDomain.vue';
+import AddDomain from '../../../components/application/dialog/domain/AddDomain.vue';
+import AddThirdPartDomain from '../../../components/application/dialog/domain/AddThirdPartDomain.vue';
 import BtIcon from 'components/base/BtIcon.vue';
 import BtEditView from '../../../components/base/BtEditView.vue';
 import ActivationDomain from '../../../components/application/dialog/domain/ActivationDomain.vue';
@@ -132,6 +133,8 @@ import { copyToClipboard } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { notifySuccess, notifyWarning } from '../../../utils/btNotify';
 import { useAdminStore } from '../../../stores/admin';
+import { useNetworkStore } from '../../../stores/network';
+import { ReverseProxyMode } from '../../../utils/constants';
 // import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
@@ -139,6 +142,7 @@ const applicationStore = useApplicationStore();
 const Route = useRoute();
 const $q = useQuasar();
 const adminStore = useAdminStore();
+const networkStore = useNetworkStore();
 // const deviceStore = useDeviceStore();
 
 const application = ref(
@@ -154,6 +158,8 @@ const tryAddThirdPartyDomain = ref<boolean>(false);
 const domainInfo = ref<SetupDomain | undefined>();
 const third_level_domain = ref<string>('');
 const third_party_domain = ref<string>('');
+const third_party_cert = ref<string>('');
+const third_party_key = ref<string>('');
 
 function clearValue() {
 	third_party_domain.value = '';
@@ -164,21 +170,26 @@ function clearValue() {
 
 const addDomain = (isParty: boolean) => {
 	$q.dialog({
-		component: AddDomain,
+		component: isParty ? AddThirdPartDomain : AddDomain,
 		componentProps: {
-			isParty
+			isParty,
+			reverseProxyMode: reverseProxyMode.value
 		}
-	}).onOk((data: string) => {
+	}).onOk((data: { data: string; cert?: string; key?: string }) => {
 		if (isParty) {
-			tryAddThirdPartyDomain.value = third_party_domain.value !== data;
+			tryAddThirdPartyDomain.value =
+				third_party_domain.value !== data.data;
 			if (tryAddThirdPartyDomain.value) {
-				third_party_domain.value = data;
+				third_party_domain.value = data.data;
+				third_party_cert.value = data.cert || '';
+				third_party_key.value = data.key || '';
 				onSubmit();
 			}
 		} else {
-			tryAddThirdLevelDomain.value = third_level_domain.value !== data;
+			tryAddThirdLevelDomain.value =
+				third_level_domain.value !== data.data;
 			if (tryAddThirdLevelDomain.value) {
-				third_level_domain.value = data;
+				third_level_domain.value = data.data;
 				onSubmit();
 			}
 		}
@@ -218,6 +229,8 @@ onMounted(async () => {
 	application.value = applicationStore.getApplicationById(
 		Route.params.name as string
 	);
+	configNetworkData();
+	networkStore.configReverseProxy();
 	await updateDomain();
 });
 
@@ -299,9 +312,15 @@ async function onSubmit() {
 		}
 
 		obj.third_party_domain = third_party_domain.value;
+		obj.cert = third_party_cert.value;
+		obj.key = third_party_key.value;
 	} else {
 		obj.third_party_domain = '';
+		obj.cert = '';
+		obj.key = '';
 	}
+
+	console.log('obj ===>', obj);
 
 	try {
 		await applicationStore.setupDomain(
@@ -310,7 +329,7 @@ async function onSubmit() {
 			obj
 		);
 	} catch (e: any) {
-		notifyWarning(e.message || t('errors.network_error'));
+		// notifyWarning(e.message || t('errors.network_error'));
 	}
 
 	await updateDomain();
@@ -336,6 +355,28 @@ const setCopyInfo = (info: string) => {
 	copyToClipboard(info).then(() => {
 		notifySuccess(t('copy_successfully'));
 	});
+};
+
+watch(
+	() => networkStore.reverseProxy,
+	() => {
+		configNetworkData();
+	}
+);
+
+const reverseProxyMode = ref(ReverseProxyMode.NoNeed);
+
+const configNetworkData = () => {
+	if (networkStore.reverseProxy) {
+		reverseProxyMode.value = networkStore.reverseProxy
+			.enable_cloudflare_tunnel
+			? ReverseProxyMode.CloudFlare
+			: networkStore.reverseProxy.enable_frp
+			? networkStore.reverseProxy.frp_auth_method == 'jws'
+				? ReverseProxyMode.OlaresTunnel
+				: ReverseProxyMode.SelfBuiltFrp
+			: ReverseProxyMode.NoNeed;
+	}
 };
 </script>
 

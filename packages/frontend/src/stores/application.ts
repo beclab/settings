@@ -222,6 +222,15 @@ export const useApplicationStore = defineStore('application', {
 				`${tokenStore.url}/api/applications/provider/registry/${app_name}`
 			);
 			return data.items;
+		},
+		async getEntranceSetupDomain() {
+			// entrances/setup/domain
+			const tokenStore = useTokenStore();
+			const data = await axios.get(
+				`${tokenStore.url}/api/applications/entrances/setup/domain`
+			);
+			console.log(data);
+			return data;
 		}
 	}
 });

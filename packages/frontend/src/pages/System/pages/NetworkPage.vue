@@ -145,6 +145,7 @@ import { useQuasar } from 'quasar';
 import BtEditView from '../../../components/base/BtEditView.vue';
 import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
+import { useApplicationStore } from '../../../stores/application';
 
 const { t } = useI18n();
 
@@ -152,6 +153,7 @@ const $q = useQuasar();
 
 const deviceStore = useDeviceStore();
 const networkStore = useNetworkStore();
+const applicationStore = useApplicationStore();
 
 const reverseProxyMode = ref(ReverseProxyMode.NoNeed);
 
@@ -212,6 +214,7 @@ const olaresTunnelsOptions = ref<any>();
 onMounted(async () => {
 	configData();
 	await networkStore.configReverseProxy();
+	applicationStore.getEntranceSetupDomain();
 });
 
 const onSubmit = async () => {
@@ -227,14 +230,23 @@ const onSubmit = async () => {
 			return;
 		}
 	}
+	let reminderMessage = t(
+		'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.'
+	);
+	if (
+		networkStore.reverseProxy.enable_cloudflare_tunnel &&
+		(reverseProxyMode.value == ReverseProxyMode.OlaresTunnel ||
+			reverseProxyMode.value == ReverseProxyMode.SelfBuiltFrp)
+	) {
+		reminderMessage =
+			'切换到FRP后，自定义域将不再有效。要恢复功能，您需要在应用程序>入口页面上传HTTPS证书。切换最多可能需要10分钟才能完成，在此期间Olares可能无法访问。';
+	}
 
 	$q.dialog({
 		component: ReminderDialogComponent,
 		componentProps: {
 			title: t('Switch reverse proxy'),
-			message: t(
-				'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.'
-			),
+			message: reminderMessage,
 			useCancel: true,
 			confirmText: t('confirm'),
 			cancelText: t('cancel')
@@ -242,6 +254,11 @@ const onSubmit = async () => {
 	}).onOk(async () => {
 		confirmSwitch();
 	});
+	// console.log(
+	// 	'networkStore.reverseProxy.enable_frp ===>',
+	// 	networkStore.reverseProxy.enable_frp
+	// );
+	// console.log(reverseProxyMode.value);
 };
 
 const confirmSwitch = async () => {

@@ -150,6 +150,8 @@ export interface SetupDomain {
 	cname_status: string;
 	cname_target: string;
 	cname_target_status: string;
+	cert?: string;
+	key?: string;
 }
 
 export interface AuthLevel {

@@ -36,6 +36,8 @@ const { t } = useI18n();
 const CustomRef = ref();
 const deviceStore = useDeviceStore();
 async function onOKClick() {
-	CustomRef.value.onDialogOK(data.value);
+	CustomRef.value.onDialogOK({
+		data: data.value
+	});
 }
 </script>

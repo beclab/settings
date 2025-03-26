@@ -77,5 +77,7 @@ export default {
 	'ACL DST Port': 'ACL DST Port',
 	no_acl_dst_port_added: 'None ACL DST Port added',
 	'Add ACL': 'Add ACL',
-	'Port number added': 'Port number added'
+	'Port number added': 'Port number added',
+	Certificate: 'Certificate',
+	'Certificate Key': 'Certificate Key'
 };

@@ -70,5 +70,7 @@ export default {
 		'确定修改当前账号的密码？',
 	no_acl_dst_port_added: '尚未添加 acl',
 	'Add ACL': '添加ACL',
-	'Port number added': '端口号已添加'
+	'Port number added': '端口号已添加',
+	Certificate: '证书',
+	'Certificate Key': '证书秘钥'
 };
