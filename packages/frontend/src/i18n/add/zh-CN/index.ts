@@ -68,9 +68,17 @@ export default {
 	'Object Storage': '对象存储',
 	'Are you sure you want to change the password of the current account?':
 		'确定修改当前账号的密码？',
-	no_acl_dst_port_added: '尚未添加 acl',
+	Certificate: '证书',
+	'Certificate Key': '证书秘钥',
+	no_acl_dst_port_added: '未添加任何 ACL 目标端口',
 	'Add ACL': '添加ACL',
 	'Port number added': '端口号已添加',
-	Certificate: '证书',
-	'Certificate Key': '证书秘钥'
+	'Enable subnet routes': '允许子网路由',
+	'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.':
+		'启用此设置以允许远程 SSH 访问与您的 Olares 位于同一局域网的其他设备。',
+	'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.':
+		'启用此设置以便在通过 VPN 连接时允许远程 SSH 访问集群。',
+	'ACL destination port': 'ACL 目标端口',
+	Application: '应用',
+	User: '用户'
 };

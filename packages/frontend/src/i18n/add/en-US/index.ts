@@ -75,9 +75,15 @@ export default {
 	'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.':
 		'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.',
 	'ACL DST Port': 'ACL DST Port',
-	no_acl_dst_port_added: 'None ACL DST Port added',
 	'Add ACL': 'Add ACL',
 	'Port number added': 'Port number added',
 	Certificate: 'Certificate',
-	'Certificate Key': 'Certificate Key'
+	'Certificate Key': 'Certificate Key',
+	'ACL destination port': 'ACL destination port',
+	no_acl_dst_port_added: 'No ACL destination port added',
+	'Enable subnet routes': 'Enable subnet routes',
+	'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.':
+		'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.',
+	Application: 'Application',
+	User: 'User'
 };

@@ -19,13 +19,13 @@
 					<div class="column justify-start">
 						<div class="row">
 							<div class="text-h6 text-ink-1">
-								{{ t('Subnet Routes') }}
+								{{ t('Enable subnet routes') }}
 							</div>
 						</div>
 						<div class="text-body3 text-ink-3 q-mt-xs">
 							{{
 								t(
-									'Enable this setting to allow remote SSH access to other devices on the same LAN network as your Olares.'
+									'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.'
 								)
 							}}
 						</div>
@@ -76,7 +76,7 @@
 						class="row items-center justify-between item-margin-left item-margin-right"
 					>
 						<div class="ext-h6 text-ink-1">
-							{{ t('ACL DST Port') }}
+							{{ t('ACL destination port') }}
 						</div>
 						<div
 							class="add-btn row justify-center items-center"
@@ -166,7 +166,7 @@
 				<module-title class="q-mt-xl">
 					<div class="row items-center justify-between">
 						<div>
-							{{ t('ACL DST Port') }}
+							{{ t('ACL destination port') }}
 						</div>
 						<div
 							class="add-btn row justify-center items-center"
@@ -206,7 +206,7 @@
 						</template>
 						<template v-slot:grid>
 							<bt-grid-item
-								:label="t('app')"
+								:label="t('Application')"
 								mobileTitleClasses="text-body3-m"
 								:value="port.appName"
 							/>
@@ -401,7 +401,7 @@ const columns: any = [
 	{
 		name: 'appName',
 		align: 'left',
-		label: t('app'),
+		label: t('Application'),
 		field: 'appName',
 		sortable: false
 	},
