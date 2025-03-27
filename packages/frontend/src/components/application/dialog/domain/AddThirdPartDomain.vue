@@ -26,8 +26,6 @@
 				"
 				:label="t('Upload HTTPS Certificate')"
 				v-model="cert"
-				:is-error="cert.length > 0 && httpCertRule().length > 0"
-				:error-message="httpCertRule()"
 			/>
 
 			<terminus-textarea-edit
@@ -38,8 +36,6 @@
 				"
 				:label="t('Upload HTTPS Private Key')"
 				v-model="key"
-				:is-error="key.length > 0 && httpKeyRule().length > 0"
-				:error-message="httpKeyRule()"
 			/>
 		</div>
 	</bt-custom-dialog>
@@ -93,9 +89,9 @@ const confirmEnable = computed(() => {
 			data.value &&
 			isValidDomain(data.value) &&
 			cert.value &&
-			httpCertRule().length == 0 &&
+			cert.value.length > 0 &&
 			key.value &&
-			httpKeyRule().length == 0
+			key.value.length > 0
 		);
 	}
 	return data.value && data.value.length > 0;
@@ -109,53 +105,53 @@ function isValidDomain(domain: string) {
 	return domainRegex.test(domain);
 }
 
-const httpCertRule = () => {
-	let certAvailable = isHttpsCertificate(
-		cert.value,
-		'-----BEGIN CERTIFICATE-----',
-		'-----END CERTIFICATE-----'
-	);
-	if (!certAvailable) {
-		return t('Invalid HTTPS certificate');
-	}
-	return '';
-};
+// const httpCertRule = () => {
+// 	let certAvailable = isHttpsCertificate(
+// 		cert.value,
+// 		'-----BEGIN CERTIFICATE-----',
+// 		'-----END CERTIFICATE-----'
+// 	);
+// 	if (!certAvailable) {
+// 		return t('Invalid HTTPS certificate');
+// 	}
+// 	return '';
+// };
 
-const httpKeyRule = () => {
-	let certAvailable = isHttpsCertificate(
-		key.value,
-		'-----BEGIN RSA PRIVATE KEY-----',
-		'-----END RSA PRIVATE KEY-----'
-	);
-	if (!certAvailable) {
-		return t('Invalid HTTPS Private Key');
-	}
-	return '';
-};
+// const httpKeyRule = () => {
+// 	let certAvailable = isHttpsCertificate(
+// 		key.value,
+// 		'-----BEGIN RSA PRIVATE KEY-----',
+// 		'-----END RSA PRIVATE KEY-----'
+// 	);
+// 	if (!certAvailable) {
+// 		return t('Invalid HTTPS Private Key');
+// 	}
+// 	return '';
+// };
 
-function isHttpsCertificate(
-	certString: string,
-	beginCert: string,
-	endCert: string
-) {
-	if (typeof certString !== 'string') {
-		return false;
-	}
-	if (!certString.startsWith(beginCert) || !certString.endsWith(endCert)) {
-		return false;
-	}
+// function isHttpsCertificate(
+// 	certString: string,
+// 	beginCert: string,
+// 	endCert: string
+// ) {
+// 	if (typeof certString !== 'string') {
+// 		return false;
+// 	}
+// 	if (!certString.startsWith(beginCert) || !certString.endsWith(endCert)) {
+// 		return false;
+// 	}
 
-	const base64Content = certString
-		.replaceAll(beginCert, '')
-		.replaceAll(endCert, '')
-		.replace(/\r?\n|\r/g, '')
-		.trim();
+// 	const base64Content = certString
+// 		.replaceAll(beginCert, '')
+// 		.replaceAll(endCert, '')
+// 		.replace(/\r?\n|\r/g, '')
+// 		.trim();
 
-	const base64Regex = /^[A-Za-z0-9+/=]+$/;
-	if (!base64Regex.test(base64Content)) {
-		return false;
-	}
+// 	const base64Regex = /^[A-Za-z0-9+/=]+$/;
+// 	if (!base64Regex.test(base64Content)) {
+// 		return false;
+// 	}
 
-	return true;
-}
+// 	return true;
+// }
 </script>
