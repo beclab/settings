@@ -4,14 +4,8 @@
 			{{ label }}
 		</div>
 		<div
-			class="terminus-edit__bg row wrap justify-between items-center"
-			:class="
-				errorMessage.length > 0 && isError
-					? 'terminus_background_edt_error'
-					: isReadOnly
-					? 'terminus_background_edt_read_only'
-					: 'terminus_background_edt'
-			"
+			class="terminus-edit__bg row wrap justify-between items-center terminus_background_edit_base"
+			:class="editBorderClass"
 			:style="
 				(transaction ? 'background : transparent;' : '') +
 				(isTextarea ? '' : 'height: 36px;')
@@ -87,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 
 const props = defineProps({
 	label: {
@@ -192,7 +186,6 @@ const emit = defineEmits(['onTextChange', 'update:modelValue', 'submit']);
 function onTextChange(value: any) {
 	if (setBlured) {
 		setBlured(false);
-		blured = false;
 	}
 	if (props.emitKey?.length > 0) {
 		emit('onTextChange', props.emitKey, value);
@@ -214,49 +207,49 @@ const submit = () => {
 
 const setFocused = inject('setFocused') as any;
 const setBlured = inject('setBlured') as any;
-let focused = false;
-let blured = false;
+let focused = ref(false);
 
 const onFocus = () => {
-	if (!focused && setFocused) {
+	focused.value = true;
+	if (setFocused) {
 		setFocused(true);
-		focused = true;
 	}
 };
 const onBlur = () => {
-	if (!blured && setBlured) {
+	focused.value = false;
+	if (setBlured) {
 		setBlured(true);
-		blured = true;
 	}
 };
 const getErrorStatus = () => {
-	console.log('getErrorStatus ===> 11');
-
 	return props.isError;
 };
 
 defineExpose({ getErrorStatus });
+
+const editBorderClass = computed(() => {
+	if (props.errorMessage.length > 0 && props.isError) {
+		return 'terminus_input_border_edit_error';
+	}
+	if (props.isReadOnly) {
+		return 'terminus_input_border_edt_read_only';
+	}
+	if (focused.value) {
+		return 'terminus_input_border_editing';
+	}
+	return 'terminus_input_border_edit_normal';
+});
 </script>
 
 <style lang="scss" scoped>
-.terminus_background_edt {
-	// background: $background-1;
+.terminus_background_edit_base {
 	backdrop-filter: blur(6.07811px);
 	border-radius: 8px;
-	border: 1px solid $separator;
+	background: transparent;
 }
 
-.terminus_background_edt_error {
-	// background: ;
-	backdrop-filter: blur(6.07811px);
-	border-radius: 8px;
-	border: 1px solid $red;
-}
-
-.terminus_background_edt_read_only {
+.terminus_input_border_edt_read_only {
 	background: linear-gradient(0deg, $background-3, $background-3);
-	backdrop-filter: blur(6.07811px);
-	border-radius: 8px;
 	border: 1px solid $separator;
 }
 

@@ -68,6 +68,8 @@ export default {
 	'Object Storage': '对象存储',
 	'Are you sure you want to change the password of the current account?':
 		'确定修改当前账号的密码？',
+	Certificate: '证书',
+	'Certificate Key': '证书秘钥',
 	no_acl_dst_port_added: '未添加任何 ACL 目标端口',
 	'Add ACL': '添加ACL',
 	'Port number added': '端口号已添加',
@@ -78,5 +80,17 @@ export default {
 		'启用此设置以便在通过 VPN 连接时允许远程 SSH 访问集群。',
 	'ACL destination port': 'ACL 目标端口',
 	Application: '应用',
-	User: '用户'
+	User: '用户',
+	'Upload HTTPS Certificate': '上传 HTTPS 证书',
+	'Upload HTTPS Private Key': '上传 HTTPS 私钥',
+	'Invalid HTTPS certificate. Please check and upload again.':
+		'HTTPS 证书无效。请检查并重新上传。',
+	"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.":
+		'切换到 Cloudflare 后，自定义域将更新并解析为与 Cloudflare 的网络兼容。切换可能需要长达 10 分钟才能完成，在此期间 Olares 可能无法访问。',
+	'Affected domain': '受影响的域',
+	'Invalid HTTPS certificate': 'HTTPS 证书无效',
+	'Invalid HTTPS Private Key': 'HTTPS 私钥无效',
+	'Invalid Domain': '域名无效',
+	// 'cert-not-found'
+	'No https certificate, please upload': '没有https证书，请上传'
 };

@@ -19,7 +19,7 @@
 					<div class="column justify-start">
 						<div class="row">
 							<div class="text-h6 text-ink-1">
-								{{ t('Subnet Routes') }}
+								{{ t('Enable subnet routes') }}
 							</div>
 						</div>
 						<div class="text-body3 text-ink-3 q-mt-xs">

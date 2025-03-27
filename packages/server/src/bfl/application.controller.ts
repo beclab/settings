@@ -8,7 +8,6 @@ import {
   Body,
 } from '@nestjs/common';
 import { createInstance } from './utils';
-import { Cron } from '@nestjs/schedule';
 
 @Controller('/api/applications')
 export class ApplicationController {
@@ -270,6 +269,26 @@ export class ApplicationController {
   ): Promise<any> {
     this.logger.debug('Provider Registry list');
     const path = '/bfl/settings/v1alpha1/apps/provider-registry/' + appName;
+    const data: any = await createInstance(request).get(path);
+    if (data.status !== 200) {
+      throw new Error(data.statusText);
+    }
+    this.logger.debug(data.data);
+    return data.data;
+  }
+  @Get('/entrances/setup/domain')
+  async getEntrancesSetupDomain(@Req() request: Request): Promise<any> {
+    this.logger.debug('application entrance setup domains');
+
+    const path = '/bfl/settings/v1alpha1/applications/entrances/setup/domain';
+    // const data: any = await createInstance(request).post(
+    //     '/bfl/settings/v1alpha1/applications/' +
+    //       name +
+    //       '/' +
+    //       entrance +
+    //       '/setup/domain',
+    //     body,
+    //   );
     const data: any = await createInstance(request).get(path);
     if (data.status !== 200) {
       throw new Error(data.statusText);

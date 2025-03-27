@@ -150,6 +150,8 @@ export interface SetupDomain {
 	cname_status: string;
 	cname_target: string;
 	cname_target_status: string;
+	cert?: string;
+	key?: string;
 }
 
 export interface AuthLevel {
@@ -191,4 +193,16 @@ export enum ProcessingState {
 	Completed = 'completed',
 	Failed = 'failed',
 	InProgress = 'in-progress'
+}
+
+export interface ApplicationCustonDomain {
+	name: string;
+	host: string;
+	port: number;
+	icon: string;
+
+	title: string;
+	authLevel: string;
+	app_name: string;
+	custom_domain: string;
 }

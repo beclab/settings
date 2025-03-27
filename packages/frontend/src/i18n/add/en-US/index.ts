@@ -70,15 +70,29 @@ export default {
 	'Are you sure you want to change the password of the current account?':
 		'Are you sure you want to change the password of the current account?',
 	'Subnet Routes': 'Subnet Routes',
+	'Enable this setting to allow remote SSH access to other devices on the same LAN network as your Olares.':
+		'Enable this setting to allow remote SSH access to other devices on the same LAN network as your Olares.',
 	'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.':
 		'Enable this setting to allow remote SSH connections to the cluster when you’re connected through a VPN.',
-	'ACL destination port': 'ACL destination port',
-	no_acl_dst_port_added: 'No ACL destination port added',
+	'ACL DST Port': 'ACL DST Port',
 	'Add ACL': 'Add ACL',
 	'Port number added': 'Port number added',
+	'ACL destination port': 'ACL destination port',
+	no_acl_dst_port_added: 'No ACL destination port added',
 	'Enable subnet routes': 'Enable subnet routes',
 	'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.':
 		'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.',
 	Application: 'Application',
-	User: 'User'
+	User: 'User',
+	'Upload HTTPS Certificate': 'Upload HTTPS Certificate',
+	'Upload HTTPS Private Key': 'Upload HTTPS Private Key',
+	'Invalid HTTPS certificate. Please check and upload again.':
+		'Invalid HTTPS certificate. Please check and upload again.',
+	"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.":
+		"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.",
+	'Affected domain': 'Affected domain',
+	'Invalid HTTPS certificate': 'Invalid HTTPS certificate',
+	'Invalid HTTPS Private Key': 'Invalid HTTPS Private Key',
+	'Invalid Domain': 'Invalid Domain',
+	'No https certificate, please upload': 'No https certificate, please upload'
 };
