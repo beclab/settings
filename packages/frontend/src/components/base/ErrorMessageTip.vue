@@ -4,10 +4,9 @@
 		<slot name="reminder" />
 		<transition name="fade">
 			<div
-				v-if="
-					isError && errorMessage && errorMessage.length > 0 && blured
-				"
+				v-if="isError && errorMessage && errorMessage.length > 0"
 				class="text-overline message-parent row items-center bg-background-3 q-mb-md"
+				:class="paddingX ? 'item-margin-left item-margin-right' : ''"
 			>
 				<q-icon
 					v-if="withPopup"
@@ -33,15 +32,13 @@
 				</span>
 			</div>
 		</transition>
-		<div
-			v-if="widthSeparator"
-			class="separator-background"
-			style="width: 100%; height: 1px"
-		></div>
+		<bt-separator v-if="widthSeparator" :offset="16" />
 	</div>
 </template>
 
 <script lang="ts" setup>
+import BtSeparator from '../base/BtSeparator.vue';
+
 import {
 	getCurrentInstance,
 	inject,
@@ -74,6 +71,11 @@ const props = defineProps({
 		require: false
 	},
 	widthSeparator: {
+		type: Boolean,
+		required: false,
+		default: true
+	},
+	paddingX: {
 		type: Boolean,
 		required: false,
 		default: true
@@ -111,8 +113,6 @@ watch(
 );
 
 const getErrorStatus = () => {
-	console.log('getErrorStatus ===> 11');
-
 	return props.isError;
 };
 

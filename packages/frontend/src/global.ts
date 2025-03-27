@@ -194,3 +194,15 @@ export enum ProcessingState {
 	Failed = 'failed',
 	InProgress = 'in-progress'
 }
+
+export interface ApplicationCustonDomain {
+	name: string;
+	host: string;
+	port: number;
+	icon: string;
+
+	title: string;
+	authLevel: string;
+	app_name: string;
+	custom_domain: string;
+}

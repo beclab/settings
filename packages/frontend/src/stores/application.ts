@@ -4,14 +4,19 @@ import { useTokenStore } from './token';
 import { TerminusApp, TerminusEntrance } from '@bytetrade/core';
 import { i18n } from '../boot/i18n';
 import { notifySuccess } from 'src/utils/btNotify';
-import { AppPermission, PermissionProviderRegister } from 'src/global';
+import {
+	AppPermission,
+	PermissionProviderRegister,
+	ApplicationCustonDomain
+} from 'src/global';
 
 export const systemApplicationIdList = [''];
 
 export const useApplicationStore = defineStore('application', {
 	state: () => ({
 		applications: [] as TerminusApp[],
-		entrances: {} as Record<string, Record<string, TerminusEntrance>>
+		entrances: {} as Record<string, Record<string, TerminusEntrance>>,
+		customDomainApplications: [] as ApplicationCustonDomain[]
 	}),
 
 	getters: {},
@@ -211,6 +216,7 @@ export const useApplicationStore = defineStore('application', {
 			);
 			return data;
 		},
+
 		async getProviderRegistryList(
 			app_name?: string
 		): Promise<PermissionProviderRegister[] | undefined> {
@@ -223,13 +229,14 @@ export const useApplicationStore = defineStore('application', {
 			);
 			return data.items;
 		},
+
 		async getEntranceSetupDomain() {
 			// entrances/setup/domain
 			const tokenStore = useTokenStore();
-			const data = await axios.get(
+			const data: ApplicationCustonDomain[] = await axios.get(
 				`${tokenStore.url}/api/applications/entrances/setup/domain`
 			);
-			console.log(data);
+			this.customDomainApplications = data;
 			return data;
 		}
 	}

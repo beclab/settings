@@ -9,10 +9,10 @@
 			<bt-form-item
 				:title="t('endpoint')"
 				:width-separator="true"
-				:dataWidthP="70"
+				:dataWidthP="60"
 			>
 				<div
-					class="row items-center justify-end full-width"
+					class="row justify-end items-center full-width"
 					@click="setCopyInfo(entranceUrl)"
 				>
 					<div
@@ -54,25 +54,101 @@
 				</div>
 			</bt-form-item>
 
-			<bt-form-item
-				:title="t('setup_custom_domain')"
+			<error-message-tip
+				:is-error="isCertError"
+				:error-message="
+					domainInfo?.cname_status === 'cert-invalid'
+						? t(
+								'Invalid HTTPS certificate. Please check and upload again.'
+						  )
+						: t('No https certificate, please upload')
+				"
 				:width-separator="tryAddThirdPartyDomain"
+				:with-popup="true"
 			>
-				<div class="row justify-between items-center">
-					<bt-edit-view
-						style="width: calc(100% - 32px)"
-						:right="true"
-						:is-read-only="true"
-						v-model="third_party_domain"
-					/>
-					<bt-icon
-						v-if="tryAddThirdPartyDomain"
-						name="delete"
-						@click="deleteDomain(true)"
-					/>
-					<bt-icon v-else name="add" @click="addDomain(true)" />
-				</div>
-			</bt-form-item>
+				<bt-form-item
+					:title="t('setup_custom_domain')"
+					:width-separator="false"
+					:dataWidthP="third_party_domain ? 50 : 0"
+				>
+					<div class="row justify-end items-center full-width">
+						<div
+							v-if="third_party_domain"
+							style="
+								max-width: calc(100% - 40px);
+								overflow: hidden;
+								white-space: nowrap;
+								text-overflow: ellipsis;
+								margin-right: 10px;
+							"
+							class="text-body-3 text-ink-3"
+						>
+							{{ third_party_domain }}
+						</div>
+						<q-btn
+							dense
+							v-if="tryAddThirdPartyDomain && isCertError"
+							class="row items-center justify-center more-btn"
+						>
+							<bt-icon name="more_horiz" />
+							<q-menu
+								class="popup-menu bg-background-2"
+								:offset="[100, 5]"
+							>
+								<q-list dense padding style="width: 100px">
+									<q-item
+										clickable
+										v-close-popup
+										class="domain-operation-item q-pb-md"
+										@click="editDomain(true)"
+									>
+										<div
+											class="domain-operation-div row justify-start items-center text-ink-2"
+										>
+											<q-icon
+												name="sym_r_edit_square"
+												size="16px"
+											/>
+											<div
+												class="domain-operation-text text-body3"
+											>
+												{{ t('edit') }}
+											</div>
+										</div>
+									</q-item>
+									<q-item
+										clickable
+										v-close-popup
+										class="domain-operation-item q-pb-md"
+										@click="deleteDomain(true)"
+									>
+										<div
+											class="domain-operation-div row justify-start items-center text-ink-2"
+										>
+											<q-icon
+												name="sym_r_delete"
+												size="16px"
+											/>
+											<div
+												class="domain-operation-text text-body3"
+											>
+												{{ t('remove') }}
+											</div>
+										</div>
+									</q-item>
+								</q-list>
+							</q-menu>
+						</q-btn>
+
+						<bt-icon
+							v-else-if="tryAddThirdPartyDomain"
+							name="delete"
+							@click="deleteDomain(true)"
+						/>
+						<bt-icon v-else name="add" @click="addDomain(true)" />
+					</div>
+				</bt-form-item>
+			</error-message-tip>
 
 			<bt-form-item
 				v-if="
@@ -115,27 +191,27 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useApplicationStore } from '../../../stores/application';
 import { SetupDomain } from '../../../global';
-import PageTitleComponent from 'components/PageTitleComponent.vue';
+import PageTitleComponent from '../../../components/PageTitleComponent.vue';
 import BtFormItem from '../../../components/base/BtFormItem.vue';
 import AddDomain from '../../../components/application/dialog/domain/AddDomain.vue';
 import AddThirdPartDomain from '../../../components/application/dialog/domain/AddThirdPartDomain.vue';
-import BtIcon from 'components/base/BtIcon.vue';
+import BtIcon from '../../../components/base/BtIcon.vue';
 import BtEditView from '../../../components/base/BtEditView.vue';
 import ActivationDomain from '../../../components/application/dialog/domain/ActivationDomain.vue';
 import BtList from '../../../components/base/BtList.vue';
 import { copyToClipboard } from 'quasar';
+import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
 
 import { useI18n } from 'vue-i18n';
 import { notifySuccess, notifyWarning } from '../../../utils/btNotify';
 import { useAdminStore } from '../../../stores/admin';
 import { useNetworkStore } from '../../../stores/network';
 import { ReverseProxyMode } from '../../../utils/constants';
-// import { useDeviceStore } from '../../../stores/device';
 const { t } = useI18n();
 
 const applicationStore = useApplicationStore();
@@ -143,7 +219,6 @@ const Route = useRoute();
 const $q = useQuasar();
 const adminStore = useAdminStore();
 const networkStore = useNetworkStore();
-// const deviceStore = useDeviceStore();
 
 const application = ref(
 	applicationStore.getApplicationById(Route.params.name as string)
@@ -169,6 +244,13 @@ function clearValue() {
 }
 
 const addDomain = (isParty: boolean) => {
+	if (!entranceRef.value) {
+		return;
+	}
+	console.log('entranceRef.v', entranceRef.value);
+
+	// if (entranceRef.value.authLevel == )
+
 	$q.dialog({
 		component: isParty ? AddThirdPartDomain : AddDomain,
 		componentProps: {
@@ -223,6 +305,7 @@ async function updateDomain() {
 		third_level_domain.value = domainInfo.value.third_level_domain;
 		tryAddThirdLevelDomain.value = true;
 	}
+	startRefreshCNameStatus();
 }
 
 onMounted(async () => {
@@ -232,6 +315,10 @@ onMounted(async () => {
 	configNetworkData();
 	networkStore.configReverseProxy();
 	await updateDomain();
+});
+
+onUnmounted(() => {
+	clearRefreshCNameTimer();
 });
 
 const show_third_domain_cname_setButton = computed(() => {
@@ -320,8 +407,6 @@ async function onSubmit() {
 		obj.key = '';
 	}
 
-	console.log('obj ===>', obj);
-
 	try {
 		await applicationStore.setupDomain(
 			application_name.value,
@@ -378,6 +463,73 @@ const configNetworkData = () => {
 			: ReverseProxyMode.NoNeed;
 	}
 };
+
+const refreshCNameTimer = ref();
+
+const startRefreshCNameStatus = () => {
+	if (refreshCNameTimer.value) {
+		return;
+	}
+	if (
+		!domainInfo.value ||
+		(domainInfo.value.cname_status !== 'pending' &&
+			(!isCertError.value || !certEditCompleted.value))
+	) {
+		return;
+	}
+
+	refreshCNameTimer.value = setInterval(async () => {
+		if (
+			domainInfo.value?.cname_status == 'pending' ||
+			(isCertError.value && certEditCompleted.value)
+		) {
+			domainInfo.value = await applicationStore.getDomainSetup(
+				application_name.value,
+				entrance_name
+			);
+			if (!isCertError.value) {
+				certEditCompleted.value = false;
+			}
+			return;
+		}
+		clearRefreshCNameTimer();
+	}, 5000);
+};
+
+const clearRefreshCNameTimer = () => {
+	if (refreshCNameTimer.value) {
+		clearInterval(refreshCNameTimer.value);
+		refreshCNameTimer.value = undefined;
+	}
+};
+
+const isCertError = computed(() => {
+	return (
+		domainInfo.value?.cname_status === 'cert-invalid' ||
+		domainInfo.value?.cname_status === 'cert-not-found'
+	);
+});
+
+const certEditCompleted = ref(false);
+const editDomain = (isParty: boolean) => {
+	$q.dialog({
+		component: isParty ? AddThirdPartDomain : AddDomain,
+		componentProps: {
+			isParty,
+			reverseProxyMode: reverseProxyMode.value,
+			domain: isParty ? third_party_domain.value : ''
+		}
+	}).onOk(async (data: { data: string; cert?: string; key?: string }) => {
+		if (isParty) {
+			tryAddThirdPartyDomain.value = true;
+			third_party_domain.value = data.data;
+			third_party_cert.value = data.cert || '';
+			third_party_key.value = data.key || '';
+			certEditCompleted.value = true;
+			await onSubmit();
+		}
+	});
+};
 </script>
 
 <style scoped lang="scss">
@@ -408,5 +560,28 @@ const configNetworkData = () => {
 	background-color: $blue-default !important;
 	color: #fff !important;
 	height: 32px;
+}
+
+.more-btn {
+	width: 20px;
+	height: 20px;
+	min-height: 20px !important;
+	border-radius: 4px !important;
+}
+.domain-operation-item {
+	// width: 135px;
+	height: 32px;
+	margin: 0;
+	padding: 0;
+	border-radius: 4px;
+	.domain-operation-div {
+		width: 100%;
+		height: 100%;
+		padding: 8px;
+
+		.domain-operation-text {
+			margin-left: 8px;
+		}
+	}
 }
 </style>

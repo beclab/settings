@@ -144,7 +144,8 @@ import { useQuasar } from 'quasar';
 
 import BtEditView from '../../../components/base/BtEditView.vue';
 import ErrorMessageTip from '../../../components/base/ErrorMessageTip.vue';
-import ReminderDialogComponent from '../../../components/ReminderDialogComponent.vue';
+import AffectedDomainDialog from '../../../components/network/dialog/AffectedDomainDialog.vue';
+
 import { useApplicationStore } from '../../../stores/application';
 
 const { t } = useI18n();
@@ -194,6 +195,8 @@ const configData = () => {
 
 		if (option) {
 			olaresTunnelMode.value = option.value;
+		} else if (olaresOptions && olaresOptions.length > 0) {
+			olaresTunnelMode.value = olaresOptions[0].value;
 		}
 
 		if (reverseProxyMode.value != ReverseProxyMode.OlaresTunnel) {
@@ -214,7 +217,7 @@ const olaresTunnelsOptions = ref<any>();
 onMounted(async () => {
 	configData();
 	await networkStore.configReverseProxy();
-	applicationStore.getEntranceSetupDomain();
+	await applicationStore.getEntranceSetupDomain();
 });
 
 const onSubmit = async () => {
@@ -233,6 +236,7 @@ const onSubmit = async () => {
 	let reminderMessage = t(
 		'During the reverse proxy switch, Olares may be inaccessible for 10 minutes.'
 	);
+	let affectedDomains = [];
 	if (
 		networkStore.reverseProxy.enable_cloudflare_tunnel &&
 		(reverseProxyMode.value == ReverseProxyMode.OlaresTunnel ||
@@ -240,16 +244,22 @@ const onSubmit = async () => {
 	) {
 		reminderMessage =
 			'切换到FRP后，自定义域将不再有效。要恢复功能，您需要在应用程序>入口页面上传HTTPS证书。切换最多可能需要10分钟才能完成，在此期间Olares可能无法访问。';
+		affectedDomains = applicationStore.customDomainApplications;
+	} else if (reverseProxyMode.value == ReverseProxyMode.CloudFlare) {
+		reminderMessage = t(
+			"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible."
+		);
 	}
 
 	$q.dialog({
-		component: ReminderDialogComponent,
+		component: AffectedDomainDialog,
 		componentProps: {
 			title: t('Switch reverse proxy'),
 			message: reminderMessage,
 			useCancel: true,
 			confirmText: t('confirm'),
-			cancelText: t('cancel')
+			cancelText: t('cancel'),
+			affectedDomains
 		}
 	}).onOk(async () => {
 		confirmSwitch();

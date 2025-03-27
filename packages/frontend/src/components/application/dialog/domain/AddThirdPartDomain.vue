@@ -6,74 +6,67 @@
 		size="medium"
 		:ok="t('confirm')"
 		:cancel="t('cancel')"
-		:okDisabled="!data || data.length == 0"
+		:okDisabled="!confirmEnable"
 		:platform="deviceStore.platform"
 		@onSubmit="onOKClick"
 	>
-		<terminus-edit :label="t('third_party_domain')" v-model="data" />
+		<div>
+			<terminus-edit
+				:label="t('third_party_domain')"
+				v-model="data"
+				:is-error="data.length > 0 && !isValidDomain(data)"
+				:error-message="t('Invalid Domain')"
+			/>
 
-		<div
-			class="q-mt-md"
-			v-if="
-				reverseProxyMode == ReverseProxyMode.OlaresTunnel ||
-				reverseProxyMode == ReverseProxyMode.SelfBuiltFrp
-			"
-		>
-			<div class="text-body3 text-ink-3">
-				{{ t('Certificate') }}
-			</div>
-			<div class="q-mt-xs common-border">
-				<q-input
-					v-model="cert"
-					borderless
-					dense
-					type="textarea"
-					input-class="custom-placeholder text-body3"
-					input-style="resize: none;padding: 8px 16px !important; height: 88px"
-				/>
-			</div>
-		</div>
+			<terminus-textarea-edit
+				class="q-mt-md"
+				v-if="
+					reverseProxyMode == ReverseProxyMode.OlaresTunnel ||
+					reverseProxyMode == ReverseProxyMode.SelfBuiltFrp
+				"
+				:label="t('Upload HTTPS Certificate')"
+				v-model="cert"
+				:is-error="cert.length > 0 && httpCertRule().length > 0"
+				:error-message="httpCertRule()"
+			/>
 
-		<div
-			class="q-mt-md"
-			v-if="
-				reverseProxyMode == ReverseProxyMode.OlaresTunnel ||
-				reverseProxyMode == ReverseProxyMode.SelfBuiltFrp
-			"
-		>
-			<div class="text-body3 text-ink-3">
-				{{ t('Certificate Key') }}
-			</div>
-			<div class="q-mt-xs common-border">
-				<q-input
-					v-model="key"
-					borderless
-					dense
-					type="textarea"
-					input-class="custom-placeholder text-body3"
-					input-style="resize: none;padding: 8px 16px !important; height: 88px"
-				/>
-			</div>
+			<terminus-textarea-edit
+				class="q-mt-md"
+				v-if="
+					reverseProxyMode == ReverseProxyMode.OlaresTunnel ||
+					reverseProxyMode == ReverseProxyMode.SelfBuiltFrp
+				"
+				:label="t('Upload HTTPS Private Key')"
+				v-model="key"
+				:is-error="key.length > 0 && httpKeyRule().length > 0"
+				:error-message="httpKeyRule()"
+			/>
 		</div>
 	</bt-custom-dialog>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import TerminusEdit from '../../../base/TerminusEdit.vue';
 import { useI18n } from 'vue-i18n';
 import { useDeviceStore } from '../../../../stores/device';
 import { ReverseProxyMode } from '../../../../utils/constants';
+import TerminusTextareaEdit from '../../../base/TerminusTextareaEdit.vue';
 
-defineProps({
+const props = defineProps({
 	reverseProxyMode: {
 		type: Number,
 		required: false,
 		default: ReverseProxyMode.NoNeed
+	},
+	domain: {
+		type: String,
+		required: false,
+		default: ''
 	}
 });
 
-const data = ref('');
+const data = ref(props.domain);
 
 const cert = ref('');
 
@@ -84,23 +77,85 @@ const { t } = useI18n();
 const CustomRef = ref();
 const deviceStore = useDeviceStore();
 async function onOKClick() {
-	console.log(cert.value);
-
 	CustomRef.value.onDialogOK({
 		data: data.value,
 		cert: cert.value,
 		key: key.value
 	});
 }
-</script>
 
-<style lang="scss" scoped>
-.common-border {
-	border: 1px solid $separator;
-	border-radius: 8px;
-	height: 92px;
-	overflow: hidden;
-	// padding-top: 8px;
-	// padding-bottom: 8px;
+const confirmEnable = computed(() => {
+	if (
+		props.reverseProxyMode == ReverseProxyMode.OlaresTunnel ||
+		props.reverseProxyMode == ReverseProxyMode.SelfBuiltFrp
+	) {
+		return (
+			data.value &&
+			isValidDomain(data.value) &&
+			cert.value &&
+			httpCertRule().length == 0 &&
+			key.value &&
+			httpKeyRule().length == 0
+		);
+	}
+	return data.value && data.value.length > 0;
+});
+
+function isValidDomain(domain: string) {
+	const domainRegex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,63})+$/;
+	if (domain.length > 253) {
+		return false;
+	}
+	return domainRegex.test(domain);
 }
-</style>
+
+const httpCertRule = () => {
+	let certAvailable = isHttpsCertificate(
+		cert.value,
+		'-----BEGIN CERTIFICATE-----',
+		'-----END CERTIFICATE-----'
+	);
+	if (!certAvailable) {
+		return t('Invalid HTTPS certificate');
+	}
+	return '';
+};
+
+const httpKeyRule = () => {
+	let certAvailable = isHttpsCertificate(
+		key.value,
+		'-----BEGIN RSA PRIVATE KEY-----',
+		'-----END RSA PRIVATE KEY-----'
+	);
+	if (!certAvailable) {
+		return t('Invalid HTTPS Private Key');
+	}
+	return '';
+};
+
+function isHttpsCertificate(
+	certString: string,
+	beginCert: string,
+	endCert: string
+) {
+	if (typeof certString !== 'string') {
+		return false;
+	}
+	if (!certString.startsWith(beginCert) || !certString.endsWith(endCert)) {
+		return false;
+	}
+
+	const base64Content = certString
+		.replaceAll(beginCert, '')
+		.replaceAll(endCert, '')
+		.replace(/\r?\n|\r/g, '')
+		.trim();
+
+	const base64Regex = /^[A-Za-z0-9+/=]+$/;
+	if (!base64Regex.test(base64Content)) {
+		return false;
+	}
+
+	return true;
+}
+</script>

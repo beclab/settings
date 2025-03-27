@@ -77,13 +77,22 @@ export default {
 	'ACL DST Port': 'ACL DST Port',
 	'Add ACL': 'Add ACL',
 	'Port number added': 'Port number added',
-	Certificate: 'Certificate',
-	'Certificate Key': 'Certificate Key',
 	'ACL destination port': 'ACL destination port',
 	no_acl_dst_port_added: 'No ACL destination port added',
 	'Enable subnet routes': 'Enable subnet routes',
 	'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.':
 		'Enable this setting to allow remote SSH connections to devices on the same LAN as your Olares.',
 	Application: 'Application',
-	User: 'User'
+	User: 'User',
+	'Upload HTTPS Certificate': 'Upload HTTPS Certificate',
+	'Upload HTTPS Private Key': 'Upload HTTPS Private Key',
+	'Invalid HTTPS certificate. Please check and upload again.':
+		'Invalid HTTPS certificate. Please check and upload again.',
+	"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.":
+		"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.",
+	'Affected domain': 'Affected domain',
+	'Invalid HTTPS certificate': 'Invalid HTTPS certificate',
+	'Invalid HTTPS Private Key': 'Invalid HTTPS Private Key',
+	'Invalid Domain': 'Invalid Domain',
+	'No https certificate, please upload': 'No https certificate, please upload'
 };
