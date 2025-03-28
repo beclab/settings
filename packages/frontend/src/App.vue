@@ -54,9 +54,7 @@ export default defineComponent({
 			} else if (
 				supportLanguages.find((e) => e.value == terminusLanguage)
 			) {
-				backgroundStore.updateLanguageLocale(
-					supportLanguages[terminusLanguage]
-				);
+				backgroundStore.updateLanguageLocale(terminusLanguage);
 			}
 		}
 
