@@ -87,6 +87,8 @@ export default {
 		'HTTPS 证书无效。请检查并重新上传。',
 	"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.":
 		'切换到 Cloudflare 后，自定义域将更新并解析为与 Cloudflare 的网络兼容。切换可能需要长达 10 分钟才能完成，在此期间 Olares 可能无法访问。',
+	'After switching to FRP, the custom domain will no longer be valid. To restore functionality, you need to upload an HTTPS certificate on the Applications > Entrances page. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.':
+		'切换到FRP后，自定义域将不再有效。要恢复功能，您需要在应用程序>入口页面上传HTTPS证书。切换最多可能需要10分钟才能完成，在此期间Olares可能无法访问。',
 	'Affected domain': '受影响的域',
 	'Invalid HTTPS certificate': 'HTTPS 证书无效',
 	'Invalid HTTPS Private Key': 'HTTPS 私钥无效',

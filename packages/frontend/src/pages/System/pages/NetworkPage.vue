@@ -242,8 +242,9 @@ const onSubmit = async () => {
 		(reverseProxyMode.value == ReverseProxyMode.OlaresTunnel ||
 			reverseProxyMode.value == ReverseProxyMode.SelfBuiltFrp)
 	) {
-		reminderMessage =
-			'切换到FRP后，自定义域将不再有效。要恢复功能，您需要在应用程序>入口页面上传HTTPS证书。切换最多可能需要10分钟才能完成，在此期间Olares可能无法访问。';
+		reminderMessage = t(
+			'After switching to FRP, the custom domain will no longer be valid. To restore functionality, you need to upload an HTTPS certificate on the Applications > Entrances page. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.'
+		);
 		affectedDomains = applicationStore.customDomainApplications;
 	} else if (reverseProxyMode.value == ReverseProxyMode.CloudFlare) {
 		reminderMessage = t(
