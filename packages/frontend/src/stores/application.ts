@@ -236,7 +236,7 @@ export const useApplicationStore = defineStore('application', {
 			const data: ApplicationCustonDomain[] = await axios.get(
 				`${tokenStore.url}/api/applications/entrances/setup/domain`
 			);
-			this.customDomainApplications = data;
+			this.customDomainApplications = data || [];
 			return data;
 		}
 	}

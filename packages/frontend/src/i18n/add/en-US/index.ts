@@ -90,6 +90,8 @@ export default {
 		'Invalid HTTPS certificate. Please check and upload again.',
 	"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.":
 		"After switching to Cloudflare, the custom domain will be updated and resolved to work with Cloudflare's network. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.",
+	'After switching to FRP, the custom domain will no longer be valid. To restore functionality, you need to upload an HTTPS certificate on the Applications > Entrances page. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.':
+		'After switching to FRP, the custom domain will no longer be valid. To restore functionality, you need to upload an HTTPS certificate on the Applications > Entrances page. The switch may take up to 10 minutes to complete, during which Olares may be inaccessible.',
 	'Affected domain': 'Affected domain',
 	'Invalid HTTPS certificate': 'Invalid HTTPS certificate',
 	'Invalid HTTPS Private Key': 'Invalid HTTPS Private Key',

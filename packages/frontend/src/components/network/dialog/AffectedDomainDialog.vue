@@ -84,7 +84,8 @@ defineProps({
 	},
 	affectedDomains: {
 		type: Array as () => Array<ApplicationCustonDomain>,
-		default: () => []
+		required: false,
+		default: [] as ApplicationCustonDomain[]
 	}
 });
 
