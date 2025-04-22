@@ -335,13 +335,15 @@ const commitEnable = computed(() => {
 			if (port.status != PortStatus.Normal) {
 				const acl = aclStore.allAppAclList.find(
 					(acl) =>
-						port.appName == acl.appName && port.proto == acl.proto
+						port.appName == acl.appName &&
+						port.proto == acl.proto &&
+						acl.dst.find((dst) => port.port == dst)
 				);
+
 				if (!acl) {
 					return port.status == PortStatus.Add;
 				}
-				const includeDst = acl.dst.find((dst) => port.port == dst);
-				return includeDst && port.status == PortStatus.Remove;
+				return port.status == PortStatus.Remove;
 			}
 			return false;
 		}) != undefined
