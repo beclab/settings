@@ -53,6 +53,42 @@ export class EventController {
     return returnSucceed(null);
   }
 
+  @Post('/backup_state_event')
+  async backup_state_event(
+    @Body() event: ProviderRequest<Event<any>>,
+  ): Promise<Result<null>> {
+    this.logger.debug('backup_state_event');
+    this.logger.debug(JSON.stringify(event, null, 2));
+
+    const payload = event.data.data.payload;
+
+    broadcastWebsocketMessage({
+      event: 'backup_state_event',
+      // data: event.data.data,
+      data: payload,
+    });
+
+    return returnSucceed(null);
+  }
+
+  @Post('/restore_state_event')
+  async restore_state_event(
+    @Body() event: ProviderRequest<Event<any>>,
+  ): Promise<Result<null>> {
+    this.logger.debug('restore_state_event');
+    this.logger.debug(JSON.stringify(event, null, 2));
+
+    const payload = event.data.data.payload;
+
+    broadcastWebsocketMessage({
+      event: 'restore_state_event',
+      // data: event.data.data,
+      data: payload,
+    });
+
+    return returnSucceed(null);
+  }
+
   @Post('/system_upgrade_event')
   async system_upgrade_event(
     @Body() event: ProviderRequest<Event<any>>,
