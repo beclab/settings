@@ -15,7 +15,7 @@
 	"dependencies": {
 		"@bytetrade/ui": "^0.1.58",
 		"@quasar/extras": "^1.16.9",
-		"axios": "^0.21.1",
+		"axios": "^1.3.5",
 		"core-js": "^3.6.5",
 		"crypto-js": "^4.1.1",
 		"element-plus": "^2.2.28",
