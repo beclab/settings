@@ -8,10 +8,10 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
 } from '@nestjs/common';
 import { returnError, returnSucceed } from '@bytetrade/core';
-import axios from 'axios';
 import { createOlaresdInstance } from './olaresd/utils';
 
 @Controller('/api')
@@ -179,10 +179,11 @@ export class TerminusdController {
     }
   }
 
-  @Get('/containerd/images/:registry')
+  @Get('/containerd/images')
   async getContainerImages(
     @Req() request: Request,
-    @Param('registry') registry,
+    @Query('registry') registry: string,
+    // @Param('registry') registry,
   ) {
     try {
       const instance = createOlaresdInstance(request);
@@ -236,6 +237,26 @@ export class TerminusdController {
         `/containerd/registry/mirrors/${registry}`,
       );
       console.log('response:', response);
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      if (response.data.code !== 200) {
+        throw new Error(response.data);
+      }
+      this.logger.log(response.data);
+      return returnSucceed(response.data.data);
+    } catch (e) {
+      console.log('message:' + e.message);
+      return returnError(500, e.message);
+    }
+  }
+
+  @Post('/containerd/images/prune')
+  @HttpCode(200)
+  async imagesPrune(@Req() request: Request) {
+    try {
+      const instance = createOlaresdInstance(request);
+      const response: any = await instance.post('/containerd/images/prune');
       if (response.status !== 200) {
         throw new Error(response.statusText);
       }

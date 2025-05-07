@@ -44,7 +44,7 @@ export class GPUController {
         undefined,
         {
           headers: {
-            ...headers,
+            ...(headers as any),
             'Content-Type': 'application/json',
           },
         },
