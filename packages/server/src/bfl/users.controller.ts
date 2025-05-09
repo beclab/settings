@@ -128,4 +128,18 @@ export class UsersController {
     this.logger.debug(data.data);
     return data.data;
   }
+
+  @Get('/:username/login-records')
+  async loginRecords(
+    @Req() request: Request,
+    @Param('username') username,
+  ): Promise<any> {
+    this.logger.debug('login records ' + username);
+    const data: any = await createInstance(request).get(
+      '/bfl/iam/v1alpha1/users/' + username + '/login-records',
+    );
+
+    this.logger.debug(data.data);
+    return data.data;
+  }
 }
