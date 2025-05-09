@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { useAccountStore } from 'src/stores/account';
 import qs from 'qs';
 import { notifyFailed } from '../utils/btNotify';
@@ -30,7 +30,7 @@ export default boot(({ app }) => {
 	//       so you can easily perform requests against your app's API
 
 	app.config.globalProperties.$axios.interceptors.request.use(
-		(config: AxiosRequestConfig) => {
+		(config: any) => {
 			const store = useAccountStore();
 			if (
 				config.url &&
