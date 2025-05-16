@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { returnError, returnSucceed } from '@bytetrade/core';
 import { createOlaresdInstance } from './olaresd/utils';
+import { version } from 'os';
 
 @Controller('/api')
 export class TerminusdController {
@@ -265,6 +266,47 @@ export class TerminusdController {
       }
       this.logger.log(response.data);
       return returnSucceed(response.data.data);
+    } catch (e) {
+      console.log('message:' + e.message);
+      return returnError(500, e.message);
+    }
+  }
+
+  @Post('/command/upgrade')
+  @HttpCode(200)
+  async postOlaresUpgrade(@Req() request: Request, @Body() body: any) {
+    try {
+      const instance = createOlaresdInstance(request);
+      console.log('body:', body);
+      const response: any = await instance.post('/command/upgrade', body);
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      if (response.data.code !== 200) {
+        throw new Error(response.data);
+      }
+      this.logger.log(response.data);
+      return returnSucceed(response.data.message);
+    } catch (e) {
+      console.log('message:' + e.message);
+      return returnError(500, e.message);
+    }
+  }
+
+  @Delete('/command/upgrade')
+  @HttpCode(200)
+  async deleteOlaresUpgrade(@Req() request: Request) {
+    try {
+      const instance = createOlaresdInstance(request);
+      const response: any = await instance.delete('/command/upgrade');
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      if (response.data.code !== 200) {
+        throw new Error(response.data);
+      }
+      this.logger.log(response.data);
+      return returnSucceed(response.data.message);
     } catch (e) {
       console.log('message:' + e.message);
       return returnError(500, e.message);

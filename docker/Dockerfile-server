@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine as server_dist
+FROM node:24.0.2-alpine as server_dist
 
 WORKDIR /server_dist
 
@@ -19,7 +19,7 @@ RUN npm run server:build
 
 
 
-FROM node:16.13.1 as server_dist2
+FROM node:24.0.2 as server_dist2
 
 WORKDIR /server_dist2/packages/server
 
@@ -30,7 +30,7 @@ RUN npm install
 COPY --from=server_dist /server_dist/packages/server/dist/ .
 
 
-FROM node:16.13.1-buster-slim
+FROM node:24.0.2-slim
 
 EXPOSE 3000
 

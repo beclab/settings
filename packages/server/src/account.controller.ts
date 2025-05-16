@@ -76,7 +76,7 @@ export class AccountController {
     return returnSucceed(null);
   }
 
-  @Get('/:account_type/:name?')
+  @Get([':account_type', ':account_type/:name'])
   async RetrieveAccount(
     @Param('account_type') account_type,
     @Param('name') name,
