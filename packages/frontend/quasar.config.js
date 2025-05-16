@@ -45,7 +45,6 @@ module.exports = configure(function (ctx) {
 		// https://github.com/quasarframework/quasar/tree/dev/extras
 		extras: [
 			'material-icons',
-			'material-symbols-rounded',
 			'roboto-font' // optional, you are not bound to it
 		],
 
